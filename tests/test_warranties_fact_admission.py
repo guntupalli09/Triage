@@ -37,6 +37,18 @@ class FakePolicy:
     min_duration_days = None
     require_exclusive_remedy = False
     prohibit_as_is_disclaimer = False
+    minimum_warranty_duration_days = None
+    prohibit_exclusive_remedy = False
+    prohibited_warranty_categories_json = []
+    require_compliance_with_law_warranty = False
+    require_malware_free_warranty = False
+    require_mutual_warranties = False
+    require_non_infringement_warranty = False
+    require_professional_standard = False
+    require_title_warranty = False
+    require_warranty_survival = False
+    required_remedy_type = None
+    required_warranty_categories_json = []
 
 
 def test_disabled_by_default_is_confirmed_absent(monkeypatch):
@@ -133,3 +145,54 @@ def test_verifier_not_established_descriptive_language_never_admitted(monkeypatc
     with patch("urllib.request.urlopen", side_effect=fake_urlopen):
         facts = we.extract_warranties_facts(doc)
     assert facts is None
+
+
+def test_decision_sensitivity_ai_identified_condition_forces_review(monkeypatch):
+    """Paired decision-sensitivity test: document A (clean warranty
+    representation, no word "warrant") resolves; document B (same
+    representation + a material condition outside the deterministic
+    vocabulary) must not reach the same clean outcome."""
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    cap_text = "Vendor represents that the Software conforms to the Documentation for a period of ninety days"
+    condition_text = "in the event Vendor discontinues the product line, this representation shall not apply"
+
+    doc_a = f"9. Miscellaneous. {cap_text}."
+
+    def fake_urlopen_a(*args, **kwargs):
+        fake_urlopen_a.n += 1
+        if fake_urlopen_a.n == 1:
+            return _fake_response(json.dumps({"candidates": [{"quote": cap_text}]}))
+        return _fake_response(json.dumps({
+            "status": "ESTABLISHED", "evidence_quote": cap_text,
+            "condition_quote": None, "exception_quote": None, "cross_reference_text": None,
+            "reasoning": "Operative performance representation, no conditions found.",
+        }))
+    fake_urlopen_a.n = 0
+
+    with patch("urllib.request.urlopen", side_effect=fake_urlopen_a):
+        facts_a = we.extract_warranties_facts(doc_a)
+    assert facts_a is not None
+    assert facts_a.ai_identified_condition is None
+    decision_a = we.evaluate_warranties_policy(facts_a, FakePolicy())
+    assert decision_a.state != we.REQUIRES_REVIEW
+
+    doc_b = f"9. Miscellaneous. {cap_text}, {condition_text}."
+
+    def fake_urlopen_b(*args, **kwargs):
+        fake_urlopen_b.n += 1
+        if fake_urlopen_b.n == 1:
+            return _fake_response(json.dumps({"candidates": [{"quote": cap_text}]}))
+        return _fake_response(json.dumps({
+            "status": "ESTABLISHED", "evidence_quote": cap_text,
+            "condition_quote": condition_text, "exception_quote": None, "cross_reference_text": None,
+            "reasoning": "Operative performance representation, conditioned on product-line continuity.",
+        }))
+    fake_urlopen_b.n = 0
+
+    with patch("urllib.request.urlopen", side_effect=fake_urlopen_b):
+        facts_b = we.extract_warranties_facts(doc_b)
+    assert facts_b is not None
+    assert facts_b.ai_identified_condition == condition_text
+    decision_b = we.evaluate_warranties_policy(facts_b, FakePolicy())
+    assert decision_b.state == we.REQUIRES_REVIEW
+    assert condition_text in "; ".join(decision_b.unresolved_facts)

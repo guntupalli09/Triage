@@ -320,6 +320,8 @@ class WarrantiesFacts:
     # cannot rely on falling through to an existing safe branch.
     absence_state: str = "CONFIRMED_ABSENT"
     semantic_discovery_error: Optional[str] = None
+    ai_identified_condition: Optional[str] = None
+    ai_identified_exception: Optional[str] = None
 
 
 class WarrantiesPolicyRuleLike(Protocol):
@@ -588,6 +590,16 @@ def extract_warranties_facts(text: str) -> Optional[WarrantiesFacts]:
         # warranties clause), never a low-signal REQUIRES_REVIEW.
         return None
 
+    # Final trust architecture (Phase 5/6) — reached only when
+    # found_anything is True (the base warranty structure DID resolve
+    # deterministically, so this candidate already passed the negative-
+    # control gate above, not merely an anchor firing on a stray word).
+    # See confidentiality_policy_engine.py's identical composition for
+    # the full rationale.
+    for candidate in admitted_semantic:
+        facts.ai_identified_condition = facts.ai_identified_condition or candidate.condition
+        facts.ai_identified_exception = facts.ai_identified_exception or candidate.exception
+
     return facts
 
 
@@ -660,6 +672,21 @@ def evaluate_warranties_policy(
         )
 
     unresolved_facts: List[str] = []
+
+    # Final trust architecture (Phase 4 hard gate) — a material condition/
+    # exception the AI/context layer identified and grounded must not be
+    # silently dropped merely because a warranty category otherwise
+    # resolved deterministically.
+    if facts.ai_identified_condition:
+        unresolved_facts.append(
+            f"a material condition was identified by contextual analysis and grounded against the source "
+            f"document (\"{facts.ai_identified_condition}\")"
+        )
+    if facts.ai_identified_exception:
+        unresolved_facts.append(
+            f"a material exception was identified by contextual analysis and grounded against the source "
+            f"document (\"{facts.ai_identified_exception}\")"
+        )
 
     if facts.mutual_opener_present and facts.mutual_asymmetry_reasons:
         unresolved_facts.append(
