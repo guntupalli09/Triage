@@ -36,6 +36,8 @@ from policy_engine_core import (
     excerpt as _excerpt, section_label_before as _section_label_before,
     requires_review_explanation, requires_review_required_action,
     detect_role_attributed_asymmetry,
+    document_wide_conflict_detected as _document_wide_conflict_detected,
+    unreconciled_ambiguity_marker_present as _unreconciled_ambiguity_marker_present,
 )
 
 RULE_ID = "POLICY_ASSIGNMENT"
@@ -113,6 +115,7 @@ class AssignmentFacts:
     ai_identified_condition: Optional[str] = None
     ai_identified_exception: Optional[str] = None
     ai_identified_definition_or_reference: Optional[str] = None
+    document_wide_conflict: bool = False
 
 
 class AssignmentPolicyRuleLike(Protocol):
@@ -219,6 +222,18 @@ def _run_semantic_discovery(text: str) -> Tuple[List, Optional[str], Optional[st
 
 
 def extract_assignment_facts(text: str) -> Optional[AssignmentFacts]:
+    """Thin wrapper over _extract_assignment_facts_inner that additionally
+    flags a document-wide contradiction/unreconciled-ambiguity marker
+    (Candidate 3 zero-silent-loss mission, Phase 3)."""
+    facts = _extract_assignment_facts_inner(text)
+    if facts is not None and (
+        _document_wide_conflict_detected(text) or _unreconciled_ambiguity_marker_present(text)
+    ):
+        facts.document_wide_conflict = True
+    return facts
+
+
+def _extract_assignment_facts_inner(text: str) -> Optional[AssignmentFacts]:
     """Returns None only when no anchor exists at all AND semantic
     discovery also ran successfully and found nothing — a provider
     outage/error becomes RECOGNITION_UNCERTAIN instead (see
@@ -431,13 +446,18 @@ def evaluate_assignment_policy(
             our_position_label="Our assignment restriction", counterparty_position_label="Counterparty's assignment restriction",
         )
 
-    if facts.ai_identified_condition or facts.ai_identified_exception or facts.ai_identified_definition_or_reference:
+    if facts.ai_identified_condition or facts.ai_identified_exception or facts.ai_identified_definition_or_reference or facts.document_wide_conflict:
         # Final trust architecture (Phase 4 hard gate) — checked before
         # the unrestricted-assignment ACCEPT/NEGOTIATE path specifically
         # so a grounded AI-identified qualifier can never be outrun by a
         # clean ACCEPT, even in the one branch of this adapter that can
         # otherwise reach ACCEPT with zero structured restrictions.
         qualifier_unresolved = []
+        if facts.document_wide_conflict:
+            qualifier_unresolved.append(
+                "a separate statement elsewhere in the document appears to contradict, negate, or leave "
+                "unreconciled the assignment restriction established in this clause"
+            )
         if facts.ai_identified_condition:
             qualifier_unresolved.append(
                 f"a material condition was identified by contextual analysis and grounded against the "

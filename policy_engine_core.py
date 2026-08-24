@@ -1845,7 +1845,13 @@ DOCUMENT_WIDE_NEGATION_RE = re.compile(
     # shall not apply to claims arising from X," which is a legitimate,
     # already-handled, category-scoped carve-out (see category_treatments'
     # "uncapped" treatment), not a document-wide contradiction.
-    r"|\bSection\s+\d+[A-Za-z]?\s+shall\s+not\s+apply\b",
+    r"|\bSection\s+\d+[A-Za-z]?\s+shall\s+not\s+apply\b"
+    # A later statement affirmatively grants unrestricted freedom to do
+    # the very thing an earlier statement required consent/restriction
+    # for ("may freely assign ... without consent or notice") -- a direct
+    # reversal of a consent/restriction requirement, general across any
+    # adapter that structures a consent-gated right.
+    r"|\bmay\s+freely\s+\w+\b(?:(?!\.).){0,60}?\bwithout\s+consent\b",
     re.I,
 )
 
