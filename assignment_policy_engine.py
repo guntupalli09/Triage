@@ -38,6 +38,7 @@ from policy_engine_core import (
     detect_role_attributed_asymmetry,
     document_wide_conflict_detected as _document_wide_conflict_detected,
     unreconciled_ambiguity_marker_present as _unreconciled_ambiguity_marker_present,
+    cross_section_carveout_referencing as _cross_section_carveout_referencing,
 )
 
 RULE_ID = "POLICY_ASSIGNMENT"
@@ -226,10 +227,14 @@ def extract_assignment_facts(text: str) -> Optional[AssignmentFacts]:
     flags a document-wide contradiction/unreconciled-ambiguity marker
     (Candidate 3 zero-silent-loss mission, Phase 3)."""
     facts = _extract_assignment_facts_inner(text)
-    if facts is not None and (
-        _document_wide_conflict_detected(text) or _unreconciled_ambiguity_marker_present(text)
-    ):
-        facts.document_wide_conflict = True
+    if facts is not None:
+        if _document_wide_conflict_detected(text) or _unreconciled_ambiguity_marker_present(text):
+            facts.document_wide_conflict = True
+        else:
+            for r in facts.restrictions:
+                if _cross_section_carveout_referencing(text, r.section_label):
+                    facts.document_wide_conflict = True
+                    break
     return facts
 
 
