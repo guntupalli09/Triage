@@ -1835,10 +1835,33 @@ def _extract_liability_facts_inner(text: str) -> Optional[LiabilityFacts]:
             note="identified by contextual AI analysis and independently grounded against the source document",
         )
 
+    # Zero-silent-loss mission follow-up, second-order fix -- an
+    # unresolved_dependency_note sourced from a candidate whose OWN
+    # semantic verification was merely uncertain (never a disproven claim)
+    # must only force review when it is the ONLY signal this document
+    # offers. When a deterministic anchor already exists and fully
+    # resolved something material for this same clause (a numeric cap, an
+    # established category treatment, a real condition), the note is
+    # redundant with — not additive to — what already exists, and
+    # surfacing it unconditionally reintroduces exactly the kind of
+    # provider-sampling-driven instability this mission exists to remove
+    # (confirmed via limitation_of_liability-006: an already-established,
+    # deterministically-resolved gross_negligence/willful_misconduct
+    # carve-out flipped ACCEPT_WITH_NOTE/REQUIRES_REVIEW purely based on
+    # whether THIS candidate's verification happened to come back
+    # uncertain on a given real-provider call).
+    _any_provision_established = any(
+        p.general_cap_expression.effective_cap()[0] is not None
+        or any(t.established for t in p.category_treatments.values())
+        or (p.condition is not None and p.condition.status == "ESTABLISHED")
+        for p in provisions
+    )
+    surfaced_unresolved_dependency_note = None if _any_provision_established else unresolved_dependency_note
+
     if len(provisions) == 1:
         return LiabilityFacts(clause_found=True, provisions=provisions, controlling_provision=provisions[0],
                                reconciliation="single", reconciliation_explanation="Single provision found.",
-                               ai_identified_unresolved_dependency=unresolved_dependency_note)
+                               ai_identified_unresolved_dependency=surfaced_unresolved_dependency_note)
 
     # Reconciliation: prefer an explicit amendment/restatement over the
     # provisions it supersedes. If multiple provisions carry an amendment
@@ -1854,7 +1877,7 @@ def _extract_liability_facts_inner(text: str) -> Optional[LiabilityFacts]:
         )
         return LiabilityFacts(clause_found=True, provisions=provisions, controlling_provision=controlling,
                                reconciliation="amendment_resolved", reconciliation_explanation=explanation,
-                               ai_identified_unresolved_dependency=unresolved_dependency_note)
+                               ai_identified_unresolved_dependency=surfaced_unresolved_dependency_note)
 
     # No amendment signal — if every provision's effective general cap
     # agrees, they're consistent (e.g. a clause quoted or cross-referenced
@@ -1872,7 +1895,7 @@ def _extract_liability_facts_inner(text: str) -> Optional[LiabilityFacts]:
         explanation = f"{len(provisions)} Limitation of Liability provisions found, all stating the same cap."
         return LiabilityFacts(clause_found=True, provisions=provisions, controlling_provision=provisions[0],
                                reconciliation="consistent_duplicate", reconciliation_explanation=explanation,
-                               ai_identified_unresolved_dependency=unresolved_dependency_note)
+                               ai_identified_unresolved_dependency=surfaced_unresolved_dependency_note)
 
     explanation = (
         f"{len(provisions)} Limitation of Liability provisions found with no explicit amendment/restatement "
@@ -1882,7 +1905,7 @@ def _extract_liability_facts_inner(text: str) -> Optional[LiabilityFacts]:
     )
     return LiabilityFacts(clause_found=True, provisions=provisions, controlling_provision=None,
                            reconciliation="unreconciled", reconciliation_explanation=explanation,
-                           ai_identified_unresolved_dependency=unresolved_dependency_note)
+                           ai_identified_unresolved_dependency=surfaced_unresolved_dependency_note)
 
 
 # ---------------------------------------------------------------------------
