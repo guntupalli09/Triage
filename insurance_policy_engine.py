@@ -620,6 +620,19 @@ def extract_insurance_facts(text: str) -> Optional[InsuranceFacts]:
     if not deterministic_value_found and admitted_semantic:
         facts.absence_state = "PRESENT_BUT_UNRESOLVED"
 
+    # Zero-silent-loss mission follow-up (data_security-139 general failure
+    # class) -- a candidate was discovered but its OWN semantic
+    # verification reported genuine uncertainty (not a disproven claim),
+    # so it was never admitted, yet a deterministic anchor also exists
+    # elsewhere in the document (found_anything is True via an operative
+    # top-level match). Previously silently discarded because the block
+    # above is gated on `admitted_semantic` being non-empty.
+    if not deterministic_value_found and not admitted_semantic and unresolved_dependency_note is not None:
+        facts.absence_state = "PRESENT_BUT_UNRESOLVED"
+        facts.ai_identified_definition_or_reference = (
+            facts.ai_identified_definition_or_reference or unresolved_dependency_note
+        )
+
     # Final trust architecture (Phase 5/6) — reached only when
     # found_anything is True (the base insurance structure DID resolve
     # deterministically, so this candidate already passed the negative-
@@ -629,7 +642,9 @@ def extract_insurance_facts(text: str) -> Optional[InsuranceFacts]:
     for candidate in admitted_semantic:
         facts.ai_identified_condition = facts.ai_identified_condition or candidate.condition
         facts.ai_identified_exception = facts.ai_identified_exception or candidate.exception
-    facts.ai_identified_definition_or_reference = _fa.first_resolved_dependency_note(admitted_semantic)
+    facts.ai_identified_definition_or_reference = (
+        _fa.first_resolved_dependency_note(admitted_semantic) or facts.ai_identified_definition_or_reference
+    )
 
     # Candidate 3 zero-silent-loss mission — a document-wide contradiction
     # (a separate, later statement broadly negating/superseding the

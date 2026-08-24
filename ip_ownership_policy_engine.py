@@ -741,6 +741,27 @@ def extract_ip_facts(text: str) -> Optional[IPFacts]:
         if not _any_other_established:
             facts.absence_state = "PRESENT_BUT_UNRESOLVED"
 
+    # Zero-silent-loss mission follow-up (data_security-139 general failure
+    # class) -- a candidate was discovered but its OWN semantic verification
+    # reported genuine uncertainty (never admitted), and a deterministic
+    # anchor also exists elsewhere in the document, so the block above
+    # (gated on `admitted_semantic`) never fires. Must not be silently
+    # discarded merely because nothing else structured.
+    if (not admitted_semantic and unresolved_dependency_note is not None
+            and not facts.ownership_attributions):
+        _any_other_established = any(v is not None for v in (
+            facts.exclusivity, facts.royalty, facts.duration, facts.license_term_years, facts.revocability,
+            facts.sublicensable, facts.transferable, facts.territory, facts.purpose_limited,
+            facts.derivative_works_permitted, facts.feedback_treatment, facts.residual_knowledge_rights,
+            facts.open_source_obligations_present, facts.infringement_remedy_referenced,
+            facts.post_termination_survival, facts.embedded_background_ip_license_present,
+        )) or facts.sow_cross_reference
+        if not _any_other_established:
+            facts.absence_state = "PRESENT_BUT_UNRESOLVED"
+            facts.ai_identified_definition_or_reference = (
+                facts.ai_identified_definition_or_reference or unresolved_dependency_note
+            )
+
     # Candidate 3 zero-silent-loss mission — a document-wide contradiction,
     # self-declared unreconciled ambiguity, or cross-section carve-out
     # referencing this clause's own section number must not be silently

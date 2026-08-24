@@ -734,6 +734,12 @@ class LiabilityFacts:
     absence_state: str = "CONFIRMED_ABSENT"
     semantic_discovery_error: Optional[str] = None
     document_wide_conflict: bool = False
+    # Zero-silent-loss follow-up (data_security-139 general failure class)
+    # — a candidate was discovered but rejected by its OWN semantic
+    # verification (uncertain, not a disproven claim), and a deterministic
+    # anchor also exists elsewhere in the document. Previously discarded
+    # once accepted_anchors was non-empty; see extract_liability_facts.
+    ai_identified_unresolved_dependency: Optional[str] = None
 
 
 class PolicyRuleLike(Protocol):
@@ -1831,7 +1837,8 @@ def _extract_liability_facts_inner(text: str) -> Optional[LiabilityFacts]:
 
     if len(provisions) == 1:
         return LiabilityFacts(clause_found=True, provisions=provisions, controlling_provision=provisions[0],
-                               reconciliation="single", reconciliation_explanation="Single provision found.")
+                               reconciliation="single", reconciliation_explanation="Single provision found.",
+                               ai_identified_unresolved_dependency=unresolved_dependency_note)
 
     # Reconciliation: prefer an explicit amendment/restatement over the
     # provisions it supersedes. If multiple provisions carry an amendment
@@ -1846,7 +1853,8 @@ def _extract_liability_facts_inner(text: str) -> Optional[LiabilityFacts]:
             f"and supersedes {', '.join(p.provision_label() for p in others)}."
         )
         return LiabilityFacts(clause_found=True, provisions=provisions, controlling_provision=controlling,
-                               reconciliation="amendment_resolved", reconciliation_explanation=explanation)
+                               reconciliation="amendment_resolved", reconciliation_explanation=explanation,
+                               ai_identified_unresolved_dependency=unresolved_dependency_note)
 
     # No amendment signal — if every provision's effective general cap
     # agrees, they're consistent (e.g. a clause quoted or cross-referenced
@@ -1863,7 +1871,8 @@ def _extract_liability_facts_inner(text: str) -> Optional[LiabilityFacts]:
     if all_resolved and len(set(effective_values)) == 1:
         explanation = f"{len(provisions)} Limitation of Liability provisions found, all stating the same cap."
         return LiabilityFacts(clause_found=True, provisions=provisions, controlling_provision=provisions[0],
-                               reconciliation="consistent_duplicate", reconciliation_explanation=explanation)
+                               reconciliation="consistent_duplicate", reconciliation_explanation=explanation,
+                               ai_identified_unresolved_dependency=unresolved_dependency_note)
 
     explanation = (
         f"{len(provisions)} Limitation of Liability provisions found with no explicit amendment/restatement "
@@ -1872,7 +1881,8 @@ def _extract_liability_facts_inner(text: str) -> Optional[LiabilityFacts]:
         + ". Cannot determine which provision controls without attorney review."
     )
     return LiabilityFacts(clause_found=True, provisions=provisions, controlling_provision=None,
-                           reconciliation="unreconciled", reconciliation_explanation=explanation)
+                           reconciliation="unreconciled", reconciliation_explanation=explanation,
+                           ai_identified_unresolved_dependency=unresolved_dependency_note)
 
 
 # ---------------------------------------------------------------------------
@@ -2041,6 +2051,12 @@ def evaluate_liability_policy(
         unresolved_facts.append(
             "a separate statement elsewhere in the document appears to contradict, negate, or leave unreconciled "
             "the liability cap established in this clause"
+        )
+
+    if facts.ai_identified_unresolved_dependency:
+        unresolved_facts.append(
+            f"a material dependency was identified by contextual analysis but could not be confidently "
+            f"confirmed ({facts.ai_identified_unresolved_dependency})"
         )
 
     # Step 4A.7.1 remediation (A6-L-52) — only relevant when the policy

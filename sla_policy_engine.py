@@ -760,13 +760,20 @@ def extract_sla_facts(text: str) -> Optional[SLAFacts]:
         # exists but no SLA dimension could be deterministically
         # structured from it -- never silently discard as "nothing here
         # at all" (see warranties_policy_engine.py's identical fix).
-        if admitted_semantic:
+        if admitted_semantic or unresolved_dependency_note is not None:
             facts.absence_state = "PRESENT_BUT_UNRESOLVED"
             import fact_admission as _fa
             for candidate in admitted_semantic:
                 facts.ai_identified_condition = facts.ai_identified_condition or candidate.condition
                 facts.ai_identified_exception = facts.ai_identified_exception or candidate.exception
-            facts.ai_identified_definition_or_reference = _fa.first_resolved_dependency_note(admitted_semantic)
+            # Zero-silent-loss mission follow-up (data_security-139 general
+            # failure class) -- a candidate whose OWN semantic verification
+            # reported genuine uncertainty (never admitted) must not be
+            # silently discarded merely because a deterministic anchor
+            # elsewhere in the document also failed to structure anything.
+            facts.ai_identified_definition_or_reference = (
+                _fa.first_resolved_dependency_note(admitted_semantic) or unresolved_dependency_note
+            )
             return facts
         return None
 

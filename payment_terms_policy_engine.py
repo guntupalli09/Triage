@@ -1048,6 +1048,28 @@ def extract_payment_facts(text: str) -> Optional[PaymentFacts]:
         if not _any_established:
             facts.absence_state = "PRESENT_BUT_UNRESOLVED"
 
+    # Zero-silent-loss mission follow-up (data_security-139 general failure
+    # class) -- a candidate was discovered but its OWN semantic verification
+    # reported genuine uncertainty (not a disproven claim), and a
+    # deterministic anchor already exists elsewhere in the document, so this
+    # branch was previously never reached (see the anchors-empty-only
+    # unresolved_dependency_note handling above). Must not be silently
+    # discarded merely because nothing else structured.
+    if (not admitted_semantic and unresolved_dependency_note is not None
+            and facts.absence_state == "CONFIRMED_ABSENT"):
+        _any_established = any(v is not None for v in (
+            facts.net_days, facts.payment_trigger, facts.prepayment_required, facts.milestone_payment_present,
+            facts.dispute_right_present, facts.dispute_notice_days, facts.undisputed_amounts_still_payable,
+            facts.disputed_amounts_withholdable, facts.late_fee_rate_percent, facts.grace_period_days,
+            facts.setoff_permitted, facts.unilateral_deduction_permitted, facts.pricing_fixed,
+            facts.price_increase_right, facts.price_increase_percent, facts.expenses_reimbursable,
+            facts.withholding_tax_addressed, facts.currency, facts.refund_entitlement_present,
+            facts.service_credit_present,
+        )) or bool(facts.payment_direction_attributions) or bool(facts.tax_responsibility_attributions)
+        if not _any_established:
+            facts.absence_state = "PRESENT_BUT_UNRESOLVED"
+            facts.semantic_discovery_error = facts.semantic_discovery_error or unresolved_dependency_note
+
     if _document_wide_conflict_detected(text) or _unreconciled_ambiguity_marker_present(text):
         facts.document_wide_conflict = True
 
