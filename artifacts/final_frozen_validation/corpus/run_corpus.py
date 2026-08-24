@@ -232,14 +232,26 @@ class _TerminationPolicy:
     contract_side: str = "vendor"
     escalation_approval_authority: Optional[str] = None
     fallback_text: Optional[str] = None
-    require_mutual_termination_for_convenience: bool = False
-    min_notice_days_for_convenience: Optional[int] = None
-    min_cure_period_days: Optional[int] = None
-    max_termination_fee_multiplier: Optional[float] = None
-    require_survival_of_confidentiality: bool = False
-    require_survival_of_payment_obligations: bool = False
-    fee_preferred_multiplier: Optional[float] = None
+    require_mutual_convenience_termination: bool = False
+    min_notice_days_against_us: Optional[int] = None
+    min_cure_days_against_us: Optional[int] = None
+    prohibit_immediate_termination_for_cause: bool = False
+    required_survival_topics_json: Optional[list] = None
     prohibit_uncapped_termination_fee: bool = False
+    fee_preferred_multiplier: Optional[float] = None
+    fee_acceptable_max_multiplier: Optional[float] = None
+    fee_negotiate_max_multiplier: Optional[float] = None
+    # Back-compat aliases kept only so case overrides using the more
+    # readable names still apply -- __post_init__ maps them onto the
+    # real attribute names above.
+    min_notice_days_for_convenience: Optional[int] = None
+    require_mutual_termination_for_convenience: Optional[bool] = None
+
+    def __post_init__(self):
+        if self.min_notice_days_for_convenience is not None:
+            self.min_notice_days_against_us = self.min_notice_days_for_convenience
+        if self.require_mutual_termination_for_convenience is not None:
+            self.require_mutual_convenience_termination = self.require_mutual_termination_for_convenience
 
 
 @dataclass
@@ -310,8 +322,8 @@ class _AssignmentPolicy:
     escalation_approval_authority: Optional[str] = None
     fallback_text: Optional[str] = None
     require_consent_for_counterparty_assignment: bool = False
-    allow_affiliate_assignment_without_consent: bool = True
-    allow_change_of_control_without_consent: bool = False
+    prohibit_sole_discretion_consent: bool = False
+    required_exceptions_json: list = field(default_factory=list)
 
 
 ADAPTERS = {
