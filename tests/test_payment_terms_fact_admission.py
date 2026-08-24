@@ -138,3 +138,66 @@ def test_verifier_not_established_descriptive_language_never_admitted(monkeypatc
     with patch("urllib.request.urlopen", side_effect=fake_urlopen):
         facts = pte.extract_payment_facts(doc)
     assert facts is None
+
+
+def test_decision_sensitivity_ai_identified_condition_forces_review(monkeypatch):
+    """Paired decision-sensitivity test (final trust architecture Phase 8):
+    DOCUMENT A (no modifier) reaches a resolved condition state; DOCUMENT B
+    (same base obligation + a material condition phrased outside
+    policy_engine_core's regex vocabulary) must not silently reach the
+    same clean state -- it must force REQUIRES_REVIEW-equivalent
+    unresolved-condition handling."""
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    cap_text = "Customer shall settle each statement of account within thirty days of its issuance"
+    condition_text = "in the event Customer's designated payment method lapses, this timeline shall not apply"
+
+    # Document A: base obligation only, no modifier.
+    doc_a = f"9. Miscellaneous. {cap_text}."
+    fake_a = _fake_response(json.dumps({"candidates": [{"quote": cap_text}]}))
+
+    def fake_urlopen_a(*args, **kwargs):
+        fake_urlopen_a.n += 1
+        if fake_urlopen_a.n == 1:
+            return fake_a
+        return _fake_response(json.dumps({
+            "status": "ESTABLISHED", "evidence_quote": cap_text,
+            "condition_quote": None, "exception_quote": None, "cross_reference_text": None,
+            "reasoning": "Operative payment obligation, no conditions found.",
+        }))
+    fake_urlopen_a.n = 0
+
+    with patch("urllib.request.urlopen", side_effect=fake_urlopen_a):
+        facts_a = pte.extract_payment_facts(doc_a)
+    assert facts_a is not None
+    assert facts_a.condition.status == "UNCONDITIONAL"
+
+    # Document B: same base obligation, PLUS a material condition phrased
+    # using "in the event ... lapses" -- outside _LEADING_CONDITION_RE /
+    # _TRAILING_PROVISO_RE's vocabulary (confirmed by the test's own
+    # premise assertion below, exactly like the liability precedent).
+    from policy_engine_core import detect_condition_in_span
+    doc_b = f"9. Miscellaneous. {cap_text}, {condition_text}."
+    deterministic_check = detect_condition_in_span(
+        doc_b, doc_b.index(cap_text), doc_b.index(cap_text) + len(cap_text) + len(condition_text) + 2,
+    )
+    assert deterministic_check.status == "UNCONDITIONAL", "test premise violated: deterministic detector already sees this condition"
+
+    def fake_urlopen_b(*args, **kwargs):
+        fake_urlopen_b.n += 1
+        if fake_urlopen_b.n == 1:
+            return _fake_response(json.dumps({"candidates": [{"quote": cap_text}]}))
+        return _fake_response(json.dumps({
+            "status": "ESTABLISHED", "evidence_quote": cap_text,
+            "condition_quote": condition_text, "exception_quote": None, "cross_reference_text": None,
+            "reasoning": "Operative payment obligation, but conditioned on the payment method remaining valid.",
+        }))
+    fake_urlopen_b.n = 0
+
+    with patch("urllib.request.urlopen", side_effect=fake_urlopen_b):
+        facts_b = pte.extract_payment_facts(doc_b)
+    assert facts_b is not None
+    assert facts_b.condition.status == "ESTABLISHED"
+    assert facts_b.condition.evidence_span == condition_text
+
+    # A and B must NOT resolve to the same "no unresolved condition" shape.
+    assert facts_a.condition.status != facts_b.condition.status

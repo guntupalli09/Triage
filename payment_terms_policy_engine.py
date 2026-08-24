@@ -770,6 +770,25 @@ def extract_payment_facts(text: str) -> Optional[PaymentFacts]:
         if conflict is not None:
             priority = {"CONFLICTING": 3, "ESTABLISHED": 2, "NOT_ESTABLISHED": 1, "UNCONDITIONAL": 0}
             facts.condition = max((facts.condition, conflict), key=lambda e: priority.get(e.status, 0))
+    # Final trust architecture (Phase 5/6) — mirrors liability_policy_
+    # engine's identical wiring: an admitted semantic candidate (only
+    # ever populated when deterministic engagement found nothing at all,
+    # see `if not matches` above) may carry a GROUNDED condition/
+    # exception the deterministic regex vocabulary genuinely missed. It
+    # is never silently dropped; composed onto the SAME facts.condition
+    # field evaluate_payment_policy already reads (see the `if facts.
+    # condition is not None` block there), so no new decision branch is
+    # needed — any non-UNCONDITIONAL condition already forces
+    # REQUIRES_REVIEW regardless of source.
+    if admitted_semantic and facts.condition.status == "UNCONDITIONAL":
+        for candidate in admitted_semantic:
+            qualifier_text = candidate.condition or candidate.exception
+            if qualifier_text is not None:
+                facts.condition = ConditionEvidence(
+                    status="ESTABLISHED", condition_type="ai_identified", evidence_span=qualifier_text,
+                    note="identified by contextual AI analysis and independently grounded against the source document",
+                )
+                break
     facts.self_flagged_unresolved = bool(
         _SELF_FLAGGED_PAYMENT_UNRESOLVED_RE.search(raw_excerpt)
         or _CONFLICTING_PAYMENT_TERM_RE.search(raw_excerpt)
