@@ -2,9 +2,8 @@
 
 ## CANDIDATE 2 COMMIT
 
-Not yet committed at the time this report was drafted — see the mission's
-required final step. The exact SHA is recorded at the end of this document
-and in the commit message of the commit that includes this file.
+`dc11333d432ec1fed5c81340178a5bfd43f4b291` (see also the exact reference at
+the end of this document).
 
 Predecessor: FROZEN_COMMIT `f94c4c319f828c4e0072af9305d409a03964d237`
 (FINAL VALIDATION VERDICT: FAIL, SHIP NOT AUTHORIZED — see
@@ -256,4 +255,8 @@ corpus; only that new validation can authorize production cutover.
 
 ## CANDIDATE 2 COMMIT (final)
 
-`<filled in by the commit that adds this file — see git log>`
+`dc11333d432ec1fed5c81340178a5bfd43f4b291`
+
+(branch `claude/final-trust-architecture-cutover`, on top of predecessor
+commits `fb61b97` and `84e1581`/`85d54c8` which carry the same mission's
+earlier defect fixes and regression tests.)
