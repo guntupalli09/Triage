@@ -1914,7 +1914,8 @@ def cross_section_carveout_referencing(document_text: str, section_label: Option
     pattern = re.compile(
         rf"\bNotwithstanding\s+Section\s+{label}\b(?:(?!\.).){{0,200}}?"
         rf"(?:does\s+not\s+apply|shall\s+not\s+apply|is\s+excluded|are\s+excluded)"
-        rf"|\b(?:in|under)\s+Section\s+{label}\b(?:(?!\.).){{0,120}}?\b(?:excludes?|does\s+not\s+include)\b"
+        rf"|\b(?:in|under|referenced\s+in)\s+Section\s+{label}\b(?:(?!\.).){{0,120}}?"
+        rf"\b(?:excludes?|does\s+not\s+include|is\s+measured\s+from)\b"
         rf"|\bSection\s+{label}\b(?:(?!\.).){{0,120}}?\bdoes\s+not\s+apply\b"
         rf"|\brequired\s+by\s+Section\s+{label}\b(?:(?!\.).){{0,120}}?\b(?:must|shall)\b"
         rf"|\bcoverage\s+required\s+by\s+Section\s+{label}\b(?:(?!\.).){{0,120}}?\b(?:must|shall)\b"
