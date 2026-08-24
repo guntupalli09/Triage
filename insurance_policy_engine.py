@@ -204,6 +204,8 @@ class InsuranceFacts:
     # object to ACCEPT when a playbook requires no specific coverage.
     absence_state: str = "CONFIRMED_ABSENT"
     semantic_discovery_error: Optional[str] = None
+    ai_identified_condition: Optional[str] = None
+    ai_identified_exception: Optional[str] = None
 
 
 class InsurancePolicyRuleLike(Protocol):
@@ -474,6 +476,12 @@ def extract_insurance_facts(text: str) -> Optional[InsuranceFacts]:
     for ct in COVERAGE_TYPES:
         _resolve_coverage_amounts(facts.coverages[ct], accumulated_qualified[ct], accumulated_unqualified[ct])
 
+    # Final trust architecture (Phase 5/6) — see confidentiality_policy_
+    # engine.py's identical composition for the full rationale.
+    for candidate in admitted_semantic:
+        facts.ai_identified_condition = facts.ai_identified_condition or candidate.condition
+        facts.ai_identified_exception = facts.ai_identified_exception or candidate.exception
+
     return facts
 
 
@@ -571,6 +579,19 @@ def evaluate_insurance_policy(
     }
 
     unresolved: List[str] = []
+    # Final trust architecture (Phase 4 hard gate) — a material condition/
+    # exception the AI/context layer identified and grounded must not be
+    # silently dropped merely because coverage otherwise resolved cleanly.
+    if facts.ai_identified_condition:
+        unresolved.append(
+            f"a material condition was identified by contextual analysis and grounded against the source "
+            f"document (\"{facts.ai_identified_condition}\")"
+        )
+    if facts.ai_identified_exception:
+        unresolved.append(
+            f"a material exception was identified by contextual analysis and grounded against the source "
+            f"document (\"{facts.ai_identified_exception}\")"
+        )
     party_resolution: Dict[str, Tuple[Optional[str], bool]] = {}
     for ct in COVERAGE_TYPES:
         cov = facts.coverages[ct]

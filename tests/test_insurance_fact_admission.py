@@ -49,6 +49,14 @@ class FakePolicy:
     require_certificate_of_insurance = False
     max_notice_of_cancellation_days = None
     require_subcontractor_coverage = False
+    cgl_minimum_aggregate = None
+    minimum_cancellation_notice_days = None
+    require_claims_made_tail = False
+    require_counterparty_obligated = False
+    require_evidence_before_commencement = False
+    require_minimum_insurer_rating = False
+    require_notice_of_cancellation = False
+    require_policy_maintenance_through_term = False
 
 
 def test_disabled_by_default_is_confirmed_absent(monkeypatch):
@@ -143,3 +151,54 @@ def test_verifier_not_established_descriptive_language_never_admitted(monkeypatc
     with patch("urllib.request.urlopen", side_effect=fake_urlopen):
         facts = ine.extract_insurance_facts(doc)
     assert facts is None
+
+
+def test_decision_sensitivity_ai_identified_condition_forces_review(monkeypatch):
+    """Paired decision-sensitivity test: document A (no modifier) reaches
+    ACCEPT under a permissive playbook; document B adds a material
+    condition -- it must not reach the same clean ACCEPT."""
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    cap_text = (
+        "Vendor shall maintain a risk-transfer policy with a reputable underwriter covering "
+        "third-party bodily injury claims arising from its operations."
+    )
+    condition_text = "in the event Vendor's underwriter downgrades its rating, this requirement shall not apply"
+
+    def fake_urlopen_a(*args, **kwargs):
+        fake_urlopen_a.n += 1
+        if fake_urlopen_a.n == 1:
+            return _fake_response(json.dumps({"candidates": [{"quote": cap_text}]}))
+        return _fake_response(json.dumps({
+            "status": "ESTABLISHED", "evidence_quote": cap_text,
+            "condition_quote": None, "exception_quote": None, "cross_reference_text": None,
+            "reasoning": "Operative insurance-maintenance obligation, no conditions found.",
+        }))
+    fake_urlopen_a.n = 0
+
+    with patch("urllib.request.urlopen", side_effect=fake_urlopen_a):
+        facts_a = ine.extract_insurance_facts(cap_text)
+    assert facts_a is not None
+    assert facts_a.ai_identified_condition is None
+    decision_a = ine.evaluate_insurance_policy(facts_a, FakePolicy())
+    assert decision_a.state != ine.REQUIRES_REVIEW
+
+    doc_b = f"{cap_text} {condition_text}."
+
+    def fake_urlopen_b(*args, **kwargs):
+        fake_urlopen_b.n += 1
+        if fake_urlopen_b.n == 1:
+            return _fake_response(json.dumps({"candidates": [{"quote": cap_text}]}))
+        return _fake_response(json.dumps({
+            "status": "ESTABLISHED", "evidence_quote": cap_text,
+            "condition_quote": condition_text, "exception_quote": None, "cross_reference_text": None,
+            "reasoning": "Operative insurance-maintenance obligation, conditioned on rating continuity.",
+        }))
+    fake_urlopen_b.n = 0
+
+    with patch("urllib.request.urlopen", side_effect=fake_urlopen_b):
+        facts_b = ine.extract_insurance_facts(doc_b)
+    assert facts_b is not None
+    assert facts_b.ai_identified_condition == condition_text
+    decision_b = ine.evaluate_insurance_policy(facts_b, FakePolicy())
+    assert decision_b.state == ine.REQUIRES_REVIEW
+    assert condition_text in "; ".join(decision_b.unresolved_facts)
