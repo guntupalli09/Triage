@@ -36,12 +36,20 @@ for r in results:
             gate_counts[gate] += 1
             gate_cases[gate].append(r["case_id"])
 
-    # UNVERIFIED_FEEDING_CLEAN: blanket, expectation-agnostic check -- a
-    # clean (ACCEPT/ACCEPT_WITH_NOTE) decision reached with NO
-    # deterministic/verified fact established at all for that adapter.
+    # UNVERIFIED_FEEDING_CLEAN: a clean (ACCEPT/ACCEPT_WITH_NOTE) decision
+    # reached with NO deterministic/verified fact established, for a case
+    # where the clause genuinely IS present and operative (expected in
+    # NON_MISSING_EXPECTED). Cases expected NO_NOT_OPERATIVE are correctly
+    # excluded: for those, established=False + CLEAN is the CORRECT,
+    # SAFE outcome (a confirmed negation/descriptive statement correctly
+    # produces "nothing to establish" and a clean decision) -- it is not
+    # an unverified fact silently feeding a clean result, it is a
+    # confirmed absence. Only when something genuinely operative was
+    # actually present in the text but the system reached CLEAN without
+    # ever establishing it does this gate fire.
     bucket = r.get("decision_bucket") or r.get("bucket")
     established = r.get("established_signal")
-    if bucket == "CLEAN" and established is False:
+    if bucket == "CLEAN" and established is False and r["expected"] in NON_MISSING_EXPECTED:
         gate_counts["UNVERIFIED_FEEDING_CLEAN"] += 1
         gate_cases["UNVERIFIED_FEEDING_CLEAN"].append(r["case_id"])
 
