@@ -196,3 +196,38 @@ def test_decision_sensitivity_ai_identified_condition_forces_review(monkeypatch)
     decision_b = we.evaluate_warranties_policy(facts_b, FakePolicy())
     assert decision_b.state == we.REQUIRES_REVIEW
     assert condition_text in "; ".join(decision_b.unresolved_facts)
+
+
+def test_ai_identified_definition_dependency_survives_into_the_decision(monkeypatch):
+    """Adapter-completion pass: the representation depends on a defined
+    term ("Specification"); the resolved definition must force review,
+    never disappear because the representation otherwise reads clean."""
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    cap_text = "Vendor represents that the Software conforms to the Specification for a period of ninety days"
+    doc = (
+        '9. Miscellaneous. "Specification" means the technical requirements document attached '
+        f"as an exhibit hereto. {cap_text}."
+    )
+
+    call_count = {"n": 0}
+
+    def fake_urlopen(*args, **kwargs):
+        call_count["n"] += 1
+        if call_count["n"] == 1:
+            return _fake_response(json.dumps({"candidates": [{"quote": cap_text}]}))
+        return _fake_response(json.dumps({
+            "status": "ESTABLISHED", "evidence_quote": cap_text,
+            "condition_quote": None, "exception_quote": None, "cross_reference_text": None,
+            "definition_term": "Specification",
+            "reasoning": "Operative performance representation, scoped by a defined term.",
+        }))
+
+    with patch("urllib.request.urlopen", side_effect=fake_urlopen):
+        facts = we.extract_warranties_facts(doc)
+    assert facts is not None
+    assert facts.ai_identified_definition_or_reference is not None
+    assert "Specification" in facts.ai_identified_definition_or_reference
+
+    decision = we.evaluate_warranties_policy(facts, FakePolicy())
+    assert decision.state == we.REQUIRES_REVIEW
+    assert "Specification" in "; ".join(decision.unresolved_facts)

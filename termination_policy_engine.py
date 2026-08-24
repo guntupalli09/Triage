@@ -280,6 +280,12 @@ class TerminationFacts:
     # an ungrounded claim.
     ai_identified_condition: Optional[str] = None
     ai_identified_exception: Optional[str] = None
+    # Adapter-completion pass — a material definition/cross-reference
+    # dependency the AI identified, whether it resolved deterministically
+    # (preserved verbatim) or not (failure preserved) — see fact_admission.
+    # first_resolved_dependency_note / first_unresolved_dependency_note.
+    # Never populated from an unground claim; always forces REQUIRES_REVIEW.
+    ai_identified_definition_or_reference: Optional[str] = None
 
 
 class TerminationPolicyRuleLike(Protocol):
@@ -416,22 +422,23 @@ _TERMINATION_SEMANTIC_PROPOSITION = (
 )
 
 
-def _run_semantic_discovery(text: str) -> Tuple[List, Optional[str]]:
-    """Mirrors liability_policy_engine._run_semantic_discovery exactly."""
+def _run_semantic_discovery(text: str) -> Tuple[List, Optional[str], Optional[str]]:
+    """Mirrors liability_policy_engine._run_semantic_discovery exactly.
+    Returns (admitted_candidates, unresolved_dependency_note, error)."""
     if not TERMINATION_SEMANTIC_DISCOVERY_ENABLED:
-        return [], None
+        return [], None, None
     import fact_admission as _fa
     try:
         raw_candidates = _fa.discover_candidate_spans(text, "termination", _TERMINATION_SEMANTIC_FOCUS)
     except Exception as exc:  # noqa: BLE001 — provider unavailable, never "confirmed absent"
-        return [], f"{type(exc).__name__}: {exc}"
+        return [], None, f"{type(exc).__name__}: {exc}"
 
-    admitted = []
-    for candidate in raw_candidates:
-        verified = _fa.verify_and_ground(candidate, text, _TERMINATION_SEMANTIC_PROPOSITION)
-        if verified.admission_status == _fa.ADMITTED:
-            admitted.append(verified)
-    return admitted, None
+    verified_candidates = [
+        _fa.verify_and_ground(candidate, text, _TERMINATION_SEMANTIC_PROPOSITION) for candidate in raw_candidates
+    ]
+    admitted = [c for c in verified_candidates if c.admission_status == _fa.ADMITTED]
+    unresolved_dependency_note = _fa.first_unresolved_dependency_note(verified_candidates)
+    return admitted, unresolved_dependency_note, None
 
 
 def extract_termination_facts(text: str) -> Optional[TerminationFacts]:
@@ -444,11 +451,12 @@ def extract_termination_facts(text: str) -> Optional[TerminationFacts]:
     becomes RECOGNITION_UNCERTAIN instead (see absence_state)."""
     anchors = [m for m in _ANCHOR_RE.finditer(text) if not re.search(r"\bno\s+$", text[max(0, m.start() - 15):m.start()], re.I)]
     admitted_semantic: List = []
+    unresolved_dependency_note: Optional[str] = None
     if not anchors:
-        admitted_semantic, semantic_error = _run_semantic_discovery(text)
+        admitted_semantic, unresolved_dependency_note, semantic_error = _run_semantic_discovery(text)
         if semantic_error is not None:
             return TerminationFacts(clause_found=True, absence_state="RECOGNITION_UNCERTAIN", semantic_discovery_error=semantic_error)
-        if not admitted_semantic:
+        if not admitted_semantic and not unresolved_dependency_note:
             return None
         # A semantically-admitted candidate does not itself become a
         # right — it only earns this document a shot at the SAME
@@ -537,11 +545,13 @@ def extract_termination_facts(text: str) -> Optional[TerminationFacts]:
     # neither NAMED_RIGHT_RE nor MUTUAL_RIGHT_RE has vocabulary to
     # structure; never dropped, surfaced via dedicated fields regardless
     # of whether a right otherwise structured.
+    import fact_admission as _fa
     ai_identified_condition = None
     ai_identified_exception = None
     for candidate in admitted_semantic:
         ai_identified_condition = ai_identified_condition or candidate.condition
         ai_identified_exception = ai_identified_exception or candidate.exception
+    ai_identified_definition_or_reference = _fa.first_resolved_dependency_note(admitted_semantic) or unresolved_dependency_note
 
     if not rights:
         return TerminationFacts(
@@ -549,6 +559,7 @@ def extract_termination_facts(text: str) -> Optional[TerminationFacts]:
             survival_clause_found=survival_clause_found, fee=fee,
             transition_assistance=transition_assistance,
             ai_identified_condition=ai_identified_condition, ai_identified_exception=ai_identified_exception,
+            ai_identified_definition_or_reference=ai_identified_definition_or_reference,
         )
 
     rights.sort(key=lambda r: r.start_index)
@@ -557,6 +568,7 @@ def extract_termination_facts(text: str) -> Optional[TerminationFacts]:
         survival_clause_found=survival_clause_found, fee=fee,
         transition_assistance=transition_assistance,
         ai_identified_condition=ai_identified_condition, ai_identified_exception=ai_identified_exception,
+        ai_identified_definition_or_reference=ai_identified_definition_or_reference,
     )
 
 
@@ -665,6 +677,11 @@ def evaluate_termination_policy(
                 f"a material exception was identified by contextual analysis and grounded against the "
                 f"source document (\"{facts.ai_identified_exception}\")"
             )
+        if facts.ai_identified_definition_or_reference:
+            no_structure_unresolved.append(
+                f"a material definition/cross-reference dependency was identified by contextual analysis "
+                f"({facts.ai_identified_definition_or_reference})"
+            )
         return PolicyDecision(
             rule_id=RULE_ID, clause_type="termination", state=REQUIRES_REVIEW,
             contract_language="", extracted_summary="Termination referenced but no right could be parsed",
@@ -694,6 +711,11 @@ def evaluate_termination_policy(
         unresolved_facts.append(
             f"a material exception was identified by contextual analysis and grounded against the source "
             f"document (\"{facts.ai_identified_exception}\")"
+        )
+    if facts.ai_identified_definition_or_reference:
+        unresolved_facts.append(
+            f"a material definition/cross-reference dependency was identified by contextual analysis "
+            f"({facts.ai_identified_definition_or_reference})"
         )
 
     required_survival = list(policy.required_survival_topics_json or [])

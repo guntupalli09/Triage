@@ -212,3 +212,42 @@ def test_decision_sensitivity_ai_identified_condition_forces_review(monkeypatch)
     decision_b = sle.evaluate_sla_policy(facts_b, FakePolicy())
     assert decision_b.state == sle.REQUIRES_REVIEW
     assert condition_text in "; ".join(decision_b.unresolved_facts)
+
+
+def test_ai_identified_definition_dependency_survives_into_the_decision(monkeypatch):
+    """Adapter-completion pass: the availability commitment depends on a
+    defined term ("Scheduled Maintenance"); the resolved definition must
+    force review, never disappear because the commitment otherwise reads
+    clean."""
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    cap_text = (
+        "The system shall be operational and reachable 99.9% of the time each calendar month, "
+        "excluding Scheduled Maintenance, measured over rolling 24-hour periods"
+    )
+    doc = (
+        '9. Miscellaneous. "Scheduled Maintenance" means planned downtime communicated at least '
+        f"48 hours in advance. {cap_text}."
+    )
+
+    call_count = {"n": 0}
+
+    def fake_urlopen(*args, **kwargs):
+        call_count["n"] += 1
+        if call_count["n"] == 1:
+            return _fake_response(json.dumps({"candidates": [{"quote": cap_text}]}))
+        return _fake_response(json.dumps({
+            "status": "ESTABLISHED", "evidence_quote": cap_text,
+            "condition_quote": None, "exception_quote": None, "cross_reference_text": None,
+            "definition_term": "Scheduled Maintenance",
+            "reasoning": "Operative availability commitment, scoped by a defined term.",
+        }))
+
+    with patch("urllib.request.urlopen", side_effect=fake_urlopen):
+        facts = sle.extract_sla_facts(doc)
+    assert facts is not None
+    assert facts.ai_identified_definition_or_reference is not None
+    assert "Scheduled Maintenance" in facts.ai_identified_definition_or_reference
+
+    decision = sle.evaluate_sla_policy(facts, FakePolicy())
+    assert decision.state == sle.REQUIRES_REVIEW
+    assert "Scheduled Maintenance" in "; ".join(decision.unresolved_facts)

@@ -196,3 +196,69 @@ def test_decision_sensitivity_ai_identified_condition_forces_review(monkeypatch)
     decision_b = ipoe.evaluate_ip_policy(facts_b, FakePolicy())
     assert decision_b.state == ipoe.REQUIRES_REVIEW
     assert condition_text in "; ".join(decision_b.unresolved_facts)
+
+
+def test_ai_identified_definition_dependency_survives_into_the_decision(monkeypatch):
+    """Adapter-completion pass: ownership depends on a defined term
+    ("Deliverables"); the resolved definition must force review, never
+    disappear because the ownership statement otherwise reads clean."""
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    doc = (
+        '1. Definitions. "Deliverables" means any materials Vendor creates specifically for '
+        "Customer under a statement of work. 2. Miscellaneous. All Deliverables created by "
+        "Vendor under this Agreement shall be solely owned by Customer."
+    )
+    quote = "All Deliverables created by Vendor under this Agreement shall be solely owned by Customer."
+
+    call_count = {"n": 0}
+
+    def fake_urlopen(*args, **kwargs):
+        call_count["n"] += 1
+        if call_count["n"] == 1:
+            return _fake_response(json.dumps({"candidates": [{"quote": quote}]}))
+        return _fake_response(json.dumps({
+            "status": "ESTABLISHED", "evidence_quote": quote,
+            "condition_quote": None, "exception_quote": None, "cross_reference_text": None,
+            "definition_term": "Deliverables",
+            "reasoning": "Operative ownership assignment, scoped by a defined term.",
+        }))
+
+    with patch("urllib.request.urlopen", side_effect=fake_urlopen):
+        facts = ipoe.extract_ip_facts(doc)
+    assert facts is not None
+    assert facts.ai_identified_definition_or_reference is not None
+    assert "Deliverables" in facts.ai_identified_definition_or_reference
+
+    decision = ipoe.evaluate_ip_policy(facts, FakePolicy())
+    assert decision.state == ipoe.REQUIRES_REVIEW
+    assert "Deliverables" in "; ".join(decision.unresolved_facts)
+
+
+def test_ai_identified_unresolvable_definition_never_disappears(monkeypatch):
+    """The document never actually defines "Deliverables" -- the
+    candidate is correctly NOT_ADMITTED, but must not fall back to
+    CONFIRMED_ABSENT."""
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    doc = "All Deliverables created by Vendor under this Agreement shall be solely owned by Customer."
+    quote = doc
+
+    call_count = {"n": 0}
+
+    def fake_urlopen(*args, **kwargs):
+        call_count["n"] += 1
+        if call_count["n"] == 1:
+            return _fake_response(json.dumps({"candidates": [{"quote": quote}]}))
+        return _fake_response(json.dumps({
+            "status": "ESTABLISHED", "evidence_quote": quote,
+            "condition_quote": None, "exception_quote": None, "cross_reference_text": None,
+            "definition_term": "Deliverables",
+            "reasoning": "...",
+        }))
+
+    with patch("urllib.request.urlopen", side_effect=fake_urlopen):
+        facts = ipoe.extract_ip_facts(doc)
+    assert facts is not None
+    assert facts.absence_state != "RECOGNITION_UNCERTAIN"
+    assert facts.ai_identified_definition_or_reference is not None
+    decision = ipoe.evaluate_ip_policy(facts, FakePolicy())
+    assert decision.state == ipoe.REQUIRES_REVIEW

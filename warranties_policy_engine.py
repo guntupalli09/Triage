@@ -322,6 +322,7 @@ class WarrantiesFacts:
     semantic_discovery_error: Optional[str] = None
     ai_identified_condition: Optional[str] = None
     ai_identified_exception: Optional[str] = None
+    ai_identified_definition_or_reference: Optional[str] = None
 
 
 class WarrantiesPolicyRuleLike(Protocol):
@@ -596,9 +597,11 @@ def extract_warranties_facts(text: str) -> Optional[WarrantiesFacts]:
     # control gate above, not merely an anchor firing on a stray word).
     # See confidentiality_policy_engine.py's identical composition for
     # the full rationale.
+    import fact_admission as _fa
     for candidate in admitted_semantic:
         facts.ai_identified_condition = facts.ai_identified_condition or candidate.condition
         facts.ai_identified_exception = facts.ai_identified_exception or candidate.exception
+    facts.ai_identified_definition_or_reference = _fa.first_resolved_dependency_note(admitted_semantic)
 
     return facts
 
@@ -686,6 +689,11 @@ def evaluate_warranties_policy(
         unresolved_facts.append(
             f"a material exception was identified by contextual analysis and grounded against the source "
             f"document (\"{facts.ai_identified_exception}\")"
+        )
+    if facts.ai_identified_definition_or_reference:
+        unresolved_facts.append(
+            f"a material definition/cross-reference dependency was identified by contextual analysis "
+            f"({facts.ai_identified_definition_or_reference})"
         )
 
     if facts.mutual_opener_present and facts.mutual_asymmetry_reasons:

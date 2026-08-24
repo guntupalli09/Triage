@@ -198,3 +198,43 @@ def test_decision_sensitivity_ai_identified_condition_forces_review(monkeypatch)
     decision_b = dse.evaluate_data_security_policy(facts_b, FakePolicy())
     assert decision_b.state == dse.REQUIRES_REVIEW
     assert condition_text in "; ".join(decision_b.unresolved_facts)
+
+
+def test_ai_identified_definition_dependency_survives_into_the_decision(monkeypatch):
+    """Adapter-completion pass: the notification obligation depends on a
+    defined term ("Reportable Event"); the resolved definition must
+    force review, never disappear because the base obligation reads
+    clean."""
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    doc = (
+        '1. Definitions. "Reportable Event" means unauthorized access to Customer\'s data. '
+        "9. Miscellaneous. Vendor shall notify Customer within 48 hours of becoming aware of "
+        "any Reportable Event affecting Customer's data."
+    )
+    quote = (
+        "Vendor shall notify Customer within 48 hours of becoming aware of any Reportable "
+        "Event affecting Customer's data."
+    )
+
+    call_count = {"n": 0}
+
+    def fake_urlopen(*args, **kwargs):
+        call_count["n"] += 1
+        if call_count["n"] == 1:
+            return _fake_response(json.dumps({"candidates": [{"quote": quote}]}))
+        return _fake_response(json.dumps({
+            "status": "ESTABLISHED", "evidence_quote": quote,
+            "condition_quote": None, "exception_quote": None, "cross_reference_text": None,
+            "definition_term": "Reportable Event",
+            "reasoning": "Operative breach-notification obligation, scoped by a defined term.",
+        }))
+
+    with patch("urllib.request.urlopen", side_effect=fake_urlopen):
+        facts = dse.extract_data_security_facts(doc)
+    assert facts is not None
+    assert facts.ai_identified_definition_or_reference is not None
+    assert "Reportable Event" in facts.ai_identified_definition_or_reference
+
+    decision = dse.evaluate_data_security_policy(facts, FakePolicy())
+    assert decision.state == dse.REQUIRES_REVIEW
+    assert "Reportable Event" in "; ".join(decision.unresolved_facts)

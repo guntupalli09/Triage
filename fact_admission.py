@@ -969,3 +969,62 @@ def verify_and_ground(
     candidate.competing_readings = ground_competing_readings(document_text, verification)
 
     return evaluate_admission(candidate, qualifier_grounding=qualifier_grounding)
+
+
+# ---------------------------------------------------------------------------
+# Adapter-completion pass — shared composition helpers. Pure, additive
+# generalization of the pattern independently proven correct in
+# confidentiality_policy_engine.py and liability_policy_engine.py: every
+# adapter needs the SAME two compositions (a resolved dependency's text,
+# preserved for review; an unresolved dependency's failure, preserved so
+# it doesn't vanish when its candidate is correctly NOT_ADMITTED). Not a
+# redesign of the admission pipeline — callers still call verify_and_
+# ground themselves and decide how to plug the result into their own
+# Facts object and REQUIRES_REVIEW branch.
+# ---------------------------------------------------------------------------
+
+def first_resolved_dependency_note(admitted_candidates: List["CandidateMaterialFact"]) -> Optional[str]:
+    """Among candidates that already reached ADMITTED (so any definition/
+    cross-reference dependency they carry is guaranteed RESOLVED — see
+    evaluate_admission's zero-silent-loss gate), returns a human-readable
+    note for the first one found, or None if none of them depended on a
+    definition/cross-reference at all. Adapters compose this into a
+    dedicated Facts field and force REQUIRES_REVIEW whenever it is set,
+    exactly like an AI-identified condition/exception — the adapter has
+    no code path that reads what the resolved text actually says, so
+    preserving it is what "not silently lost" means here, not acting on
+    its content."""
+    for candidate in admitted_candidates:
+        dr = candidate.definition_resolution
+        if dr is not None and dr.status == "RESOLVED":
+            return f'depends on the defined term "{dr.term}": {dr.definition_evidence}'
+        xr = candidate.cross_reference_resolution
+        if xr is not None and xr.status == "RESOLVED":
+            return f'depends on the cross-referenced "{xr.label}": {xr.target_evidence}'
+    return None
+
+
+def first_unresolved_dependency_note(verified_candidates: List["CandidateMaterialFact"]) -> Optional[str]:
+    """Scans ALL verified candidates (admitted or not) for one whose
+    definition/cross-reference dependency could NOT be resolved — that
+    candidate is correctly NOT_ADMITTED and so drops out of any
+    admitted-only list, but the failure itself must not disappear
+    (Step H, zero-silent-loss). Callers use this to force REQUIRES_REVIEW
+    even when NO candidate was admitted at all, instead of falling back
+    to CONFIRMED_ABSENT."""
+    for candidate in verified_candidates:
+        if candidate.admission_status == ADMITTED:
+            continue
+        dr = candidate.definition_resolution
+        if dr is not None and dr.status != "RESOLVED":
+            return (
+                f'contextual analysis identified a dependency on the defined term "{dr.term}", which could '
+                f'not be deterministically resolved against this document ({dr.status})'
+            )
+        xr = candidate.cross_reference_resolution
+        if xr is not None and xr.status != "RESOLVED":
+            return (
+                f'contextual analysis identified a cross-reference to "{xr.label}", which could not be '
+                f'deterministically resolved against this document ({xr.status})'
+            )
+    return None

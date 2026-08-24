@@ -206,6 +206,7 @@ class InsuranceFacts:
     semantic_discovery_error: Optional[str] = None
     ai_identified_condition: Optional[str] = None
     ai_identified_exception: Optional[str] = None
+    ai_identified_definition_or_reference: Optional[str] = None
 
 
 class InsurancePolicyRuleLike(Protocol):
@@ -333,22 +334,23 @@ _INSURANCE_SEMANTIC_PROPOSITION = (
 )
 
 
-def _run_semantic_discovery(text: str) -> Tuple[List, Optional[str]]:
-    """Mirrors liability_policy_engine._run_semantic_discovery exactly."""
+def _run_semantic_discovery(text: str) -> Tuple[List, Optional[str], Optional[str]]:
+    """Mirrors liability_policy_engine._run_semantic_discovery exactly.
+    Returns (admitted_candidates, unresolved_dependency_note, error)."""
     if not INSURANCE_SEMANTIC_DISCOVERY_ENABLED:
-        return [], None
+        return [], None, None
     import fact_admission as _fa
     try:
         raw_candidates = _fa.discover_candidate_spans(text, "insurance", _INSURANCE_SEMANTIC_FOCUS)
     except Exception as exc:  # noqa: BLE001 — provider unavailable, never "confirmed absent"
-        return [], f"{type(exc).__name__}: {exc}"
+        return [], None, f"{type(exc).__name__}: {exc}"
 
-    admitted = []
-    for candidate in raw_candidates:
-        verified = _fa.verify_and_ground(candidate, text, _INSURANCE_SEMANTIC_PROPOSITION)
-        if verified.admission_status == _fa.ADMITTED:
-            admitted.append(verified)
-    return admitted, None
+    verified_candidates = [
+        _fa.verify_and_ground(candidate, text, _INSURANCE_SEMANTIC_PROPOSITION) for candidate in raw_candidates
+    ]
+    admitted = [c for c in verified_candidates if c.admission_status == _fa.ADMITTED]
+    unresolved_dependency_note = _fa.first_unresolved_dependency_note(verified_candidates)
+    return admitted, unresolved_dependency_note, None
 
 
 def extract_insurance_facts(text: str) -> Optional[InsuranceFacts]:
@@ -359,12 +361,15 @@ def extract_insurance_facts(text: str) -> Optional[InsuranceFacts]:
     matches = list(_ANCHOR_RE.finditer(text))
     semantic_error: Optional[str] = None
     admitted_semantic: List = []
+    unresolved_dependency_note: Optional[str] = None
     if not matches:
-        admitted_semantic, semantic_error = _run_semantic_discovery(text)
+        admitted_semantic, unresolved_dependency_note, semantic_error = _run_semantic_discovery(text)
         if semantic_error is not None:
             return InsuranceFacts(clause_found=True, absence_state="RECOGNITION_UNCERTAIN", semantic_discovery_error=semantic_error)
-        if not admitted_semantic:
+        if not admitted_semantic and not unresolved_dependency_note:
             return None
+        if not admitted_semantic:
+            return InsuranceFacts(clause_found=True, ai_identified_definition_or_reference=unresolved_dependency_note)
 
     anchor_spans = sorted(
         [(m.start(), m.end()) for m in matches] + [(c.start_offset, c.end_offset) for c in admitted_semantic]
@@ -478,9 +483,11 @@ def extract_insurance_facts(text: str) -> Optional[InsuranceFacts]:
 
     # Final trust architecture (Phase 5/6) — see confidentiality_policy_
     # engine.py's identical composition for the full rationale.
+    import fact_admission as _fa
     for candidate in admitted_semantic:
         facts.ai_identified_condition = facts.ai_identified_condition or candidate.condition
         facts.ai_identified_exception = facts.ai_identified_exception or candidate.exception
+    facts.ai_identified_definition_or_reference = _fa.first_resolved_dependency_note(admitted_semantic)
 
     return facts
 
@@ -591,6 +598,11 @@ def evaluate_insurance_policy(
         unresolved.append(
             f"a material exception was identified by contextual analysis and grounded against the source "
             f"document (\"{facts.ai_identified_exception}\")"
+        )
+    if facts.ai_identified_definition_or_reference:
+        unresolved.append(
+            f"a material definition/cross-reference dependency was identified by contextual analysis "
+            f"({facts.ai_identified_definition_or_reference})"
         )
     party_resolution: Dict[str, Tuple[Optional[str], bool]] = {}
     for ct in COVERAGE_TYPES:

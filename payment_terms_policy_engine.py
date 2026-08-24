@@ -662,26 +662,27 @@ _PAYMENT_TERMS_SEMANTIC_PROPOSITION = (
 )
 
 
-def _run_semantic_discovery(text: str) -> Tuple[List, Optional[str]]:
+def _run_semantic_discovery(text: str) -> Tuple[List, Optional[str], Optional[str]]:
     """Mirrors liability_policy_engine._run_semantic_discovery exactly.
     This is the open-ended complement to _CONCEPT_ENGAGEMENT_RES's finite
     concept list (Step 4A.3), not a replacement for it — see
     extract_payment_facts's docstring and the mission's own "no regex
-    whack-a-mole" instruction."""
+    whack-a-mole" instruction. Returns (admitted_candidates,
+    unresolved_dependency_note, error)."""
     if not PAYMENT_TERMS_SEMANTIC_DISCOVERY_ENABLED:
-        return [], None
+        return [], None, None
     import fact_admission as _fa
     try:
         raw_candidates = _fa.discover_candidate_spans(text, "payment_terms", _PAYMENT_TERMS_SEMANTIC_FOCUS)
     except Exception as exc:  # noqa: BLE001 — provider unavailable, never "confirmed absent"
-        return [], f"{type(exc).__name__}: {exc}"
+        return [], None, f"{type(exc).__name__}: {exc}"
 
-    admitted = []
-    for candidate in raw_candidates:
-        verified = _fa.verify_and_ground(candidate, text, _PAYMENT_TERMS_SEMANTIC_PROPOSITION)
-        if verified.admission_status == _fa.ADMITTED:
-            admitted.append(verified)
-    return admitted, None
+    verified_candidates = [
+        _fa.verify_and_ground(candidate, text, _PAYMENT_TERMS_SEMANTIC_PROPOSITION) for candidate in raw_candidates
+    ]
+    admitted = [c for c in verified_candidates if c.admission_status == _fa.ADMITTED]
+    unresolved_dependency_note = _fa.first_unresolved_dependency_note(verified_candidates)
+    return admitted, unresolved_dependency_note, None
 
 
 def extract_payment_facts(text: str) -> Optional[PaymentFacts]:
@@ -716,12 +717,20 @@ def extract_payment_facts(text: str) -> Optional[PaymentFacts]:
     matches = [m for m in matches if not _is_deposit_only_context(text, m.start())]
     semantic_error: Optional[str] = None
     admitted_semantic: List = []
+    unresolved_dependency_note: Optional[str] = None
     if not matches:
-        admitted_semantic, semantic_error = _run_semantic_discovery(text)
+        admitted_semantic, unresolved_dependency_note, semantic_error = _run_semantic_discovery(text)
         if semantic_error is not None:
             return PaymentFacts(clause_found=True, absence_state="RECOGNITION_UNCERTAIN", semantic_discovery_error=semantic_error)
-        if not admitted_semantic:
+        if not admitted_semantic and not unresolved_dependency_note:
             return None
+        if not admitted_semantic:
+            # See liability_policy_engine.py's identical DEPENDENCY_
+            # UNRESOLVED handling: a candidate was found but its
+            # proposition depended on a cross-reference/definition that
+            # could not be resolved -- never a fabricated payment
+            # obligation, but must not collapse into CONFIRMED_ABSENT.
+            return PaymentFacts(clause_found=True, absence_state="DEPENDENCY_UNRESOLVED", semantic_discovery_error=unresolved_dependency_note)
 
     anchor_spans = sorted(
         [(m.start(), m.end()) for m in matches] + [(c.start_offset, c.end_offset) for c in admitted_semantic]
@@ -781,8 +790,15 @@ def extract_payment_facts(text: str) -> Optional[PaymentFacts]:
     # needed — any non-UNCONDITIONAL condition already forces
     # REQUIRES_REVIEW regardless of source.
     if admitted_semantic and facts.condition.status == "UNCONDITIONAL":
+        import fact_admission as _fa
         for candidate in admitted_semantic:
             qualifier_text = candidate.condition or candidate.exception
+            if qualifier_text is None:
+                dr, xr = candidate.definition_resolution, candidate.cross_reference_resolution
+                if dr is not None:
+                    qualifier_text = f'depends on the defined term "{dr.term}": {dr.definition_evidence}'
+                elif xr is not None:
+                    qualifier_text = f'depends on the cross-referenced "{xr.label}": {xr.target_evidence}'
             if qualifier_text is not None:
                 facts.condition = ConditionEvidence(
                     status="ESTABLISHED", condition_type="ai_identified", evidence_span=qualifier_text,
@@ -1099,6 +1115,27 @@ def evaluate_payment_policy(
                 "Deterministic pattern matching found no payment terms clause, and semantic verification "
                 f"could not confirm its absence ({facts.semantic_discovery_error or 'unavailable'}). This is "
                 "not the same as confirming the contract has no such clause."
+            ),
+            negotiation_ladder=_build_ladder(policy, REQUIRES_REVIEW), category_treatments=[], unresolved_facts=[],
+            start_index=None, end_index=None,
+            interaction_facts={"disputed_amounts_withholdable": None, "service_credit_present": None},
+        )
+
+    if facts.absence_state == "DEPENDENCY_UNRESOLVED":
+        # See liability_policy_engine.py's identical branch: a candidate
+        # payment obligation was identified by contextual analysis, but
+        # its meaning depended on a cross-reference or defined term this
+        # document does not deterministically resolve. Never dropped so
+        # the document falls through to "no clause found."
+        return PolicyDecision(
+            **common, state=REQUIRES_REVIEW,
+            contract_language="", extracted_summary="A candidate payment obligation was identified but a material dependency could not be resolved",
+            policy_limit_summary="N/A",
+            required_action="Manual review required — a cross-reference or defined term this obligation depends on could not be located in this document.",
+            explanation=(
+                f"Contextual analysis identified language that may establish a payment obligation, but "
+                f"{facts.semantic_discovery_error}. This evaluation does not determine what the obligation "
+                "actually means without that dependency resolved."
             ),
             negotiation_ladder=_build_ladder(policy, REQUIRES_REVIEW), category_treatments=[], unresolved_facts=[],
             start_index=None, end_index=None,

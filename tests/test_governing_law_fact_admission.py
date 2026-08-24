@@ -158,3 +158,29 @@ def test_decision_sensitivity_ai_identified_condition_forces_review_even_with_ju
     assert decision_clean.state != gpe.REQUIRES_REVIEW
     assert decision_conditioned.state == gpe.REQUIRES_REVIEW
     assert condition_text in "; ".join(decision_conditioned.unresolved_facts)
+
+
+def test_decision_sensitivity_ai_identified_definition_or_reference_forces_review():
+    """Same rationale as the condition test above: tested directly at the
+    Facts level since this adapter's own _JURISDICTION_RE always implies
+    _ANCHOR_RE matched, so the semantic-only path can never itself
+    populate a jurisdiction-found-plus-AI-dependency combination in
+    practice. evaluate_governing_law_policy must still handle it
+    correctly if it ever occurs."""
+    dependency_note = 'depends on the defined term "Principal Jurisdiction": "Principal Jurisdiction" means Delaware.'
+
+    facts_clean = gpe.GoverningLawFacts(
+        clause_found=True, jurisdiction="Delaware", raw_excerpt="governed by the laws of Delaware.",
+        start_index=0, end_index=30,
+    )
+    facts_dependent = gpe.GoverningLawFacts(
+        clause_found=True, jurisdiction="Delaware", raw_excerpt="governed by the laws of Delaware.",
+        start_index=0, end_index=30, ai_identified_definition_or_reference=dependency_note,
+    )
+
+    decision_clean = gpe.evaluate_governing_law_policy(facts_clean, FakePolicy())
+    decision_dependent = gpe.evaluate_governing_law_policy(facts_dependent, FakePolicy())
+
+    assert decision_clean.state != gpe.REQUIRES_REVIEW
+    assert decision_dependent.state == gpe.REQUIRES_REVIEW
+    assert dependency_note in "; ".join(decision_dependent.unresolved_facts)

@@ -201,3 +201,91 @@ def test_decision_sensitivity_ai_identified_condition_forces_review(monkeypatch)
 
     # A and B must NOT resolve to the same "no unresolved condition" shape.
     assert facts_a.condition.status != facts_b.condition.status
+
+
+def test_ai_identified_definition_dependency_survives_into_the_decision(monkeypatch):
+    """Adapter-completion pass: the payment obligation depends on a
+    defined term ("Statement Date"); the resolved definition must force
+    review, never disappear because the base obligation reads clean."""
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    doc = (
+        '1. Definitions. "Statement Date" means the date Vendor issues a statement of account. '
+        "9. Miscellaneous. Customer shall settle each statement of account within thirty days "
+        "of the Statement Date."
+    )
+    quote = "Customer shall settle each statement of account within thirty days of the Statement Date."
+
+    call_count = {"n": 0}
+
+    def fake_urlopen(*args, **kwargs):
+        call_count["n"] += 1
+        if call_count["n"] == 1:
+            return _fake_response(json.dumps({"candidates": [{"quote": quote}]}))
+        return _fake_response(json.dumps({
+            "status": "ESTABLISHED", "evidence_quote": quote,
+            "condition_quote": None, "exception_quote": None, "cross_reference_text": None,
+            "definition_term": "Statement Date",
+            "reasoning": "Operative payment-timing obligation, scoped by a defined term.",
+        }))
+
+    with patch("urllib.request.urlopen", side_effect=fake_urlopen):
+        facts = pte.extract_payment_facts(doc)
+    assert facts is not None
+    assert facts.condition is not None
+    assert facts.condition.status == "ESTABLISHED"
+    assert "Statement Date" in facts.condition.evidence_span
+
+    class FullFakePolicy:
+        contract_side = "vendor"
+        escalation_approval_authority = None
+        fallback_text = None
+        acceptable_max_net_days = None
+        maximum_late_interest_rate_percent = None
+        maximum_price_increase_percent = None
+        minimum_dispute_notice_days = None
+        minimum_price_increase_notice_days = None
+        prohibit_disputed_amount_withholding = False
+        prohibit_set_off = False
+        prohibit_unilateral_price_increase = False
+        require_counterparty_is_payor = False
+        require_expense_preapproval = False
+        require_refund_entitlement = False
+        require_tax_responsibility_counterparty = False
+        require_undisputed_amounts_still_payable = False
+        required_currency = None
+        required_payment_trigger = None
+
+    decision = pte.evaluate_payment_policy(facts, FullFakePolicy())
+    assert decision.state == pte.REQUIRES_REVIEW
+
+
+def test_ai_identified_unresolvable_cross_reference_forces_review_not_absent(monkeypatch):
+    """The candidate payment obligation points to a Schedule never
+    actually attached. No engagement anchor exists at all, so the
+    candidate never becomes a structured obligation -- but this must
+    force REQUIRES_REVIEW (DEPENDENCY_UNRESOLVED), never fall back to
+    CONFIRMED_ABSENT."""
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    doc = "Customer shall settle each statement of account per the rates set forth in Schedule D."
+    quote = doc
+
+    call_count = {"n": 0}
+
+    def fake_urlopen(*args, **kwargs):
+        call_count["n"] += 1
+        if call_count["n"] == 1:
+            return _fake_response(json.dumps({"candidates": [{"quote": quote}]}))
+        return _fake_response(json.dumps({
+            "status": "ESTABLISHED", "evidence_quote": quote,
+            "condition_quote": None, "exception_quote": None,
+            "cross_reference_text": "Schedule D",
+            "reasoning": "Operative payment-timing obligation, priced per an attached schedule.",
+        }))
+
+    with patch("urllib.request.urlopen", side_effect=fake_urlopen):
+        facts = pte.extract_payment_facts(doc)
+    assert facts is not None
+    assert facts.absence_state == "DEPENDENCY_UNRESOLVED"
+
+    decision = pte.evaluate_payment_policy(facts, FakePolicy())
+    assert decision.state == pte.REQUIRES_REVIEW

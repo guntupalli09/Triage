@@ -161,3 +161,43 @@ def test_ai_identified_condition_survives_into_the_decision(monkeypatch):
     decision = ape.evaluate_assignment_policy(facts, FakePolicy())
     assert decision.state == ape.REQUIRES_REVIEW
     assert condition_text in "; ".join(decision.unresolved_facts)
+
+
+def test_ai_identified_definition_dependency_survives_into_the_decision(monkeypatch):
+    """Adapter-completion pass: the restriction depends on a defined
+    term ("Change of Control"); the resolved definition must survive
+    into the decision, forcing review, never disappear because the
+    restriction otherwise reads clean (or unstructured)."""
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    doc = (
+        '1. Definitions. "Change of Control" means the acquisition of more than fifty percent '
+        "of Vendor's voting equity. 2. Miscellaneous. Vendor may not hand this Agreement off to "
+        "a third party following a Change of Control without Customer's prior written approval."
+    )
+    quote = (
+        "Vendor may not hand this Agreement off to a third party following a Change of Control "
+        "without Customer's prior written approval."
+    )
+
+    call_count = {"n": 0}
+
+    def fake_urlopen(*args, **kwargs):
+        call_count["n"] += 1
+        if call_count["n"] == 1:
+            return _fake_response(json.dumps({"candidates": [{"quote": quote}]}))
+        return _fake_response(json.dumps({
+            "status": "ESTABLISHED", "evidence_quote": quote,
+            "condition_quote": None, "exception_quote": None, "cross_reference_text": None,
+            "definition_term": "Change of Control",
+            "reasoning": "Operative consent-required transfer restriction, scoped by a defined term.",
+        }))
+
+    with patch("urllib.request.urlopen", side_effect=fake_urlopen):
+        facts = ape.extract_assignment_facts(doc)
+    assert facts is not None
+    assert facts.ai_identified_definition_or_reference is not None
+    assert "Change of Control" in facts.ai_identified_definition_or_reference
+
+    decision = ape.evaluate_assignment_policy(facts, FakePolicy())
+    assert decision.state == ape.REQUIRES_REVIEW
+    assert "Change of Control" in "; ".join(decision.unresolved_facts)

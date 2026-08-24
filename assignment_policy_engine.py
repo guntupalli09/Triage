@@ -112,6 +112,7 @@ class AssignmentFacts:
     semantic_discovery_error: Optional[str] = None
     ai_identified_condition: Optional[str] = None
     ai_identified_exception: Optional[str] = None
+    ai_identified_definition_or_reference: Optional[str] = None
 
 
 class AssignmentPolicyRuleLike(Protocol):
@@ -198,22 +199,23 @@ _ASSIGNMENT_SEMANTIC_PROPOSITION = (
 )
 
 
-def _run_semantic_discovery(text: str) -> Tuple[List, Optional[str]]:
-    """Mirrors liability_policy_engine._run_semantic_discovery exactly."""
+def _run_semantic_discovery(text: str) -> Tuple[List, Optional[str], Optional[str]]:
+    """Mirrors liability_policy_engine._run_semantic_discovery exactly.
+    Returns (admitted_candidates, unresolved_dependency_note, error)."""
     if not ASSIGNMENT_SEMANTIC_DISCOVERY_ENABLED:
-        return [], None
+        return [], None, None
     import fact_admission as _fa
     try:
         raw_candidates = _fa.discover_candidate_spans(text, "assignment", _ASSIGNMENT_SEMANTIC_FOCUS)
     except Exception as exc:  # noqa: BLE001 — provider unavailable, never "confirmed absent"
-        return [], f"{type(exc).__name__}: {exc}"
+        return [], None, f"{type(exc).__name__}: {exc}"
 
-    admitted = []
-    for candidate in raw_candidates:
-        verified = _fa.verify_and_ground(candidate, text, _ASSIGNMENT_SEMANTIC_PROPOSITION)
-        if verified.admission_status == _fa.ADMITTED:
-            admitted.append(verified)
-    return admitted, None
+    verified_candidates = [
+        _fa.verify_and_ground(candidate, text, _ASSIGNMENT_SEMANTIC_PROPOSITION) for candidate in raw_candidates
+    ]
+    admitted = [c for c in verified_candidates if c.admission_status == _fa.ADMITTED]
+    unresolved_dependency_note = _fa.first_unresolved_dependency_note(verified_candidates)
+    return admitted, unresolved_dependency_note, None
 
 
 def extract_assignment_facts(text: str) -> Optional[AssignmentFacts]:
@@ -223,11 +225,12 @@ def extract_assignment_facts(text: str) -> Optional[AssignmentFacts]:
     absence_state)."""
     anchors = [m for m in _ANCHOR_RE.finditer(text) if not re.search(r"\bno\s+$", text[max(0, m.start() - 15):m.start()], re.I)]
     admitted_semantic: List = []
+    unresolved_dependency_note: Optional[str] = None
     if not anchors:
-        admitted_semantic, semantic_error = _run_semantic_discovery(text)
+        admitted_semantic, unresolved_dependency_note, semantic_error = _run_semantic_discovery(text)
         if semantic_error is not None:
             return AssignmentFacts(clause_found=True, restrictions=[], unrestricted_assignment=False, absence_state="RECOGNITION_UNCERTAIN", semantic_discovery_error=semantic_error)
-        if not admitted_semantic:
+        if not admitted_semantic and not unresolved_dependency_note:
             return None
         # A semantically-admitted candidate does not itself become a
         # restriction — it only earns this document a shot at the SAME
@@ -282,22 +285,26 @@ def extract_assignment_facts(text: str) -> Optional[AssignmentFacts]:
 
     # Final trust architecture (Phase 5/6) — see confidentiality_policy_
     # engine.py's identical composition for the full rationale.
+    import fact_admission as _fa
     ai_identified_condition = None
     ai_identified_exception = None
     for candidate in admitted_semantic:
         ai_identified_condition = ai_identified_condition or candidate.condition
         ai_identified_exception = ai_identified_exception or candidate.exception
+    ai_identified_definition_or_reference = _fa.first_resolved_dependency_note(admitted_semantic) or unresolved_dependency_note
 
     if not restrictions and not unrestricted:
         return AssignmentFacts(
             clause_found=True, restrictions=[], unrestricted_assignment=False,
             ai_identified_condition=ai_identified_condition, ai_identified_exception=ai_identified_exception,
+            ai_identified_definition_or_reference=ai_identified_definition_or_reference,
         )
 
     restrictions.sort(key=lambda r: r.start_index)
     return AssignmentFacts(
         clause_found=True, restrictions=restrictions, unrestricted_assignment=unrestricted,
         ai_identified_condition=ai_identified_condition, ai_identified_exception=ai_identified_exception,
+        ai_identified_definition_or_reference=ai_identified_definition_or_reference,
     )
 
 
@@ -401,6 +408,11 @@ def evaluate_assignment_policy(
                 f"a material exception was identified by contextual analysis and grounded against the "
                 f"source document (\"{facts.ai_identified_exception}\")"
             )
+        if facts.ai_identified_definition_or_reference:
+            no_structure_unresolved.append(
+                f"a material definition/cross-reference dependency was identified by contextual analysis "
+                f"({facts.ai_identified_definition_or_reference})"
+            )
         return PolicyDecision(
             rule_id=RULE_ID, clause_type="assignment", state=REQUIRES_REVIEW,
             contract_language="", extracted_summary="Assignment referenced but no restriction could be parsed",
@@ -414,7 +426,7 @@ def evaluate_assignment_policy(
             our_position_label="Our assignment restriction", counterparty_position_label="Counterparty's assignment restriction",
         )
 
-    if facts.ai_identified_condition or facts.ai_identified_exception:
+    if facts.ai_identified_condition or facts.ai_identified_exception or facts.ai_identified_definition_or_reference:
         # Final trust architecture (Phase 4 hard gate) — checked before
         # the unrestricted-assignment ACCEPT/NEGOTIATE path specifically
         # so a grounded AI-identified qualifier can never be outrun by a
@@ -430,6 +442,11 @@ def evaluate_assignment_policy(
             qualifier_unresolved.append(
                 f"a material exception was identified by contextual analysis and grounded against the "
                 f"source document (\"{facts.ai_identified_exception}\")"
+            )
+        if facts.ai_identified_definition_or_reference:
+            qualifier_unresolved.append(
+                f"a material definition/cross-reference dependency was identified by contextual analysis "
+                f"({facts.ai_identified_definition_or_reference})"
             )
         return PolicyDecision(
             rule_id=RULE_ID, clause_type="assignment", state=REQUIRES_REVIEW,

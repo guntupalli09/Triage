@@ -164,3 +164,69 @@ def test_ai_identified_condition_survives_into_the_decision(monkeypatch):
     decision = tpe.evaluate_termination_policy(facts, FakePolicy())
     assert decision.state == tpe.REQUIRES_REVIEW
     assert condition_text in "; ".join(decision.unresolved_facts)
+
+
+def test_ai_identified_definition_dependency_survives_into_the_decision(monkeypatch):
+    """Adapter-completion pass: the AI-sourced candidate's termination
+    right depends on a defined term ("Cause"); the shared framework
+    deterministically resolves the definition, and it must survive into
+    the final decision (forcing review), never disappear because the
+    right otherwise reads clean."""
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    doc = (
+        '1. Definitions. "Cause" means a material, uncured breach of this Agreement. '
+        "2. Miscellaneous. Customer may walk away from this Agreement upon the occurrence of Cause."
+    )
+    quote = "Customer may walk away from this Agreement upon the occurrence of Cause."
+
+    call_count = {"n": 0}
+
+    def fake_urlopen(*args, **kwargs):
+        call_count["n"] += 1
+        if call_count["n"] == 1:
+            return _fake_response(json.dumps({"candidates": [{"quote": quote}]}))
+        return _fake_response(json.dumps({
+            "status": "ESTABLISHED", "evidence_quote": quote,
+            "condition_quote": None, "exception_quote": None, "cross_reference_text": None,
+            "definition_term": "Cause",
+            "reasoning": "Operative termination right, scoped by a defined term.",
+        }))
+
+    with patch("urllib.request.urlopen", side_effect=fake_urlopen):
+        facts = tpe.extract_termination_facts(doc)
+    assert facts is not None
+    assert facts.ai_identified_definition_or_reference is not None
+    assert "Cause" in facts.ai_identified_definition_or_reference
+
+    decision = tpe.evaluate_termination_policy(facts, FakePolicy())
+    assert decision.state == tpe.REQUIRES_REVIEW
+
+
+def test_ai_identified_unresolvable_definition_never_disappears(monkeypatch):
+    """The document never actually defines "Cause" -- the candidate is
+    correctly NOT_ADMITTED, but the failure must not vanish into
+    CONFIRMED_ABSENT."""
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    doc = "Customer may walk away from this Agreement upon the occurrence of Cause."
+    quote = doc
+
+    call_count = {"n": 0}
+
+    def fake_urlopen(*args, **kwargs):
+        call_count["n"] += 1
+        if call_count["n"] == 1:
+            return _fake_response(json.dumps({"candidates": [{"quote": quote}]}))
+        return _fake_response(json.dumps({
+            "status": "ESTABLISHED", "evidence_quote": quote,
+            "condition_quote": None, "exception_quote": None, "cross_reference_text": None,
+            "definition_term": "Cause",
+            "reasoning": "...",
+        }))
+
+    with patch("urllib.request.urlopen", side_effect=fake_urlopen):
+        facts = tpe.extract_termination_facts(doc)
+    assert facts is not None
+    assert facts.absence_state != "RECOGNITION_UNCERTAIN"
+    assert facts.ai_identified_definition_or_reference is not None
+    decision = tpe.evaluate_termination_policy(facts, FakePolicy())
+    assert decision.state == tpe.REQUIRES_REVIEW
