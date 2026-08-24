@@ -274,6 +274,12 @@ class TerminationFacts:
     # never needs its own separate branch there (same as confidentiality).
     absence_state: str = "CONFIRMED_ABSENT"
     semantic_discovery_error: Optional[str] = None
+    # Final trust architecture (Phase 1-6) — a material condition/
+    # exception the AI/contextual layer identified and independently
+    # grounded (fact_admission.ground_qualifiers). Never populated from
+    # an ungrounded claim.
+    ai_identified_condition: Optional[str] = None
+    ai_identified_exception: Optional[str] = None
 
 
 class TerminationPolicyRuleLike(Protocol):
@@ -437,6 +443,7 @@ def extract_termination_facts(text: str) -> Optional[TerminationFacts]:
     also ran successfully and found nothing — a provider outage/error
     becomes RECOGNITION_UNCERTAIN instead (see absence_state)."""
     anchors = [m for m in _ANCHOR_RE.finditer(text) if not re.search(r"\bno\s+$", text[max(0, m.start() - 15):m.start()], re.I)]
+    admitted_semantic: List = []
     if not anchors:
         admitted_semantic, semantic_error = _run_semantic_discovery(text)
         if semantic_error is not None:
@@ -524,11 +531,24 @@ def extract_termination_facts(text: str) -> Optional[TerminationFacts]:
 
     transition_assistance = bool(_TRANSITION_ASSISTANCE_RE.search(text))
 
+    # Final trust architecture (Phase 5/6) — see confidentiality_policy_
+    # engine.py's identical composition for the full rationale: an
+    # admitted semantic candidate may carry a GROUNDED condition/exception
+    # neither NAMED_RIGHT_RE nor MUTUAL_RIGHT_RE has vocabulary to
+    # structure; never dropped, surfaced via dedicated fields regardless
+    # of whether a right otherwise structured.
+    ai_identified_condition = None
+    ai_identified_exception = None
+    for candidate in admitted_semantic:
+        ai_identified_condition = ai_identified_condition or candidate.condition
+        ai_identified_exception = ai_identified_exception or candidate.exception
+
     if not rights:
         return TerminationFacts(
             clause_found=True, rights=[], survival_topics=survival_topics,
             survival_clause_found=survival_clause_found, fee=fee,
             transition_assistance=transition_assistance,
+            ai_identified_condition=ai_identified_condition, ai_identified_exception=ai_identified_exception,
         )
 
     rights.sort(key=lambda r: r.start_index)
@@ -536,6 +556,7 @@ def extract_termination_facts(text: str) -> Optional[TerminationFacts]:
         clause_found=True, rights=rights, survival_topics=survival_topics,
         survival_clause_found=survival_clause_found, fee=fee,
         transition_assistance=transition_assistance,
+        ai_identified_condition=ai_identified_condition, ai_identified_exception=ai_identified_exception,
     )
 
 
@@ -633,6 +654,17 @@ def evaluate_termination_policy(
         )
 
     if not facts.rights:
+        no_structure_unresolved = ["termination right structure could not be parsed"]
+        if facts.ai_identified_condition:
+            no_structure_unresolved.append(
+                f"a material condition was identified by contextual analysis and grounded against the "
+                f"source document (\"{facts.ai_identified_condition}\")"
+            )
+        if facts.ai_identified_exception:
+            no_structure_unresolved.append(
+                f"a material exception was identified by contextual analysis and grounded against the "
+                f"source document (\"{facts.ai_identified_exception}\")"
+            )
         return PolicyDecision(
             rule_id=RULE_ID, clause_type="termination", state=REQUIRES_REVIEW,
             contract_language="", extracted_summary="Termination referenced but no right could be parsed",
@@ -642,13 +674,27 @@ def evaluate_termination_policy(
                         "or reciprocal structure was found — the clause may be malformed, cross-referenced "
                         "elsewhere, or drafted in a form this extractor doesn't recognize.",
             negotiation_ladder=_build_ladder(policy, REQUIRES_REVIEW), category_treatments=[],
-            unresolved_facts=["termination right structure could not be parsed"],
+            unresolved_facts=no_structure_unresolved,
             start_index=None, end_index=None, source=source, summary_label="Termination treatment",
             our_position_label="Our termination rights", counterparty_position_label="Counterparty's termination rights against us",
         )
 
     our_rights, their_rights, resolution_reasons = _resolve_rights_for_side(facts.rights, policy.contract_side)
     unresolved_facts = list(resolution_reasons)
+
+    # Final trust architecture (Phase 4 hard gate) — surfaced here too so
+    # a qualifier the AI identified never disappears merely because a
+    # right ALSO happened to structure successfully elsewhere in the text.
+    if facts.ai_identified_condition:
+        unresolved_facts.append(
+            f"a material condition was identified by contextual analysis and grounded against the source "
+            f"document (\"{facts.ai_identified_condition}\")"
+        )
+    if facts.ai_identified_exception:
+        unresolved_facts.append(
+            f"a material exception was identified by contextual analysis and grounded against the source "
+            f"document (\"{facts.ai_identified_exception}\")"
+        )
 
     required_survival = list(policy.required_survival_topics_json or [])
     for topic in required_survival:

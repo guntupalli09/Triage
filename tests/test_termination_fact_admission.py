@@ -131,3 +131,36 @@ def test_verifier_not_established_descriptive_language_never_admitted(monkeypatc
     with patch("urllib.request.urlopen", side_effect=fake_urlopen):
         facts = tpe.extract_termination_facts(doc)
     assert facts is None
+
+
+def test_ai_identified_condition_survives_into_the_decision(monkeypatch):
+    """Final trust architecture Phase 6/8: like confidentiality, this
+    adapter's deterministic right regexes have no vocabulary for "walk
+    away from" phrasing, so the qualified case also lands on rights=[] --
+    what must differ, and is asserted here, is that the condition text
+    survives into the final decision rather than disappearing."""
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    condition_text = "in the event Customer's designated signatory changes, this right shall not apply"
+    doc = f"Customer may walk away from this Agreement at any time upon 30 days' written notice, {condition_text}."
+    quote = f"Customer may walk away from this Agreement at any time upon 30 days' written notice, {condition_text}"
+
+    call_count = {"n": 0}
+
+    def fake_urlopen(*args, **kwargs):
+        call_count["n"] += 1
+        if call_count["n"] == 1:
+            return _fake_response(json.dumps({"candidates": [{"quote": quote}]}))
+        return _fake_response(json.dumps({
+            "status": "ESTABLISHED", "evidence_quote": quote,
+            "condition_quote": condition_text, "exception_quote": None, "cross_reference_text": None,
+            "reasoning": "Operative right to end the agreement for convenience, conditioned on signatory continuity.",
+        }))
+
+    with patch("urllib.request.urlopen", side_effect=fake_urlopen):
+        facts = tpe.extract_termination_facts(doc)
+    assert facts is not None
+    assert facts.ai_identified_condition == condition_text
+
+    decision = tpe.evaluate_termination_policy(facts, FakePolicy())
+    assert decision.state == tpe.REQUIRES_REVIEW
+    assert condition_text in "; ".join(decision.unresolved_facts)
