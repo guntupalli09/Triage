@@ -292,6 +292,8 @@ class DataSecurityFacts:
     # does, rather than relying on side effects of the unresolved-facts list.
     absence_state: str = "CONFIRMED_ABSENT"
     semantic_discovery_error: Optional[str] = None
+    ai_identified_condition: Optional[str] = None
+    ai_identified_exception: Optional[str] = None
 
 
 class DataSecurityPolicyRuleLike(Protocol):
@@ -601,6 +603,12 @@ def extract_data_security_facts(text: str) -> Optional[DataSecurityFacts]:
     if security_results:
         facts.security_standard = "named_certification" if "named_certification" in security_results else security_results[0]
 
+    # Final trust architecture (Phase 5/6) — see confidentiality_policy_
+    # engine.py's identical composition for the full rationale.
+    for candidate in admitted_semantic:
+        facts.ai_identified_condition = facts.ai_identified_condition or candidate.condition
+        facts.ai_identified_exception = facts.ai_identified_exception or candidate.exception
+
     return facts
 
 
@@ -708,6 +716,19 @@ def evaluate_data_security_policy(
     our_role, role_unresolved_directional, _is_joint = _resolve_our_role(facts, policy.contract_side)
 
     unresolved: List[str] = []
+    # Final trust architecture (Phase 4 hard gate) — a material condition/
+    # exception the AI/context layer identified and grounded must not be
+    # silently dropped merely because the clause otherwise resolved cleanly.
+    if facts.ai_identified_condition:
+        unresolved.append(
+            f"a material condition was identified by contextual analysis and grounded against the source "
+            f"document (\"{facts.ai_identified_condition}\")"
+        )
+    if facts.ai_identified_exception:
+        unresolved.append(
+            f"a material exception was identified by contextual analysis and grounded against the source "
+            f"document (\"{facts.ai_identified_exception}\")"
+        )
     if facts.role_conflict:
         unresolved.append("controller/processor role is stated inconsistently (conflicting role attributions)")
     elif policy.require_processor_role and role_unresolved_directional:

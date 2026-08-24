@@ -43,6 +43,14 @@ class FakePolicy:
     require_audit_rights = False
     require_named_security_certification = False
     require_cooperation_obligation = False
+    acceptable_max_breach_notification_hours = None
+    negotiate_max_breach_notification_hours = None
+    preferred_breach_notification_hours = None
+    require_confidentiality_of_personal_data = False
+    require_data_residency = False
+    require_fixed_breach_notification_period = False
+    require_international_transfer_safeguard = False
+    required_data_residency_regions_json = []
 
 
 def test_disabled_by_default_is_confirmed_absent(monkeypatch):
@@ -136,3 +144,57 @@ def test_verifier_not_established_descriptive_language_never_admitted(monkeypatc
     with patch("urllib.request.urlopen", side_effect=fake_urlopen):
         facts = dse.extract_data_security_facts(doc)
     assert facts is None
+
+
+def test_decision_sensitivity_ai_identified_condition_forces_review(monkeypatch):
+    """Paired decision-sensitivity test: document A resolves the breach-
+    notification obligation cleanly; document B adds a material condition
+    outside the deterministic vocabulary and must not reach the same
+    clean outcome."""
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    cap_text = (
+        "Vendor shall notify Customer within 48 hours of becoming aware of any data breach "
+        "affecting Customer's data"
+    )
+    condition_text = "in the event Vendor's incident-response vendor changes, this timeline shall not apply"
+
+    doc_a = f"9. Miscellaneous. {cap_text}."
+
+    def fake_urlopen_a(*args, **kwargs):
+        fake_urlopen_a.n += 1
+        if fake_urlopen_a.n == 1:
+            return _fake_response(json.dumps({"candidates": [{"quote": cap_text}]}))
+        return _fake_response(json.dumps({
+            "status": "ESTABLISHED", "evidence_quote": cap_text,
+            "condition_quote": None, "exception_quote": None, "cross_reference_text": None,
+            "reasoning": "Operative breach-notification obligation, no conditions found.",
+        }))
+    fake_urlopen_a.n = 0
+
+    with patch("urllib.request.urlopen", side_effect=fake_urlopen_a):
+        facts_a = dse.extract_data_security_facts(doc_a)
+    assert facts_a is not None
+    assert facts_a.ai_identified_condition is None
+    decision_a = dse.evaluate_data_security_policy(facts_a, FakePolicy())
+    assert decision_a.state != dse.REQUIRES_REVIEW
+
+    doc_b = f"9. Miscellaneous. {cap_text}, {condition_text}."
+
+    def fake_urlopen_b(*args, **kwargs):
+        fake_urlopen_b.n += 1
+        if fake_urlopen_b.n == 1:
+            return _fake_response(json.dumps({"candidates": [{"quote": cap_text}]}))
+        return _fake_response(json.dumps({
+            "status": "ESTABLISHED", "evidence_quote": cap_text,
+            "condition_quote": condition_text, "exception_quote": None, "cross_reference_text": None,
+            "reasoning": "Operative breach-notification obligation, conditioned on vendor continuity.",
+        }))
+    fake_urlopen_b.n = 0
+
+    with patch("urllib.request.urlopen", side_effect=fake_urlopen_b):
+        facts_b = dse.extract_data_security_facts(doc_b)
+    assert facts_b is not None
+    assert facts_b.ai_identified_condition == condition_text
+    decision_b = dse.evaluate_data_security_policy(facts_b, FakePolicy())
+    assert decision_b.state == dse.REQUIRES_REVIEW
+    assert condition_text in "; ".join(decision_b.unresolved_facts)
