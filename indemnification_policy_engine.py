@@ -166,7 +166,44 @@ def _reconcile_obligation_with_contextual_analysis(text: str, obligation: "Indem
                 obligation.ai_identified_unreconciled_context = qualifier_text
     else:
         note = _fa.first_unresolved_dependency_note([verified])
-        if note is not None:
+        if note is None:
+            return
+        # Candidate 3 final pre-freeze blocker remediation (Blocker 3) --
+        # this branch previously consumed `note` UNCONDITIONALLY, with no
+        # equivalent to liability's materiality gate (see
+        # liability_policy_engine.py's _any_provision_established). That
+        # meant a provider failure or uncertain verification during
+        # reconciliation could flip an obligation's decision between
+        # clean and REQUIRES_REVIEW across identical runs even when this
+        # SAME obligation's own deterministic monetary/scope/condition
+        # were already fully, positively resolved -- exactly the
+        # limitation_of_liability-006 failure shape, never closed here.
+        #
+        # Mirrors liability's fix exactly: only a GENUINE, POSITIVE
+        # deterministic finding suppresses the note (monetary.kind other
+        # than the confident-negative "not_stated" sentinel; scope other
+        # than the confident-negative "not_addressed"/"unresolved"
+        # sentinels; or a condition already ESTABLISHED) -- never merely
+        # "something, anything, was resolved." When nothing material is
+        # yet established for this obligation, the note is exactly as
+        # material as it would be for a from-scratch discovery and must
+        # not be discarded.
+        # A definition/cross-reference dependency or a competing-reading
+        # note is always structurally material -- never suppressed
+        # regardless of what else this obligation established (see
+        # fact_admission._classify_unresolved_dependency_note's
+        # docstring). Only the generic uncertain-verification/
+        # infrastructure-failure category is subject to the materiality
+        # gate below.
+        if _fa.first_unresolved_dependency_note_is_unconditional([verified]):
+            obligation.ai_identified_unreconciled_context = note
+            return
+        obligation_materially_established = (
+            obligation.monetary.kind != "not_stated"
+            or obligation.scope not in ("not_addressed", "unresolved")
+            or (obligation.condition is not None and obligation.condition.status not in (None, "UNCONDITIONAL"))
+        )
+        if not obligation_materially_established:
             obligation.ai_identified_unreconciled_context = note
 
 

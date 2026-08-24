@@ -436,23 +436,24 @@ _SLA_SEMANTIC_PROPOSITION = (
 )
 
 
-def _run_semantic_discovery(text: str) -> Tuple[List, Optional[str], Optional[str]]:
+def _run_semantic_discovery(text: str) -> Tuple[List, Optional[str], bool, Optional[str]]:
     """Mirrors liability_policy_engine._run_semantic_discovery exactly.
     Returns (admitted_candidates, unresolved_dependency_note, error)."""
     if not SLA_SEMANTIC_DISCOVERY_ENABLED:
-        return [], None, None
+        return [], None, False, None
     import fact_admission as _fa
     try:
         raw_candidates = _fa.discover_candidate_spans(text, "sla", _SLA_SEMANTIC_FOCUS)
     except Exception as exc:  # noqa: BLE001 — provider unavailable, never "confirmed absent"
-        return [], None, f"{type(exc).__name__}: {exc}"
+        return [], None, False, f"{type(exc).__name__}: {exc}"
 
     verified_candidates = [
         _fa.verify_and_ground(candidate, text, _SLA_SEMANTIC_PROPOSITION) for candidate in raw_candidates
     ]
     admitted = [c for c in verified_candidates if c.admission_status == _fa.ADMITTED]
     unresolved_dependency_note = _fa.first_unresolved_dependency_note(verified_candidates)
-    return admitted, unresolved_dependency_note, None
+    note_is_unconditional = _fa.first_unresolved_dependency_note_is_unconditional(verified_candidates)
+    return admitted, unresolved_dependency_note, note_is_unconditional, None
 
 
 def extract_sla_facts(text: str) -> Optional[SLAFacts]:
@@ -463,7 +464,7 @@ def extract_sla_facts(text: str) -> Optional[SLAFacts]:
     # Candidate 3 remediation (Root Cause 2): contextual discovery is no
     # longer gated behind "deterministic anchor discovery found zero
     # matches" -- see confidentiality_policy_engine.py's identical fix.
-    admitted_semantic, unresolved_dependency_note, semantic_error = _run_semantic_discovery(text)
+    admitted_semantic, unresolved_dependency_note, note_is_unconditional, semantic_error = _run_semantic_discovery(text)
     if not anchors:
         if semantic_error is not None:
             return SLAFacts(clause_found=True, absence_state="RECOGNITION_UNCERTAIN", semantic_discovery_error=semantic_error)

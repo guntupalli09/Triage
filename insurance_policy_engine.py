@@ -354,23 +354,24 @@ _INSURANCE_SEMANTIC_PROPOSITION = (
 )
 
 
-def _run_semantic_discovery(text: str) -> Tuple[List, Optional[str], Optional[str]]:
+def _run_semantic_discovery(text: str) -> Tuple[List, Optional[str], bool, Optional[str]]:
     """Mirrors liability_policy_engine._run_semantic_discovery exactly.
     Returns (admitted_candidates, unresolved_dependency_note, error)."""
     if not INSURANCE_SEMANTIC_DISCOVERY_ENABLED:
-        return [], None, None
+        return [], None, False, None
     import fact_admission as _fa
     try:
         raw_candidates = _fa.discover_candidate_spans(text, "insurance", _INSURANCE_SEMANTIC_FOCUS)
     except Exception as exc:  # noqa: BLE001 — provider unavailable, never "confirmed absent"
-        return [], None, f"{type(exc).__name__}: {exc}"
+        return [], None, False, f"{type(exc).__name__}: {exc}"
 
     verified_candidates = [
         _fa.verify_and_ground(candidate, text, _INSURANCE_SEMANTIC_PROPOSITION) for candidate in raw_candidates
     ]
     admitted = [c for c in verified_candidates if c.admission_status == _fa.ADMITTED]
     unresolved_dependency_note = _fa.first_unresolved_dependency_note(verified_candidates)
-    return admitted, unresolved_dependency_note, None
+    note_is_unconditional = _fa.first_unresolved_dependency_note_is_unconditional(verified_candidates)
+    return admitted, unresolved_dependency_note, note_is_unconditional, None
 
 
 def extract_insurance_facts(text: str) -> Optional[InsuranceFacts]:
@@ -392,7 +393,7 @@ def extract_insurance_facts(text: str) -> Optional[InsuranceFacts]:
     # deterministic side still has something to work with); when no
     # anchors exist at all, a semantic-discovery error still means
     # RECOGNITION_UNCERTAIN, exactly as before.
-    admitted_semantic, unresolved_dependency_note, semantic_error = _run_semantic_discovery(text)
+    admitted_semantic, unresolved_dependency_note, note_is_unconditional, semantic_error = _run_semantic_discovery(text)
     if not matches:
         if semantic_error is not None:
             return InsuranceFacts(clause_found=True, absence_state="RECOGNITION_UNCERTAIN", semantic_discovery_error=semantic_error)
@@ -627,7 +628,13 @@ def extract_insurance_facts(text: str) -> Optional[InsuranceFacts]:
     # elsewhere in the document (found_anything is True via an operative
     # top-level match). Previously silently discarded because the block
     # above is gated on `admitted_semantic` being non-empty.
-    if not deterministic_value_found and not admitted_semantic and unresolved_dependency_note is not None:
+    # Candidate 3 final pre-freeze blocker remediation (Blocker 2) -- a
+    # definition/cross-reference dependency or competing-reading note is
+    # always structurally material and must never be suppressed merely
+    # because some other insurance dimension was established elsewhere.
+    if not admitted_semantic and unresolved_dependency_note is not None and (
+        note_is_unconditional or not deterministic_value_found
+    ):
         facts.absence_state = "PRESENT_BUT_UNRESOLVED"
         facts.ai_identified_definition_or_reference = (
             facts.ai_identified_definition_or_reference or unresolved_dependency_note

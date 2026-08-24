@@ -668,7 +668,7 @@ _PAYMENT_TERMS_SEMANTIC_PROPOSITION = (
 )
 
 
-def _run_semantic_discovery(text: str) -> Tuple[List, Optional[str], Optional[str]]:
+def _run_semantic_discovery(text: str) -> Tuple[List, Optional[str], bool, Optional[str]]:
     """Mirrors liability_policy_engine._run_semantic_discovery exactly.
     This is the open-ended complement to _CONCEPT_ENGAGEMENT_RES's finite
     concept list (Step 4A.3), not a replacement for it — see
@@ -676,19 +676,20 @@ def _run_semantic_discovery(text: str) -> Tuple[List, Optional[str], Optional[st
     whack-a-mole" instruction. Returns (admitted_candidates,
     unresolved_dependency_note, error)."""
     if not PAYMENT_TERMS_SEMANTIC_DISCOVERY_ENABLED:
-        return [], None, None
+        return [], None, False, None
     import fact_admission as _fa
     try:
         raw_candidates = _fa.discover_candidate_spans(text, "payment_terms", _PAYMENT_TERMS_SEMANTIC_FOCUS)
     except Exception as exc:  # noqa: BLE001 — provider unavailable, never "confirmed absent"
-        return [], None, f"{type(exc).__name__}: {exc}"
+        return [], None, False, f"{type(exc).__name__}: {exc}"
 
     verified_candidates = [
         _fa.verify_and_ground(candidate, text, _PAYMENT_TERMS_SEMANTIC_PROPOSITION) for candidate in raw_candidates
     ]
     admitted = [c for c in verified_candidates if c.admission_status == _fa.ADMITTED]
     unresolved_dependency_note = _fa.first_unresolved_dependency_note(verified_candidates)
-    return admitted, unresolved_dependency_note, None
+    note_is_unconditional = _fa.first_unresolved_dependency_note_is_unconditional(verified_candidates)
+    return admitted, unresolved_dependency_note, note_is_unconditional, None
 
 
 def extract_payment_facts(text: str) -> Optional[PaymentFacts]:
@@ -727,7 +728,7 @@ def extract_payment_facts(text: str) -> Optional[PaymentFacts]:
     # Candidate 3 remediation (Root Cause 2): contextual discovery is no
     # longer gated behind "deterministic anchor discovery found zero
     # matches" -- see confidentiality_policy_engine.py's identical fix.
-    admitted_semantic, unresolved_dependency_note, semantic_error = _run_semantic_discovery(text)
+    admitted_semantic, unresolved_dependency_note, note_is_unconditional, semantic_error = _run_semantic_discovery(text)
     if not matches:
         if semantic_error is not None:
             return PaymentFacts(clause_found=True, absence_state="RECOGNITION_UNCERTAIN", semantic_discovery_error=semantic_error)
@@ -1066,7 +1067,11 @@ def extract_payment_facts(text: str) -> Optional[PaymentFacts]:
             facts.withholding_tax_addressed, facts.currency, facts.refund_entitlement_present,
             facts.service_credit_present,
         )) or bool(facts.payment_direction_attributions) or bool(facts.tax_responsibility_attributions)
-        if not _any_established:
+        # Candidate 3 final pre-freeze blocker remediation (Blocker 2) -- a
+        # definition/cross-reference dependency or competing-reading note
+        # is always structurally material and must never be suppressed
+        # merely because some other payment-terms dimension was established.
+        if note_is_unconditional or not _any_established:
             facts.absence_state = "PRESENT_BUT_UNRESOLVED"
             facts.semantic_discovery_error = facts.semantic_discovery_error or unresolved_dependency_note
 

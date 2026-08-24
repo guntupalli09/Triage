@@ -1066,8 +1066,85 @@ def first_unresolved_dependency_note(verified_candidates: List["CandidateMateria
     verification never reaches ESTABLISHED for the uncertain states this
     checks (grounding is never attempted for them), so a disproven claim
     (verification.status == ESTABLISHED, grounding failed) never enters
-    this branch at all."""
-    _UNCERTAIN_VERIFICATION_STATES = {NOT_ESTABLISHED, AMBIGUOUS, INSUFFICIENT_CONTEXT, CONFLICTING}
+    this branch at all.
+
+    Candidate 3 final pre-freeze blocker remediation (Blocker 1) -- the
+    complete verification status vocabulary is exactly the 7 states in
+    _VERIFICATION_STATES (ESTABLISHED plus the 6 states in
+    _UNSAFE_VERIFICATION_STATES: NOT_ESTABLISHED, AMBIGUOUS,
+    INSUFFICIENT_CONTEXT, CONFLICTING, DEPENDENCY_UNRESOLVED,
+    VERIFICATION_ERROR -- verified against the module's own state
+    constants, not invented). The generic catch-all below previously
+    checked only 4 of those 6 unsafe states, silently excluding
+    DEPENDENCY_UNRESOLVED and VERIFICATION_ERROR. Both are now handled,
+    split into two categories with different treatment:
+
+    - CONTENT-JUDGMENT uncertainty (NOT_ESTABLISHED, AMBIGUOUS,
+      INSUFFICIENT_CONTEXT, CONFLICTING, DEPENDENCY_UNRESOLVED): the
+      verifier actually examined the text and reached an uncertain
+      conclusion about it. Kept corroboration-gated on
+      _PARTY_OBLIGATION_ANCHOR_RE exactly as before, for the reason
+      explained above (a confident, correct rejection of descriptive
+      text must not be second-guessed merely because the status is
+      "uncertain").
+    - INFRASTRUCTURE FAILURE (VERIFICATION_ERROR): the verifier never
+      examined the text at all -- this is a provider/network/malformed-
+      response failure, not a content judgment. There is nothing to
+      corroborate against, because no judgment about operative-vs-
+      descriptive language was ever reached. This is escalated
+      UNCONDITIONALLY, regardless of what the evidence span looks like --
+      requiring the same corroboration signal here would mean a pure
+      infrastructure failure on a genuinely material clause silently
+      resolves to "confirmed absent," which is the exact failure class
+      this fix addresses (a discovered, offset-grounded candidate whose
+      verification call errored out must never be indistinguishable from
+      "nothing was ever discovered here")."""
+    _CONTENT_UNCERTAIN_VERIFICATION_STATES = {
+        NOT_ESTABLISHED, AMBIGUOUS, INSUFFICIENT_CONTEXT, CONFLICTING, DEPENDENCY_UNRESOLVED,
+    }
+    _INFRASTRUCTURE_FAILURE_VERIFICATION_STATES = {VERIFICATION_ERROR}
+    assert (_CONTENT_UNCERTAIN_VERIFICATION_STATES | _INFRASTRUCTURE_FAILURE_VERIFICATION_STATES
+            ) == _UNSAFE_VERIFICATION_STATES, "verification state vocabulary changed without updating this function"
+    note, _is_unconditional = _classify_unresolved_dependency_note(verified_candidates)
+    return note
+
+
+# Candidate 3 final pre-freeze blocker remediation (Blocker 2) -- adapters
+# that suppress a redundant/immaterial note need to know WHICH mechanism
+# produced it: a definition dependency, a cross-reference dependency, or
+# two competing readings are ALWAYS structurally material regardless of
+# what else the deterministic side established elsewhere in the document
+# (the deterministic side has no way to independently know about, verify,
+# or refute a defined term / cross-reference / alternate reading it never
+# scans for) -- these must NEVER be suppressed by a caller-side
+# materiality gate. Only the generic uncertain-verification catch-all
+# (content-uncertain states, or a pure infrastructure failure) concerns
+# the SAME proposition the deterministic side might have already,
+# genuinely, positively established, and so is the only category a
+# caller-side gate may ever legitimately suppress. This split was added
+# after discovering that liability's and indemnification's original,
+# undifferentiated gates suppressed definition/cross-reference/competing-
+# reading notes too, whenever ANYTHING else in the clause was established
+# -- a real defect that existed unnoticed because no test previously
+# combined "an established cap/monetary value" with "an unresolved
+# definition/cross-reference/competing-reading on a DIFFERENT candidate."
+def _classify_unresolved_dependency_note(
+    verified_candidates: List["CandidateMaterialFact"],
+) -> "Tuple[Optional[str], bool]":
+    """Returns (note, is_unconditional). `is_unconditional=True` means the
+    note came from a specific mechanism (definition/cross-reference/
+    competing-readings) that must never be suppressed by a caller-side
+    materiality gate, regardless of what else was established elsewhere.
+    `is_unconditional=False` means the note came from the generic
+    uncertain-verification catch-all (content-uncertain status, or an
+    infrastructure failure) -- the only category a caller MAY suppress,
+    and only when it can PROVE the underlying material fact was already
+    genuinely, positively established by an independent deterministic
+    path (never merely because *something*, *anything*, was found)."""
+    _CONTENT_UNCERTAIN_VERIFICATION_STATES = {
+        NOT_ESTABLISHED, AMBIGUOUS, INSUFFICIENT_CONTEXT, CONFLICTING, DEPENDENCY_UNRESOLVED,
+    }
+    _INFRASTRUCTURE_FAILURE_VERIFICATION_STATES = {VERIFICATION_ERROR}
     for candidate in verified_candidates:
         if candidate.admission_status == ADMITTED:
             continue
@@ -1081,13 +1158,13 @@ def first_unresolved_dependency_note(verified_candidates: List["CandidateMateria
             return (
                 f'contextual analysis identified a dependency on the defined term "{dr.term}", which could '
                 f'not be deterministically resolved against this document ({dr.status})'
-            )
+            ), True
         xr = candidate.cross_reference_resolution
         if xr is not None and xr.status != "RESOLVED":
             return (
                 f'contextual analysis identified a cross-reference to "{xr.label}", which could not be '
                 f'deterministically resolved against this document ({xr.status})'
-            )
+            ), True
         # Part 4 (competing readings) — a genuine defect found via
         # adapter-level testing: a candidate blocked ONLY because two
         # materially different, independently-grounded readings were
@@ -1101,23 +1178,29 @@ def first_unresolved_dependency_note(verified_candidates: List["CandidateMateria
             return (
                 f"contextual analysis identified two materially different, independently-grounded "
                 f"readings of the same text ({propositions}) — neither was selected as authoritative"
-            )
-        # Generic catch-all (zero-silent-loss mission) -- see this
-        # function's docstring for why this must be corroborated by an
-        # independent deterministic signal rather than firing on
-        # verification.status alone. The corroborating signal is
-        # policy_engine_core._PARTY_OBLIGATION_ANCHOR_RE: does the
-        # candidate's OWN evidence span contain a named contract-party
-        # role (Vendor/Customer/Party/...) as the subject of a modal-
-        # obligation construction ("Vendor will...", "Customer shall...")?
-        # Plain descriptive/industry-norm prose uses a generic subject
-        # ("Companies generally...", "vendors typically...", "industry
-        # practice often...") and never this construction -- confirmed
-        # against every existing "verifier correctly rejects descriptive
-        # language" test fixture across 6 adapters, none of which contain
-        # a capitalized defined-party name paired with a modal verb.
+            ), True
+        # Generic catch-all (zero-silent-loss mission) -- see
+        # first_unresolved_dependency_note's docstring for why the
+        # content-uncertain branch must be corroborated by an independent
+        # deterministic signal rather than firing on verification.status
+        # alone. The infrastructure-failure branch is unconditional
+        # within THIS function (no corroboration signal applies to a pure
+        # provider error) but is still marked is_unconditional=False here,
+        # because a caller-side materiality gate MAY legitimately suppress
+        # it when the SAME underlying fact was already genuinely
+        # established by deterministic means -- unlike the three specific
+        # mechanisms above, an infrastructure failure concerns the exact
+        # same proposition discovery targeted, so it CAN be redundant.
         verification = candidate.semantic_verification_result
-        if verification is not None and verification.status in _UNCERTAIN_VERIFICATION_STATES:
+        if verification is not None and verification.status in _INFRASTRUCTURE_FAILURE_VERIFICATION_STATES:
+            return (
+                f"contextual analysis discovered a candidate span (\"{candidate.evidence_span}\") but the "
+                f"adversarial verification call itself failed ({verification.status}: "
+                f"{verification.reasoning or verification.provider_error or 'no further detail available'}) "
+                f"-- this is a provider/infrastructure failure, not a confirmed absence, and must not be "
+                f"treated as one"
+            ), False
+        if verification is not None and verification.status in _CONTENT_UNCERTAIN_VERIFICATION_STATES:
             import policy_engine_core as _pec
             looks_operative = bool(_pec._PARTY_OBLIGATION_ANCHOR_RE.search(candidate.evidence_span or ""))
             if looks_operative:
@@ -1126,5 +1209,17 @@ def first_unresolved_dependency_note(verified_candidates: List["CandidateMateria
                     f"underlying proposition could not be confidently confirmed by adversarial verification "
                     f"({verification.status}), despite the span itself containing a named-party obligation "
                     f"construction -- this is not the same as confirming the material fact is absent"
-                )
-    return None
+                ), False
+    return None, False
+
+
+def first_unresolved_dependency_note_is_unconditional(verified_candidates: List["CandidateMaterialFact"]) -> bool:
+    """True iff the note first_unresolved_dependency_note() would return
+    for these SAME candidates came from a specific, always-material
+    mechanism (definition/cross-reference dependency, or competing
+    readings) rather than the generic uncertain-verification catch-all.
+    Callers that gate note-suppression on materiality MUST check this
+    first and never suppress an unconditional note -- see
+    _classify_unresolved_dependency_note's docstring."""
+    _note, is_unconditional = _classify_unresolved_dependency_note(verified_candidates)
+    return is_unconditional

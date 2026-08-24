@@ -1648,14 +1648,15 @@ _LIABILITY_SEMANTIC_PROPOSITION = (
 )
 
 
-def _run_semantic_discovery(text: str) -> Tuple[List, Optional[str], Optional[str]]:
+def _run_semantic_discovery(text: str) -> Tuple[List, Optional[str], bool, Optional[str]]:
     """Additive semantic discovery for liability-cap language the
     deterministic anchors above did not recognize. Mirrors
     indemnification_policy_engine._run_semantic_discovery exactly, using
     the shared fact_admission framework instead of a bespoke
     implementation. Returns (admitted_candidates, unresolved_dependency_
-    note, error); error is None when discovery ran successfully (even if
-    it found nothing — see absence_state in extract_liability_facts).
+    note, note_is_unconditional, error); error is None when discovery ran
+    successfully (even if it found nothing — see absence_state in
+    extract_liability_facts).
 
     unresolved_dependency_note (final trust architecture, Step B/H) —
     when a candidate's proposition depended on a cross-reference/
@@ -1663,14 +1664,25 @@ def _run_semantic_discovery(text: str) -> Tuple[List, Optional[str], Optional[st
     candidate is correctly NOT_ADMITTED and never becomes a provision —
     but that failure is preserved here rather than disappearing, so the
     caller can force REQUIRES_REVIEW instead of falling back to
-    CONFIRMED_ABSENT."""
+    CONFIRMED_ABSENT.
+
+    note_is_unconditional (Blocker 2, final pre-freeze blocker
+    remediation) — True when unresolved_dependency_note came from a
+    specific, always-material mechanism (definition/cross-reference
+    dependency, competing readings) that the caller's own materiality
+    gate (_any_provision_established, below) must NEVER suppress,
+    regardless of what else was established elsewhere in the document.
+    False means the note is the generic uncertain-verification catch-all
+    (content-uncertain status, or a pure infrastructure failure), the
+    only category the caller may legitimately suppress, and only when it
+    can prove the same material fact was already genuinely established."""
     if not LIABILITY_SEMANTIC_DISCOVERY_ENABLED:
-        return [], None, None
+        return [], None, False, None
     import fact_admission as _fa
     try:
         raw_candidates = _fa.discover_candidate_spans(text, "limitation_of_liability", _LIABILITY_SEMANTIC_FOCUS)
     except Exception as exc:  # noqa: BLE001 — provider unavailable, never "confirmed absent"
-        return [], None, f"{type(exc).__name__}: {exc}"
+        return [], None, False, f"{type(exc).__name__}: {exc}"
 
     verified_candidates = [
         _fa.verify_and_ground(candidate, text, _LIABILITY_SEMANTIC_PROPOSITION) for candidate in raw_candidates
@@ -1683,7 +1695,8 @@ def _run_semantic_discovery(text: str) -> Tuple[List, Optional[str], Optional[st
     # duplicate of this check (the prior version of this function) never
     # covered that case at all.
     unresolved_dependency_note = _fa.first_unresolved_dependency_note(verified_candidates)
-    return admitted, unresolved_dependency_note, None
+    note_is_unconditional = _fa.first_unresolved_dependency_note_is_unconditional(verified_candidates)
+    return admitted, unresolved_dependency_note, note_is_unconditional, None
 
 
 def extract_liability_facts(text: str) -> Optional[LiabilityFacts]:
@@ -1731,7 +1744,7 @@ def _extract_liability_facts_inner(text: str) -> Optional[LiabilityFacts]:
     # general_cap=None, which evaluate_liability_policy already routes to
     # MUST_REDLINE ("clause present but no numeric general cap stated") —
     # never a silent ACCEPT/NOT_APPLICABLE. See PRE_IMPLEMENTATION_MAP.md.
-    admitted_semantic, unresolved_dependency_note, semantic_error = _run_semantic_discovery(text)
+    admitted_semantic, unresolved_dependency_note, note_is_unconditional, semantic_error = _run_semantic_discovery(text)
     if not accepted_anchors:
         if admitted_semantic:
             accepted_anchors = [(c.start_offset, False) for c in admitted_semantic]
@@ -1838,25 +1851,45 @@ def _extract_liability_facts_inner(text: str) -> Optional[LiabilityFacts]:
     # Zero-silent-loss mission follow-up, second-order fix -- an
     # unresolved_dependency_note sourced from a candidate whose OWN
     # semantic verification was merely uncertain (never a disproven claim)
-    # must only force review when it is the ONLY signal this document
-    # offers. When a deterministic anchor already exists and fully
-    # resolved something material for this same clause (a numeric cap, an
-    # established category treatment, a real condition), the note is
-    # redundant with — not additive to — what already exists, and
-    # surfacing it unconditionally reintroduces exactly the kind of
-    # provider-sampling-driven instability this mission exists to remove
-    # (confirmed via limitation_of_liability-006: an already-established,
-    # deterministically-resolved gross_negligence/willful_misconduct
-    # carve-out flipped ACCEPT_WITH_NOTE/REQUIRES_REVIEW purely based on
-    # whether THIS candidate's verification happened to come back
-    # uncertain on a given real-provider call).
+    # must only be suppressed when a deterministic anchor already exists
+    # and GENUINELY, POSITIVELY resolved something material for this same
+    # clause (a real numeric cap, an actually-triggered category carve-out,
+    # a real condition) -- never merely because SOME dimension defaulted
+    # to its confident-negative sentinel.
+    #
+    # Candidate 3 final pre-freeze blocker remediation (Blocker 2) -- the
+    # ORIGINAL version of this gate checked `any(t.established for t in
+    # p.category_treatments.values())`, but category_treatments always
+    # contains one CategoryTreatment per CATEGORIES entry, and a category
+    # nobody mentioned in the text still comes back `treatment=
+    # "not_addressed", established=True` (a legitimate, confident
+    # deterministic finding that the category is silent -- just not
+    # evidence that a DIFFERENT, uncertain AI candidate is redundant).
+    # Since every real provision has at least one such "not_addressed"
+    # category, the original gate was ALWAYS true regardless of whether
+    # the cap itself, or anything else material, was ever established --
+    # confirmed by direct reproduction: a bare "This Section addresses
+    # liability matters generally." provision (nothing established at
+    # all) still satisfied the old gate. Fixed by requiring the category
+    # signal to be an actual, positive determination (treatment not in
+    # {"not_addressed", "unresolved"}), not merely "established" in the
+    # confident-negative sense. Re-verified against both the
+    # nothing-established shape (gate now correctly False) and the
+    # limitation_of_liability-006 shape (gate still correctly True, since
+    # that case's gross_negligence/willful_misconduct carve-outs are
+    # genuinely, positively triggered as "uncapped", not merely silent).
     _any_provision_established = any(
         p.general_cap_expression.effective_cap()[0] is not None
-        or any(t.established for t in p.category_treatments.values())
+        or any(
+            t.established and t.treatment not in ("not_addressed", "unresolved")
+            for t in p.category_treatments.values()
+        )
         or (p.condition is not None and p.condition.status == "ESTABLISHED")
         for p in provisions
     )
-    surfaced_unresolved_dependency_note = None if _any_provision_established else unresolved_dependency_note
+    surfaced_unresolved_dependency_note = (
+        unresolved_dependency_note if (note_is_unconditional or not _any_provision_established) else None
+    )
 
     if len(provisions) == 1:
         return LiabilityFacts(clause_found=True, provisions=provisions, controlling_provision=provisions[0],
