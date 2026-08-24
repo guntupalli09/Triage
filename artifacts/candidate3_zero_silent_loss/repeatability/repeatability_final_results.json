@@ -1,0 +1,2290 @@
+[
+  {
+    "case_id": "limitation_of_liability-000",
+    "adapter": "limitation_of_liability",
+    "expected": "YES_OPERATIVE",
+    "run_states": [
+      "MUST_REDLINE",
+      "MUST_REDLINE",
+      "MUST_REDLINE",
+      "MUST_REDLINE",
+      "MUST_REDLINE"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "run_candidate_counts": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "run_candidate_spans": [
+      [
+        "in no event shall either party's aggregate liability arising out of this Agreement exceed the total fees paid in the twelve (12) months preceding the claim."
+      ],
+      [
+        "in no event shall either party's aggregate liability arising out of this Agreement exceed the total fees paid in the twelve (12) months preceding the claim."
+      ],
+      [
+        "in no event shall either party's aggregate liability arising out of this Agreement exceed the total fees paid in the twelve (12) months preceding the claim."
+      ],
+      [
+        "in no event shall either party's aggregate liability arising out of this Agreement exceed the total fees paid in the twelve (12) months preceding the claim."
+      ],
+      [
+        "in no event shall either party's aggregate liability arising out of this Agreement exceed the total fees paid in the twelve (12) months preceding the claim."
+      ]
+    ],
+    "candidate_set_varied": false,
+    "canonical_fact_varied": false,
+    "policy_decision_varied": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "limitation_of_liability-001",
+    "adapter": "limitation_of_liability",
+    "expected": "NO_NOT_OPERATIVE",
+    "run_states": [
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "run_candidate_counts": [
+      0,
+      1,
+      0,
+      1,
+      1
+    ],
+    "run_candidate_spans": [
+      [],
+      [
+        "Technology services agreements commonly cap aggregate liability at one times annual fees, reflecting standard industry risk allocation for engagements of this size."
+      ],
+      [],
+      [
+        "cap aggregate liability at one times annual fees"
+      ],
+      [
+        "commonly cap aggregate liability at one times annual fees"
+      ]
+    ],
+    "candidate_set_varied": true,
+    "canonical_fact_varied": false,
+    "policy_decision_varied": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "limitation_of_liability-005",
+    "adapter": "limitation_of_liability",
+    "expected": "YES_BUT_CONDITIONAL",
+    "run_states": [
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "run_candidate_counts": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "run_candidate_spans": [
+      [
+        "Vendor's aggregate liability shall not exceed two times the fees paid in the prior twelve months, provided that Customer has given Vendor written notice of the claim within ninety (90) days of discovering the underlying event."
+      ],
+      [
+        "Vendor's aggregate liability shall not exceed two times the fees paid in the prior twelve months, provided that Customer has given Vendor written notice of the claim within ninety (90) days of discovering the underlying event."
+      ],
+      [
+        "Vendor's aggregate liability shall not exceed two times the fees paid in the prior twelve months, provided that Customer has given Vendor written notice of the claim within ninety (90) days of discovering the underlying event."
+      ],
+      [
+        "Vendor's aggregate liability shall not exceed two times the fees paid in the prior twelve months, provided that Customer has given Vendor written notice of the claim within ninety (90) days of discovering the underlying event."
+      ],
+      [
+        "Vendor's aggregate liability shall not exceed two times the fees paid in the prior twelve months, provided that Customer has given Vendor written notice of the claim within ninety (90) days of discovering the underlying event."
+      ]
+    ],
+    "candidate_set_varied": false,
+    "canonical_fact_varied": false,
+    "policy_decision_varied": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "limitation_of_liability-006",
+    "adapter": "limitation_of_liability",
+    "expected": "YES_BUT_EXCEPTION",
+    "run_states": [
+      "ACCEPT_WITH_NOTE",
+      "ACCEPT_WITH_NOTE",
+      "ACCEPT_WITH_NOTE",
+      "ACCEPT_WITH_NOTE",
+      "ACCEPT_WITH_NOTE"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "run_candidate_counts": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "run_candidate_spans": [
+      [
+        "Vendor's aggregate liability shall not exceed one times the fees paid in the prior twelve months, except that this cap shall not apply to claims arising from Vendor's gross negligence or willful misconduct."
+      ],
+      [
+        "Vendor's aggregate liability shall not exceed one times the fees paid in the prior twelve months, except that this cap shall not apply to claims arising from Vendor's gross negligence or willful misconduct."
+      ],
+      [
+        "Vendor's aggregate liability shall not exceed one times the fees paid in the prior twelve months, except that this cap shall not apply to claims arising from Vendor's gross negligence or willful misconduct."
+      ],
+      [
+        "Vendor's aggregate liability shall not exceed one times the fees paid in the prior twelve months, except that this cap shall not apply to claims arising from Vendor's gross negligence or willful misconduct."
+      ],
+      [
+        "Vendor's aggregate liability shall not exceed one times the fees paid in the prior twelve months, except that this cap shall not apply to claims arising from Vendor's gross negligence or willful misconduct."
+      ]
+    ],
+    "candidate_set_varied": false,
+    "canonical_fact_varied": false,
+    "policy_decision_varied": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "indemnification-020",
+    "adapter": "indemnification",
+    "expected": "YES_OPERATIVE",
+    "run_states": [
+      "MUST_REDLINE",
+      "MUST_REDLINE",
+      "MUST_REDLINE",
+      "MUST_REDLINE",
+      "MUST_REDLINE"
+    ],
+    "run_absence_states": [
+      "PRESENT_AND_VERIFIED",
+      "PRESENT_AND_VERIFIED",
+      "PRESENT_AND_VERIFIED",
+      "PRESENT_AND_VERIFIED",
+      "PRESENT_AND_VERIFIED"
+    ],
+    "run_candidate_counts": [
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "run_candidate_spans": [
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "candidate_set_varied": false,
+    "canonical_fact_varied": false,
+    "policy_decision_varied": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "indemnification-021",
+    "adapter": "indemnification",
+    "expected": "NO_NOT_OPERATIVE",
+    "run_states": [
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW"
+    ],
+    "run_absence_states": [
+      "PRESENT_BUT_UNRESOLVED",
+      "PRESENT_BUT_UNRESOLVED",
+      "PRESENT_BUT_UNRESOLVED",
+      "PRESENT_BUT_UNRESOLVED",
+      "PRESENT_BUT_UNRESOLVED"
+    ],
+    "run_candidate_counts": [
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "run_candidate_spans": [
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "candidate_set_varied": false,
+    "canonical_fact_varied": false,
+    "policy_decision_varied": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "indemnification-025",
+    "adapter": "indemnification",
+    "expected": "YES_BUT_CONDITIONAL",
+    "run_states": [
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW"
+    ],
+    "run_absence_states": [
+      "PRESENT_AND_VERIFIED",
+      "PRESENT_AND_VERIFIED",
+      "PRESENT_AND_VERIFIED",
+      "PRESENT_AND_VERIFIED",
+      "PRESENT_AND_VERIFIED"
+    ],
+    "run_candidate_counts": [
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "run_candidate_spans": [
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "candidate_set_varied": false,
+    "canonical_fact_varied": false,
+    "policy_decision_varied": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "indemnification-026",
+    "adapter": "indemnification",
+    "expected": "YES_BUT_EXCEPTION",
+    "run_states": [
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW"
+    ],
+    "run_absence_states": [
+      "PRESENT_AND_VERIFIED",
+      "PRESENT_AND_VERIFIED",
+      "PRESENT_AND_VERIFIED",
+      "PRESENT_AND_VERIFIED",
+      "PRESENT_AND_VERIFIED"
+    ],
+    "run_candidate_counts": [
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "run_candidate_spans": [
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "candidate_set_varied": false,
+    "canonical_fact_varied": false,
+    "policy_decision_varied": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "confidentiality-040",
+    "adapter": "confidentiality",
+    "expected": "YES_OPERATIVE",
+    "run_states": [
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "run_candidate_counts": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "run_candidate_spans": [
+      [
+        "Each party shall protect the other's Confidential Information using reasonable care and shall not disclose it to third parties without prior written consent."
+      ],
+      [
+        "Each party shall protect the other's Confidential Information using reasonable care and shall not disclose it to third parties without prior written consent."
+      ],
+      [
+        "Each party shall protect the other's Confidential Information using reasonable care and shall not disclose it to third parties without prior written consent."
+      ],
+      [
+        "Each party shall protect the other's Confidential Information using reasonable care and shall not disclose it to third parties without prior written consent."
+      ],
+      [
+        "Each party shall protect the other's Confidential Information using reasonable care and shall not disclose it to third parties without prior written consent."
+      ]
+    ],
+    "candidate_set_varied": false,
+    "canonical_fact_varied": false,
+    "policy_decision_varied": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "confidentiality-041",
+    "adapter": "confidentiality",
+    "expected": "NO_NOT_OPERATIVE",
+    "run_states": [
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "run_candidate_counts": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "run_candidate_spans": [
+      [
+        "each party to protect the other's proprietary information"
+      ],
+      [
+        "each party to protect the other's proprietary information."
+      ],
+      [
+        "each party to protect the other's proprietary information."
+      ],
+      [
+        "each party to protect the other's proprietary information."
+      ],
+      [
+        "each party to protect the other's proprietary information"
+      ]
+    ],
+    "candidate_set_varied": true,
+    "canonical_fact_varied": false,
+    "policy_decision_varied": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "confidentiality-047",
+    "adapter": "confidentiality",
+    "expected": "AMBIGUOUS",
+    "run_states": [
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "run_candidate_counts": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "run_candidate_spans": [
+      [
+        "Vendor shall protect 'Proprietary Data' disclosed by Customer."
+      ],
+      [
+        "Vendor shall protect 'Proprietary Data' disclosed by Customer."
+      ],
+      [
+        "Vendor shall protect 'Proprietary Data' disclosed by Customer."
+      ],
+      [
+        "Vendor shall protect 'Proprietary Data' disclosed by Customer."
+      ],
+      [
+        "Vendor shall protect 'Proprietary Data' disclosed by Customer."
+      ]
+    ],
+    "candidate_set_varied": false,
+    "canonical_fact_varied": false,
+    "policy_decision_varied": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "confidentiality-050",
+    "adapter": "confidentiality",
+    "expected": "NO_NOT_OPERATIVE",
+    "run_states": [
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "run_candidate_counts": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "run_candidate_spans": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "candidate_set_varied": false,
+    "canonical_fact_varied": false,
+    "policy_decision_varied": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "payment_terms-060",
+    "adapter": "payment_terms",
+    "expected": "YES_OPERATIVE",
+    "run_states": [
+      "NEGOTIATE",
+      "NEGOTIATE",
+      "NEGOTIATE",
+      "NEGOTIATE",
+      "NEGOTIATE"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "run_candidate_counts": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "run_candidate_spans": [
+      [
+        "Customer shall pay all undisputed invoiced amounts within thirty (30) days of the invoice date."
+      ],
+      [
+        "Customer shall pay all undisputed invoiced amounts within thirty (30) days of the invoice date."
+      ],
+      [
+        "Customer shall pay all undisputed invoiced amounts within thirty (30) days of the invoice date."
+      ],
+      [
+        "Customer shall pay all undisputed invoiced amounts within thirty (30) days of the invoice date."
+      ],
+      [
+        "Customer shall pay all undisputed invoiced amounts within thirty (30) days of the invoice date."
+      ]
+    ],
+    "candidate_set_varied": false,
+    "canonical_fact_varied": false,
+    "policy_decision_varied": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "payment_terms-061",
+    "adapter": "payment_terms",
+    "expected": "NO_NOT_OPERATIVE",
+    "run_states": [
+      "NEGOTIATE",
+      "NEGOTIATE",
+      "NEGOTIATE",
+      "NEGOTIATE",
+      "NEGOTIATE"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "run_candidate_counts": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "run_candidate_spans": [
+      [
+        "Net-30 payment terms are the market standard for enterprise software agreements of this size."
+      ],
+      [
+        "Net-30 payment terms are the market standard for enterprise software agreements of this size."
+      ],
+      [
+        "Net-30 payment terms are the market standard for enterprise software agreements of this size."
+      ],
+      [
+        "Net-30 payment terms are the market standard for enterprise software agreements of this size."
+      ],
+      [
+        "Net-30 payment terms are the market standard for enterprise software agreements of this size."
+      ]
+    ],
+    "candidate_set_varied": false,
+    "canonical_fact_varied": false,
+    "policy_decision_varied": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "payment_terms-079",
+    "adapter": "payment_terms",
+    "expected": "YES_OPERATIVE",
+    "run_states": [
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW"
+    ],
+    "run_absence_states": [
+      "PRESENT_BUT_UNRESOLVED",
+      "PRESENT_BUT_UNRESOLVED",
+      "PRESENT_BUT_UNRESOLVED",
+      "PRESENT_BUT_UNRESOLVED",
+      "PRESENT_BUT_UNRESOLVED"
+    ],
+    "run_candidate_counts": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "run_candidate_spans": [
+      [
+        "Customer agrees to settle up on Vendor's bills within a month of getting them, no excuses."
+      ],
+      [
+        "Customer agrees to settle up on Vendor's bills within a month of getting them, no excuses."
+      ],
+      [
+        "Customer agrees to settle up on Vendor's bills within a month of getting them, no excuses."
+      ],
+      [
+        "Customer agrees to settle up on Vendor's bills within a month of getting them, no excuses."
+      ],
+      [
+        "Customer agrees to settle up on Vendor's bills within a month of getting them, no excuses."
+      ]
+    ],
+    "candidate_set_varied": false,
+    "canonical_fact_varied": false,
+    "policy_decision_varied": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "payment_terms-067",
+    "adapter": "payment_terms",
+    "expected": "AMBIGUOUS",
+    "run_states": [
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "run_candidate_counts": [
+      2,
+      2,
+      2,
+      2,
+      2
+    ],
+    "run_candidate_spans": [
+      [
+        "Payment is due within the period stated in the Order Form.",
+        "One Order Form section says 'Net 30' while another says 'due upon receipt,' without indicating which governs."
+      ],
+      [
+        "Payment is due within the period stated in the Order Form.",
+        "One Order Form section says 'Net 30' while another says 'due upon receipt,' without indicating which governs."
+      ],
+      [
+        "Payment is due within the period stated in the Order Form.",
+        "One Order Form section says 'Net 30' while another says 'due upon receipt,' without indicating which governs."
+      ],
+      [
+        "Payment is due within the period stated in the Order Form.",
+        "One Order Form section says 'Net 30' while another says 'due upon receipt,' without indicating which governs."
+      ],
+      [
+        "Payment is due within the period stated in the Order Form.",
+        "One Order Form section says 'Net 30' while another says 'due upon receipt,' without indicating which governs."
+      ]
+    ],
+    "candidate_set_varied": false,
+    "canonical_fact_varied": false,
+    "policy_decision_varied": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "ip_ownership-080",
+    "adapter": "ip_ownership",
+    "expected": "YES_OPERATIVE",
+    "run_states": [
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "run_candidate_counts": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "run_candidate_spans": [
+      [
+        "All work product created by Vendor specifically for Customer under this Agreement shall be owned exclusively by Customer upon full payment."
+      ],
+      [
+        "All work product created by Vendor specifically for Customer under this Agreement shall be owned exclusively by Customer upon full payment."
+      ],
+      [
+        "All work product created by Vendor specifically for Customer under this Agreement shall be owned exclusively by Customer upon full payment."
+      ],
+      [
+        "All work product created by Vendor specifically for Customer under this Agreement shall be owned exclusively by Customer upon full payment."
+      ],
+      [
+        "All work product created by Vendor specifically for Customer under this Agreement shall be owned exclusively by Customer upon full payment."
+      ]
+    ],
+    "candidate_set_varied": false,
+    "canonical_fact_varied": false,
+    "policy_decision_varied": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "ip_ownership-099",
+    "adapter": "ip_ownership",
+    "expected": "YES_OPERATIVE",
+    "run_states": [
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "PRESENT_BUT_UNRESOLVED",
+      "PRESENT_BUT_UNRESOLVED",
+      "CONFIRMED_ABSENT",
+      "PRESENT_BUT_UNRESOLVED"
+    ],
+    "run_candidate_counts": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "run_candidate_spans": [
+      [
+        "anything Vendor builds specifically for this project belongs to Customer, lock, stock, and barrel."
+      ],
+      [
+        "anything Vendor builds specifically for this project belongs to Customer, lock, stock, and barrel."
+      ],
+      [
+        "anything Vendor builds specifically for this project belongs to Customer, lock, stock, and barrel."
+      ],
+      [
+        "Once Customer's checks clear, anything Vendor builds specifically for this project belongs to Customer, lock, stock, and barrel."
+      ],
+      [
+        "anything Vendor builds specifically for this project belongs to Customer, lock, stock, and barrel."
+      ]
+    ],
+    "candidate_set_varied": true,
+    "canonical_fact_varied": true,
+    "policy_decision_varied": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "ip_ownership-081",
+    "adapter": "ip_ownership",
+    "expected": "NO_NOT_OPERATIVE",
+    "run_states": [
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE"
+    ],
+    "run_absence_states": [
+      "NONE",
+      "NONE",
+      "NONE",
+      "NONE",
+      "NONE"
+    ],
+    "run_candidate_counts": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "run_candidate_spans": [
+      [
+        "Custom software development agreements commonly assign work-product ownership to the paying customer upon completion of payment."
+      ],
+      [
+        "Custom software development agreements commonly assign work-product ownership to the paying customer upon completion of payment."
+      ],
+      [
+        "Custom software development agreements commonly assign work-product ownership to the paying customer upon completion of payment."
+      ],
+      [
+        "Custom software development agreements commonly assign work-product ownership to the paying customer upon completion of payment."
+      ],
+      [
+        "Custom software development agreements commonly assign work-product ownership to the paying customer upon completion of payment."
+      ]
+    ],
+    "candidate_set_varied": false,
+    "canonical_fact_varied": false,
+    "policy_decision_varied": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "ip_ownership-086",
+    "adapter": "ip_ownership",
+    "expected": "YES_BUT_EXCEPTION",
+    "run_states": [
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "run_candidate_counts": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "run_candidate_spans": [
+      [
+        "Work product shall be owned by Customer, except for Vendor's pre-existing background IP incorporated into the deliverables, which Vendor retains."
+      ],
+      [
+        "Work product shall be owned by Customer, except for Vendor's pre-existing background IP incorporated into the deliverables, which Vendor retains."
+      ],
+      [
+        "Work product shall be owned by Customer, except for Vendor's pre-existing background IP incorporated into the deliverables, which Vendor retains."
+      ],
+      [
+        "Work product shall be owned by Customer, except for Vendor's pre-existing background IP incorporated into the deliverables, which Vendor retains."
+      ],
+      [
+        "Work product shall be owned by Customer, except for Vendor's pre-existing background IP incorporated into the deliverables, which Vendor retains."
+      ]
+    ],
+    "candidate_set_varied": false,
+    "canonical_fact_varied": false,
+    "policy_decision_varied": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "insurance-100",
+    "adapter": "insurance",
+    "expected": "YES_OPERATIVE",
+    "run_states": [
+      "ACCEPT",
+      "ACCEPT",
+      "ACCEPT",
+      "ACCEPT",
+      "ACCEPT"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "run_candidate_counts": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "run_candidate_spans": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "candidate_set_varied": false,
+    "canonical_fact_varied": false,
+    "policy_decision_varied": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "insurance-101",
+    "adapter": "insurance",
+    "expected": "NO_NOT_OPERATIVE",
+    "run_states": [
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE"
+    ],
+    "run_absence_states": [
+      "NONE",
+      "NONE",
+      "NONE",
+      "NONE",
+      "NONE"
+    ],
+    "run_candidate_counts": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "run_candidate_spans": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "candidate_set_varied": false,
+    "canonical_fact_varied": false,
+    "policy_decision_varied": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "insurance-119",
+    "adapter": "insurance",
+    "expected": "YES_OPERATIVE",
+    "run_states": [
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE"
+    ],
+    "run_absence_states": [
+      "NONE",
+      "NONE",
+      "NONE",
+      "NONE",
+      "NONE"
+    ],
+    "run_candidate_counts": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "run_candidate_spans": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "candidate_set_varied": false,
+    "canonical_fact_varied": false,
+    "policy_decision_varied": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "insurance-105",
+    "adapter": "insurance",
+    "expected": "YES_BUT_CONDITIONAL",
+    "run_states": [
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "run_candidate_counts": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "run_candidate_spans": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "candidate_set_varied": false,
+    "canonical_fact_varied": false,
+    "policy_decision_varied": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "data_security-120",
+    "adapter": "data_security",
+    "expected": "YES_OPERATIVE",
+    "run_states": [
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW"
+    ],
+    "run_absence_states": [
+      "PRESENT_BUT_UNRESOLVED",
+      "PRESENT_BUT_UNRESOLVED",
+      "PRESENT_BUT_UNRESOLVED",
+      "PRESENT_BUT_UNRESOLVED",
+      "PRESENT_BUT_UNRESOLVED"
+    ],
+    "run_candidate_counts": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "run_candidate_spans": [
+      [
+        "Vendor shall notify Customer of any personal data breach within forty-eight (48) hours of becoming aware of it."
+      ],
+      [
+        "Vendor shall notify Customer of any personal data breach within forty-eight (48) hours of becoming aware of it."
+      ],
+      [
+        "Vendor shall notify Customer of any personal data breach within forty-eight (48) hours of becoming aware of it."
+      ],
+      [
+        "Vendor shall notify Customer of any personal data breach within forty-eight (48) hours of becoming aware of it."
+      ],
+      [
+        "Vendor shall notify Customer of any personal data breach within forty-eight (48) hours of becoming aware of it."
+      ]
+    ],
+    "candidate_set_varied": false,
+    "canonical_fact_varied": false,
+    "policy_decision_varied": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "data_security-121",
+    "adapter": "data_security",
+    "expected": "NO_NOT_OPERATIVE",
+    "run_states": [
+      "ACCEPT",
+      "ACCEPT",
+      "ACCEPT",
+      "ACCEPT",
+      "ACCEPT"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "run_candidate_counts": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "run_candidate_spans": [
+      [
+        "Vendors in this industry usually notify customers of a personal data breach within 72 hours, reflecting common data-protection practice."
+      ],
+      [
+        "Vendors in this industry usually notify customers of a personal data breach within 72 hours, reflecting common data-protection practice."
+      ],
+      [
+        "Vendors in this industry usually notify customers of a personal data breach within 72 hours, reflecting common data-protection practice."
+      ],
+      [
+        "Vendors in this industry usually notify customers of a personal data breach within 72 hours, reflecting common data-protection practice."
+      ],
+      [
+        "Vendors in this industry usually notify customers of a personal data breach within 72 hours, reflecting common data-protection practice."
+      ]
+    ],
+    "candidate_set_varied": false,
+    "canonical_fact_varied": false,
+    "policy_decision_varied": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "data_security-139",
+    "adapter": "data_security",
+    "expected": "YES_OPERATIVE",
+    "run_states": [
+      "REQUIRES_REVIEW",
+      "ACCEPT",
+      "REQUIRES_REVIEW",
+      "ACCEPT",
+      "REQUIRES_REVIEW"
+    ],
+    "run_absence_states": [
+      "PRESENT_BUT_UNRESOLVED",
+      "CONFIRMED_ABSENT",
+      "PRESENT_BUT_UNRESOLVED",
+      "CONFIRMED_ABSENT",
+      "PRESENT_BUT_UNRESOLVED"
+    ],
+    "run_candidate_counts": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "run_candidate_spans": [
+      [
+        "Should Vendor discover that someone got into personal data they shouldn't have, Vendor will let Customer know within two days, tops."
+      ],
+      [
+        "Should Vendor discover that someone got into personal data they shouldn't have, Vendor will let Customer know within two days, tops."
+      ],
+      [
+        "Should Vendor discover that someone got into personal data they shouldn't have, Vendor will let Customer know within two days, tops."
+      ],
+      [
+        "Should Vendor discover that someone got into personal data they shouldn't have, Vendor will let Customer know within two days, tops."
+      ],
+      [
+        "Should Vendor discover that someone got into personal data they shouldn't have, Vendor will let Customer know within two days, tops."
+      ]
+    ],
+    "candidate_set_varied": false,
+    "canonical_fact_varied": true,
+    "policy_decision_varied": true,
+    "unsafe_clean_transition": true
+  },
+  {
+    "case_id": "data_security-130",
+    "adapter": "data_security",
+    "expected": "NO_NOT_OPERATIVE",
+    "run_states": [
+      "MUST_REDLINE",
+      "MUST_REDLINE",
+      "MUST_REDLINE",
+      "MUST_REDLINE",
+      "MUST_REDLINE"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "run_candidate_counts": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "run_candidate_spans": [
+      [
+        "Vendor shall have no obligation to notify Customer of any personal data breach under this Agreement."
+      ],
+      [
+        "Vendor shall have no obligation to notify Customer of any personal data breach under this Agreement."
+      ],
+      [
+        "Vendor shall have no obligation to notify Customer of any personal data breach under this Agreement."
+      ],
+      [
+        "Vendor shall have no obligation to notify Customer of any personal data breach under this Agreement."
+      ],
+      [
+        "Vendor shall have no obligation to notify Customer of any personal data breach under this Agreement."
+      ]
+    ],
+    "candidate_set_varied": false,
+    "canonical_fact_varied": false,
+    "policy_decision_varied": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "governing_law-140",
+    "adapter": "governing_law",
+    "expected": "YES_OPERATIVE",
+    "run_states": [
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "run_candidate_counts": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "run_candidate_spans": [
+      [
+        "This Agreement shall be governed by and construed in accordance with the laws of the State of Delaware, without regard to its conflict-of-laws principles."
+      ],
+      [
+        "This Agreement shall be governed by and construed in accordance with the laws of the State of Delaware, without regard to its conflict-of-laws principles."
+      ],
+      [
+        "This Agreement shall be governed by and construed in accordance with the laws of the State of Delaware, without regard to its conflict-of-laws principles."
+      ],
+      [
+        "This Agreement shall be governed by and construed in accordance with the laws of the State of Delaware, without regard to its conflict-of-laws principles."
+      ],
+      [
+        "This Agreement shall be governed by and construed in accordance with the laws of the State of Delaware, without regard to its conflict-of-laws principles."
+      ]
+    ],
+    "candidate_set_varied": false,
+    "canonical_fact_varied": false,
+    "policy_decision_varied": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "governing_law-141",
+    "adapter": "governing_law",
+    "expected": "NO_NOT_OPERATIVE",
+    "run_states": [
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE"
+    ],
+    "run_absence_states": [
+      "NONE",
+      "NONE",
+      "NONE",
+      "NONE",
+      "NONE"
+    ],
+    "run_candidate_counts": [
+      1,
+      0,
+      0,
+      0,
+      0
+    ],
+    "run_candidate_spans": [
+      [
+        "Technology agreements between companies headquartered in different states commonly select Delaware law due to its well-developed body of commercial case law."
+      ],
+      [],
+      [],
+      [],
+      []
+    ],
+    "candidate_set_varied": true,
+    "canonical_fact_varied": false,
+    "policy_decision_varied": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "governing_law-147",
+    "adapter": "governing_law",
+    "expected": "AMBIGUOUS",
+    "run_states": [
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "run_candidate_counts": [
+      1,
+      2,
+      2,
+      2,
+      2
+    ],
+    "run_candidate_spans": [
+      [
+        "This Agreement is governed by the law specified in the Order Form. One Order Form section names Delaware while a separate cover page names California, without indicating which controls."
+      ],
+      [
+        "This Agreement is governed by the law specified in the Order Form.",
+        "One Order Form section names Delaware while a separate cover page names California, without indicating which controls."
+      ],
+      [
+        "This Agreement is governed by the law specified in the Order Form.",
+        "One Order Form section names Delaware while a separate cover page names California, without indicating which controls."
+      ],
+      [
+        "This Agreement is governed by the law specified in the Order Form.",
+        "One Order Form section names Delaware while a separate cover page names California, without indicating which controls."
+      ],
+      [
+        "This Agreement is governed by the law specified in the Order Form.",
+        "One Order Form section names Delaware while a separate cover page names California, without indicating which controls."
+      ]
+    ],
+    "candidate_set_varied": true,
+    "canonical_fact_varied": false,
+    "policy_decision_varied": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "governing_law-159",
+    "adapter": "governing_law",
+    "expected": "YES_OPERATIVE",
+    "run_states": [
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "run_candidate_counts": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "run_candidate_spans": [
+      [
+        "Delaware's rules are the ones that'll apply"
+      ],
+      [
+        "Delaware's rules are the ones that'll apply"
+      ],
+      [
+        "Delaware's rules are the ones that'll apply"
+      ],
+      [
+        "Delaware's rules are the ones that'll apply"
+      ],
+      [
+        "Delaware's rules are the ones that'll apply"
+      ]
+    ],
+    "candidate_set_varied": false,
+    "canonical_fact_varied": false,
+    "policy_decision_varied": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "termination-160",
+    "adapter": "termination",
+    "expected": "YES_OPERATIVE",
+    "run_states": [
+      "MUST_REDLINE",
+      "MUST_REDLINE",
+      "MUST_REDLINE",
+      "MUST_REDLINE",
+      "MUST_REDLINE"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "run_candidate_counts": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "run_candidate_spans": [
+      [
+        "Either party may terminate this Agreement for convenience upon sixty (60) days' prior written notice to the other party."
+      ],
+      [
+        "Either party may terminate this Agreement for convenience upon sixty (60) days' prior written notice to the other party."
+      ],
+      [
+        "Either party may terminate this Agreement for convenience upon sixty (60) days' prior written notice to the other party."
+      ],
+      [
+        "Either party may terminate this Agreement for convenience upon sixty (60) days' prior written notice to the other party."
+      ],
+      [
+        "Either party may terminate this Agreement for convenience upon sixty (60) days' prior written notice to the other party."
+      ]
+    ],
+    "candidate_set_varied": false,
+    "canonical_fact_varied": false,
+    "policy_decision_varied": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "termination-161",
+    "adapter": "termination",
+    "expected": "NO_NOT_OPERATIVE",
+    "run_states": [
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "run_candidate_counts": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "run_candidate_spans": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "candidate_set_varied": false,
+    "canonical_fact_varied": false,
+    "policy_decision_varied": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "termination-179",
+    "adapter": "termination",
+    "expected": "YES_OPERATIVE",
+    "run_states": [
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "NONE",
+      "NONE"
+    ],
+    "run_candidate_counts": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "run_candidate_spans": [
+      [
+        "If either of us just isn't feeling this deal anymore, we can call it off, no reason needed, as long as we give the other side two months' heads-up first."
+      ],
+      [
+        "If either of us just isn't feeling this deal anymore, we can call it off, no reason needed, as long as we give the other side two months' heads-up first."
+      ],
+      [
+        "If either of us just isn't feeling this deal anymore, we can call it off, no reason needed, as long as we give the other side two months' heads-up first."
+      ],
+      [
+        "If either of us just isn't feeling this deal anymore, we can call it off, no reason needed, as long as we give the other side two months' heads-up first."
+      ],
+      [
+        "If either of us just isn't feeling this deal anymore, we can call it off, no reason needed, as long as we give the other side two months' heads-up first."
+      ]
+    ],
+    "candidate_set_varied": false,
+    "canonical_fact_varied": true,
+    "policy_decision_varied": true,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "termination-167",
+    "adapter": "termination",
+    "expected": "AMBIGUOUS",
+    "run_states": [
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "run_candidate_counts": [
+      1,
+      2,
+      2,
+      1,
+      1
+    ],
+    "run_candidate_spans": [
+      [
+        "Either party may terminate 'as provided in the Order Form.' One Order Form provision allows termination on 30 days' notice; a separate cover sheet says termination requires 12 months' notice, without reconciling the two."
+      ],
+      [
+        "Either party may terminate 'as provided in the Order Form.'",
+        "One Order Form provision allows termination on 30 days' notice; a separate cover sheet says termination requires 12 months' notice, without reconciling the two."
+      ],
+      [
+        "Either party may terminate 'as provided in the Order Form.'",
+        "One Order Form provision allows termination on 30 days' notice; a separate cover sheet says termination requires 12 months' notice, without reconciling the two."
+      ],
+      [
+        "Either party may terminate 'as provided in the Order Form.' One Order Form provision allows termination on 30 days' notice; a separate cover sheet says termination requires 12 months' notice, without reconciling the two."
+      ],
+      [
+        "Either party may terminate 'as provided in the Order Form.' One Order Form provision allows termination on 30 days' notice; a separate cover sheet says termination requires 12 months' notice, without reconciling the two."
+      ]
+    ],
+    "candidate_set_varied": true,
+    "canonical_fact_varied": false,
+    "policy_decision_varied": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "warranties-180",
+    "adapter": "warranties",
+    "expected": "YES_OPERATIVE",
+    "run_states": [
+      "ACCEPT",
+      "ACCEPT",
+      "ACCEPT",
+      "ACCEPT",
+      "ACCEPT"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "run_candidate_counts": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "run_candidate_spans": [
+      [
+        "Vendor warrants that the Services will be performed in a professional and workmanlike manner consistent with generally accepted industry standards."
+      ],
+      [
+        "Vendor warrants that the Services will be performed in a professional and workmanlike manner consistent with generally accepted industry standards."
+      ],
+      [
+        "Vendor warrants that the Services will be performed in a professional and workmanlike manner consistent with generally accepted industry standards."
+      ],
+      [
+        "Vendor warrants that the Services will be performed in a professional and workmanlike manner consistent with generally accepted industry standards."
+      ],
+      [
+        "Vendor warrants that the Services will be performed in a professional and workmanlike manner consistent with generally accepted industry standards."
+      ]
+    ],
+    "candidate_set_varied": false,
+    "canonical_fact_varied": false,
+    "policy_decision_varied": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "warranties-199",
+    "adapter": "warranties",
+    "expected": "YES_OPERATIVE",
+    "run_states": [
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE"
+    ],
+    "run_absence_states": [
+      "NONE",
+      "NONE",
+      "NONE",
+      "NONE",
+      "NONE"
+    ],
+    "run_candidate_counts": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "run_candidate_spans": [
+      [
+        "Vendor's going to do this work right, the way any solid outfit in this line of business would, no cut corners."
+      ],
+      [
+        "Vendor's going to do this work right, the way any solid outfit in this line of business would, no cut corners."
+      ],
+      [
+        "Vendor's going to do this work right, the way any solid outfit in this line of business would, no cut corners."
+      ],
+      [
+        "Vendor's going to do this work right, the way any solid outfit in this line of business would, no cut corners."
+      ],
+      [
+        "Vendor's going to do this work right, the way any solid outfit in this line of business would, no cut corners."
+      ]
+    ],
+    "candidate_set_varied": false,
+    "canonical_fact_varied": false,
+    "policy_decision_varied": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "warranties-181",
+    "adapter": "warranties",
+    "expected": "NO_NOT_OPERATIVE",
+    "run_states": [
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE"
+    ],
+    "run_absence_states": [
+      "NONE",
+      "NONE",
+      "NONE",
+      "NONE",
+      "NONE"
+    ],
+    "run_candidate_counts": [
+      1,
+      1,
+      0,
+      1,
+      1
+    ],
+    "run_candidate_spans": [
+      [
+        "a warranty that the vendor will perform in a professional and workmanlike manner."
+      ],
+      [
+        "a warranty that the vendor will perform in a professional and workmanlike manner."
+      ],
+      [],
+      [
+        "a warranty that the vendor will perform in a professional and workmanlike manner."
+      ],
+      [
+        "a warranty that the vendor will perform in a professional and workmanlike manner."
+      ]
+    ],
+    "candidate_set_varied": true,
+    "canonical_fact_varied": false,
+    "policy_decision_varied": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "warranties-185",
+    "adapter": "warranties",
+    "expected": "YES_BUT_CONDITIONAL",
+    "run_states": [
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "run_candidate_counts": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "run_candidate_spans": [
+      [
+        "Vendor warrants that the Services will conform to the specifications in the Statement of Work"
+      ],
+      [
+        "Vendor warrants that the Services will conform to the specifications in the Statement of Work, provided that Customer has not materially altered the specifications after execution."
+      ],
+      [
+        "Vendor warrants that the Services will conform to the specifications in the Statement of Work"
+      ],
+      [
+        "Vendor warrants that the Services will conform to the specifications in the Statement of Work"
+      ],
+      [
+        "Vendor warrants that the Services will conform to the specifications in the Statement of Work"
+      ]
+    ],
+    "candidate_set_varied": true,
+    "canonical_fact_varied": false,
+    "policy_decision_varied": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "sla-200",
+    "adapter": "sla",
+    "expected": "YES_OPERATIVE",
+    "run_states": [
+      "ACCEPT",
+      "ACCEPT",
+      "ACCEPT",
+      "ACCEPT",
+      "ACCEPT"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "run_candidate_counts": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "run_candidate_spans": [
+      [
+        "The Service shall maintain 99.9% uptime, measured monthly, and Vendor shall provide service credits for any shortfall as set forth below."
+      ],
+      [
+        "The Service shall maintain 99.9% uptime, measured monthly, and Vendor shall provide service credits for any shortfall as set forth below."
+      ],
+      [
+        "The Service shall maintain 99.9% uptime, measured monthly, and Vendor shall provide service credits for any shortfall as set forth below."
+      ],
+      [
+        "The Service shall maintain 99.9% uptime, measured monthly, and Vendor shall provide service credits for any shortfall as set forth below."
+      ],
+      [
+        "The Service shall maintain 99.9% uptime, measured monthly, and Vendor shall provide service credits for any shortfall as set forth below."
+      ]
+    ],
+    "candidate_set_varied": false,
+    "canonical_fact_varied": false,
+    "policy_decision_varied": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "sla-219",
+    "adapter": "sla",
+    "expected": "YES_OPERATIVE",
+    "run_states": [
+      "NOT_APPLICABLE",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW"
+    ],
+    "run_absence_states": [
+      "NONE",
+      "PRESENT_BUT_UNRESOLVED",
+      "PRESENT_BUT_UNRESOLVED",
+      "PRESENT_BUT_UNRESOLVED",
+      "PRESENT_BUT_UNRESOLVED"
+    ],
+    "run_candidate_counts": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "run_candidate_spans": [
+      [
+        "Vendor's going to keep this thing running north of 99.9% of the time, and if it dips below that, Customer gets money back per the schedule below."
+      ],
+      [
+        "Vendor's going to keep this thing running north of 99.9% of the time, and if it dips below that, Customer gets money back per the schedule below."
+      ],
+      [
+        "Vendor's going to keep this thing running north of 99.9% of the time, and if it dips below that, Customer gets money back per the schedule below."
+      ],
+      [
+        "Vendor's going to keep this thing running north of 99.9% of the time, and if it dips below that, Customer gets money back per the schedule below."
+      ],
+      [
+        "Vendor's going to keep this thing running north of 99.9% of the time, and if it dips below that, Customer gets money back per the schedule below."
+      ]
+    ],
+    "candidate_set_varied": false,
+    "canonical_fact_varied": true,
+    "policy_decision_varied": true,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "sla-201",
+    "adapter": "sla",
+    "expected": "NO_NOT_OPERATIVE",
+    "run_states": [
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE"
+    ],
+    "run_absence_states": [
+      "NONE",
+      "NONE",
+      "NONE",
+      "NONE",
+      "NONE"
+    ],
+    "run_candidate_counts": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "run_candidate_spans": [
+      [
+        "99.9% uptime with service credits for shortfalls"
+      ],
+      [
+        "99.9% uptime with service credits for shortfalls"
+      ],
+      [
+        "99.9% uptime with service credits for shortfalls"
+      ],
+      [
+        "99.9% uptime with service credits for shortfalls"
+      ],
+      [
+        "99.9% uptime with service credits for shortfalls"
+      ]
+    ],
+    "candidate_set_varied": false,
+    "canonical_fact_varied": false,
+    "policy_decision_varied": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "sla-207",
+    "adapter": "sla",
+    "expected": "AMBIGUOUS",
+    "run_states": [
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE"
+    ],
+    "run_absence_states": [
+      "NONE",
+      "NONE",
+      "NONE",
+      "NONE",
+      "NONE"
+    ],
+    "run_candidate_counts": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "run_candidate_spans": [
+      [
+        "The Service shall maintain uptime 'as specified for the Production Environment.'"
+      ],
+      [
+        "The Service shall maintain uptime 'as specified for the Production Environment.'"
+      ],
+      [
+        "The Service shall maintain uptime 'as specified for the Production Environment.'"
+      ],
+      [
+        "The Service shall maintain uptime 'as specified for the Production Environment.'"
+      ],
+      [
+        "14. Service Level. The Service shall maintain uptime 'as specified for the Production Environment.'"
+      ]
+    ],
+    "candidate_set_varied": true,
+    "canonical_fact_varied": false,
+    "policy_decision_varied": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "assignment-220",
+    "adapter": "assignment",
+    "expected": "YES_OPERATIVE",
+    "run_states": [
+      "ACCEPT",
+      "ACCEPT",
+      "ACCEPT",
+      "ACCEPT",
+      "ACCEPT"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "run_candidate_counts": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "run_candidate_spans": [
+      [
+        "Neither party may assign this Agreement, in whole or in part, without the prior written consent of the other party, such consent not to be unreasonably withheld."
+      ],
+      [
+        "Neither party may assign this Agreement, in whole or in part, without the prior written consent of the other party, such consent not to be unreasonably withheld."
+      ],
+      [
+        "Neither party may assign this Agreement, in whole or in part, without the prior written consent of the other party, such consent not to be unreasonably withheld."
+      ],
+      [
+        "Neither party may assign this Agreement, in whole or in part, without the prior written consent of the other party, such consent not to be unreasonably withheld."
+      ],
+      [
+        "Neither party may assign this Agreement, in whole or in part, without the prior written consent of the other party, such consent not to be unreasonably withheld."
+      ]
+    ],
+    "candidate_set_varied": false,
+    "canonical_fact_varied": false,
+    "policy_decision_varied": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "assignment-221",
+    "adapter": "assignment",
+    "expected": "NO_NOT_OPERATIVE",
+    "run_states": [
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "run_candidate_counts": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "run_candidate_spans": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "candidate_set_varied": false,
+    "canonical_fact_varied": false,
+    "policy_decision_varied": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "assignment-239",
+    "adapter": "assignment",
+    "expected": "YES_OPERATIVE",
+    "run_states": [
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "run_candidate_counts": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "run_candidate_spans": [
+      [
+        "If either of us wants to hand this contract off to someone else, we need the other side's okay first, in writing, and they can't be unreasonable about giving it."
+      ],
+      [
+        "If either of us wants to hand this contract off to someone else, we need the other side's okay first, in writing, and they can't be unreasonable about giving it."
+      ],
+      [
+        "we need the other side's okay first, in writing, and they can't be unreasonable about giving it."
+      ],
+      [
+        "If either of us wants to hand this contract off to someone else, we need the other side's okay first, in writing, and they can't be unreasonable about giving it."
+      ],
+      [
+        "we need the other side's okay first, in writing, and they can't be unreasonable about giving it."
+      ]
+    ],
+    "candidate_set_varied": true,
+    "canonical_fact_varied": false,
+    "policy_decision_varied": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "assignment-227",
+    "adapter": "assignment",
+    "expected": "AMBIGUOUS",
+    "run_states": [
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "run_candidate_counts": [
+      2,
+      2,
+      2,
+      2,
+      1
+    ],
+    "run_candidate_spans": [
+      [
+        "Assignment requires consent 'except as otherwise permitted in the Order Form.'",
+        "One Order Form section permits assignment to any subsidiary; a separate cover page requires consent for all assignments without exception, without reconciling the two."
+      ],
+      [
+        "Assignment requires consent 'except as otherwise permitted in the Order Form.'",
+        "a separate cover page requires consent for all assignments without exception, without reconciling the two."
+      ],
+      [
+        "Assignment requires consent 'except as otherwise permitted in the Order Form.'",
+        "a separate cover page requires consent for all assignments without exception, without reconciling the two."
+      ],
+      [
+        "Assignment requires consent 'except as otherwise permitted in the Order Form.'",
+        "a separate cover page requires consent for all assignments without exception"
+      ],
+      [
+        "Assignment requires consent 'except as otherwise permitted in the Order Form.'"
+      ]
+    ],
+    "candidate_set_varied": true,
+    "canonical_fact_varied": false,
+    "policy_decision_varied": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "dev-ipownership-080-class-01",
+    "adapter": "ip_ownership",
+    "expected": "YES_OPERATIVE",
+    "run_states": [
+      "ACCEPT",
+      "ACCEPT",
+      "ACCEPT",
+      "ACCEPT",
+      "ACCEPT"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "run_candidate_counts": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "run_candidate_spans": [
+      [
+        "All deliverables produced by Contractor under this engagement shall be owned exclusively by Client upon acceptance."
+      ],
+      [
+        "All deliverables produced by Contractor under this engagement shall be owned exclusively by Client upon acceptance."
+      ],
+      [
+        "All deliverables produced by Contractor under this engagement shall be owned exclusively by Client upon acceptance."
+      ],
+      [
+        "All deliverables produced by Contractor under this engagement shall be owned exclusively by Client upon acceptance."
+      ],
+      [
+        "All deliverables produced by Contractor under this engagement shall be owned exclusively by Client upon acceptance."
+      ]
+    ],
+    "candidate_set_varied": false,
+    "canonical_fact_varied": false,
+    "policy_decision_varied": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "dev-ipownership-080-class-02",
+    "adapter": "ip_ownership",
+    "expected": "YES_OPERATIVE",
+    "run_states": [
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW"
+    ],
+    "run_absence_states": [
+      "PRESENT_BUT_UNRESOLVED",
+      "PRESENT_BUT_UNRESOLVED",
+      "PRESENT_BUT_UNRESOLVED",
+      "PRESENT_BUT_UNRESOLVED",
+      "PRESENT_BUT_UNRESOLVED"
+    ],
+    "run_candidate_counts": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "run_candidate_spans": [
+      [
+        "All custom software developed for Buyer under this Order Form shall be owned solely by Buyer."
+      ],
+      [
+        "All custom software developed for Buyer under this Order Form shall be owned solely by Buyer."
+      ],
+      [
+        "All custom software developed for Buyer under this Order Form shall be owned solely by Buyer."
+      ],
+      [
+        "All custom software developed for Buyer under this Order Form shall be owned solely by Buyer."
+      ],
+      [
+        "All custom software developed for Buyer under this Order Form shall be owned solely by Buyer."
+      ]
+    ],
+    "candidate_set_varied": false,
+    "canonical_fact_varied": false,
+    "policy_decision_varied": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "dev-ipownership-086-class-01",
+    "adapter": "ip_ownership",
+    "expected": "YES_BUT_EXCEPTION",
+    "run_states": [
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "run_candidate_counts": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "run_candidate_spans": [
+      [
+        "All work product shall be owned by Client, except for Contractor's proprietary tools and libraries used in its creation, which Contractor retains."
+      ],
+      [
+        "All work product shall be owned by Client, except for Contractor's proprietary tools and libraries used in its creation, which Contractor retains."
+      ],
+      [
+        "All work product shall be owned by Client, except for Contractor's proprietary tools and libraries used in its creation, which Contractor retains."
+      ],
+      [
+        "All work product shall be owned by Client, except for Contractor's proprietary tools and libraries used in its creation, which Contractor retains."
+      ],
+      [
+        "All work product shall be owned by Client, except for Contractor's proprietary tools and libraries used in its creation, which Contractor retains."
+      ]
+    ],
+    "candidate_set_varied": false,
+    "canonical_fact_varied": false,
+    "policy_decision_varied": false,
+    "unsafe_clean_transition": false
+  }
+]
