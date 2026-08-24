@@ -1840,7 +1840,12 @@ DOCUMENT_WIDE_NEGATION_RE = re.compile(
     r"|\bdoes\s+not\s+guarantee\s+any\s+specific\b"
     r"|\bis\s+not\s+required\s+under\s+this\s+Agreement\b"
     r"|\bretains?\s+all\s+ownership\s+rights\b(?:(?!\.).){0,60}?\bgrants?\s+(?:only\s+)?a\s+license\b"
-    r"|\bshall\s+not\s+apply\b",
+    # Scoped narrowly to "Section N shall not apply" (nullifying an ENTIRE
+    # cross-referenced section wholesale) -- NOT a bare "the limitation
+    # shall not apply to claims arising from X," which is a legitimate,
+    # already-handled, category-scoped carve-out (see category_treatments'
+    # "uncapped" treatment), not a document-wide contradiction.
+    r"|\bSection\s+\d+[A-Za-z]?\s+shall\s+not\s+apply\b",
     re.I,
 )
 

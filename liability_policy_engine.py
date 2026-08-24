@@ -76,6 +76,8 @@ from policy_engine_core import (
     detect_condition_in_text as _core_detect_condition_in_text,
     detect_conflicting_backward_conditions as _core_detect_conflicting_backward_conditions,
     is_operative_context as _core_is_operative_context,
+    document_wide_conflict_detected as _document_wide_conflict_detected,
+    unreconciled_ambiguity_marker_present as _unreconciled_ambiguity_marker_present,
 )
 
 RULE_ID = "POLICY_LOL_CAP"
@@ -731,6 +733,7 @@ class LiabilityFacts:
     #   unavailable/errored — must never collapse into CONFIRMED_ABSENT.
     absence_state: str = "CONFIRMED_ABSENT"
     semantic_discovery_error: Optional[str] = None
+    document_wide_conflict: bool = False
 
 
 class PolicyRuleLike(Protocol):
@@ -1678,6 +1681,20 @@ def _run_semantic_discovery(text: str) -> Tuple[List, Optional[str], Optional[st
 
 
 def extract_liability_facts(text: str) -> Optional[LiabilityFacts]:
+    """Thin wrapper over _extract_liability_facts_inner that additionally
+    flags a document-wide contradiction/unreconciled-ambiguity marker
+    (Candidate 3 zero-silent-loss mission, Phase 3) -- kept as a wrapper
+    rather than threading the flag through every one of the inner
+    function's several return points."""
+    facts = _extract_liability_facts_inner(text)
+    if facts is not None and (
+        _document_wide_conflict_detected(text) or _unreconciled_ambiguity_marker_present(text)
+    ):
+        facts.document_wide_conflict = True
+    return facts
+
+
+def _extract_liability_facts_inner(text: str) -> Optional[LiabilityFacts]:
     """Discovers every liability-limitation provision in the full document
     (not just the first) and reconciles them. Returns None only when no such
     provision exists at all anywhere in the document AND semantic discovery
@@ -2016,6 +2033,15 @@ def evaluate_liability_policy(
     }
     required_exceptions = list(policy.required_exceptions_json or [])
     unresolved_facts: List[str] = []
+
+    # Candidate 3 zero-silent-loss mission — a document-wide contradiction
+    # or self-declared unreconciled ambiguity must block clean regardless
+    # of what the local provision otherwise established.
+    if facts.document_wide_conflict:
+        unresolved_facts.append(
+            "a separate statement elsewhere in the document appears to contradict, negate, or leave unreconciled "
+            "the liability cap established in this clause"
+        )
 
     # Step 4A.7.1 remediation (A6-L-52) — only relevant when the policy
     # actually needs to know which named party is "us" (see the
