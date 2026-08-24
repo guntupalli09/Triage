@@ -142,6 +142,28 @@ _INDEMNIFICATION_RECONCILIATION_PROPOSITION = (
 )
 
 
+# Candidate 3 final pre-freeze blocker remediation (Blocker 3, second-order
+# fix) -- general, standard legal-drafting vocabulary for a condition/
+# exception/carve-out, used ONLY to decide whether a reconciliation-channel
+# note may be safely suppressed (never to structure a condition/exception
+# itself -- that remains the deterministic detectors' job, unchanged).
+# Deliberately broad and NOT copied from any specific corpus fixture's
+# phrasing -- see the docstring on the materiality gate below for why this
+# is required: unlike liability's category_treatments (which positively
+# confirms EITHER "this named carve-out category was found" OR "it was
+# confidently determined absent"), indemnification has no deterministic
+# classifier for named carve-out categories at all, so
+# obligation.condition.status == "UNCONDITIONAL" is ambiguous between
+# "genuinely no exception exists" and "an exception exists in the text but
+# this module's condition detector didn't structure it."
+_GENERIC_EXCEPTION_SIGNAL_RE = re.compile(
+    r"\bexcept\b|\bexcluding\b|\bother\s+than\b|\bwith\s+the\s+exception\s+of\b|"
+    r"\bcarve[\s-]?out\b|\bshall\s+not\s+apply\s+to\b|\bdoes\s+not\s+apply\s+to\b|"
+    r"\bnotwithstanding\b|\bprovided\s+(?:that|however)\b|\bunless\b",
+    re.I,
+)
+
+
 def _reconcile_obligation_with_contextual_analysis(text: str, obligation: "IndemnityObligation") -> None:
     """Mutates `obligation.ai_identified_unreconciled_context` in place.
     Runs the shared fact_admission pipeline over this SAME obligation's
@@ -228,10 +250,29 @@ def _reconcile_obligation_with_contextual_analysis(text: str, obligation: "Indem
         if _fa.first_unresolved_dependency_note_is_unconditional([verified]):
             obligation.ai_identified_unreconciled_context = note
             return
+        # Second-order fix, found by this mission's own repeatability
+        # testing (dev-indemnification-006-class-01): the ORIGINAL version
+        # of this gate suppressed whenever monetary OR scope OR condition
+        # was established -- but monetary/scope being established says
+        # NOTHING about whether a same-clause exception the deterministic
+        # condition detector missed still exists. When the window contains
+        # generic exception-signaling vocabulary AND the deterministic
+        # side never resolved a condition beyond UNCONDITIONAL, the
+        # reconciliation channel's finding is the ONLY channel that can
+        # ever surface that exception -- suppressing its uncertainty
+        # merely because a DIFFERENT dimension (monetary/scope) was
+        # established reproduces the exact limitation_of_liability-006
+        # failure shape one level deeper. Fixed by requiring ALL of
+        # monetary, scope, AND (no uncaptured exception signal) together,
+        # not any one alone.
+        looks_like_uncaptured_exception = (
+            _GENERIC_EXCEPTION_SIGNAL_RE.search(window) is not None
+            and (obligation.condition is None or obligation.condition.status in (None, "UNCONDITIONAL"))
+        )
         obligation_materially_established = (
-            obligation.monetary.kind != "not_stated"
-            or obligation.scope not in ("not_addressed", "unresolved")
-            or (obligation.condition is not None and obligation.condition.status not in (None, "UNCONDITIONAL"))
+            not looks_like_uncaptured_exception
+            and obligation.monetary.kind != "not_stated"
+            and obligation.scope not in ("not_addressed", "unresolved")
         )
         if not obligation_materially_established:
             obligation.ai_identified_unreconciled_context = note
