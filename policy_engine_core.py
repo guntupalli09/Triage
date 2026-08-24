@@ -1087,7 +1087,7 @@ _MIDCLAUSE_UPON_RE = re.compile(
 )
 _MIDCLAUSE_CONTINGENT_RE = re.compile(r"\b(?:contingent|conditioned)\s+(?:up)?on\b", re.I)
 _MIDCLAUSE_WHERE_APPLICABLE_RE = re.compile(r"\bwhere\s+applicable\b", re.I)
-_MIDCLAUSE_EXCEPT_RE = re.compile(r"\bexcept\s+(?:when|to\s+the\s+extent)\b", re.I)
+_MIDCLAUSE_EXCEPT_RE = re.compile(r"\bexcept\s+(?:when|to\s+the\s+extent|in|where)\b", re.I)
 # "shall apply only if/when/to the extent" / "applies only if/when/to the
 # extent" -- a direct (no leading comma) applicability restriction, as
 # opposed to the temporal-only shape below.

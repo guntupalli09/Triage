@@ -63,6 +63,7 @@ from policy_engine_core import (
     EXTERNAL_DEFINITION_NOT_ATTACHED_RE as _EXTERNAL_DEFINITION_NOT_ATTACHED_RE,
     document_wide_conflict_detected as _document_wide_conflict_detected,
     unreconciled_ambiguity_marker_present as _unreconciled_ambiguity_marker_present,
+    detect_condition_in_text as _core_detect_condition_in_text,
 )
 
 RULE_ID = "POLICY_INSURANCE"
@@ -217,6 +218,14 @@ class InsuranceFacts:
     # unreconciled ambiguity (see policy_engine_core.document_wide_
     # conflict_detected / unreconciled_ambiguity_marker_present).
     document_wide_conflict: bool = False
+    # Candidate 3 zero-silent-loss mission — a deterministically-detected
+    # condition/proviso ("provided that...", "except in jurisdictions
+    # where...") attached to the local coverage clause, found via the
+    # SAME shared primitive liability already uses
+    # (policy_engine_core.detect_condition_in_text), not a new adapter-
+    # local regex.
+    deterministic_condition_established: bool = False
+    deterministic_condition_excerpt: Optional[str] = None
 
 
 class InsurancePolicyRuleLike(Protocol):
@@ -629,6 +638,14 @@ def extract_insurance_facts(text: str) -> Optional[InsuranceFacts]:
     if _document_wide_conflict_detected(text, facts.start_index, facts.end_index) or _unreconciled_ambiguity_marker_present(text):
         facts.document_wide_conflict = True
 
+    if deterministic_value_found:
+        for (ws, we) in windows:
+            cond = _core_detect_condition_in_text(text[ws:we])
+            if cond.status == "ESTABLISHED":
+                facts.deterministic_condition_established = True
+                facts.deterministic_condition_excerpt = cond.evidence_span
+                break
+
     return facts
 
 
@@ -733,6 +750,11 @@ def evaluate_insurance_policy(
         unresolved.append(
             "a separate statement elsewhere in the document appears to contradict, negate, or leave unreconciled "
             "the insurance requirement established in this clause"
+        )
+    if facts.deterministic_condition_established:
+        unresolved.append(
+            f"the insurance requirement is stated as conditional (\"{facts.deterministic_condition_excerpt}\") — "
+            f"this evaluation does not determine whether the stated condition is satisfied"
         )
     # Final trust architecture (Phase 4 hard gate) — a material condition/
     # exception the AI/context layer identified and grounded must not be

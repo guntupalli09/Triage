@@ -82,6 +82,7 @@ from policy_engine_core import (
     excerpt as _excerpt, section_label_before as _section_label_before,
     requires_review_explanation, requires_review_required_action,
     PolicyDecision,
+    detect_condition_in_text as _core_detect_condition_in_text,
 )
 
 RULE_ID = "POLICY_WARRANTIES"
@@ -323,6 +324,8 @@ class WarrantiesFacts:
     ai_identified_condition: Optional[str] = None
     ai_identified_exception: Optional[str] = None
     ai_identified_definition_or_reference: Optional[str] = None
+    deterministic_condition_established: bool = False
+    deterministic_condition_excerpt: Optional[str] = None
 
 
 class WarrantiesPolicyRuleLike(Protocol):
@@ -647,6 +650,16 @@ def extract_warranties_facts(text: str) -> Optional[WarrantiesFacts]:
         facts.ai_identified_exception = facts.ai_identified_exception or candidate.exception
     facts.ai_identified_definition_or_reference = _fa.first_resolved_dependency_note(admitted_semantic)
 
+    # Candidate 3 zero-silent-loss mission — a deterministically-detected
+    # condition/proviso attached to the local warranty clause, using the
+    # same shared primitive liability/insurance already use.
+    for (ws, we) in windows:
+        cond = _core_detect_condition_in_text(text[ws:we])
+        if cond.status == "ESTABLISHED":
+            facts.deterministic_condition_established = True
+            facts.deterministic_condition_excerpt = cond.evidence_span
+            break
+
     return facts
 
 
@@ -735,6 +748,14 @@ def evaluate_warranties_policy(
         )
 
     unresolved_facts: List[str] = []
+
+    # Candidate 3 zero-silent-loss mission — a deterministically-detected
+    # condition/proviso attached to the local warranty clause.
+    if facts.deterministic_condition_established:
+        unresolved_facts.append(
+            f"the warranty is stated as conditional (\"{facts.deterministic_condition_excerpt}\") — this "
+            f"evaluation does not determine whether the stated condition is satisfied"
+        )
 
     # Final trust architecture (Phase 4 hard gate) — a material condition/
     # exception the AI/context layer identified and grounded must not be
