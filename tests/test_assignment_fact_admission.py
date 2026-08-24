@@ -128,3 +128,36 @@ def test_verifier_not_established_descriptive_language_never_admitted(monkeypatc
     with patch("urllib.request.urlopen", side_effect=fake_urlopen):
         facts = ape.extract_assignment_facts(doc)
     assert facts is None
+
+
+def test_ai_identified_condition_survives_into_the_decision(monkeypatch):
+    """Final trust architecture Phase 6/8: NAMED_RESTRICTION_RE/
+    MUTUAL_RESTRICTION_RE have no vocabulary for "hand ... off to"
+    phrasing, so restrictions stay empty in both the qualified and
+    unqualified case -- what must differ is that the condition text
+    survives into the final decision."""
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    condition_text = "in the event Vendor's ownership changes, this restriction shall not apply"
+    doc = f"Vendor may not hand this Agreement off to a third party without Customer's prior written approval, {condition_text}."
+    quote = f"Vendor may not hand this Agreement off to a third party without Customer's prior written approval, {condition_text}"
+
+    call_count = {"n": 0}
+
+    def fake_urlopen(*args, **kwargs):
+        call_count["n"] += 1
+        if call_count["n"] == 1:
+            return _fake_response(json.dumps({"candidates": [{"quote": quote}]}))
+        return _fake_response(json.dumps({
+            "status": "ESTABLISHED", "evidence_quote": quote,
+            "condition_quote": condition_text, "exception_quote": None, "cross_reference_text": None,
+            "reasoning": "Operative consent-required transfer restriction, conditioned on ownership continuity.",
+        }))
+
+    with patch("urllib.request.urlopen", side_effect=fake_urlopen):
+        facts = ape.extract_assignment_facts(doc)
+    assert facts is not None
+    assert facts.ai_identified_condition == condition_text
+
+    decision = ape.evaluate_assignment_policy(facts, FakePolicy())
+    assert decision.state == ape.REQUIRES_REVIEW
+    assert condition_text in "; ".join(decision.unresolved_facts)

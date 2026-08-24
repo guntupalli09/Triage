@@ -110,6 +110,8 @@ class AssignmentFacts:
     # own separate branch there.
     absence_state: str = "CONFIRMED_ABSENT"
     semantic_discovery_error: Optional[str] = None
+    ai_identified_condition: Optional[str] = None
+    ai_identified_exception: Optional[str] = None
 
 
 class AssignmentPolicyRuleLike(Protocol):
@@ -220,6 +222,7 @@ def extract_assignment_facts(text: str) -> Optional[AssignmentFacts]:
     outage/error becomes RECOGNITION_UNCERTAIN instead (see
     absence_state)."""
     anchors = [m for m in _ANCHOR_RE.finditer(text) if not re.search(r"\bno\s+$", text[max(0, m.start() - 15):m.start()], re.I)]
+    admitted_semantic: List = []
     if not anchors:
         admitted_semantic, semantic_error = _run_semantic_discovery(text)
         if semantic_error is not None:
@@ -277,11 +280,25 @@ def extract_assignment_facts(text: str) -> Optional[AssignmentFacts]:
         ))
         seen_spans.append((m.start(), m.end()))
 
+    # Final trust architecture (Phase 5/6) — see confidentiality_policy_
+    # engine.py's identical composition for the full rationale.
+    ai_identified_condition = None
+    ai_identified_exception = None
+    for candidate in admitted_semantic:
+        ai_identified_condition = ai_identified_condition or candidate.condition
+        ai_identified_exception = ai_identified_exception or candidate.exception
+
     if not restrictions and not unrestricted:
-        return AssignmentFacts(clause_found=True, restrictions=[], unrestricted_assignment=False)
+        return AssignmentFacts(
+            clause_found=True, restrictions=[], unrestricted_assignment=False,
+            ai_identified_condition=ai_identified_condition, ai_identified_exception=ai_identified_exception,
+        )
 
     restrictions.sort(key=lambda r: r.start_index)
-    return AssignmentFacts(clause_found=True, restrictions=restrictions, unrestricted_assignment=unrestricted)
+    return AssignmentFacts(
+        clause_found=True, restrictions=restrictions, unrestricted_assignment=unrestricted,
+        ai_identified_condition=ai_identified_condition, ai_identified_exception=ai_identified_exception,
+    )
 
 
 def _build_ladder(policy: AssignmentPolicyRuleLike, state: str) -> List[LadderStep]:
@@ -373,6 +390,17 @@ def evaluate_assignment_policy(
         )
 
     if not facts.restrictions and not facts.unrestricted_assignment:
+        no_structure_unresolved = ["assignment restriction structure could not be parsed"]
+        if facts.ai_identified_condition:
+            no_structure_unresolved.append(
+                f"a material condition was identified by contextual analysis and grounded against the "
+                f"source document (\"{facts.ai_identified_condition}\")"
+            )
+        if facts.ai_identified_exception:
+            no_structure_unresolved.append(
+                f"a material exception was identified by contextual analysis and grounded against the "
+                f"source document (\"{facts.ai_identified_exception}\")"
+            )
         return PolicyDecision(
             rule_id=RULE_ID, clause_type="assignment", state=REQUIRES_REVIEW,
             contract_language="", extracted_summary="Assignment referenced but no restriction could be parsed",
@@ -381,7 +409,37 @@ def evaluate_assignment_policy(
             explanation="The document references assignment but no parseable restriction or unrestricted-"
                         "assignment structure was found.",
             negotiation_ladder=_build_ladder(policy, REQUIRES_REVIEW), category_treatments=[],
-            unresolved_facts=["assignment restriction structure could not be parsed"],
+            unresolved_facts=no_structure_unresolved,
+            start_index=None, end_index=None, source=source, summary_label="Assignment treatment",
+            our_position_label="Our assignment restriction", counterparty_position_label="Counterparty's assignment restriction",
+        )
+
+    if facts.ai_identified_condition or facts.ai_identified_exception:
+        # Final trust architecture (Phase 4 hard gate) — checked before
+        # the unrestricted-assignment ACCEPT/NEGOTIATE path specifically
+        # so a grounded AI-identified qualifier can never be outrun by a
+        # clean ACCEPT, even in the one branch of this adapter that can
+        # otherwise reach ACCEPT with zero structured restrictions.
+        qualifier_unresolved = []
+        if facts.ai_identified_condition:
+            qualifier_unresolved.append(
+                f"a material condition was identified by contextual analysis and grounded against the "
+                f"source document (\"{facts.ai_identified_condition}\")"
+            )
+        if facts.ai_identified_exception:
+            qualifier_unresolved.append(
+                f"a material exception was identified by contextual analysis and grounded against the "
+                f"source document (\"{facts.ai_identified_exception}\")"
+            )
+        return PolicyDecision(
+            rule_id=RULE_ID, clause_type="assignment", state=REQUIRES_REVIEW,
+            contract_language="", extracted_summary="Assignment terms established, but subject to a material qualifier",
+            policy_limit_summary="N/A",
+            required_action="Manual review required — a material condition/exception affecting assignment was identified",
+            explanation="Contextual analysis identified and grounded a material condition or exception "
+                        "affecting the assignment terms — this evaluation does not determine the qualifier's effect.",
+            negotiation_ladder=_build_ladder(policy, REQUIRES_REVIEW), category_treatments=[],
+            unresolved_facts=qualifier_unresolved,
             start_index=None, end_index=None, source=source, summary_label="Assignment treatment",
             our_position_label="Our assignment restriction", counterparty_position_label="Counterparty's assignment restriction",
         )
