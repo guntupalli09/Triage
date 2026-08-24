@@ -33,6 +33,10 @@ import replay_candidate2 as rc2  # noqa: E402
 
 import indemnification_policy_engine as ie  # noqa: E402
 ie.SEMANTIC_PROVIDER = "REAL"
+# Final pre-freeze blocker remediation (Blocker 3) -- exercise the
+# reconciliation channel this repeatability run is specifically meant to
+# validate; off by default in production.
+ie.INDEMNIFICATION_RECONCILIATION_ENABLED = True
 import fact_admission as fa  # noqa: E402
 
 # 4 cases per adapter x 12 adapters = 48, chosen to include at least one
@@ -78,6 +82,21 @@ DEV_ONLY_EXTRA_CASES = [
      "text": ("12. Intellectual Property. All work product shall be owned by Client, "
               "except for Contractor's proprietary tools and libraries used in its creation, which "
               "Contractor retains."),
+     "expected": "YES_BUT_EXCEPTION", "policy": {}},
+    # Final pre-freeze blocker remediation (Blocker 3) -- indemnification
+    # analogue of limitation_of_liability-006's exact failure shape: an
+    # obligation whose monetary AND scope are both genuinely,
+    # deterministically established, plus a same-clause carve-out
+    # phrasing ("except that ... shall not apply to") the deterministic
+    # detectors may or may not fully classify -- exercises the
+    # reconciliation channel's materiality gate (Blocker 3) the same way
+    # limitation_of_liability-006 exercised liability's.
+    {"id": "dev-indemnification-006-class-01", "adapter": "indemnification",
+     "text": ("12. Indemnification. Vendor shall indemnify, defend, and hold harmless Customer from "
+              "and against any third-party claims arising from Vendor's breach of this Agreement, "
+              "except that this obligation shall not apply to claims arising from Customer's own "
+              "gross negligence or willful misconduct. Vendor's indemnification obligations shall "
+              "not exceed two times the total annual fees paid under this Agreement."),
      "expected": "YES_BUT_EXCEPTION", "policy": {}},
 ]
 
