@@ -1,0 +1,758 @@
+[
+  {
+    "case_id": "limitation_of_liability-000",
+    "adapter": "limitation_of_liability",
+    "expected": "YES_OPERATIVE",
+    "run_states": [
+      "MUST_REDLINE",
+      "MUST_REDLINE",
+      "MUST_REDLINE",
+      "MUST_REDLINE",
+      "MUST_REDLINE"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "state_variation": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "limitation_of_liability-001",
+    "adapter": "limitation_of_liability",
+    "expected": "NO_NOT_OPERATIVE",
+    "run_states": [
+      "ACCEPT",
+      "ACCEPT",
+      "ACCEPT",
+      "ACCEPT",
+      "ACCEPT"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "state_variation": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "limitation_of_liability-005",
+    "adapter": "limitation_of_liability",
+    "expected": "YES_BUT_CONDITIONAL",
+    "run_states": [
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "state_variation": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "indemnification-020",
+    "adapter": "indemnification",
+    "expected": "YES_OPERATIVE",
+    "run_states": [
+      "MUST_REDLINE",
+      "MUST_REDLINE",
+      "MUST_REDLINE",
+      "MUST_REDLINE",
+      "MUST_REDLINE"
+    ],
+    "run_absence_states": [
+      "PRESENT_AND_VERIFIED",
+      "PRESENT_AND_VERIFIED",
+      "PRESENT_AND_VERIFIED",
+      "PRESENT_AND_VERIFIED",
+      "PRESENT_AND_VERIFIED"
+    ],
+    "state_variation": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "indemnification-021",
+    "adapter": "indemnification",
+    "expected": "NO_NOT_OPERATIVE",
+    "run_states": [
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW"
+    ],
+    "run_absence_states": [
+      "PRESENT_BUT_UNRESOLVED",
+      "PRESENT_BUT_UNRESOLVED",
+      "PRESENT_BUT_UNRESOLVED",
+      "PRESENT_BUT_UNRESOLVED",
+      "PRESENT_BUT_UNRESOLVED"
+    ],
+    "state_variation": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "indemnification-025",
+    "adapter": "indemnification",
+    "expected": "YES_BUT_CONDITIONAL",
+    "run_states": [
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW"
+    ],
+    "run_absence_states": [
+      "PRESENT_AND_VERIFIED",
+      "PRESENT_AND_VERIFIED",
+      "PRESENT_AND_VERIFIED",
+      "PRESENT_AND_VERIFIED",
+      "PRESENT_AND_VERIFIED"
+    ],
+    "state_variation": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "confidentiality-040",
+    "adapter": "confidentiality",
+    "expected": "YES_OPERATIVE",
+    "run_states": [
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "state_variation": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "confidentiality-041",
+    "adapter": "confidentiality",
+    "expected": "NO_NOT_OPERATIVE",
+    "run_states": [
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "state_variation": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "confidentiality-047",
+    "adapter": "confidentiality",
+    "expected": "AMBIGUOUS",
+    "run_states": [
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "state_variation": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "payment_terms-060",
+    "adapter": "payment_terms",
+    "expected": "YES_OPERATIVE",
+    "run_states": [
+      "NEGOTIATE",
+      "NEGOTIATE",
+      "NEGOTIATE",
+      "NEGOTIATE",
+      "NEGOTIATE"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "state_variation": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "payment_terms-061",
+    "adapter": "payment_terms",
+    "expected": "NO_NOT_OPERATIVE",
+    "run_states": [
+      "NEGOTIATE",
+      "NEGOTIATE",
+      "NEGOTIATE",
+      "NEGOTIATE",
+      "NEGOTIATE"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "state_variation": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "payment_terms-079",
+    "adapter": "payment_terms",
+    "expected": "YES_OPERATIVE",
+    "run_states": [
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW"
+    ],
+    "run_absence_states": [
+      "PRESENT_BUT_UNRESOLVED",
+      "PRESENT_BUT_UNRESOLVED",
+      "PRESENT_BUT_UNRESOLVED",
+      "PRESENT_BUT_UNRESOLVED",
+      "PRESENT_BUT_UNRESOLVED"
+    ],
+    "state_variation": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "ip_ownership-080",
+    "adapter": "ip_ownership",
+    "expected": "YES_OPERATIVE",
+    "run_states": [
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "ACCEPT",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW"
+    ],
+    "run_absence_states": [
+      "PRESENT_BUT_UNRESOLVED",
+      "PRESENT_BUT_UNRESOLVED",
+      "CONFIRMED_ABSENT",
+      "PRESENT_BUT_UNRESOLVED",
+      "PRESENT_BUT_UNRESOLVED"
+    ],
+    "state_variation": true,
+    "unsafe_clean_transition": true
+  },
+  {
+    "case_id": "ip_ownership-099",
+    "adapter": "ip_ownership",
+    "expected": "YES_OPERATIVE",
+    "run_states": [
+      "REQUIRES_REVIEW",
+      "NOT_APPLICABLE",
+      "REQUIRES_REVIEW",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE"
+    ],
+    "run_absence_states": [
+      "PRESENT_BUT_UNRESOLVED",
+      "NONE",
+      "CONFIRMED_ABSENT",
+      "NONE",
+      "NONE"
+    ],
+    "state_variation": true,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "ip_ownership-081",
+    "adapter": "ip_ownership",
+    "expected": "NO_NOT_OPERATIVE",
+    "run_states": [
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE"
+    ],
+    "run_absence_states": [
+      "NONE",
+      "NONE",
+      "NONE",
+      "NONE",
+      "NONE"
+    ],
+    "state_variation": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "insurance-100",
+    "adapter": "insurance",
+    "expected": "YES_OPERATIVE",
+    "run_states": [
+      "ACCEPT",
+      "ACCEPT",
+      "ACCEPT",
+      "ACCEPT",
+      "ACCEPT"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "state_variation": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "insurance-101",
+    "adapter": "insurance",
+    "expected": "NO_NOT_OPERATIVE",
+    "run_states": [
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE"
+    ],
+    "run_absence_states": [
+      "NONE",
+      "NONE",
+      "NONE",
+      "NONE",
+      "NONE"
+    ],
+    "state_variation": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "insurance-119",
+    "adapter": "insurance",
+    "expected": "YES_OPERATIVE",
+    "run_states": [
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE"
+    ],
+    "run_absence_states": [
+      "NONE",
+      "NONE",
+      "NONE",
+      "NONE",
+      "NONE"
+    ],
+    "state_variation": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "data_security-120",
+    "adapter": "data_security",
+    "expected": "YES_OPERATIVE",
+    "run_states": [
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW"
+    ],
+    "run_absence_states": [
+      "PRESENT_BUT_UNRESOLVED",
+      "PRESENT_BUT_UNRESOLVED",
+      "PRESENT_BUT_UNRESOLVED",
+      "PRESENT_BUT_UNRESOLVED",
+      "PRESENT_BUT_UNRESOLVED"
+    ],
+    "state_variation": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "data_security-121",
+    "adapter": "data_security",
+    "expected": "NO_NOT_OPERATIVE",
+    "run_states": [
+      "ACCEPT",
+      "ACCEPT",
+      "ACCEPT",
+      "ACCEPT",
+      "ACCEPT"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "state_variation": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "data_security-139",
+    "adapter": "data_security",
+    "expected": "YES_OPERATIVE",
+    "run_states": [
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW"
+    ],
+    "run_absence_states": [
+      "PRESENT_BUT_UNRESOLVED",
+      "PRESENT_BUT_UNRESOLVED",
+      "PRESENT_BUT_UNRESOLVED",
+      "PRESENT_BUT_UNRESOLVED",
+      "PRESENT_BUT_UNRESOLVED"
+    ],
+    "state_variation": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "governing_law-140",
+    "adapter": "governing_law",
+    "expected": "YES_OPERATIVE",
+    "run_states": [
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "state_variation": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "governing_law-141",
+    "adapter": "governing_law",
+    "expected": "NO_NOT_OPERATIVE",
+    "run_states": [
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE"
+    ],
+    "run_absence_states": [
+      "NONE",
+      "NONE",
+      "NONE",
+      "NONE",
+      "NONE"
+    ],
+    "state_variation": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "governing_law-147",
+    "adapter": "governing_law",
+    "expected": "AMBIGUOUS",
+    "run_states": [
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "state_variation": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "termination-160",
+    "adapter": "termination",
+    "expected": "YES_OPERATIVE",
+    "run_states": [
+      "MUST_REDLINE",
+      "MUST_REDLINE",
+      "MUST_REDLINE",
+      "MUST_REDLINE",
+      "MUST_REDLINE"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "state_variation": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "termination-161",
+    "adapter": "termination",
+    "expected": "NO_NOT_OPERATIVE",
+    "run_states": [
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "state_variation": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "termination-179",
+    "adapter": "termination",
+    "expected": "YES_OPERATIVE",
+    "run_states": [
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE"
+    ],
+    "run_absence_states": [
+      "NONE",
+      "NONE",
+      "NONE",
+      "NONE",
+      "NONE"
+    ],
+    "state_variation": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "warranties-180",
+    "adapter": "warranties",
+    "expected": "YES_OPERATIVE",
+    "run_states": [
+      "ACCEPT",
+      "ACCEPT",
+      "ACCEPT",
+      "ACCEPT",
+      "ACCEPT"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "state_variation": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "warranties-199",
+    "adapter": "warranties",
+    "expected": "YES_OPERATIVE",
+    "run_states": [
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "REQUIRES_REVIEW",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE"
+    ],
+    "run_absence_states": [
+      "NONE",
+      "NONE",
+      "CONFIRMED_ABSENT",
+      "NONE",
+      "NONE"
+    ],
+    "state_variation": true,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "warranties-181",
+    "adapter": "warranties",
+    "expected": "NO_NOT_OPERATIVE",
+    "run_states": [
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE"
+    ],
+    "run_absence_states": [
+      "NONE",
+      "NONE",
+      "NONE",
+      "NONE",
+      "NONE"
+    ],
+    "state_variation": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "sla-200",
+    "adapter": "sla",
+    "expected": "YES_OPERATIVE",
+    "run_states": [
+      "ACCEPT",
+      "ACCEPT",
+      "ACCEPT",
+      "ACCEPT",
+      "ACCEPT"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "state_variation": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "sla-219",
+    "adapter": "sla",
+    "expected": "YES_OPERATIVE",
+    "run_states": [
+      "REQUIRES_REVIEW",
+      "NOT_APPLICABLE",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW"
+    ],
+    "run_absence_states": [
+      "PRESENT_BUT_UNRESOLVED",
+      "NONE",
+      "PRESENT_BUT_UNRESOLVED",
+      "PRESENT_BUT_UNRESOLVED",
+      "PRESENT_BUT_UNRESOLVED"
+    ],
+    "state_variation": true,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "sla-201",
+    "adapter": "sla",
+    "expected": "NO_NOT_OPERATIVE",
+    "run_states": [
+      "ACCEPT",
+      "ACCEPT",
+      "ACCEPT",
+      "ACCEPT",
+      "ACCEPT"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "state_variation": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "assignment-220",
+    "adapter": "assignment",
+    "expected": "YES_OPERATIVE",
+    "run_states": [
+      "ACCEPT",
+      "ACCEPT",
+      "ACCEPT",
+      "ACCEPT",
+      "ACCEPT"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "state_variation": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "assignment-221",
+    "adapter": "assignment",
+    "expected": "NO_NOT_OPERATIVE",
+    "run_states": [
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "state_variation": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "assignment-239",
+    "adapter": "assignment",
+    "expected": "YES_OPERATIVE",
+    "run_states": [
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW"
+    ],
+    "run_absence_states": [
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT",
+      "CONFIRMED_ABSENT"
+    ],
+    "state_variation": false,
+    "unsafe_clean_transition": false
+  }
+]
