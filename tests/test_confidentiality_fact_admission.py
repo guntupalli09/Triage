@@ -327,3 +327,52 @@ def test_competing_readings_never_reach_the_adapter_as_authoritative(monkeypatch
 
     decision = cpe.evaluate_confidentiality_policy(facts, FakePolicy())
     assert decision.state == cpe.REQUIRES_REVIEW
+
+
+def test_ai_identified_cross_reference_resolved_forces_review(monkeypatch):
+    """Adapter-level cross-reference proof (Part 4): the non-disclosure
+    obligation is scoped by a cross-referenced section; resolved
+    deterministically, must force review, never disappear because the
+    obligation otherwise reads clean."""
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    doc = (
+        "2. Miscellaneous. Recipient shall not disclose Vendor's proprietary data to any third "
+        "party, subject to Section 9.4.\n\n"
+        "Section 9.4 Permitted Recipients. Disclosure to Recipient's legal and financial advisors "
+        "under an equivalent duty of non-disclosure is not a breach of this obligation."
+    )
+    quote = (
+        "Recipient shall not disclose Vendor's proprietary data to any third party, subject to "
+        "Section 9.4."
+    )
+
+    call_count = {"n": 0}
+
+    def fake_urlopen(*args, **kwargs):
+        call_count["n"] += 1
+        if call_count["n"] == 1:
+            return _fake_response(json.dumps({"candidates": [{"quote": quote}]}))
+        return _fake_response(json.dumps({
+            "status": "ESTABLISHED", "evidence_quote": quote,
+            "condition_quote": None, "exception_quote": None,
+            "cross_reference_text": "Section 9.4",
+            "reasoning": "Operative non-disclosure obligation, scoped by a cross-referenced section.",
+        }))
+
+    with patch("urllib.request.urlopen", side_effect=fake_urlopen):
+        facts = cpe.extract_confidentiality_facts(doc)
+    assert facts is not None
+    assert facts.ai_identified_definition_dependency is not None
+    assert "Permitted Recipients" in facts.ai_identified_definition_dependency
+
+    class FakePolicy:
+        contract_side = "vendor"
+        escalation_approval_authority = None
+        fallback_text = None
+        required_exclusions_json = []
+        min_protection_duration_years = None
+        max_exposure_duration_years = None
+        require_mutual_confidentiality = False
+
+    decision = cpe.evaluate_confidentiality_policy(facts, FakePolicy())
+    assert decision.state == cpe.REQUIRES_REVIEW

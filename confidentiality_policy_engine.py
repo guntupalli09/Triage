@@ -382,6 +382,9 @@ def extract_confidentiality_facts(text: str) -> Optional[ConfidentialityFacts]:
         dr = candidate.definition_resolution
         if dr is not None and dr.status == "RESOLVED" and ai_identified_definition_dependency is None:
             ai_identified_definition_dependency = f'depends on the defined term "{dr.term}": {dr.definition_evidence}'
+        xr = candidate.cross_reference_resolution
+        if xr is not None and xr.status == "RESOLVED" and ai_identified_definition_dependency is None:
+            ai_identified_definition_dependency = f'depends on the cross-referenced "{xr.label}": {xr.target_evidence}'
 
     if not obligations:
         return ConfidentialityFacts(
