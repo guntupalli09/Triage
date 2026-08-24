@@ -1027,4 +1027,18 @@ def first_unresolved_dependency_note(verified_candidates: List["CandidateMateria
                 f'contextual analysis identified a cross-reference to "{xr.label}", which could not be '
                 f'deterministically resolved against this document ({xr.status})'
             )
+        # Part 4 (competing readings) — a genuine defect found via
+        # adapter-level testing: a candidate blocked ONLY because two
+        # materially different, independently-grounded readings were
+        # identified (no definition/cross-reference dependency at all)
+        # otherwise fell through this function silently, letting its
+        # caller collapse to CONFIRMED_ABSENT even though a real
+        # candidate was discovered and merely couldn't be safely admitted.
+        grounded_readings = [r for r in candidate.competing_readings if r.grounded]
+        if len(grounded_readings) >= 2:
+            propositions = " / ".join(f'"{r.proposition}"' for r in grounded_readings)
+            return (
+                f"contextual analysis identified two materially different, independently-grounded "
+                f"readings of the same text ({propositions}) — neither was selected as authoritative"
+            )
     return None

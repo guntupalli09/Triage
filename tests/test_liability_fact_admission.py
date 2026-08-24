@@ -394,3 +394,52 @@ def test_ai_identified_cross_reference_to_missing_attachment_forces_review_not_a
 
     decision = lpe.evaluate_liability_policy(facts, FakePolicy())
     assert decision.state == lpe.REQUIRES_REVIEW
+
+
+def test_competing_readings_never_reach_the_adapter_as_authoritative(monkeypatch):
+    """Part 4 adapter-level proof: when contextual analysis identifies two
+    materially different, independently-grounded readings of the same
+    text, this adapter must receive NEITHER as an authoritative
+    provision -- admission is blocked at the shared framework level
+    (fact_admission.evaluate_admission), and no accepted anchor is ever
+    produced from this candidate, so the document must not silently fall
+    back to CONFIRMED_ABSENT either (a real candidate WAS found)."""
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    doc = (
+        "9. Miscellaneous. Vendor's exposure is addressed in this section; one reading treats "
+        "it as capped, another treats it as excluded entirely."
+    )
+    quote = (
+        "Vendor's exposure is addressed in this section; one reading treats it as capped, "
+        "another treats it as excluded entirely."
+    )
+
+    call_count = {"n": 0}
+
+    def fake_urlopen(*args, **kwargs):
+        call_count["n"] += 1
+        if call_count["n"] == 1:
+            return _fake_response(json.dumps({"candidates": [{"quote": quote}]}))
+        return _fake_response(json.dumps({
+            "status": "AMBIGUOUS", "evidence_quote": None,
+            "condition_quote": None, "exception_quote": None, "cross_reference_text": None,
+            "competing_reading_a": {
+                "proposition": "Vendor's liability is capped.",
+                "evidence_quote": "one reading treats it as capped",
+            },
+            "competing_reading_b": {
+                "proposition": "Vendor's liability is entirely excluded.",
+                "evidence_quote": "another treats it as excluded entirely",
+            },
+            "reasoning": "Two materially different readings of the same sentence.",
+        }))
+
+    with patch("urllib.request.urlopen", side_effect=fake_urlopen):
+        facts = lpe.extract_liability_facts(doc)
+    # Neither reading became a provision -- the adapter received nothing
+    # authoritative from this candidate.
+    assert facts is not None
+    assert facts.provisions == []
+    # And the document does not silently fall back to "no clause found":
+    # a real candidate was discovered, it's just unsafe to admit.
+    assert facts.absence_state == "RECOGNITION_UNCERTAIN" or facts.absence_state == "DEPENDENCY_UNRESOLVED"

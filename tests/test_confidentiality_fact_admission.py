@@ -275,3 +275,55 @@ def test_definition_dependency_unresolved_never_disappears(monkeypatch):
 
     decision = cpe.evaluate_confidentiality_policy(facts, FakePolicy())
     assert decision.state == cpe.REQUIRES_REVIEW
+
+
+def test_competing_readings_never_reach_the_adapter_as_authoritative(monkeypatch):
+    """Part 4 adapter-level proof: two materially different, independently
+    grounded readings must never be resolved by picking one -- the
+    candidate is blocked at the shared framework level, and this adapter
+    must not silently fall back to CONFIRMED_ABSENT (a real candidate WAS
+    discovered)."""
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    doc = (
+        "Recipient shall treat Vendor's proprietary data appropriately; one reading requires "
+        "full non-disclosure protection, another treats it as freely shareable internal data."
+    )
+    quote = doc
+
+    call_count = {"n": 0}
+
+    def fake_urlopen(*args, **kwargs):
+        call_count["n"] += 1
+        if call_count["n"] == 1:
+            return _fake_response(json.dumps({"candidates": [{"quote": quote}]}))
+        return _fake_response(json.dumps({
+            "status": "AMBIGUOUS", "evidence_quote": None,
+            "condition_quote": None, "exception_quote": None, "cross_reference_text": None,
+            "competing_reading_a": {
+                "proposition": "Recipient must keep the data fully confidential.",
+                "evidence_quote": "one reading requires full non-disclosure protection",
+            },
+            "competing_reading_b": {
+                "proposition": "Recipient may treat the data as freely shareable.",
+                "evidence_quote": "another treats it as freely shareable internal data",
+            },
+            "reasoning": "Two materially different readings of the same sentence.",
+        }))
+
+    with patch("urllib.request.urlopen", side_effect=fake_urlopen):
+        facts = cpe.extract_confidentiality_facts(doc)
+    assert facts is not None
+    assert facts.obligations == []
+    assert facts.ai_identified_definition_dependency is not None
+
+    class FakePolicy:
+        contract_side = "vendor"
+        escalation_approval_authority = None
+        fallback_text = None
+        required_exclusions_json = []
+        min_protection_duration_years = None
+        max_exposure_duration_years = None
+        require_mutual_confidentiality = False
+
+    decision = cpe.evaluate_confidentiality_policy(facts, FakePolicy())
+    assert decision.state == cpe.REQUIRES_REVIEW

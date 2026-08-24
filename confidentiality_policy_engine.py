@@ -278,24 +278,14 @@ def _run_semantic_discovery(text: str) -> Tuple[List, Optional[str], Optional[st
     except Exception as exc:  # noqa: BLE001 — provider unavailable, never "confirmed absent"
         return [], None, f"{type(exc).__name__}: {exc}"
 
-    admitted = []
-    unresolved_dependency_note = None
-    for candidate in raw_candidates:
-        verified = _fa.verify_and_ground(candidate, text, _CONFIDENTIALITY_SEMANTIC_PROPOSITION)
-        if verified.admission_status == _fa.ADMITTED:
-            admitted.append(verified)
-        elif unresolved_dependency_note is None:
-            dr, xr = verified.definition_resolution, verified.cross_reference_resolution
-            if dr is not None and dr.status != "RESOLVED":
-                unresolved_dependency_note = (
-                    f'contextual analysis identified a dependency on the defined term "{dr.term}", which '
-                    f'could not be deterministically resolved against this document ({dr.status})'
-                )
-            elif xr is not None and xr.status != "RESOLVED":
-                unresolved_dependency_note = (
-                    f'contextual analysis identified a cross-reference to "{xr.label}", which could not be '
-                    f'deterministically resolved against this document ({xr.status})'
-                )
+    verified_candidates = [
+        _fa.verify_and_ground(candidate, text, _CONFIDENTIALITY_SEMANTIC_PROPOSITION) for candidate in raw_candidates
+    ]
+    admitted = [c for c in verified_candidates if c.admission_status == _fa.ADMITTED]
+    # Uses the shared helper (not a hand-rolled duplicate) so this adapter
+    # automatically picks up every unresolved-dependency case the shared
+    # framework knows about, including competing readings.
+    unresolved_dependency_note = _fa.first_unresolved_dependency_note(verified_candidates)
     return admitted, unresolved_dependency_note, None
 
 
