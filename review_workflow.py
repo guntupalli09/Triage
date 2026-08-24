@@ -173,10 +173,19 @@ def compute_progress(findings: List[Any], decisions: Dict[str, Dict[str, Any]]) 
     )
 
 
-def build_cover_memo_text(filename: str, findings: List[Dict[str, Any]], decisions: Dict[str, Dict[str, Any]]) -> str:
+def build_cover_memo_text(filename: str, findings: List[Dict[str, Any]], decisions: Dict[str, Dict[str, Any]],
+                           document_state: Optional[str] = None) -> str:
     """One-page-equivalent plain-text memo: everything that did NOT get a
     clean accept, with the attorney's stated reason — for a partner or client
-    who won't open the redlined document line by line."""
+    who won't open the redlined document line by line.
+
+    Candidate 3 final pre-freeze blocker remediation (Blocker 5) --
+    `document_state` is the SAME aggregated, policy/interaction-aware
+    signal the dashboard/history/review/full-report/PDF surfaces already
+    read (document_aggregation.aggregate_document_state); when it
+    indicates a material policy or interaction issue, that must be
+    visible on this memo too, never silently absent merely because every
+    rule-engine finding individually got a clean decision."""
     decisions = decisions or {}
     lines = [
         f"Negotiation Package — Cover Memo",
@@ -184,6 +193,13 @@ def build_cover_memo_text(filename: str, findings: List[Dict[str, Any]], decisio
         "=" * 60,
         "",
     ]
+    if document_state in ("HAS_CRITICAL_INTERACTION", "HAS_POLICY_VIOLATION", "REQUIRES_REVIEW", "CONFIGURATION_UNRESOLVED"):
+        lines.append(
+            "NEEDS ATTENTION — deterministic policy/interaction review found a material issue "
+            "not reflected in the rule-engine findings below. Consult the full report before "
+            "relying on this package alone."
+        )
+        lines.append("")
     kf = keyed_findings(findings)
     rejected = [(f, decisions[k]) for k, f in kf if decisions.get(k, {}).get("action") == "rejected"]
     flagged = [(f, decisions[k]) for k, f in kf if decisions.get(k, {}).get("action") in ("flagged", "dismissed")]
