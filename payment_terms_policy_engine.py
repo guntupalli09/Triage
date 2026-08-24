@@ -62,6 +62,8 @@ from policy_engine_core import (
     detect_condition_in_span as _core_detect_condition_in_span,
     detect_conflicting_backward_conditions as _core_detect_conflicting_backward_conditions,
     is_operative_context as _core_is_operative_context,
+    document_wide_conflict_detected as _document_wide_conflict_detected,
+    unreconciled_ambiguity_marker_present as _unreconciled_ambiguity_marker_present,
 )
 
 RULE_ID = "POLICY_PAYMENT_TERMS"
@@ -575,6 +577,10 @@ class PaymentFacts:
     # finite concept list, not a replacement for it.
     absence_state: str = "CONFIRMED_ABSENT"
     semantic_discovery_error: Optional[str] = None
+    # Candidate 3 zero-silent-loss mission — a document-wide contradiction
+    # or self-declared unreconciled ambiguity ("without indicating which
+    # governs") must not be silently dropped.
+    document_wide_conflict: bool = False
 
 
 class PaymentPolicyRuleLike(Protocol):
@@ -1042,6 +1048,9 @@ def extract_payment_facts(text: str) -> Optional[PaymentFacts]:
         if not _any_established:
             facts.absence_state = "PRESENT_BUT_UNRESOLVED"
 
+    if _document_wide_conflict_detected(text) or _unreconciled_ambiguity_marker_present(text):
+        facts.document_wide_conflict = True
+
     return facts
 
 
@@ -1187,6 +1196,11 @@ def evaluate_payment_policy(
     tax_side, tax_unresolved = _resolve_tax_responsibility(facts, policy.contract_side)
 
     unresolved: List[str] = []
+    if facts.document_wide_conflict:
+        unresolved.append(
+            "a separate statement elsewhere in the document appears to contradict, negate, or leave unreconciled "
+            "the payment term established in this clause"
+        )
     if facts.self_flagged_unresolved:
         unresolved.append("the document itself explicitly flags a material payment term as not yet finally settled")
     if facts.conditional_unverified_precondition:
