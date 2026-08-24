@@ -71,6 +71,8 @@ def test_recognition_uncertain_routes_to_requires_review_not_not_applicable(monk
         fallback_text = None
         contract_side = "vendor"
         escalation_approval_authority = None
+        require_consequential_damages_exclusion = False
+        required_consequential_carveouts_json = []
 
     facts = lpe.extract_liability_facts("This Agreement shall be governed by the laws of Delaware.")
     decision = lpe.evaluate_liability_policy(facts, FakePolicy())
@@ -239,6 +241,8 @@ def test_ai_identified_condition_survives_to_forced_review_the_mission_critical_
         escalation_approval_authority = None
         require_consequential_damages_exclusion = False
         required_consequential_carveouts_json = []
+        require_consequential_damages_exclusion = False
+        required_consequential_carveouts_json = []
 
     decision = lpe.evaluate_liability_policy(facts, FakePolicy())
     assert decision.state == lpe.REQUIRES_REVIEW
@@ -286,6 +290,107 @@ def test_admitted_fact_produces_deterministic_replay_decision(monkeypatch):
         escalation_approval_authority = None
         require_consequential_damages_exclusion = False
         required_consequential_carveouts_json = []
+        require_consequential_damages_exclusion = False
+        required_consequential_carveouts_json = []
 
     hashes = {pec.decision_hash(lpe.evaluate_liability_policy(facts, FakePolicy())) for _ in range(5)}
     assert len(hashes) == 1
+
+
+def test_ai_identified_cross_reference_target_resolves_and_forces_review(monkeypatch):
+    """Final trust architecture (Step B): the AI-sourced candidate's
+    proposition depends on a cross-referenced section; the shared
+    framework resolves the actual target text deterministically, and it
+    is preserved onto the provision's condition field (forcing review),
+    never silently dropped just because the base cap language reads
+    clean."""
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    doc = (
+        "9. Miscellaneous. Vendor's liability shall be limited as set forth in Section 9.3.\n\n"
+        "Section 9.3 Fee-Based Damages Allocation. The parties agree that any damages "
+        "recoverable under this Agreement shall correspond to fees paid during the "
+        "preceding twelve months."
+    )
+    quote = "Vendor's liability shall be limited as set forth in Section 9.3."
+
+    call_count = {"n": 0}
+
+    def fake_urlopen(*args, **kwargs):
+        call_count["n"] += 1
+        if call_count["n"] == 1:
+            return _fake_response(json.dumps({"candidates": [{"quote": quote}]}))
+        return _fake_response(json.dumps({
+            "status": "ESTABLISHED", "evidence_quote": quote,
+            "condition_quote": None, "exception_quote": None,
+            "cross_reference_text": "as set forth in Section 9.3",
+            "reasoning": "Operative liability limitation, capped per the referenced section.",
+        }))
+
+    with patch("urllib.request.urlopen", side_effect=fake_urlopen):
+        facts = lpe.extract_liability_facts(doc)
+    assert facts is not None
+    assert len(facts.provisions) == 1
+    provision = facts.provisions[0]
+    assert provision.condition is not None
+    assert provision.condition.status == "ESTABLISHED"
+    assert "Fee-Based Damages Allocation" in provision.condition.evidence_span
+
+    class FakePolicy:
+        preferred_multiplier = 1.0
+        acceptable_max_multiplier = 1.0
+        negotiate_max_multiplier = 2.0
+        prohibit_unlimited = True
+        required_exceptions_json = []
+        fallback_text = None
+        contract_side = "vendor"
+        escalation_approval_authority = None
+        require_consequential_damages_exclusion = False
+        required_consequential_carveouts_json = []
+
+    decision = lpe.evaluate_liability_policy(facts, FakePolicy())
+    assert decision.state == lpe.REQUIRES_REVIEW
+
+
+def test_ai_identified_cross_reference_to_missing_attachment_forces_review_not_absent(monkeypatch):
+    """The AI-sourced candidate points to a Schedule that was never
+    actually attached to this document. No accepted anchor exists at
+    all, so the candidate never becomes a provision -- but this must
+    force REQUIRES_REVIEW (DEPENDENCY_UNRESOLVED), never fall back to
+    CONFIRMED_ABSENT (no liability clause found)."""
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    doc = "Vendor's liability shall be limited as set forth in Schedule C."
+    quote = "Vendor's liability shall be limited as set forth in Schedule C."
+
+    call_count = {"n": 0}
+
+    def fake_urlopen(*args, **kwargs):
+        call_count["n"] += 1
+        if call_count["n"] == 1:
+            return _fake_response(json.dumps({"candidates": [{"quote": quote}]}))
+        return _fake_response(json.dumps({
+            "status": "ESTABLISHED", "evidence_quote": quote,
+            "condition_quote": None, "exception_quote": None,
+            "cross_reference_text": "Schedule C",
+            "reasoning": "Operative liability limitation, capped per an attached schedule.",
+        }))
+
+    with patch("urllib.request.urlopen", side_effect=fake_urlopen):
+        facts = lpe.extract_liability_facts(doc)
+    assert facts is not None
+    assert facts.absence_state == "DEPENDENCY_UNRESOLVED"
+    assert facts.provisions == []
+
+    class FakePolicy:
+        preferred_multiplier = 1.0
+        acceptable_max_multiplier = 1.0
+        negotiate_max_multiplier = 2.0
+        prohibit_unlimited = True
+        required_exceptions_json = []
+        fallback_text = None
+        contract_side = "vendor"
+        escalation_approval_authority = None
+        require_consequential_damages_exclusion = False
+        required_consequential_carveouts_json = []
+
+    decision = lpe.evaluate_liability_policy(facts, FakePolicy())
+    assert decision.state == lpe.REQUIRES_REVIEW

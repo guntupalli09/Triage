@@ -1639,28 +1639,49 @@ _LIABILITY_SEMANTIC_PROPOSITION = (
 )
 
 
-def _run_semantic_discovery(text: str) -> Tuple[List, Optional[str]]:
+def _run_semantic_discovery(text: str) -> Tuple[List, Optional[str], Optional[str]]:
     """Additive semantic discovery for liability-cap language the
     deterministic anchors above did not recognize. Mirrors
     indemnification_policy_engine._run_semantic_discovery exactly, using
     the shared fact_admission framework instead of a bespoke
-    implementation. Returns (admitted_candidates, error); error is None
-    when discovery ran successfully (even if it found nothing — see
-    absence_state in extract_liability_facts)."""
+    implementation. Returns (admitted_candidates, unresolved_dependency_
+    note, error); error is None when discovery ran successfully (even if
+    it found nothing — see absence_state in extract_liability_facts).
+
+    unresolved_dependency_note (final trust architecture, Step B/H) —
+    when a candidate's proposition depended on a cross-reference/
+    definition fact_admission.verify_and_ground could NOT resolve, the
+    candidate is correctly NOT_ADMITTED and never becomes a provision —
+    but that failure is preserved here rather than disappearing, so the
+    caller can force REQUIRES_REVIEW instead of falling back to
+    CONFIRMED_ABSENT."""
     if not LIABILITY_SEMANTIC_DISCOVERY_ENABLED:
-        return [], None
+        return [], None, None
     import fact_admission as _fa
     try:
         raw_candidates = _fa.discover_candidate_spans(text, "limitation_of_liability", _LIABILITY_SEMANTIC_FOCUS)
     except Exception as exc:  # noqa: BLE001 — provider unavailable, never "confirmed absent"
-        return [], f"{type(exc).__name__}: {exc}"
+        return [], None, f"{type(exc).__name__}: {exc}"
 
     admitted = []
+    unresolved_dependency_note = None
     for candidate in raw_candidates:
         verified = _fa.verify_and_ground(candidate, text, _LIABILITY_SEMANTIC_PROPOSITION)
         if verified.admission_status == _fa.ADMITTED:
             admitted.append(verified)
-    return admitted, None
+        elif unresolved_dependency_note is None:
+            dr, xr = verified.definition_resolution, verified.cross_reference_resolution
+            if dr is not None and dr.status != "RESOLVED":
+                unresolved_dependency_note = (
+                    f'contextual analysis identified a dependency on the defined term "{dr.term}", which '
+                    f'could not be deterministically resolved against this document ({dr.status})'
+                )
+            elif xr is not None and xr.status != "RESOLVED":
+                unresolved_dependency_note = (
+                    f'contextual analysis identified a cross-reference to "{xr.label}", which could not be '
+                    f'deterministically resolved against this document ({xr.status})'
+                )
+    return admitted, unresolved_dependency_note, None
 
 
 def extract_liability_facts(text: str) -> Optional[LiabilityFacts]:
@@ -1685,8 +1706,9 @@ def extract_liability_facts(text: str) -> Optional[LiabilityFacts]:
     accepted_anchors = _discover_anchors(text)
     semantic_error: Optional[str] = None
     semantic_qualifiers_by_start: Dict[int, Any] = {}
+    unresolved_dependency_note: Optional[str] = None
     if not accepted_anchors:
-        admitted_semantic, semantic_error = _run_semantic_discovery(text)
+        admitted_semantic, unresolved_dependency_note, semantic_error = _run_semantic_discovery(text)
         if admitted_semantic:
             accepted_anchors = [(c.start_offset, False) for c in admitted_semantic]
             # Final trust architecture (Phase 5) — keep each admitted
@@ -1702,6 +1724,19 @@ def extract_liability_facts(text: str) -> Optional[LiabilityFacts]:
             return LiabilityFacts(
                 clause_found=True, provisions=[], absence_state="RECOGNITION_UNCERTAIN",
                 semantic_discovery_error=semantic_error,
+                reconciliation="single", reconciliation_explanation="",
+            )
+        elif unresolved_dependency_note is not None:
+            # Final trust architecture (Step B/H, zero-silent-loss) — a
+            # candidate was found and its proposition depended on a
+            # cross-reference/definition that could not be
+            # deterministically resolved. It never became a provision,
+            # but it must not silently collapse into CONFIRMED_ABSENT
+            # either — see evaluate_liability_policy's DEPENDENCY_
+            # UNRESOLVED branch.
+            return LiabilityFacts(
+                clause_found=True, provisions=[], absence_state="DEPENDENCY_UNRESOLVED",
+                semantic_discovery_error=unresolved_dependency_note,
                 reconciliation="single", reconciliation_explanation="",
             )
         else:
@@ -1743,6 +1778,21 @@ def extract_liability_facts(text: str) -> Optional[LiabilityFacts]:
         if provision.condition is not None and provision.condition.status != "UNCONDITIONAL":
             continue
         qualifier_text = candidate.condition or candidate.exception
+        dependency_note = None
+        if qualifier_text is None:
+            dr, xr = candidate.definition_resolution, candidate.cross_reference_resolution
+            # Both are guaranteed RESOLVED here — a candidate with an
+            # unresolved definition/cross-reference is NOT_ADMITTED and
+            # so never appears in semantic_qualifiers_by_start at all
+            # (see fact_admission.evaluate_admission's zero-silent-loss
+            # gate); the unresolved case is handled separately above via
+            # unresolved_dependency_note, since there is no provision to
+            # attach it to when accepted_anchors was empty.
+            if dr is not None:
+                dependency_note = f'depends on the defined term "{dr.term}": {dr.definition_evidence}'
+            elif xr is not None:
+                dependency_note = f'depends on the cross-referenced "{xr.label}": {xr.target_evidence}'
+        qualifier_text = qualifier_text or dependency_note
         if qualifier_text is None:
             continue
         provision.condition = ConditionEvidence(
@@ -1898,6 +1948,26 @@ def evaluate_liability_policy(
                 "Deterministic pattern matching found no limitation-of-liability clause, and semantic "
                 f"verification could not confirm its absence ({facts.semantic_discovery_error or 'unavailable'}). "
                 "This is not the same as confirming the contract has no such clause."
+            ),
+            negotiation_ladder=_build_ladder(policy, REQUIRES_REVIEW), category_treatments=[], unresolved_facts=[],
+            start_index=None, end_index=None, source=source,
+        )
+
+    if facts is not None and not facts.provisions and facts.absence_state == "DEPENDENCY_UNRESOLVED":
+        # Final trust architecture (Step B/H, zero-silent-loss) — a
+        # candidate liability provision was identified by contextual
+        # analysis, but its meaning depended on a cross-reference or
+        # defined term this document does not deterministically resolve.
+        # Never dropped so the document can fall through to "no clause
+        # found" — forced to review instead.
+        return PolicyDecision(
+            rule_id=RULE_ID, clause_type="limitation_of_liability", state=REQUIRES_REVIEW,
+            contract_language="", extracted_summary="A candidate liability limitation was identified but a material dependency could not be resolved",
+            policy_limit_summary=_fmt_multiplier(policy.preferred_multiplier),
+            required_action="Manual review required — a cross-reference or defined term this provision depends on could not be located in this document.",
+            explanation=(
+                f"Contextual analysis identified language that may limit liability, but {facts.semantic_discovery_error}. "
+                "This evaluation does not determine what the provision actually means without that dependency resolved."
             ),
             negotiation_ladder=_build_ladder(policy, REQUIRES_REVIEW), category_treatments=[], unresolved_facts=[],
             start_index=None, end_index=None, source=source,

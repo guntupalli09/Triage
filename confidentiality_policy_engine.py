@@ -138,6 +138,16 @@ class ConfidentialityFacts:
     # obligation regex has vocabulary to structure a qualifier.
     ai_identified_condition: Optional[str] = None
     ai_identified_exception: Optional[str] = None
+    # Final trust architecture (Step A) — "Confidential Information" is
+    # itself almost always a defined term; when the AI-sourced candidate's
+    # proposition depended on resolving that definition, this holds
+    # EITHER the deterministically-located definition text (definition
+    # RESOLVED — preserved, never the AI's own claim about what it says)
+    # OR a description of why it could NOT be resolved (forces REQUIRES_
+    # REVIEW via evaluate_confidentiality_policy, same as condition/
+    # exception — never silently evaluated as though the dependency
+    # didn't exist).
+    ai_identified_definition_dependency: Optional[str] = None
 
 
 class ConfidentialityPolicyRuleLike(Protocol):
@@ -244,25 +254,49 @@ _CONFIDENTIALITY_SEMANTIC_PROPOSITION = (
 )
 
 
-def _run_semantic_discovery(text: str) -> Tuple[List, Optional[str]]:
+def _run_semantic_discovery(text: str) -> Tuple[List, Optional[str], Optional[str]]:
     """Additive semantic discovery for confidentiality language the
     deterministic anchor (`_ANCHOR_RE`, a broad "confidential\\w*" match)
     did not find at all. Mirrors liability_policy_engine._run_semantic_
-    discovery exactly. Returns (admitted_candidates, error)."""
+    discovery exactly. Returns (admitted_candidates, unresolved_dependency_
+    note, error).
+
+    unresolved_dependency_note (final trust architecture, Step A/H) —
+    when a candidate's proposition depended on a defined term/cross-
+    reference that fact_admission.verify_and_ground could NOT resolve,
+    the whole candidate is correctly NOT_ADMITTED (see fact_admission.
+    evaluate_admission's zero-silent-loss gate) and so never becomes an
+    obligation — but that failure itself is preserved here rather than
+    disappearing, so the caller can still force REQUIRES_REVIEW instead
+    of silently treating the document as though nothing was ever
+    identified."""
     if not CONFIDENTIALITY_SEMANTIC_DISCOVERY_ENABLED:
-        return [], None
+        return [], None, None
     import fact_admission as _fa
     try:
         raw_candidates = _fa.discover_candidate_spans(text, "confidentiality", _CONFIDENTIALITY_SEMANTIC_FOCUS)
     except Exception as exc:  # noqa: BLE001 — provider unavailable, never "confirmed absent"
-        return [], f"{type(exc).__name__}: {exc}"
+        return [], None, f"{type(exc).__name__}: {exc}"
 
     admitted = []
+    unresolved_dependency_note = None
     for candidate in raw_candidates:
         verified = _fa.verify_and_ground(candidate, text, _CONFIDENTIALITY_SEMANTIC_PROPOSITION)
         if verified.admission_status == _fa.ADMITTED:
             admitted.append(verified)
-    return admitted, None
+        elif unresolved_dependency_note is None:
+            dr, xr = verified.definition_resolution, verified.cross_reference_resolution
+            if dr is not None and dr.status != "RESOLVED":
+                unresolved_dependency_note = (
+                    f'contextual analysis identified a dependency on the defined term "{dr.term}", which '
+                    f'could not be deterministically resolved against this document ({dr.status})'
+                )
+            elif xr is not None and xr.status != "RESOLVED":
+                unresolved_dependency_note = (
+                    f'contextual analysis identified a cross-reference to "{xr.label}", which could not be '
+                    f'deterministically resolved against this document ({xr.status})'
+                )
+    return admitted, unresolved_dependency_note, None
 
 
 def extract_confidentiality_facts(text: str) -> Optional[ConfidentialityFacts]:
@@ -275,14 +309,15 @@ def extract_confidentiality_facts(text: str) -> Optional[ConfidentialityFacts]:
     already safely absorbs (see ConfidentialityFacts.absence_state)."""
     anchors = [m for m in _ANCHOR_RE.finditer(text) if not re.search(r"\bno\s+$", text[max(0, m.start() - 15):m.start()], re.I)]
     admitted_semantic: List = []
+    unresolved_dependency_note: Optional[str] = None
     if not anchors:
-        admitted_semantic, semantic_error = _run_semantic_discovery(text)
+        admitted_semantic, unresolved_dependency_note, semantic_error = _run_semantic_discovery(text)
         if semantic_error is not None:
             return ConfidentialityFacts(
                 clause_found=True, obligations=[], absence_state="RECOGNITION_UNCERTAIN",
                 semantic_discovery_error=semantic_error,
             )
-        if not admitted_semantic:
+        if not admitted_semantic and not unresolved_dependency_note:
             return None
         # A semantically-admitted candidate does not itself become an
         # obligation — it only earns this document a shot at the SAME
@@ -350,20 +385,26 @@ def extract_confidentiality_facts(text: str) -> Optional[ConfidentialityFacts]:
     # otherwise successfully structured.
     ai_identified_condition = None
     ai_identified_exception = None
+    ai_identified_definition_dependency = unresolved_dependency_note
     for candidate in admitted_semantic:
         ai_identified_condition = ai_identified_condition or candidate.condition
         ai_identified_exception = ai_identified_exception or candidate.exception
+        dr = candidate.definition_resolution
+        if dr is not None and dr.status == "RESOLVED" and ai_identified_definition_dependency is None:
+            ai_identified_definition_dependency = f'depends on the defined term "{dr.term}": {dr.definition_evidence}'
 
     if not obligations:
         return ConfidentialityFacts(
             clause_found=True, obligations=[],
             ai_identified_condition=ai_identified_condition, ai_identified_exception=ai_identified_exception,
+            ai_identified_definition_dependency=ai_identified_definition_dependency,
         )
 
     obligations.sort(key=lambda o: o.start_index)
     return ConfidentialityFacts(
         clause_found=True, obligations=obligations,
         ai_identified_condition=ai_identified_condition, ai_identified_exception=ai_identified_exception,
+        ai_identified_definition_dependency=ai_identified_definition_dependency,
     )
 
 
@@ -464,6 +505,11 @@ def evaluate_confidentiality_policy(
                 f"a material exception was identified by contextual analysis and grounded against the "
                 f"source document (\"{facts.ai_identified_exception}\")"
             )
+        if facts.ai_identified_definition_dependency:
+            no_structure_unresolved.append(
+                f"a material definition/cross-reference dependency was identified by contextual analysis "
+                f"({facts.ai_identified_definition_dependency})"
+            )
         return PolicyDecision(
             rule_id=RULE_ID, clause_type="confidentiality", state=REQUIRES_REVIEW,
             contract_language="", extracted_summary="Confidentiality referenced but no directional obligation could be parsed",
@@ -496,6 +542,11 @@ def evaluate_confidentiality_policy(
         unresolved_facts.append(
             f"a material exception was identified by contextual analysis and grounded against the source "
             f"document (\"{facts.ai_identified_exception}\")"
+        )
+    if facts.ai_identified_definition_dependency:
+        unresolved_facts.append(
+            f"a material definition/cross-reference dependency was identified by contextual analysis "
+            f"({facts.ai_identified_definition_dependency})"
         )
 
     if unresolved_facts:

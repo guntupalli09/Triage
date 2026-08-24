@@ -182,3 +182,96 @@ def test_ai_identified_condition_survives_into_the_decision(monkeypatch):
     decision = cpe.evaluate_confidentiality_policy(facts, FakePolicy())
     assert decision.state == cpe.REQUIRES_REVIEW
     assert condition_text in "; ".join(decision.unresolved_facts)
+
+
+def test_definition_dependency_resolved_forces_review_not_silently_incorporated(monkeypatch):
+    """Final trust architecture (Step A): a candidate whose proposition
+    depends on a defined term ("Proprietary Data") resolves the
+    definition deterministically, but the adapter has no vocabulary to
+    evaluate what that definition text actually means -- so the resolved
+    dependency is preserved and forces REQUIRES_REVIEW, never silently
+    incorporated into a clean decision."""
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    doc = (
+        '1. Definitions. "Proprietary Data" means any technical or business information '
+        "disclosed by either party. 2. Obligations. Recipient shall not disclose Proprietary Data "
+        "to any third party."
+    )
+    quote = "Recipient shall not disclose Proprietary Data to any third party."
+
+    call_count = {"n": 0}
+
+    def fake_urlopen(*args, **kwargs):
+        call_count["n"] += 1
+        if call_count["n"] == 1:
+            return _fake_response(json.dumps({"candidates": [{"quote": quote}]}))
+        return _fake_response(json.dumps({
+            "status": "ESTABLISHED", "evidence_quote": quote,
+            "condition_quote": None, "exception_quote": None, "cross_reference_text": None,
+            "definition_term": "Proprietary Data",
+            "reasoning": "Operative non-disclosure obligation scoped by a defined term.",
+        }))
+
+    with patch("urllib.request.urlopen", side_effect=fake_urlopen):
+        facts = cpe.extract_confidentiality_facts(doc)
+    assert facts is not None
+    assert facts.ai_identified_definition_dependency is not None
+    assert "Proprietary Data" in facts.ai_identified_definition_dependency
+
+    class FakePolicy:
+        contract_side = "vendor"
+        escalation_approval_authority = None
+        fallback_text = None
+        required_exclusions_json = []
+        min_protection_duration_years = None
+        max_exposure_duration_years = None
+        require_mutual_confidentiality = False
+
+    decision = cpe.evaluate_confidentiality_policy(facts, FakePolicy())
+    assert decision.state == cpe.REQUIRES_REVIEW
+    assert "Proprietary Data" in "; ".join(decision.unresolved_facts)
+
+
+def test_definition_dependency_unresolved_never_disappears(monkeypatch):
+    """The AI claims a dependency on a defined term this document never
+    actually defines. The whole candidate is correctly NOT_ADMITTED (see
+    fact_admission.evaluate_admission), but that failure itself must not
+    vanish -- the document must not fall back to CONFIRMED_ABSENT or a
+    clean decision, it must force REQUIRES_REVIEW with the failure
+    preserved (zero-silent-loss, Step H)."""
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    doc = "Recipient shall not disclose Proprietary Data to any third party."
+    quote = "Recipient shall not disclose Proprietary Data to any third party."
+
+    call_count = {"n": 0}
+
+    def fake_urlopen(*args, **kwargs):
+        call_count["n"] += 1
+        if call_count["n"] == 1:
+            return _fake_response(json.dumps({"candidates": [{"quote": quote}]}))
+        return _fake_response(json.dumps({
+            "status": "ESTABLISHED", "evidence_quote": quote,
+            "condition_quote": None, "exception_quote": None, "cross_reference_text": None,
+            "definition_term": "Proprietary Data",
+            "reasoning": "...",
+        }))
+
+    with patch("urllib.request.urlopen", side_effect=fake_urlopen):
+        facts = cpe.extract_confidentiality_facts(doc)
+    assert facts is not None
+    assert facts.absence_state != "RECOGNITION_UNCERTAIN"
+    assert facts.ai_identified_definition_dependency is not None
+    assert "Proprietary Data" in facts.ai_identified_definition_dependency
+    assert "NOT_FOUND" in facts.ai_identified_definition_dependency or "could not be" in facts.ai_identified_definition_dependency
+
+    class FakePolicy:
+        contract_side = "vendor"
+        escalation_approval_authority = None
+        fallback_text = None
+        required_exclusions_json = []
+        min_protection_duration_years = None
+        max_exposure_duration_years = None
+        require_mutual_confidentiality = False
+
+    decision = cpe.evaluate_confidentiality_policy(facts, FakePolicy())
+    assert decision.state == cpe.REQUIRES_REVIEW

@@ -181,6 +181,19 @@ class CandidateMaterialFact:
     deterministic_grounding_result: Optional["GroundingResult"] = None
     admission_status: str = NOT_ADMITTED
     non_admission_reason: Optional[str] = None
+    # Final trust architecture (definition/cross-reference/competing-
+    # reading pass) — populated ONLY by evaluate_admission, ONLY from
+    # deterministically-resolved results (never from an AI claim
+    # directly). None/empty means "no such dependency was identified or
+    # it could not be resolved" — see definition_resolution/
+    # cross_reference_resolution for the reason in that case.
+    definition_resolution: Optional["DefinitionResolution"] = None
+    cross_reference_resolution: Optional["CrossReferenceResolution"] = None
+    # Zero-silent-loss (Step H): every competing reading the verifier
+    # proposed, preserved as data regardless of admission outcome — an
+    # AMBIGUOUS/CONFLICTING candidate is never admitted, but its readings
+    # are never discarded either.
+    competing_readings: List["CompetingReading"] = field(default_factory=list)
 
 
 @dataclass
@@ -205,6 +218,26 @@ class VerificationResult:
     condition_quote: Optional[str] = None
     exception_quote: Optional[str] = None
     cross_reference_text: Optional[str] = None
+    # Final trust architecture — the verifier's CLAIM that the proposition
+    # depends on a defined term, and the AI's own (untrusted) transcription
+    # of the term's exact name. resolve_definition() below independently
+    # locates the ACTUAL definition clause in the source text — the AI is
+    # never trusted for the definition's content, only for noticing the
+    # dependency exists.
+    definition_term: Optional[str] = None
+    # The claimed reference text itself (e.g. "subject to Section 9.3") —
+    # grounded exactly like any other qualifier via ground_qualifiers
+    # (reuses the existing "cross_reference_text" field for that mention-
+    # level grounding, unchanged). resolve_cross_reference_target() below
+    # is the NEW step that resolves what the reference actually points to.
+    # Two materially different candidate readings the verifier itself
+    # proposed while checking for competing interpretations (Step C) —
+    # populated only when status is AMBIGUOUS or CONFLICTING. Each is a
+    # claimed (proposition, evidence_quote) pair; grounded independently
+    # by ground_qualifiers-style exact-substring checks before either can
+    # be preserved on the admitted fact.
+    competing_reading_a: Optional[Dict[str, str]] = None
+    competing_reading_b: Optional[Dict[str, str]] = None
 
     def __post_init__(self) -> None:
         if self.status not in _VERIFICATION_STATES:
@@ -215,6 +248,51 @@ class VerificationResult:
 class GroundingResult:
     passed: bool
     reasons: List[str] = field(default_factory=list)
+
+
+@dataclass
+class DefinitionResolution:
+    """Deterministic resolution of a defined term an AI verifier claimed
+    a proposition depends on. The AI is never trusted for the
+    definition's content — only for noticing the dependency exists (via
+    VerificationResult.definition_term). This dataclass's definition_
+    evidence/start/end are ALWAYS derived by resolve_definition()
+    searching the actual source text, never copied from an AI claim."""
+    status: str  # "RESOLVED" | "NOT_FOUND" | "CONFLICTING"
+    term: str
+    definition_evidence: Optional[str] = None
+    definition_start: Optional[int] = None
+    definition_end: Optional[int] = None
+    reasons: List[str] = field(default_factory=list)
+
+
+@dataclass
+class CrossReferenceResolution:
+    """Deterministic resolution of a cross-reference target (a Section/
+    Clause/Article/Exhibit/Schedule label) an AI verifier claimed a
+    proposition depends on. target_evidence/start/end are ALWAYS derived
+    by resolve_cross_reference_target() searching the actual source text
+    for a matching heading, never copied from an AI claim."""
+    status: str  # "RESOLVED" | "NOT_FOUND" | "CONFLICTING" | "MISSING_ATTACHMENT"
+    label: str
+    target_evidence: Optional[str] = None
+    target_start: Optional[int] = None
+    target_end: Optional[int] = None
+    reasons: List[str] = field(default_factory=list)
+
+
+@dataclass
+class CompetingReading:
+    """One of two (or more) materially different candidate readings
+    preserved as data when a verifier reports AMBIGUOUS/CONFLICTING —
+    Step C's "preserve WHY," not just block admission. grounded=False
+    means this specific reading's own evidence citation failed the exact-
+    substring check and so is not to be treated as a real alternative,
+    only recorded for audit."""
+    reading_id: str
+    proposition: str
+    evidence_quote: Optional[str]
+    grounded: bool
 
 
 # ---------------------------------------------------------------------------
@@ -425,6 +503,14 @@ _VERIFY_SYSTEM_PROMPT = (
     "kind, its field is null. Do not force ESTABLISHED to false merely because a qualifier "
     "exists; a qualifier can coexist with ESTABLISHED (e.g. an obligation that IS "
     "established, subject to a condition you also report) — record both.\n\n"
+    "If the proposition's meaning depends on a DEFINED TERM (a capitalized term this "
+    "agreement gives a specific meaning to, e.g. \"Confidential Information\" or \"Losses\"), "
+    "report the term's exact name in definition_term — never the definition's content itself, "
+    "you are not trusted to state what a definition says, only that one is relevant.\n\n"
+    "If you identify a genuine, materially different COMPETING READING of the same text "
+    "(status AMBIGUOUS or CONFLICTING), report both readings as verbatim-quote-plus-"
+    "proposition pairs in competing_reading_a/competing_reading_b — never invent a second "
+    "reading merely to fill the field; leave both null if there is truly only one reading.\n\n"
     "Respond with ONLY a JSON object of this exact shape, nothing else — no prose, no "
     "markdown fences:\n"
     '{"status": "ESTABLISHED" | "NOT_ESTABLISHED" | "AMBIGUOUS" | "INSUFFICIENT_CONTEXT" '
@@ -437,6 +523,10 @@ _VERIFY_SYSTEM_PROMPT = (
     'narrows the proposition, or null>", '
     '"cross_reference_text": "<verbatim quote naming another section/schedule/exhibit/'
     'definition that materially affects the proposition, or null>", '
+    '"definition_term": "<exact name of a defined term the proposition depends on, or '
+    'null>", '
+    '"competing_reading_a": {"proposition": "...", "evidence_quote": "..."} or null, '
+    '"competing_reading_b": {"proposition": "...", "evidence_quote": "..."} or null, '
     '"reasoning": "<one or two concise sentences>"}\n\n'
     "status meanings:\n"
     "ESTABLISHED — the proposition is operative language of this agreement and is "
@@ -495,6 +585,23 @@ def verify_candidate_proposition(
     condition_quote = _optional_quote("condition_quote")
     exception_quote = _optional_quote("exception_quote")
     cross_reference_text = _optional_quote("cross_reference_text")
+    definition_term = _optional_quote("definition_term")
+
+    def _optional_reading(key: str) -> Optional[Dict[str, str]]:
+        value = parsed.get(key)
+        if not isinstance(value, dict):
+            return None
+        proposition = value.get("proposition")
+        if not isinstance(proposition, str) or not proposition:
+            return None
+        evidence = value.get("evidence_quote")
+        return {
+            "proposition": proposition,
+            "evidence_quote": evidence if isinstance(evidence, str) else "",
+        }
+
+    competing_reading_a = _optional_reading("competing_reading_a")
+    competing_reading_b = _optional_reading("competing_reading_b")
 
     # A verifier claiming ESTABLISHED with no evidence quote at all is
     # contradictory output — fail closed rather than trust an unsupported
@@ -508,7 +615,8 @@ def verify_candidate_proposition(
     return VerificationResult(
         status=status, reasoning=reasoning, evidence_quote=evidence_quote,
         condition_quote=condition_quote, exception_quote=exception_quote,
-        cross_reference_text=cross_reference_text,
+        cross_reference_text=cross_reference_text, definition_term=definition_term,
+        competing_reading_a=competing_reading_a, competing_reading_b=competing_reading_b,
     )
 
 
@@ -576,6 +684,142 @@ def ground_qualifiers(document_text: str, verification: "VerificationResult") ->
     return results
 
 
+_DEFINITION_LOOKUP_VERBS = r'(?:shall mean|shall have the meaning|means|refers to|shall refer to)'
+
+
+def resolve_definition(document_text: str, term: str) -> "DefinitionResolution":
+    """Deterministically locates the definition clause for `term` in
+    `document_text` — the actual defining sentence, independently
+    re-derived by regex, never the AI's own claim about what the
+    definition says. The AI (via VerificationResult.definition_term) is
+    only trusted to name WHICH term the proposition depends on, never
+    what that term means."""
+    if not term or not isinstance(term, str) or not term.strip():
+        return DefinitionResolution(status="NOT_FOUND", term=term or "", reasons=["no definition term provided"])
+    term = term.strip()
+    pattern = re.compile(rf'"{re.escape(term)}"\s+{_DEFINITION_LOOKUP_VERBS}', re.IGNORECASE)
+    matches = list(pattern.finditer(document_text))
+    if not matches:
+        return DefinitionResolution(status="NOT_FOUND", term=term, reasons=[f'no definition clause found for "{term}"'])
+
+    spans: List[Tuple[int, int]] = []
+    for m in matches:
+        boundary = re.search(r'[.;](?:\s|$)', document_text[m.end():])
+        end = m.end() + boundary.end() if boundary else len(document_text)
+        spans.append((m.start(), end))
+
+    texts = {document_text[s:e].strip() for s, e in spans}
+    if len(texts) > 1:
+        return DefinitionResolution(
+            status="CONFLICTING", term=term,
+            reasons=[f'found {len(matches)} differing definition clauses for "{term}"'],
+        )
+    start, end = spans[0]
+    return DefinitionResolution(
+        status="RESOLVED", term=term,
+        definition_evidence=document_text[start:end].strip(),
+        definition_start=start, definition_end=end,
+    )
+
+
+_XREF_SECTION_RE = re.compile(r'\b(?:Section|Clause|Article|Paragraph)s?\s+(\d+(?:\.\d+)*)', re.IGNORECASE)
+_XREF_ATTACHMENT_RE = re.compile(r'\b(?i:Exhibit|Schedule|Appendix|Annex)\s+([A-Z0-9]+)\b')
+_XREF_NEXT_HEADING_RE = re.compile(
+    r'^\s*(?:(?:Section|Clause|Article|Paragraph)s?\s+\d+(?:\.\d+)*\b'
+    r'|\d+(?:\.\d+)*\.\s+[A-Z]'
+    r'|(?i:EXHIBIT|SCHEDULE|APPENDIX|ANNEX)\s+[A-Z0-9]+\b)',
+    re.IGNORECASE | re.MULTILINE,
+)
+
+
+def _xref_target_span(document_text: str, heading_start: int, heading_end: int) -> Tuple[int, int]:
+    """Bounds a resolved target's captured text at the next heading of any
+    kind (Section/Clause/Article/Paragraph or Exhibit/Schedule/Appendix/
+    Annex), or a fixed cap if none follows — never the rest of the
+    document."""
+    m = _XREF_NEXT_HEADING_RE.search(document_text, heading_end)
+    end = m.start() if m else min(heading_end + 500, len(document_text))
+    return heading_start, end
+
+
+def resolve_cross_reference_target(document_text: str, reference_text: str) -> "CrossReferenceResolution":
+    """Deterministically resolves what a grounded cross-reference mention
+    (e.g. "subject to Section 9.3", "as set forth in Exhibit B") actually
+    points to, by locating that section/exhibit's own heading in the
+    source text. Never invents target text — RESOLVED only when a
+    single, unambiguous heading is found."""
+    if not reference_text or not isinstance(reference_text, str) or not reference_text.strip():
+        return CrossReferenceResolution(status="NOT_FOUND", label=reference_text or "", reasons=["no cross-reference text provided"])
+
+    attachment_match = _XREF_ATTACHMENT_RE.search(reference_text)
+    if attachment_match:
+        label = attachment_match.group(0)
+        ident = attachment_match.group(1).upper()
+        heading_re = re.compile(rf'^\s*(?i:EXHIBIT|SCHEDULE|APPENDIX|ANNEX)\s+{re.escape(ident)}\b', re.MULTILINE)
+        matches = list(heading_re.finditer(document_text))
+        if not matches:
+            return CrossReferenceResolution(
+                status="MISSING_ATTACHMENT", label=label,
+                reasons=[f'reference to "{label}" but no matching attachment heading exists in this document — '
+                         "likely an exhibit/schedule that was not actually attached"],
+            )
+        starts = {m.start() for m in matches}
+        if len(starts) > 1:
+            return CrossReferenceResolution(status="CONFLICTING", label=label, reasons=[f'multiple headings found for "{label}"'])
+        start, end = _xref_target_span(document_text, matches[0].start(), matches[0].end())
+        return CrossReferenceResolution(
+            status="RESOLVED", label=label,
+            target_evidence=document_text[start:end].strip(), target_start=start, target_end=end,
+        )
+
+    section_match = _XREF_SECTION_RE.search(reference_text)
+    if section_match:
+        label = section_match.group(0)
+        number = section_match.group(1)
+        heading_re = re.compile(
+            rf'^\s*(?:(?:Section|Clause|Article|Paragraph)s?\s+{re.escape(number)}\b'
+            rf'|{re.escape(number)}\.\s+[A-Z])',
+            re.IGNORECASE | re.MULTILINE,
+        )
+        matches = list(heading_re.finditer(document_text))
+        if not matches:
+            return CrossReferenceResolution(status="NOT_FOUND", label=label, reasons=[f'no heading found for "{label}"'])
+        starts = {m.start() for m in matches}
+        if len(starts) > 1:
+            return CrossReferenceResolution(status="CONFLICTING", label=label, reasons=[f'multiple headings found for "{label}"'])
+        start, end = _xref_target_span(document_text, matches[0].start(), matches[0].end())
+        return CrossReferenceResolution(
+            status="RESOLVED", label=label,
+            target_evidence=document_text[start:end].strip(), target_start=start, target_end=end,
+        )
+
+    return CrossReferenceResolution(
+        status="NOT_FOUND", label=reference_text,
+        reasons=["no recognizable Section/Clause/Article/Paragraph/Exhibit/Schedule/Appendix/Annex label in the cross-reference text"],
+    )
+
+
+def ground_competing_readings(document_text: str, verification: "VerificationResult") -> List["CompetingReading"]:
+    """Grounds every competing reading the verifier proposed (Step C) as
+    DATA, independent of admission outcome — an AMBIGUOUS/CONFLICTING
+    candidate is never admitted, but its readings are preserved rather
+    than silently discarded, so a human reviewer can see WHY."""
+    readings: List[CompetingReading] = []
+    for reading_id, raw in (("A", verification.competing_reading_a), ("B", verification.competing_reading_b)):
+        if not raw or not isinstance(raw, dict):
+            continue
+        proposition = raw.get("proposition")
+        if not isinstance(proposition, str) or not proposition:
+            continue
+        evidence_quote = raw.get("evidence_quote")
+        evidence_quote = evidence_quote if isinstance(evidence_quote, str) and evidence_quote else None
+        grounded = evidence_quote is not None and document_text.find(evidence_quote) != -1
+        readings.append(CompetingReading(
+            reading_id=reading_id, proposition=proposition, evidence_quote=evidence_quote, grounded=grounded,
+        ))
+    return readings
+
+
 def evaluate_admission(
     candidate: CandidateMaterialFact,
     *,
@@ -635,6 +879,43 @@ def evaluate_admission(
         candidate.non_admission_reason = "unresolved competing interpretation"
         return candidate
 
+    # Zero-silent-loss (final trust architecture, Step H): a definition or
+    # cross-reference dependency the verifier identified must either
+    # RESOLVE deterministically (and its resolved text is preserved on
+    # the candidate) or block admission outright — it is never dropped so
+    # the base proposition can still reach a clean ADMITTED.
+    definition_resolution = candidate.definition_resolution
+    if definition_resolution is not None and definition_resolution.status != "RESOLVED":
+        candidate.admission_status = NOT_ADMITTED
+        candidate.non_admission_reason = (
+            f"proposition depends on defined term {definition_resolution.term!r} which could not be "
+            f"deterministically resolved ({definition_resolution.status}): "
+            + "; ".join(definition_resolution.reasons)
+        )
+        return candidate
+
+    cross_reference_resolution = candidate.cross_reference_resolution
+    if cross_reference_resolution is not None and cross_reference_resolution.status != "RESOLVED":
+        candidate.admission_status = NOT_ADMITTED
+        candidate.non_admission_reason = (
+            f"proposition depends on cross-reference {cross_reference_resolution.label!r} which could not be "
+            f"deterministically resolved ({cross_reference_resolution.status}): "
+            + "; ".join(cross_reference_resolution.reasons)
+        )
+        return candidate
+
+    # Defense-in-depth for Step C: even if verification.status were
+    # somehow ESTABLISHED, two or more independently-grounded competing
+    # readings must never be resolved by silently picking one.
+    grounded_readings = [r for r in candidate.competing_readings if r.grounded]
+    if len(grounded_readings) >= 2:
+        candidate.admission_status = NOT_ADMITTED
+        candidate.non_admission_reason = (
+            "two or more materially different competing readings were independently grounded against "
+            "the source document — never resolved by picking one, forced to review"
+        )
+        return candidate
+
     qualifier_grounding = qualifier_grounding or {}
     ungrounded_qualifiers = [
         field_name for field_name, result in qualifier_grounding.items() if not result.passed
@@ -675,4 +956,16 @@ def verify_and_ground(
     candidate.semantic_verification_result = verification
     candidate.deterministic_grounding_result = ground_evidence_quote(document_text, verification.evidence_quote)
     qualifier_grounding = ground_qualifiers(document_text, verification)
+
+    if verification.definition_term:
+        candidate.definition_resolution = resolve_definition(document_text, verification.definition_term)
+
+    xref_grounding = qualifier_grounding.get("cross_reference_text")
+    if xref_grounding is not None and xref_grounding.passed:
+        candidate.cross_reference_resolution = resolve_cross_reference_target(
+            document_text, verification.cross_reference_text
+        )
+
+    candidate.competing_readings = ground_competing_readings(document_text, verification)
+
     return evaluate_admission(candidate, qualifier_grounding=qualifier_grounding)

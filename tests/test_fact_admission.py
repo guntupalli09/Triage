@@ -482,3 +482,328 @@ def test_verify_and_ground_end_to_end_blocks_on_fabricated_exception(monkeypatch
         result = fa.verify_and_ground(candidate, doc, "Vendor is obligated to indemnify Customer.")
     assert result.admission_status == fa.NOT_ADMITTED
     assert candidate.exception is None
+
+
+# ---------------------------------------------------------------------------
+# Final trust architecture: definition resolution, cross-reference target
+# resolution, competing-reading data preservation, and the zero-silent-loss
+# invariant that ties them together.
+# ---------------------------------------------------------------------------
+
+def test_resolve_definition_found_single_clause():
+    doc = (
+        '1. Definitions. "Confidential Information" means any non-public information '
+        "disclosed by either party. 2. Obligations. Recipient shall protect Confidential Information."
+    )
+    result = fa.resolve_definition(doc, "Confidential Information")
+    assert result.status == "RESOLVED"
+    assert result.term == "Confidential Information"
+    assert result.definition_evidence.startswith('"Confidential Information" means')
+    assert doc[result.definition_start:result.definition_end].strip() == result.definition_evidence
+
+
+def test_resolve_definition_not_found():
+    doc = "Recipient shall protect Confidential Information disclosed by Discloser."
+    result = fa.resolve_definition(doc, "Confidential Information")
+    assert result.status == "NOT_FOUND"
+    assert result.definition_evidence is None
+
+
+def test_resolve_definition_conflicting_when_two_differing_clauses_exist():
+    doc = (
+        '"Losses" means direct damages only. Elsewhere: "Losses" means direct and indirect damages.'
+    )
+    result = fa.resolve_definition(doc, "Losses")
+    assert result.status == "CONFLICTING"
+
+
+def test_resolve_definition_no_term_provided():
+    result = fa.resolve_definition("some document text", None)
+    assert result.status == "NOT_FOUND"
+
+
+def test_resolve_cross_reference_target_section_resolved():
+    doc = (
+        "1. Liability. Vendor's liability is capped as set forth in Section 9.3.\n\n"
+        "Section 9.3 Liability Cap. Vendor's total liability shall not exceed the fees "
+        "paid in the preceding twelve months.\n\n"
+        "Section 10 Miscellaneous. This is the next section."
+    )
+    result = fa.resolve_cross_reference_target(doc, "as set forth in Section 9.3")
+    assert result.status == "RESOLVED"
+    assert result.label.endswith("9.3")
+    assert "Liability Cap" in result.target_evidence
+    assert "Section 10" not in result.target_evidence
+
+
+def test_resolve_cross_reference_target_section_not_found():
+    doc = "1. Liability. Vendor's liability is capped as set forth in Section 9.3."
+    result = fa.resolve_cross_reference_target(doc, "as set forth in Section 9.3")
+    assert result.status == "NOT_FOUND"
+
+
+def test_resolve_cross_reference_target_missing_attachment():
+    doc = "Deliverables are described in Schedule A attached hereto."
+    result = fa.resolve_cross_reference_target(doc, "Schedule A")
+    assert result.status == "MISSING_ATTACHMENT"
+
+
+def test_resolve_cross_reference_target_conflicting_multiple_headings():
+    doc = (
+        "Section 9.3 First Heading. Text one.\n\n"
+        "Section 9.3 Duplicate Heading. Text two."
+    )
+    result = fa.resolve_cross_reference_target(doc, "Section 9.3")
+    assert result.status == "CONFLICTING"
+
+
+def test_resolve_cross_reference_target_unrecognized_label():
+    result = fa.resolve_cross_reference_target("some document", "the other agreement")
+    assert result.status == "NOT_FOUND"
+
+
+def test_ground_competing_readings_preserves_both_grounded_readings():
+    doc = "The Fee is due on delivery. Alternatively, the Fee is due on acceptance."
+    verification = fa.VerificationResult(
+        status=fa.AMBIGUOUS,
+        competing_reading_a={"proposition": "Fee due on delivery.", "evidence_quote": "The Fee is due on delivery."},
+        competing_reading_b={"proposition": "Fee due on acceptance.", "evidence_quote": "the Fee is due on acceptance."},
+    )
+    readings = fa.ground_competing_readings(doc, verification)
+    assert len(readings) == 2
+    assert all(r.grounded for r in readings)
+    assert {r.reading_id for r in readings} == {"A", "B"}
+
+
+def test_ground_competing_readings_marks_ungrounded_reading_but_keeps_it_as_data():
+    doc = "The Fee is due on delivery."
+    verification = fa.VerificationResult(
+        status=fa.AMBIGUOUS,
+        competing_reading_a={"proposition": "Fee due on delivery.", "evidence_quote": "The Fee is due on delivery."},
+        competing_reading_b={"proposition": "Fee due on acceptance.", "evidence_quote": "text not in the document"},
+    )
+    readings = fa.ground_competing_readings(doc, verification)
+    assert len(readings) == 2
+    grounded = {r.reading_id: r.grounded for r in readings}
+    assert grounded["A"] is True
+    assert grounded["B"] is False
+
+
+def test_evaluate_admission_blocks_on_unresolved_definition_dependency():
+    candidate = fa.CandidateMaterialFact(clause_type="confidentiality", fact_type="obligation")
+    candidate.semantic_verification_result = fa.VerificationResult(status=fa.ESTABLISHED, evidence_quote="x")
+    candidate.deterministic_grounding_result = fa.GroundingResult(passed=True)
+    candidate.definition_resolution = fa.DefinitionResolution(status="NOT_FOUND", term="Confidential Information")
+    result = fa.evaluate_admission(candidate)
+    assert result.admission_status == fa.NOT_ADMITTED
+    assert "Confidential Information" in result.non_admission_reason
+
+
+def test_evaluate_admission_blocks_on_unresolved_cross_reference():
+    candidate = fa.CandidateMaterialFact(clause_type="liability", fact_type="cap_provision")
+    candidate.semantic_verification_result = fa.VerificationResult(status=fa.ESTABLISHED, evidence_quote="x")
+    candidate.deterministic_grounding_result = fa.GroundingResult(passed=True)
+    candidate.cross_reference_resolution = fa.CrossReferenceResolution(status="MISSING_ATTACHMENT", label="Schedule A")
+    result = fa.evaluate_admission(candidate)
+    assert result.admission_status == fa.NOT_ADMITTED
+    assert "Schedule A" in result.non_admission_reason
+
+
+def test_evaluate_admission_admits_when_definition_and_cross_reference_both_resolve():
+    candidate = fa.CandidateMaterialFact(clause_type="confidentiality", fact_type="obligation")
+    candidate.semantic_verification_result = fa.VerificationResult(status=fa.ESTABLISHED, evidence_quote="x")
+    candidate.deterministic_grounding_result = fa.GroundingResult(passed=True)
+    candidate.definition_resolution = fa.DefinitionResolution(
+        status="RESOLVED", term="Confidential Information", definition_evidence='"Confidential Information" means X.',
+    )
+    candidate.cross_reference_resolution = fa.CrossReferenceResolution(
+        status="RESOLVED", label="Section 9.3", target_evidence="Section 9.3 Liability Cap. ...",
+    )
+    result = fa.evaluate_admission(candidate)
+    assert result.admission_status == fa.ADMITTED
+    assert result.definition_resolution.status == "RESOLVED"
+    assert result.cross_reference_resolution.status == "RESOLVED"
+
+
+def test_evaluate_admission_blocks_on_two_grounded_competing_readings():
+    """Defense-in-depth for Step C: even if verification.status were
+    ESTABLISHED, two independently-grounded competing readings must never
+    be resolved by silently picking one."""
+    candidate = fa.CandidateMaterialFact(clause_type="payment_terms", fact_type="due_date")
+    candidate.semantic_verification_result = fa.VerificationResult(status=fa.ESTABLISHED, evidence_quote="x")
+    candidate.deterministic_grounding_result = fa.GroundingResult(passed=True)
+    candidate.competing_readings = [
+        fa.CompetingReading(reading_id="A", proposition="Reading A", evidence_quote="x", grounded=True),
+        fa.CompetingReading(reading_id="B", proposition="Reading B", evidence_quote="y", grounded=True),
+    ]
+    result = fa.evaluate_admission(candidate)
+    assert result.admission_status == fa.NOT_ADMITTED
+    assert "competing readings" in result.non_admission_reason
+
+
+def test_evaluate_admission_admits_when_only_one_reading_grounded():
+    """A single grounded reading (the other having failed grounding, or
+    never having been proposed) is not a 'competing readings' situation --
+    it's just one verified proposition, and must not be blocked by this
+    gate."""
+    candidate = fa.CandidateMaterialFact(clause_type="payment_terms", fact_type="due_date")
+    candidate.semantic_verification_result = fa.VerificationResult(status=fa.ESTABLISHED, evidence_quote="x")
+    candidate.deterministic_grounding_result = fa.GroundingResult(passed=True)
+    candidate.competing_readings = [
+        fa.CompetingReading(reading_id="A", proposition="Reading A", evidence_quote="x", grounded=True),
+        fa.CompetingReading(reading_id="B", proposition="Reading B", evidence_quote="not in doc", grounded=False),
+    ]
+    result = fa.evaluate_admission(candidate)
+    assert result.admission_status == fa.ADMITTED
+
+
+def test_verify_and_ground_end_to_end_resolves_definition_dependency(monkeypatch):
+    """Full pipeline proof for Step A: AI notices the dependency (via
+    definition_term) -> deterministic resolve_definition locates the
+    actual clause -> the resolution (not the AI's claim) lands on the
+    admitted fact."""
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    doc = (
+        '1. Definitions. "Confidential Information" means any non-public technical or '
+        "business information disclosed by either party. "
+        "2. Obligations. Recipient shall not disclose Confidential Information to any third party."
+    )
+    fake = _fake_response(json.dumps({
+        "status": "ESTABLISHED",
+        "evidence_quote": "Recipient shall not disclose Confidential Information to any third party",
+        "condition_quote": None, "exception_quote": None, "cross_reference_text": None,
+        "definition_term": "Confidential Information",
+        "reasoning": "Operative non-disclosure obligation, scoped by the defined term.",
+    }))
+    with patch("urllib.request.urlopen", return_value=fake):
+        candidate = fa.CandidateMaterialFact(clause_type="confidentiality", fact_type="obligation")
+        result = fa.verify_and_ground(
+            candidate, doc,
+            "Recipient is obligated not to disclose Confidential Information.",
+        )
+    assert result.admission_status == fa.ADMITTED
+    assert result.definition_resolution is not None
+    assert result.definition_resolution.status == "RESOLVED"
+    assert result.definition_resolution.definition_evidence.startswith('"Confidential Information" means')
+
+
+def test_verify_and_ground_end_to_end_blocks_on_unresolvable_definition(monkeypatch):
+    """The AI claims a proposition depends on a defined term that this
+    document never actually defines -- must block admission rather than
+    silently evaluate the obligation as though the dependency didn't
+    exist."""
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    doc = "Recipient shall not disclose Confidential Information to any third party."
+    fake = _fake_response(json.dumps({
+        "status": "ESTABLISHED",
+        "evidence_quote": "Recipient shall not disclose Confidential Information to any third party",
+        "condition_quote": None, "exception_quote": None, "cross_reference_text": None,
+        "definition_term": "Confidential Information",
+        "reasoning": "...",
+    }))
+    with patch("urllib.request.urlopen", return_value=fake):
+        candidate = fa.CandidateMaterialFact(clause_type="confidentiality", fact_type="obligation")
+        result = fa.verify_and_ground(
+            candidate, doc,
+            "Recipient is obligated not to disclose Confidential Information.",
+        )
+    assert result.admission_status == fa.NOT_ADMITTED
+    assert result.definition_resolution.status == "NOT_FOUND"
+
+
+def test_verify_and_ground_end_to_end_resolves_cross_reference_target(monkeypatch):
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    doc = (
+        "1. Liability. Vendor's total liability is limited as set forth in Section 9.3.\n\n"
+        "Section 9.3 Liability Cap. Vendor's total liability shall not exceed fees paid in "
+        "the preceding twelve months."
+    )
+    fake = _fake_response(json.dumps({
+        "status": "ESTABLISHED",
+        "evidence_quote": "Vendor's total liability is limited as set forth in Section 9.3",
+        "condition_quote": None, "exception_quote": None,
+        "cross_reference_text": "as set forth in Section 9.3",
+        "reasoning": "Operative liability limitation, capped per the referenced section.",
+    }))
+    with patch("urllib.request.urlopen", return_value=fake):
+        candidate = fa.CandidateMaterialFact(clause_type="liability", fact_type="cap_provision")
+        result = fa.verify_and_ground(
+            candidate, doc,
+            "Vendor's liability is limited per a cross-referenced section.",
+        )
+    assert result.admission_status == fa.ADMITTED
+    assert result.cross_reference_resolution.status == "RESOLVED"
+    assert "Liability Cap" in result.cross_reference_resolution.target_evidence
+
+
+def test_verify_and_ground_end_to_end_blocks_on_missing_attachment(monkeypatch):
+    """Cross-reference points to a schedule/exhibit that was never
+    actually attached -- must route to review with the explicit
+    MISSING_ATTACHMENT state, never silently drop the reference and
+    evaluate only the local sentence."""
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    doc = "Deliverables shall conform to the specifications in Schedule A."
+    fake = _fake_response(json.dumps({
+        "status": "ESTABLISHED",
+        "evidence_quote": "Deliverables shall conform to the specifications in Schedule A",
+        "condition_quote": None, "exception_quote": None,
+        "cross_reference_text": "the specifications in Schedule A",
+        "reasoning": "Operative conformance obligation, scoped by attached schedule.",
+    }))
+    with patch("urllib.request.urlopen", return_value=fake):
+        candidate = fa.CandidateMaterialFact(clause_type="ip_ownership", fact_type="deliverable_spec")
+        result = fa.verify_and_ground(
+            candidate, doc,
+            "Deliverables must conform to a referenced schedule.",
+        )
+    assert result.admission_status == fa.NOT_ADMITTED
+    assert result.cross_reference_resolution.status == "MISSING_ATTACHMENT"
+
+
+def test_verify_and_ground_end_to_end_preserves_competing_readings_as_data(monkeypatch):
+    """Step C end-to-end: verifier reports AMBIGUOUS with two competing
+    readings -- admission is blocked (existing safety property) AND both
+    readings are preserved as grounded data on the candidate, not
+    discarded (the previously-missing half of Step 6)."""
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    doc = "The Fee is due on delivery. In some readings, the Fee is due on final acceptance."
+    fake = _fake_response(json.dumps({
+        "status": "AMBIGUOUS",
+        "evidence_quote": None, "condition_quote": None, "exception_quote": None,
+        "cross_reference_text": None, "definition_term": None,
+        "competing_reading_a": {"proposition": "Fee due on delivery.", "evidence_quote": "The Fee is due on delivery."},
+        "competing_reading_b": {"proposition": "Fee due on final acceptance.", "evidence_quote": "the Fee is due on final acceptance."},
+        "reasoning": "Two materially different readings of when the Fee is due.",
+    }))
+    with patch("urllib.request.urlopen", return_value=fake):
+        candidate = fa.CandidateMaterialFact(clause_type="payment_terms", fact_type="due_date")
+        result = fa.verify_and_ground(candidate, doc, "The Fee's due date is established.")
+    assert result.admission_status == fa.NOT_ADMITTED
+    assert len(result.competing_readings) == 2
+    assert all(r.grounded for r in result.competing_readings)
+
+
+def test_zero_silent_loss_invariant_definition_dependency_never_disappears(monkeypatch):
+    """Direct test of the zero-silent-loss invariant (Step H) for the
+    definition dimension: exactly one of (survives to admitted fact) or
+    (admission blocked) happens -- there is no third state where the
+    definition dependency vanishes and the base proposition is still
+    ADMITTED."""
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    doc = "Recipient shall not disclose Confidential Information to any third party."
+    fake = _fake_response(json.dumps({
+        "status": "ESTABLISHED",
+        "evidence_quote": "Recipient shall not disclose Confidential Information to any third party",
+        "condition_quote": None, "exception_quote": None, "cross_reference_text": None,
+        "definition_term": "Confidential Information",
+        "reasoning": "...",
+    }))
+    with patch("urllib.request.urlopen", return_value=fake):
+        candidate = fa.CandidateMaterialFact(clause_type="confidentiality", fact_type="obligation")
+        result = fa.verify_and_ground(
+            candidate, doc, "Recipient is obligated not to disclose Confidential Information.",
+        )
+    survived = result.admission_status == fa.ADMITTED and result.definition_resolution is not None and result.definition_resolution.status == "RESOLVED"
+    blocked = result.admission_status == fa.NOT_ADMITTED
+    assert survived or blocked
+    assert not (result.admission_status == fa.ADMITTED and result.definition_resolution is None)
