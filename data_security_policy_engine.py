@@ -740,6 +740,34 @@ def extract_data_security_facts(text: str) -> Optional[DataSecurityFacts]:
         if not _any_established:
             facts.absence_state = "PRESENT_BUT_UNRESOLVED"
 
+    # Zero-silent-loss mission -- a candidate was discovered but its OWN
+    # semantic verification reported genuine uncertainty (not a confident,
+    # disproven claim -- see fact_admission.first_unresolved_dependency_
+    # note's docstring), so admitted_semantic ends up empty even though
+    # real, material content was found. Previously this note was only
+    # consulted in the "no anchors at all" branch above; when a
+    # deterministic anchor DOES exist (as here), the note was silently
+    # discarded, letting the case fall through to a bare CONFIRMED_ABSENT/
+    # ACCEPT purely because the model's own verification confidence
+    # varied run-to-run for a genuinely colloquial/boundary-line clause
+    # (found via the real-provider repeatability test: data_security-139
+    # varied ACCEPT/REQUIRES_REVIEW across 5 identical runs).
+    if (not admitted_semantic and unresolved_dependency_note is not None
+            and facts.absence_state == "CONFIRMED_ABSENT"):
+        _any_established = any(v is not None and v is not False for v in (
+            facts.breach_notification_hours, facts.transfer_mechanism, facts.data_residency_region,
+            facts.security_standard, facts.subprocessor_treatment, facts.deletion_or_return_required,
+            facts.retention_days, facts.audit_rights, facts.cooperation_obligation,
+            facts.confidentiality_of_personal_data,
+        )) or bool(facts.role_attributions) or facts.breach_notification_explicitly_disclaimed \
+            or facts.breach_notification_ambiguous_unit or facts.breach_without_undue_delay \
+            or facts.retention_indefinite or facts.dpa_cross_reference or facts.liability_cross_reference
+        if not _any_established:
+            facts.absence_state = "PRESENT_BUT_UNRESOLVED"
+            facts.ai_identified_definition_or_reference = (
+                facts.ai_identified_definition_or_reference or unresolved_dependency_note
+            )
+
     return facts
 
 

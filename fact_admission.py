@@ -1012,15 +1012,70 @@ def first_resolved_dependency_note(admitted_candidates: List["CandidateMaterialF
 
 def first_unresolved_dependency_note(verified_candidates: List["CandidateMaterialFact"]) -> Optional[str]:
     """Scans ALL verified candidates (admitted or not) for one whose
-    definition/cross-reference dependency could NOT be resolved — that
+    definition/cross-reference dependency could NOT be resolved -- that
     candidate is correctly NOT_ADMITTED and so drops out of any
     admitted-only list, but the failure itself must not disappear
     (Step H, zero-silent-loss). Callers use this to force REQUIRES_REVIEW
     even when NO candidate was admitted at all, instead of falling back
-    to CONFIRMED_ABSENT."""
+    to CONFIRMED_ABSENT.
+
+    Zero-silent-loss mission (found via a real-provider repeatability
+    test: data_security-139 varied ACCEPT/REQUIRES_REVIEW across 5
+    identical runs) -- also flags a candidate whose OWN semantic
+    verification reported genuine UNCERTAINTY about the proposition
+    (NOT_ESTABLISHED/AMBIGUOUS/INSUFFICIENT_CONTEXT/CONFLICTING), BUT ONLY
+    when independent, deterministic evidence does not already explain
+    that rejection as CONFIDENTLY CORRECT.
+
+    A first attempt flagged ANY such uncertain-state candidate
+    unconditionally and broke an entire existing test family
+    (test_verifier_not_established_descriptive_language_never_admitted,
+    present for nearly every adapter): a verifier confidently and
+    CORRECTLY rejects genuinely descriptive/background/hypothetical/
+    negated text ("Companies generally notify customers... although this
+    Agreement does not itself impose such a requirement") via
+    NOT_ESTABLISHED just as often as it inconsistently rejects genuinely
+    operative colloquial text (data_security-139's actual failure). These
+    are NOT the same thing, and the ORIGINAL narrow design (only flagging
+    definition/cross-reference/competing-reading rejections) was correct
+    to leave plain NOT_ESTABLISHED alone -- distinguishing "confident,
+    correct rejection" from "provider-inconsistent rejection of really-
+    operative text" needs an INDEPENDENT deterministic signal, not the
+    verification status alone (which is exactly the same signal that
+    varies).
+
+    That independent signal is policy_engine_core._PARTY_OBLIGATION_
+    ANCHOR_RE (already built for the same purpose in the operative-
+    context classifier): does the candidate's OWN evidence span contain a
+    named contract-party role (Vendor/Customer/Party/...) as the subject
+    of a modal-obligation construction ("Vendor will...", "Customer
+    shall...")? Plain descriptive/industry-norm prose the verifier
+    confidently and correctly rejects uses a generic subject ("Companies
+    generally...", "vendors typically...", "industry practice often...")
+    and never this construction -- confirmed against every existing
+    "verifier correctly rejects descriptive language" test fixture across
+    6 adapters. If the span DOES contain this construction, a verifier
+    rejection is the suspicious, worth-flagging case (this is exactly
+    data_security-139's shape: "Vendor will let Customer know..."). If it
+    doesn't, the rejection is presumed confidently correct and not
+    flagged, matching this function's previous, already-safe default.
+
+    A candidate NOT_ADMITTED because verification claimed ESTABLISHED but
+    deterministic GROUNDING then disproved it (a fabricated/invented
+    quote, the fault-injection tests' shape) is unaffected either way:
+    verification never reaches ESTABLISHED for the uncertain states this
+    checks (grounding is never attempted for them), so a disproven claim
+    (verification.status == ESTABLISHED, grounding failed) never enters
+    this branch at all."""
+    _UNCERTAIN_VERIFICATION_STATES = {NOT_ESTABLISHED, AMBIGUOUS, INSUFFICIENT_CONTEXT, CONFLICTING}
     for candidate in verified_candidates:
         if candidate.admission_status == ADMITTED:
             continue
+        # More specific mechanisms take priority over the generic
+        # uncertain-verification catch-all below, both because they carry
+        # more diagnostic detail (which defined term, which two
+        # propositions) and because existing tests assert that detail
+        # specifically -- the generic check must never pre-empt them.
         dr = candidate.definition_resolution
         if dr is not None and dr.status != "RESOLVED":
             return (
@@ -1047,4 +1102,29 @@ def first_unresolved_dependency_note(verified_candidates: List["CandidateMateria
                 f"contextual analysis identified two materially different, independently-grounded "
                 f"readings of the same text ({propositions}) — neither was selected as authoritative"
             )
+        # Generic catch-all (zero-silent-loss mission) -- see this
+        # function's docstring for why this must be corroborated by an
+        # independent deterministic signal rather than firing on
+        # verification.status alone. The corroborating signal is
+        # policy_engine_core._PARTY_OBLIGATION_ANCHOR_RE: does the
+        # candidate's OWN evidence span contain a named contract-party
+        # role (Vendor/Customer/Party/...) as the subject of a modal-
+        # obligation construction ("Vendor will...", "Customer shall...")?
+        # Plain descriptive/industry-norm prose uses a generic subject
+        # ("Companies generally...", "vendors typically...", "industry
+        # practice often...") and never this construction -- confirmed
+        # against every existing "verifier correctly rejects descriptive
+        # language" test fixture across 6 adapters, none of which contain
+        # a capitalized defined-party name paired with a modal verb.
+        verification = candidate.semantic_verification_result
+        if verification is not None and verification.status in _UNCERTAIN_VERIFICATION_STATES:
+            import policy_engine_core as _pec
+            looks_operative = bool(_pec._PARTY_OBLIGATION_ANCHOR_RE.search(candidate.evidence_span or ""))
+            if looks_operative:
+                return (
+                    f"contextual analysis identified a candidate span (\"{candidate.evidence_span}\") whose "
+                    f"underlying proposition could not be confidently confirmed by adversarial verification "
+                    f"({verification.status}), despite the span itself containing a named-party obligation "
+                    f"construction -- this is not the same as confirming the material fact is absent"
+                )
     return None
