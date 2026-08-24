@@ -289,3 +289,46 @@ def test_ai_identified_unresolvable_cross_reference_forces_review_not_absent(mon
 
     decision = pte.evaluate_payment_policy(facts, FakePolicy())
     assert decision.state == pte.REQUIRES_REVIEW
+
+
+def test_competing_readings_never_reach_the_adapter_as_authoritative(monkeypatch):
+    """Adapter-level competing-reading proof (Part 5): two materially
+    different, independently-grounded readings of the payment timing
+    must never be resolved by picking one -- the document must not
+    silently collapse to CONFIRMED_ABSENT even though a real candidate
+    was discovered."""
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    doc = (
+        "Customer's settlement obligation is addressed in this section; one reading requires "
+        "settlement within thirty days of the statement date, another treats the timing as "
+        "negotiable on a case-by-case basis."
+    )
+    quote = doc
+
+    call_count = {"n": 0}
+
+    def fake_urlopen(*args, **kwargs):
+        call_count["n"] += 1
+        if call_count["n"] == 1:
+            return _fake_response(json.dumps({"candidates": [{"quote": quote}]}))
+        return _fake_response(json.dumps({
+            "status": "AMBIGUOUS", "evidence_quote": None,
+            "condition_quote": None, "exception_quote": None, "cross_reference_text": None,
+            "competing_reading_a": {
+                "proposition": "Settlement is due within thirty days.",
+                "evidence_quote": "one reading requires settlement within thirty days of the statement date",
+            },
+            "competing_reading_b": {
+                "proposition": "Settlement timing is negotiable.",
+                "evidence_quote": "another treats the timing as negotiable on a case-by-case basis",
+            },
+            "reasoning": "Two materially different readings of the same sentence.",
+        }))
+
+    with patch("urllib.request.urlopen", side_effect=fake_urlopen):
+        facts = pte.extract_payment_facts(doc)
+    assert facts is not None
+    assert facts.absence_state == "DEPENDENCY_UNRESOLVED"
+
+    decision = pte.evaluate_payment_policy(facts, FakePolicy())
+    assert decision.state == pte.REQUIRES_REVIEW

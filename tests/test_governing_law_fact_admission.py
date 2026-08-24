@@ -184,3 +184,47 @@ def test_decision_sensitivity_ai_identified_definition_or_reference_forces_revie
     assert decision_clean.state != gpe.REQUIRES_REVIEW
     assert decision_dependent.state == gpe.REQUIRES_REVIEW
     assert dependency_note in "; ".join(decision_dependent.unresolved_facts)
+
+
+def test_competing_readings_never_reach_the_adapter_as_authoritative(monkeypatch):
+    """Adapter-level competing-reading proof (Part 5): two materially
+    different, independently-grounded readings of which jurisdiction's
+    law applies must never be resolved by picking one -- the document
+    must not silently collapse to CONFIRMED_ABSENT even though a real
+    candidate was discovered."""
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    doc = (
+        "This dispute-resolution clause is ambiguous about jurisdiction; one reading applies the "
+        "law of the state where Vendor's headquarters is located, another applies the law of the "
+        "state where Customer's headquarters is located."
+    )
+    quote = doc
+
+    call_count = {"n": 0}
+
+    def fake_urlopen(*args, **kwargs):
+        call_count["n"] += 1
+        if call_count["n"] == 1:
+            return _fake_response(json.dumps({"candidates": [{"quote": quote}]}))
+        return _fake_response(json.dumps({
+            "status": "AMBIGUOUS", "evidence_quote": None,
+            "condition_quote": None, "exception_quote": None, "cross_reference_text": None,
+            "competing_reading_a": {
+                "proposition": "Vendor's home-state law applies.",
+                "evidence_quote": "one reading applies the law of the state where Vendor's headquarters is located",
+            },
+            "competing_reading_b": {
+                "proposition": "Customer's home-state law applies.",
+                "evidence_quote": "another applies the law of the state where Customer's headquarters is located",
+            },
+            "reasoning": "Two materially different readings of the same sentence.",
+        }))
+
+    with patch("urllib.request.urlopen", side_effect=fake_urlopen):
+        facts = gpe.extract_governing_law_facts(doc)
+    assert facts is not None
+    assert facts.jurisdiction is None
+    assert facts.ai_identified_definition_or_reference is not None
+
+    decision = gpe.evaluate_governing_law_policy(facts, FakePolicy())
+    assert decision.state == gpe.REQUIRES_REVIEW
