@@ -1,0 +1,146 @@
+[
+  {
+    "test": "missing_api_key",
+    "label": "SIMULATED_FAILURE_TEST",
+    "description": "OPENAI_API_KEY unset",
+    "decision_state": "REQUIRES_REVIEW",
+    "bucket": "REQUIRES_REVIEW",
+    "fail_closed": true,
+    "note": ""
+  },
+  {
+    "test": "invalid_api_key",
+    "label": "SIMULATED_FAILURE_TEST",
+    "description": "HTTP 401 from provider",
+    "decision_state": "REQUIRES_REVIEW",
+    "bucket": "REQUIRES_REVIEW",
+    "fail_closed": true,
+    "note": ""
+  },
+  {
+    "test": "timeout",
+    "label": "SIMULATED_FAILURE_TEST",
+    "description": "socket timeout",
+    "decision_state": "REQUIRES_REVIEW",
+    "bucket": "REQUIRES_REVIEW",
+    "fail_closed": true,
+    "note": ""
+  },
+  {
+    "test": "connection_failure",
+    "label": "SIMULATED_FAILURE_TEST",
+    "description": "URLError: connection refused",
+    "decision_state": "REQUIRES_REVIEW",
+    "bucket": "REQUIRES_REVIEW",
+    "fail_closed": true,
+    "note": ""
+  },
+  {
+    "test": "http_429",
+    "label": "SIMULATED_FAILURE_TEST",
+    "description": "HTTP 429 rate limited",
+    "decision_state": "REQUIRES_REVIEW",
+    "bucket": "REQUIRES_REVIEW",
+    "fail_closed": true,
+    "note": ""
+  },
+  {
+    "test": "http_500",
+    "label": "SIMULATED_FAILURE_TEST",
+    "description": "HTTP 500 provider error",
+    "decision_state": "REQUIRES_REVIEW",
+    "bucket": "REQUIRES_REVIEW",
+    "fail_closed": true,
+    "note": ""
+  },
+  {
+    "test": "malformed_json",
+    "label": "SIMULATED_FAILURE_TEST",
+    "description": "model content is not valid JSON",
+    "decision_state": "REQUIRES_REVIEW",
+    "bucket": "REQUIRES_REVIEW",
+    "fail_closed": true,
+    "note": ""
+  },
+  {
+    "test": "empty_response",
+    "label": "SIMULATED_FAILURE_TEST",
+    "description": "choices list is empty",
+    "decision_state": "REQUIRES_REVIEW",
+    "bucket": "REQUIRES_REVIEW",
+    "fail_closed": true,
+    "note": ""
+  },
+  {
+    "test": "missing_required_fields",
+    "label": "SIMULATED_FAILURE_TEST",
+    "description": "response has no 'choices' key",
+    "decision_state": "REQUIRES_REVIEW",
+    "bucket": "REQUIRES_REVIEW",
+    "fail_closed": true,
+    "note": ""
+  },
+  {
+    "test": "evidence_quote_not_in_source",
+    "label": "SIMULATED_FAILURE_TEST",
+    "description": "hallucinated quote, not a substring of the document",
+    "decision_state": "N/A",
+    "bucket": "CANDIDATES_DISCARDED",
+    "fail_closed": true,
+    "note": "0 candidates survived (must be 0)"
+  },
+  {
+    "test": "invented_condition",
+    "label": "SIMULATED_FAILURE_TEST",
+    "description": "verifier claims a condition quote absent from the document",
+    "decision_state": "NOT_ADMITTED",
+    "bucket": "BLOCKED",
+    "fail_closed": true,
+    "note": "verifier reported a material qualifier (condition_quote) that could not be grounded against the source document \u2014 never dropped to reach a simplified clean fact"
+  },
+  {
+    "test": "invented_exception",
+    "label": "SIMULATED_FAILURE_TEST",
+    "description": "verifier claims an exception quote absent from the document",
+    "decision_state": "NOT_ADMITTED",
+    "bucket": "BLOCKED",
+    "fail_closed": true,
+    "note": "verifier reported a material qualifier (exception_quote) that could not be grounded against the source document \u2014 never dropped to reach a simplified clean fact"
+  },
+  {
+    "test": "invented_definition",
+    "label": "SIMULATED_FAILURE_TEST",
+    "description": "verifier names a defined term not actually defined anywhere in the document",
+    "decision_state": "NOT_ADMITTED",
+    "bucket": "BLOCKED",
+    "fail_closed": true,
+    "note": "proposition depends on defined term 'Required Coverage' which could not be deterministically resolved (NOT_FOUND): no definition clause found for \"Required Coverage\""
+  },
+  {
+    "test": "invented_cross_reference",
+    "label": "SIMULATED_FAILURE_TEST",
+    "description": "verifier cites a section that does not exist in the document",
+    "decision_state": "NOT_ADMITTED",
+    "bucket": "BLOCKED",
+    "fail_closed": true,
+    "note": "verifier reported a material qualifier (cross_reference_text) that could not be grounded against the source document \u2014 never dropped to reach a simplified clean fact"
+  },
+  {
+    "test": "contradictory_model_response",
+    "label": "SIMULATED_FAILURE_TEST",
+    "description": "status=NOT_ESTABLISHED but evidence_quote is populated",
+    "decision_state": "NOT_ADMITTED",
+    "bucket": "BLOCKED",
+    "fail_closed": true,
+    "note": "semantic verification concluded the proposition is not established"
+  },
+  {
+    "test": "indemnification_primary_path_provider_failure",
+    "label": "SIMULATED_FAILURE_TEST",
+    "description": "semantic_discovery_real network failure during indemnification's PRIMARY discovery (the deterministic anchor 'indemnify' is ALSO present in this text, so this exercises the fail-closed path for a provider error that happens alongside a successful deterministic parse, not a total-absence scenario)",
+    "decision_state": "MUST_REDLINE",
+    "bucket": "NOT_CLEAN",
+    "fail_closed": true,
+    "note": ""
+  }
+]

@@ -1,0 +1,1446 @@
+{
+  "corpus_sha256": "16f24e9e6e7cea9f2e8343e14dc11fb6d6ad895381b71250a79c6e51f9d0a320",
+  "total_cases": 240,
+  "cases": [
+    {
+      "id": "limitation_of_liability-000",
+      "adapter": "limitation_of_liability",
+      "family": "LEE1",
+      "sha256": "bd5a2431c6f36e60853131773a65534c7d95a25b2810b425b465c1a74ecb8865"
+    },
+    {
+      "id": "limitation_of_liability-001",
+      "adapter": "limitation_of_liability",
+      "family": "LEE2",
+      "sha256": "7097d9d37090e0f46650037b30e4ad3bdb458f3736e96850e0758567ce321f58"
+    },
+    {
+      "id": "limitation_of_liability-002",
+      "adapter": "limitation_of_liability",
+      "family": "LEE3",
+      "sha256": "a9cd7655a3357734a9272c490ea7eea9ee38d2022834bdd7ed6788ad3b1cb1ae"
+    },
+    {
+      "id": "limitation_of_liability-003",
+      "adapter": "limitation_of_liability",
+      "family": "LEE4",
+      "sha256": "01a6ac0b948092dfd5129d0e5d2d4cbfd21197bad85ceaaa4251242af02ea6ca"
+    },
+    {
+      "id": "limitation_of_liability-004",
+      "adapter": "limitation_of_liability",
+      "family": "LEE5",
+      "sha256": "b0d05b571f74077edbd95cadf720daccad78ac213bc4b4578c22f23ddaf01c1a"
+    },
+    {
+      "id": "limitation_of_liability-005",
+      "adapter": "limitation_of_liability",
+      "family": "LEE6",
+      "sha256": "beb15ad9636cb2173831e26d480269fdfaf1172999b2cf258382facdcf3f0a85"
+    },
+    {
+      "id": "limitation_of_liability-006",
+      "adapter": "limitation_of_liability",
+      "family": "LEE7",
+      "sha256": "d1477ea8818090348b2a9f2bff8943fe2b4337521e7cfa6c7d6116368c93dafb"
+    },
+    {
+      "id": "limitation_of_liability-007",
+      "adapter": "limitation_of_liability",
+      "family": "LEE8",
+      "sha256": "4b1f46f5b0a29b8e4b9829a5e9e2727a2bba7339589c6e34a3e0c5ef2d2e5f45"
+    },
+    {
+      "id": "limitation_of_liability-008",
+      "adapter": "limitation_of_liability",
+      "family": "LEE9",
+      "sha256": "aa650694aeb87406715a89157f09c769478d5b2a0eec2b21bc2427b1af59e78e"
+    },
+    {
+      "id": "limitation_of_liability-009",
+      "adapter": "limitation_of_liability",
+      "family": "LEE10",
+      "sha256": "3eb9edb1d82b88da7f3e12fbba626aeb617955e29cc09c7a0821a07f3077c287"
+    },
+    {
+      "id": "limitation_of_liability-010",
+      "adapter": "limitation_of_liability",
+      "family": "NEGATED",
+      "sha256": "7d369330b48b0a6e8416918346e97920882d6f19f6d7f99e086f6f27883ef8ee"
+    },
+    {
+      "id": "limitation_of_liability-011",
+      "adapter": "limitation_of_liability",
+      "family": "UNRELATED",
+      "sha256": "e55cc41b8537f447dacfe92ddbcde8bfe7bbae9f942fbb6cfe5cd21521bea9f9"
+    },
+    {
+      "id": "limitation_of_liability-012",
+      "adapter": "limitation_of_liability",
+      "family": "PARTY_ASYMMETRY",
+      "sha256": "9427fd8adfcf0c568018eb28f356db3d3fbccf307dcc56862d97a2f5aa68eaeb"
+    },
+    {
+      "id": "limitation_of_liability-013",
+      "adapter": "limitation_of_liability",
+      "family": "NUMERIC",
+      "sha256": "ece12072b9d13a358e4fc1143c9723eaa94f6f28a7a16a788a223cf7b61ec2f3"
+    },
+    {
+      "id": "limitation_of_liability-014",
+      "adapter": "limitation_of_liability",
+      "family": "BACKWARD_QUALIFIER",
+      "sha256": "429d07e8bc07809b4d30b5b278a60debd24991b9965e27868f80420cf1fe5ca8"
+    },
+    {
+      "id": "limitation_of_liability-015",
+      "adapter": "limitation_of_liability",
+      "family": "FORWARD_QUALIFIER",
+      "sha256": "7b4632910ca950b7b75d2b615b27a553ed02100816ba8e57fe7ca21dbd67d407"
+    },
+    {
+      "id": "limitation_of_liability-016",
+      "adapter": "limitation_of_liability",
+      "family": "LONG_DISTANCE",
+      "sha256": "5b2b0afbb0073d478f066561b6ed6f00661413da6bdbae6b194b44e8bc69c566"
+    },
+    {
+      "id": "limitation_of_liability-017",
+      "adapter": "limitation_of_liability",
+      "family": "CONTRADICTION",
+      "sha256": "95608e4e7310da2b3b2bd11845bc3ce0e78863f67d59c0c51fbd9b4e4f1951a4"
+    },
+    {
+      "id": "limitation_of_liability-018",
+      "adapter": "limitation_of_liability",
+      "family": "MISSING_CLAUSE",
+      "sha256": "f7775d3959abacf5757b8fb204a33b6d316925cd642589af49a251f71337b0f6"
+    },
+    {
+      "id": "limitation_of_liability-019",
+      "adapter": "limitation_of_liability",
+      "family": "UNUSUAL_VALID_DRAFTING",
+      "sha256": "d83ff89aab126126691f0910dc33317fc97d5f0434312b1b1f7d38daa83d7c27"
+    },
+    {
+      "id": "indemnification-020",
+      "adapter": "indemnification",
+      "family": "LEE1",
+      "sha256": "07a45ccd67d512b9f7458fe5f4f7a324e05d165ffeb209b1d244eb942c5469d8"
+    },
+    {
+      "id": "indemnification-021",
+      "adapter": "indemnification",
+      "family": "LEE2",
+      "sha256": "47f9f16f1c45b8b37e178f6d4d978d337cfb06dd33ba071a6e5348020199800a"
+    },
+    {
+      "id": "indemnification-022",
+      "adapter": "indemnification",
+      "family": "LEE3",
+      "sha256": "b9bd0177ab0ac20aba11fae3a07cf7c26bab6d23ae54da454c24533d0f9161a4"
+    },
+    {
+      "id": "indemnification-023",
+      "adapter": "indemnification",
+      "family": "LEE4",
+      "sha256": "fa07b847925e6433967ddd26b49048f5aa60f4f8cfe9c6113dfaf9e6a9229891"
+    },
+    {
+      "id": "indemnification-024",
+      "adapter": "indemnification",
+      "family": "LEE5",
+      "sha256": "ffbc4071cf38b597d9272da8827665149cccae9d61c76705ff455edd0c9f54d5"
+    },
+    {
+      "id": "indemnification-025",
+      "adapter": "indemnification",
+      "family": "LEE6",
+      "sha256": "93a79e83c30ea7e7d951d8a61ab1fb4cf5d17bc08022ee6b46d24718bafa903d"
+    },
+    {
+      "id": "indemnification-026",
+      "adapter": "indemnification",
+      "family": "LEE7",
+      "sha256": "0e2e19a4642b8b01180b6f3eee2c4ae0098b5a98427a4d9f0ba8296fb355f836"
+    },
+    {
+      "id": "indemnification-027",
+      "adapter": "indemnification",
+      "family": "LEE8",
+      "sha256": "7a148192d7e135112be40b1a0a5f1c30deddc2ec86b5648384c91232ac41ba0d"
+    },
+    {
+      "id": "indemnification-028",
+      "adapter": "indemnification",
+      "family": "LEE9",
+      "sha256": "a1ad711b866e98260ec69c963ab910d01d00685db005eed63cec1cc4d148deda"
+    },
+    {
+      "id": "indemnification-029",
+      "adapter": "indemnification",
+      "family": "LEE10",
+      "sha256": "28ad84d886f885c7eb400a38a003b6b57eee0411700f5e1e14a53858bdbd399c"
+    },
+    {
+      "id": "indemnification-030",
+      "adapter": "indemnification",
+      "family": "NEGATED",
+      "sha256": "6a0c69c83ed4c0afd4d9333caceec66503005982125810e5aa0481bdc994bb1a"
+    },
+    {
+      "id": "indemnification-031",
+      "adapter": "indemnification",
+      "family": "UNRELATED",
+      "sha256": "6c32255c1abfd86e23be44289cde236f19c481d3a888a0627cd8f9a98f4ee2d1"
+    },
+    {
+      "id": "indemnification-032",
+      "adapter": "indemnification",
+      "family": "PARTY_ASYMMETRY",
+      "sha256": "ca308cea6f203b91dacfe61a6849119355165f3cbdf840ed7b8077cf21ffb930"
+    },
+    {
+      "id": "indemnification-033",
+      "adapter": "indemnification",
+      "family": "NUMERIC",
+      "sha256": "81c4f92d98bd3698d2af5e9571cd20114d7e60df4019cd5d36c4d533030c029c"
+    },
+    {
+      "id": "indemnification-034",
+      "adapter": "indemnification",
+      "family": "BACKWARD_QUALIFIER",
+      "sha256": "87b18704d96168ea53fbe7cef38c31197ff042ddc1935c6ba626edc45f57969e"
+    },
+    {
+      "id": "indemnification-035",
+      "adapter": "indemnification",
+      "family": "FORWARD_QUALIFIER",
+      "sha256": "9d8531448c0aa6f9683d98d1fbd05b78c46616f992dfc7a0cc289aed3f8b266d"
+    },
+    {
+      "id": "indemnification-036",
+      "adapter": "indemnification",
+      "family": "LONG_DISTANCE",
+      "sha256": "60142925f024c49f1466cf1eeeb4bb1738853ad377803a8f1d038f3f4465721b"
+    },
+    {
+      "id": "indemnification-037",
+      "adapter": "indemnification",
+      "family": "CONTRADICTION",
+      "sha256": "12dfe5f3b090847138d6e30b11fca6156d2e04b6a2b5e5b3178ead2a05b4fef9"
+    },
+    {
+      "id": "indemnification-038",
+      "adapter": "indemnification",
+      "family": "MISSING_CLAUSE",
+      "sha256": "e6b89162641d06df22f115f0c746e98bf48ff9c2d6cccc683ff85f5a8f15215d"
+    },
+    {
+      "id": "indemnification-039",
+      "adapter": "indemnification",
+      "family": "UNUSUAL_VALID_DRAFTING",
+      "sha256": "2c8bdc7437bbeb281db6cbb9d526281990559fc85d24c15552d2862cd0834236"
+    },
+    {
+      "id": "confidentiality-040",
+      "adapter": "confidentiality",
+      "family": "LEE1",
+      "sha256": "fed639bd3894b22235350d8b7daada01777ab4d3383cf0684d8c10d43e91a9ad"
+    },
+    {
+      "id": "confidentiality-041",
+      "adapter": "confidentiality",
+      "family": "LEE2",
+      "sha256": "1b73215a87e3163dea7bc0cbfd61b9f4be93b78e9f5f95a1186a5bb1591e41a5"
+    },
+    {
+      "id": "confidentiality-042",
+      "adapter": "confidentiality",
+      "family": "LEE3",
+      "sha256": "a87329ff124a2feb83857d8d987a3b2e5b72e1be6df418e0fee73f7b472aadbd"
+    },
+    {
+      "id": "confidentiality-043",
+      "adapter": "confidentiality",
+      "family": "LEE4",
+      "sha256": "cd7d7596b94af0be3a159288294ec8306e37152c775407d72530db819c87c52a"
+    },
+    {
+      "id": "confidentiality-044",
+      "adapter": "confidentiality",
+      "family": "LEE5",
+      "sha256": "7cddc7bfcdd2f525e15d64cba9c35eceb06a52ba21a576b4c557315abfffd10c"
+    },
+    {
+      "id": "confidentiality-045",
+      "adapter": "confidentiality",
+      "family": "LEE6",
+      "sha256": "dd7045d32daee33eaba5a1c8e619ba0b1c7beb015fded2e931a99a9f0b95ec6f"
+    },
+    {
+      "id": "confidentiality-046",
+      "adapter": "confidentiality",
+      "family": "LEE7",
+      "sha256": "a0e39ce2c6398db88ec913c21d11a712a7f366502d7801f867536d2fc0358ab4"
+    },
+    {
+      "id": "confidentiality-047",
+      "adapter": "confidentiality",
+      "family": "LEE8",
+      "sha256": "dd4df95a34f3fba89b78bea95f581dd8ece10e0e3cfaebd852f706f9468f1304"
+    },
+    {
+      "id": "confidentiality-048",
+      "adapter": "confidentiality",
+      "family": "LEE9",
+      "sha256": "940b5f1524baa21d9902359021bac74acea9e8f0d4d3f209cccce87f4cd27ec9"
+    },
+    {
+      "id": "confidentiality-049",
+      "adapter": "confidentiality",
+      "family": "LEE10",
+      "sha256": "ea1297f73281cf21503ff02e6f8d8c9dc6c238a6746af1494021d7c315e0d55a"
+    },
+    {
+      "id": "confidentiality-050",
+      "adapter": "confidentiality",
+      "family": "NEGATED",
+      "sha256": "05b37ddbe9f6577245e38ae0370edbdf8073c092e385dbb0bf05e38147f7dae5"
+    },
+    {
+      "id": "confidentiality-051",
+      "adapter": "confidentiality",
+      "family": "UNRELATED",
+      "sha256": "6960926d7a3d1774cd712ca0d5f0604a420192b39bcbefdc75ca00dca826b5b8"
+    },
+    {
+      "id": "confidentiality-052",
+      "adapter": "confidentiality",
+      "family": "PARTY_ASYMMETRY",
+      "sha256": "8686255760f268242b5f0c0443b7ccbc0ab396cec0f99c114a70fd8a2f4db92f"
+    },
+    {
+      "id": "confidentiality-053",
+      "adapter": "confidentiality",
+      "family": "NUMERIC",
+      "sha256": "32d694de13643346f5d2a0295d2133ba1dc497d53134559fa22798fba17f7321"
+    },
+    {
+      "id": "confidentiality-054",
+      "adapter": "confidentiality",
+      "family": "BACKWARD_QUALIFIER",
+      "sha256": "4c48114ce441afc15864af336dff2dcd3aeee0721e37481b85be140eb24f3dfb"
+    },
+    {
+      "id": "confidentiality-055",
+      "adapter": "confidentiality",
+      "family": "FORWARD_QUALIFIER",
+      "sha256": "92771161010f0b5cb67679b807d35310dde3f5a2154b44ff0399fdca817d28d6"
+    },
+    {
+      "id": "confidentiality-056",
+      "adapter": "confidentiality",
+      "family": "LONG_DISTANCE",
+      "sha256": "bfa43e3d3c458565381688e2f7582e96eaba43954fcc7a35e548707b534b8452"
+    },
+    {
+      "id": "confidentiality-057",
+      "adapter": "confidentiality",
+      "family": "CONTRADICTION",
+      "sha256": "ff4de78453dd1ebb25ea3021ba4aeb341f70c982a7fb17353e8cf512831af879"
+    },
+    {
+      "id": "confidentiality-058",
+      "adapter": "confidentiality",
+      "family": "MISSING_CLAUSE",
+      "sha256": "e2c29400e43894c646680b09ab24745280f69f9fd103b973294b7f814247ef8f"
+    },
+    {
+      "id": "confidentiality-059",
+      "adapter": "confidentiality",
+      "family": "UNUSUAL_VALID_DRAFTING",
+      "sha256": "4c96c5e9c088104b541b3b0e45438e40e3af84ad02b07b110db507b99152c9e9"
+    },
+    {
+      "id": "payment_terms-060",
+      "adapter": "payment_terms",
+      "family": "LEE1",
+      "sha256": "31d5563d2b149df432a622ecd0ac7284265c9ffc1cb480887cbc5c24175862e1"
+    },
+    {
+      "id": "payment_terms-061",
+      "adapter": "payment_terms",
+      "family": "LEE2",
+      "sha256": "c95c98ae6b760d6668484b3d50735094f40e78b870e8fd4f308b12cbb5f72542"
+    },
+    {
+      "id": "payment_terms-062",
+      "adapter": "payment_terms",
+      "family": "LEE3",
+      "sha256": "1354e5ed8fd113bb6b85d01916e83d88e0a088019ccac0a0be7d3bf95beb5bb5"
+    },
+    {
+      "id": "payment_terms-063",
+      "adapter": "payment_terms",
+      "family": "LEE4",
+      "sha256": "449c6ec1a1711cac4fe4dde207a5f3abf2ea1b384cbcbaadcebc48635c45be42"
+    },
+    {
+      "id": "payment_terms-064",
+      "adapter": "payment_terms",
+      "family": "LEE5",
+      "sha256": "556c73f39261cefb6658e5fe8d05ac5096bc7d5961793576f2000034309a134e"
+    },
+    {
+      "id": "payment_terms-065",
+      "adapter": "payment_terms",
+      "family": "LEE6",
+      "sha256": "60bc99a6d32ac470dbcba529e19a05ba14218c25d69f3565a36e7fc81c19f9a1"
+    },
+    {
+      "id": "payment_terms-066",
+      "adapter": "payment_terms",
+      "family": "LEE7",
+      "sha256": "a45dc68033ae0bca9d040e5c8a6393ff15db7e56027888918e1db3d654e4cea1"
+    },
+    {
+      "id": "payment_terms-067",
+      "adapter": "payment_terms",
+      "family": "LEE8",
+      "sha256": "5d6491f52099aa2e91842acb66d874f1764004f276d3245311e212d16dffe9af"
+    },
+    {
+      "id": "payment_terms-068",
+      "adapter": "payment_terms",
+      "family": "LEE9",
+      "sha256": "5efe1523e71e4685215b9af3b347a7ca01b02b058ee0cd12c51124eec6a70d15"
+    },
+    {
+      "id": "payment_terms-069",
+      "adapter": "payment_terms",
+      "family": "LEE10",
+      "sha256": "720bff62d6937286b8552308d1b1bfa528e52328153bb2057befbabb53b4e9bd"
+    },
+    {
+      "id": "payment_terms-070",
+      "adapter": "payment_terms",
+      "family": "NEGATED",
+      "sha256": "a496d067ef2f20921816f916af7f980938f901a1091e8b192031decdf69b6396"
+    },
+    {
+      "id": "payment_terms-071",
+      "adapter": "payment_terms",
+      "family": "UNRELATED",
+      "sha256": "713cf3f40e7114d2b1e76d64f9712ab2656f2bb14476b2e86c01e7903abe8c95"
+    },
+    {
+      "id": "payment_terms-072",
+      "adapter": "payment_terms",
+      "family": "PARTY_ASYMMETRY",
+      "sha256": "fc22c15d9e70eb6de855cf84885c147e6c5e9e014be47ff1b97d8023fa4c4a97"
+    },
+    {
+      "id": "payment_terms-073",
+      "adapter": "payment_terms",
+      "family": "NUMERIC",
+      "sha256": "1779ff792a9168b02032450be776eadbbe5f6e1d9703c408fcb7f0adb3e419be"
+    },
+    {
+      "id": "payment_terms-074",
+      "adapter": "payment_terms",
+      "family": "BACKWARD_QUALIFIER",
+      "sha256": "38ea92eb4bf64bd8bed4e4b48f66834d0f121e411a90c80cc696b59a5a077c71"
+    },
+    {
+      "id": "payment_terms-075",
+      "adapter": "payment_terms",
+      "family": "FORWARD_QUALIFIER",
+      "sha256": "611072ef0834f6c45e809f993113aefc5304e0eaf2ddecbfad9f45d66f77da5d"
+    },
+    {
+      "id": "payment_terms-076",
+      "adapter": "payment_terms",
+      "family": "LONG_DISTANCE",
+      "sha256": "0a8e167b10db2e18d50d63d53ea3b0079da2af363a6b6b0afef75f33d8165cb4"
+    },
+    {
+      "id": "payment_terms-077",
+      "adapter": "payment_terms",
+      "family": "CONTRADICTION",
+      "sha256": "1643e58cd62ab69028083aa66fc02925153ac3c737c5ee2c3251036d9bd0bcb3"
+    },
+    {
+      "id": "payment_terms-078",
+      "adapter": "payment_terms",
+      "family": "MISSING_CLAUSE",
+      "sha256": "28e91edefc5d1f05cdb171e0fdb73c1ccb73a7d9f526c40b707107c78788aa4a"
+    },
+    {
+      "id": "payment_terms-079",
+      "adapter": "payment_terms",
+      "family": "UNUSUAL_VALID_DRAFTING",
+      "sha256": "41a64d8b56c841e4327a46294cc899f0296e21063081a452c876b5a9830bb273"
+    },
+    {
+      "id": "ip_ownership-080",
+      "adapter": "ip_ownership",
+      "family": "LEE1",
+      "sha256": "242dc955c77937f1a2b5f073038566d3387480445610086dae05338ddb5f26b9"
+    },
+    {
+      "id": "ip_ownership-081",
+      "adapter": "ip_ownership",
+      "family": "LEE2",
+      "sha256": "989a98e34bdb5eee4dccaf0747f8fc6af80dc325a99e5194cf9d0d0c9b5675da"
+    },
+    {
+      "id": "ip_ownership-082",
+      "adapter": "ip_ownership",
+      "family": "LEE3",
+      "sha256": "e8354e6991603d756f89451b5dbf5c8607eb6a67cfc42480166ee4bc2e3ba950"
+    },
+    {
+      "id": "ip_ownership-083",
+      "adapter": "ip_ownership",
+      "family": "LEE4",
+      "sha256": "de5025386bb9c896ffbb00b0dcbb35064a9cac4eff559a73f6c36e12f2105d9c"
+    },
+    {
+      "id": "ip_ownership-084",
+      "adapter": "ip_ownership",
+      "family": "LEE5",
+      "sha256": "f7f3393f601af44695324bfe316ae48cc67d1b8fab5d68f058dfa95be8c434bf"
+    },
+    {
+      "id": "ip_ownership-085",
+      "adapter": "ip_ownership",
+      "family": "LEE6",
+      "sha256": "60c5429f81b675a57cb7d6dbfb63a86f3a4c5dce48b186e16d230a80e0fdccfe"
+    },
+    {
+      "id": "ip_ownership-086",
+      "adapter": "ip_ownership",
+      "family": "LEE7",
+      "sha256": "bbe77827510974b2b6cf34e0f4b6692577a4b9b9b7928287f6c264e8c6f822a8"
+    },
+    {
+      "id": "ip_ownership-087",
+      "adapter": "ip_ownership",
+      "family": "LEE8",
+      "sha256": "c6a8600708e351a33e250aa03342270afb7415eedb562f52d3b95aa57cdb0ac3"
+    },
+    {
+      "id": "ip_ownership-088",
+      "adapter": "ip_ownership",
+      "family": "LEE9",
+      "sha256": "a16ba44eb3d67cce167a9c85cb66508caf2709155e97c0266c601f9269cdfeb5"
+    },
+    {
+      "id": "ip_ownership-089",
+      "adapter": "ip_ownership",
+      "family": "LEE10",
+      "sha256": "0e76ee4225768a3105351841f74a4d0186ceb4b9ea227f0633e72a3f50ed0c32"
+    },
+    {
+      "id": "ip_ownership-090",
+      "adapter": "ip_ownership",
+      "family": "NEGATED",
+      "sha256": "aed746a054a54966657f4c33bf6a5bb8848a7ba7dc034e1d1eba351deac3dfdb"
+    },
+    {
+      "id": "ip_ownership-091",
+      "adapter": "ip_ownership",
+      "family": "UNRELATED",
+      "sha256": "ff79102a21d2fe992dac9acfe9c727730f5e3f1b73b1bf08314bb50523b86dfa"
+    },
+    {
+      "id": "ip_ownership-092",
+      "adapter": "ip_ownership",
+      "family": "PARTY_ASYMMETRY",
+      "sha256": "497c23d2784a44cb7dec5cc0887987698a150a826b8ff3af75f2ce5b0a270491"
+    },
+    {
+      "id": "ip_ownership-093",
+      "adapter": "ip_ownership",
+      "family": "NUMERIC",
+      "sha256": "a8329829a936614aa67046c85835db99ecf6ac5cac8da5dad62d4f8b55faa014"
+    },
+    {
+      "id": "ip_ownership-094",
+      "adapter": "ip_ownership",
+      "family": "BACKWARD_QUALIFIER",
+      "sha256": "1cb618226865487d89b7068a546c8962f71421f8f7741cf9e507d2c8a3f111a7"
+    },
+    {
+      "id": "ip_ownership-095",
+      "adapter": "ip_ownership",
+      "family": "FORWARD_QUALIFIER",
+      "sha256": "ec7113c7e8408b854c2c880d9dedcfdd654e7d885018643e3a65fd03e7652e7c"
+    },
+    {
+      "id": "ip_ownership-096",
+      "adapter": "ip_ownership",
+      "family": "LONG_DISTANCE",
+      "sha256": "5dbeaf7a59d493642362fdb21781426d8fcc4e60a9e8be6010db4035b7eea102"
+    },
+    {
+      "id": "ip_ownership-097",
+      "adapter": "ip_ownership",
+      "family": "CONTRADICTION",
+      "sha256": "e13810c300b7e8ae8563118ccba166ca1e248d17e691cf97afd3163ab6958069"
+    },
+    {
+      "id": "ip_ownership-098",
+      "adapter": "ip_ownership",
+      "family": "MISSING_CLAUSE",
+      "sha256": "c5387dc801cfceed7cdfbc5e4f172aae144e486d14ced8357c9d20f7f244092c"
+    },
+    {
+      "id": "ip_ownership-099",
+      "adapter": "ip_ownership",
+      "family": "UNUSUAL_VALID_DRAFTING",
+      "sha256": "6416a1ed5145446bdb13f1bf157ce50ca7db3655474e36de9368e96c950488f7"
+    },
+    {
+      "id": "insurance-100",
+      "adapter": "insurance",
+      "family": "LEE1",
+      "sha256": "f34c01c472f6a147174c4205616564e1382e71ddfa940c2ef147a58cc7299df1"
+    },
+    {
+      "id": "insurance-101",
+      "adapter": "insurance",
+      "family": "LEE2",
+      "sha256": "414fbdbe61470a5b31d74b9675668892aa4e46ed227c19caee4a697a7a950296"
+    },
+    {
+      "id": "insurance-102",
+      "adapter": "insurance",
+      "family": "LEE3",
+      "sha256": "0663a2835b8f206750cd01c83f8ac3085337ed2e2dbd88d6e922cc5ffd2bd3bf"
+    },
+    {
+      "id": "insurance-103",
+      "adapter": "insurance",
+      "family": "LEE4",
+      "sha256": "1bbd58cdc81d54a77018ffbb6b64dc3a868fa157392c5deb1bc8838be09519ae"
+    },
+    {
+      "id": "insurance-104",
+      "adapter": "insurance",
+      "family": "LEE5",
+      "sha256": "afc38b160600afaf41c21f420df833814e81d195727942b3ce28ec3182b7eba1"
+    },
+    {
+      "id": "insurance-105",
+      "adapter": "insurance",
+      "family": "LEE6",
+      "sha256": "b0be60e38a8e8737d6161348bce62acaa6add54ea1c586228ea19419ab462262"
+    },
+    {
+      "id": "insurance-106",
+      "adapter": "insurance",
+      "family": "LEE7",
+      "sha256": "947abea4c93f9752ec6f9c5ce504d8beb805d796d2cb0bd39c658a2631b4833c"
+    },
+    {
+      "id": "insurance-107",
+      "adapter": "insurance",
+      "family": "LEE8",
+      "sha256": "2c52e645f86508a06d996f7dd1de4c173901f376543ff25621eb30b76839ab75"
+    },
+    {
+      "id": "insurance-108",
+      "adapter": "insurance",
+      "family": "LEE9",
+      "sha256": "96caf3a1ad2d21c70e1a4046988aeed51f787dff4834bc7fcac03f977ef66ce1"
+    },
+    {
+      "id": "insurance-109",
+      "adapter": "insurance",
+      "family": "LEE10",
+      "sha256": "ad6ba7e835a4a604a3995f67553581ab48916fdf3cf1381f0819420e0f06ec47"
+    },
+    {
+      "id": "insurance-110",
+      "adapter": "insurance",
+      "family": "NEGATED",
+      "sha256": "2250ec2976ed8dfcd308bdd64194ea3d3c4298fc8d38f38ff242f08b1351b45a"
+    },
+    {
+      "id": "insurance-111",
+      "adapter": "insurance",
+      "family": "UNRELATED",
+      "sha256": "f9474058f67e74965770bbfbeabec9cf853cc3be3b15191a4a94ee720f4102e7"
+    },
+    {
+      "id": "insurance-112",
+      "adapter": "insurance",
+      "family": "PARTY_ASYMMETRY",
+      "sha256": "88aad2eedf6c93bb039b2f7c8cb0135fca105a1047e1e833308e5a59d987aa09"
+    },
+    {
+      "id": "insurance-113",
+      "adapter": "insurance",
+      "family": "NUMERIC",
+      "sha256": "7c41adea70def32916c1c37c3b17ef8667563ba25fce9ef010c39138ce040c28"
+    },
+    {
+      "id": "insurance-114",
+      "adapter": "insurance",
+      "family": "BACKWARD_QUALIFIER",
+      "sha256": "0e498331918e703c9f79e120d5cd7168fc529ed3da239cfc3aedb316425f8296"
+    },
+    {
+      "id": "insurance-115",
+      "adapter": "insurance",
+      "family": "FORWARD_QUALIFIER",
+      "sha256": "50d54393d2721e41bd15a5239d62f47333fc18ada954cc605eb7db5ba214bab7"
+    },
+    {
+      "id": "insurance-116",
+      "adapter": "insurance",
+      "family": "LONG_DISTANCE",
+      "sha256": "160a9d19cfe60815a018add2b06fbc3017771160eb794bcbaac476a0062d688c"
+    },
+    {
+      "id": "insurance-117",
+      "adapter": "insurance",
+      "family": "CONTRADICTION",
+      "sha256": "800a50f83237253a78b45c0cc4957555b9551ce0078a2d9f69e7d2137420785f"
+    },
+    {
+      "id": "insurance-118",
+      "adapter": "insurance",
+      "family": "MISSING_CLAUSE",
+      "sha256": "bfde8483a37653a7ba6b0436c19177bd7d4a703008c759536fc82538826556de"
+    },
+    {
+      "id": "insurance-119",
+      "adapter": "insurance",
+      "family": "UNUSUAL_VALID_DRAFTING",
+      "sha256": "ced5a448e63874b88d98cb2c7586224093ece4f9f56b9946a093ad295bf86ecd"
+    },
+    {
+      "id": "data_security-120",
+      "adapter": "data_security",
+      "family": "LEE1",
+      "sha256": "86c7f14b53003c647c906822a76da2967caa4cd0b1a43b1713363284789ffbfd"
+    },
+    {
+      "id": "data_security-121",
+      "adapter": "data_security",
+      "family": "LEE2",
+      "sha256": "0ef745a1dc5ba7a9e7df8b00e9104e0525503a80b5a036bd2a0a591f73121129"
+    },
+    {
+      "id": "data_security-122",
+      "adapter": "data_security",
+      "family": "LEE3",
+      "sha256": "cde595a723078f3d117e16f64f5c76136e8d70f91046e29d032c4cdbf24f4e0a"
+    },
+    {
+      "id": "data_security-123",
+      "adapter": "data_security",
+      "family": "LEE4",
+      "sha256": "0964721915268f34f8608869c6e7d138957e239b32e54ee0308912665aa120cd"
+    },
+    {
+      "id": "data_security-124",
+      "adapter": "data_security",
+      "family": "LEE5",
+      "sha256": "66e77d28b6b06520bb9752a808a7390bb089e0199640130834047840ac5f55f4"
+    },
+    {
+      "id": "data_security-125",
+      "adapter": "data_security",
+      "family": "LEE6",
+      "sha256": "a6bf5584ee8b3af52e769a5a0455bafb988c07fa44c71eb63f6ac5329f534b10"
+    },
+    {
+      "id": "data_security-126",
+      "adapter": "data_security",
+      "family": "LEE7",
+      "sha256": "735465f7be71155abe4b80e29f671ffb74f7e06357b04f37179fb0155bd90245"
+    },
+    {
+      "id": "data_security-127",
+      "adapter": "data_security",
+      "family": "LEE8",
+      "sha256": "e1116f9ce2aaca23e5ae2cb11016d513e1d761f0d8f0d0c085b83fa9ee1e0bdc"
+    },
+    {
+      "id": "data_security-128",
+      "adapter": "data_security",
+      "family": "LEE9",
+      "sha256": "a923dd2e5e994c99b934d39573ea1273034020216682b93744e3ae185367f687"
+    },
+    {
+      "id": "data_security-129",
+      "adapter": "data_security",
+      "family": "LEE10",
+      "sha256": "4d8af98505fe2703d30f2fb87fa14a619785a610fe1ae3fb5538034fe3cf1744"
+    },
+    {
+      "id": "data_security-130",
+      "adapter": "data_security",
+      "family": "NEGATED",
+      "sha256": "ffbaab935ad2cfbafad03e5c0a7a3dd113872ea3f8f113907284c19348d49a5c"
+    },
+    {
+      "id": "data_security-131",
+      "adapter": "data_security",
+      "family": "UNRELATED",
+      "sha256": "eaf3fc764ce0e2627e95cf1d6e9d39eb6d73da25dfb5e18c9a7d1bcddefb6a50"
+    },
+    {
+      "id": "data_security-132",
+      "adapter": "data_security",
+      "family": "PARTY_ASYMMETRY",
+      "sha256": "0314b0305dd4d4bd35dfcb47b5f0c51f13bd5ddcffaa31a0bf334315a2ba3d37"
+    },
+    {
+      "id": "data_security-133",
+      "adapter": "data_security",
+      "family": "NUMERIC",
+      "sha256": "5ef798e7121736958073ca41f2dec19eb78ddd6ee62c0c662baad18282dd8305"
+    },
+    {
+      "id": "data_security-134",
+      "adapter": "data_security",
+      "family": "BACKWARD_QUALIFIER",
+      "sha256": "cad88fcc9e72b40a0d91e61401f8c7cfa96d91839ebb237db9fa6877cc9889b6"
+    },
+    {
+      "id": "data_security-135",
+      "adapter": "data_security",
+      "family": "FORWARD_QUALIFIER",
+      "sha256": "258717c6815bea329fc88dd047ea3cabd9b6c1fcb2f0b244d6411f530c2f43a4"
+    },
+    {
+      "id": "data_security-136",
+      "adapter": "data_security",
+      "family": "LONG_DISTANCE",
+      "sha256": "0129dd57d3766c017f947a5a08940efee624d5597755db815a2edda07b6b4a69"
+    },
+    {
+      "id": "data_security-137",
+      "adapter": "data_security",
+      "family": "CONTRADICTION",
+      "sha256": "25e91db8253a878edb35a158658ba64f98c095dae84afb70923bc0e932a1e0ed"
+    },
+    {
+      "id": "data_security-138",
+      "adapter": "data_security",
+      "family": "MISSING_CLAUSE",
+      "sha256": "f7ddfc89d054f8131c2c8db3394e5c85e6772720a5ab974af26ac35621029c36"
+    },
+    {
+      "id": "data_security-139",
+      "adapter": "data_security",
+      "family": "UNUSUAL_VALID_DRAFTING",
+      "sha256": "6ff0c0daad019cae3207ab637ddd40eecfb060fd3f959d9372fff49f6085ab80"
+    },
+    {
+      "id": "governing_law-140",
+      "adapter": "governing_law",
+      "family": "LEE1",
+      "sha256": "8c1f2ce0cb7bf3f331299a3f0f506d4f36cc6a9da28ef1f5211401f8cc44b2b5"
+    },
+    {
+      "id": "governing_law-141",
+      "adapter": "governing_law",
+      "family": "LEE2",
+      "sha256": "f0997c6ab8e7239c5ee6c8497b25b8452a62dfb87e8fdb458ad31c145eb02d73"
+    },
+    {
+      "id": "governing_law-142",
+      "adapter": "governing_law",
+      "family": "LEE3",
+      "sha256": "a74e3e79f2bebd2eebcbba489a7909af9c2a70191894a4163ea858b3e678cc09"
+    },
+    {
+      "id": "governing_law-143",
+      "adapter": "governing_law",
+      "family": "LEE4",
+      "sha256": "2e82d11154e6800124bc1feb59b147b9bc70d79c0aff2070d6415aaf7175a802"
+    },
+    {
+      "id": "governing_law-144",
+      "adapter": "governing_law",
+      "family": "LEE5",
+      "sha256": "f5e6c6120fafba539f0c6563cf33f5a994d26a1bf3fc3e7a636662b7551ac826"
+    },
+    {
+      "id": "governing_law-145",
+      "adapter": "governing_law",
+      "family": "LEE6",
+      "sha256": "a2fabe6b4c00ea5f042551f05828aba11b019d21c029335962cf56fd5b17032d"
+    },
+    {
+      "id": "governing_law-146",
+      "adapter": "governing_law",
+      "family": "LEE7",
+      "sha256": "8144f32aae5464a3495255ac4ac2b8fe54833117a7dd91ec11ca3be36f73bdfc"
+    },
+    {
+      "id": "governing_law-147",
+      "adapter": "governing_law",
+      "family": "LEE8",
+      "sha256": "5b11b8e9372e2f8a33642b664138b67a820205208bf519836d74b7d8944337d8"
+    },
+    {
+      "id": "governing_law-148",
+      "adapter": "governing_law",
+      "family": "LEE9",
+      "sha256": "8b7f6aeb5e77f7bf0b2eb9dee6640ea97ffa8f7269afb05de2258c461d93665d"
+    },
+    {
+      "id": "governing_law-149",
+      "adapter": "governing_law",
+      "family": "LEE10",
+      "sha256": "7d4d34cd21065020558da9e7504cc4dc8e421ef1f218c7754994f79dcefc1fee"
+    },
+    {
+      "id": "governing_law-150",
+      "adapter": "governing_law",
+      "family": "NEGATED",
+      "sha256": "4a7d9ebed9e9b740d87b939ec7231a4611924d10afd00840e7c3ab2ca1c754af"
+    },
+    {
+      "id": "governing_law-151",
+      "adapter": "governing_law",
+      "family": "UNRELATED",
+      "sha256": "5e9953f3d2209d15c8f297ab27893a9c74001017aea898161b8f0b8102be3aa1"
+    },
+    {
+      "id": "governing_law-152",
+      "adapter": "governing_law",
+      "family": "PARTY_ASYMMETRY",
+      "sha256": "b266ea0944dcf2ef7d230bfc6a03d4cbfa89a0ed9811f7bfe13821e3b18f5e43"
+    },
+    {
+      "id": "governing_law-153",
+      "adapter": "governing_law",
+      "family": "NUMERIC",
+      "sha256": "c318684645f832b541d5ec4c32d6de6591c707dafa442d6ba7de3b5450d62ce0"
+    },
+    {
+      "id": "governing_law-154",
+      "adapter": "governing_law",
+      "family": "BACKWARD_QUALIFIER",
+      "sha256": "d58692be20a939196cbbca965cfae7a577e08d0edbc3fb484fce4e8a723ae78d"
+    },
+    {
+      "id": "governing_law-155",
+      "adapter": "governing_law",
+      "family": "FORWARD_QUALIFIER",
+      "sha256": "61be2262bd2c24196ac77372f026d1c793fa8a14407b33da0b74e5c9a26f18f9"
+    },
+    {
+      "id": "governing_law-156",
+      "adapter": "governing_law",
+      "family": "LONG_DISTANCE",
+      "sha256": "fdc20d192d0bee2916eb270917172b3cad17939d5b52eabbb34a529caa6a0d13"
+    },
+    {
+      "id": "governing_law-157",
+      "adapter": "governing_law",
+      "family": "CONTRADICTION",
+      "sha256": "1451a05959484a4f1f0256a2a73efc8be54810ff18ae3253fcbc5fc911b77149"
+    },
+    {
+      "id": "governing_law-158",
+      "adapter": "governing_law",
+      "family": "MISSING_CLAUSE",
+      "sha256": "eb227b9a14d193ade1d5e9cbf10758f57a0eabc9eb8b4ebaabc5caf8754c0c01"
+    },
+    {
+      "id": "governing_law-159",
+      "adapter": "governing_law",
+      "family": "UNUSUAL_VALID_DRAFTING",
+      "sha256": "891a289d61377e7df4fd24f8ca27d79cb98d72b98812143bee9ec42efc946280"
+    },
+    {
+      "id": "termination-160",
+      "adapter": "termination",
+      "family": "LEE1",
+      "sha256": "01cced24b1d3ea2ecb89df98feef931286fabb71e9dcfec957aa1cfc731371df"
+    },
+    {
+      "id": "termination-161",
+      "adapter": "termination",
+      "family": "LEE2",
+      "sha256": "305ceca81205d0b1f3ed28c80082d4ec6696afcd3bced15174d3923c4d15ed53"
+    },
+    {
+      "id": "termination-162",
+      "adapter": "termination",
+      "family": "LEE3",
+      "sha256": "e34f4b301ecee33ad1b870680539eba09e7a54c2977cd3ecda60b0674e41c772"
+    },
+    {
+      "id": "termination-163",
+      "adapter": "termination",
+      "family": "LEE4",
+      "sha256": "5d12c0f56ece03fffb28984ab14148da8549f3e9f8f0670e102da7f3b51b6d4f"
+    },
+    {
+      "id": "termination-164",
+      "adapter": "termination",
+      "family": "LEE5",
+      "sha256": "4875f41a5c225b13853867964b3b5751e2168bd687d485f3c5b22c7f029737e4"
+    },
+    {
+      "id": "termination-165",
+      "adapter": "termination",
+      "family": "LEE6",
+      "sha256": "c0292753c7fdff457f94ff3c603e8fd3260e01680091acda916758b0345d84ec"
+    },
+    {
+      "id": "termination-166",
+      "adapter": "termination",
+      "family": "LEE7",
+      "sha256": "e2da399d383cb2fc7b1136af92d9ae25f92b3af6a2ac097a233ca5e7101c8ba9"
+    },
+    {
+      "id": "termination-167",
+      "adapter": "termination",
+      "family": "LEE8",
+      "sha256": "88318a45fcad6109956c4c4f1d11344c4d01dd1deb0c10428ed00eba1d170400"
+    },
+    {
+      "id": "termination-168",
+      "adapter": "termination",
+      "family": "LEE9",
+      "sha256": "17accbf2c2711fee509cc1bc3ac11e4f7618a444120570180cef566ba764da0a"
+    },
+    {
+      "id": "termination-169",
+      "adapter": "termination",
+      "family": "LEE10",
+      "sha256": "a7590cc8044eaa3a729a6d234cc431f085688e1fe7e43f00ce0018c534f673a2"
+    },
+    {
+      "id": "termination-170",
+      "adapter": "termination",
+      "family": "NEGATED",
+      "sha256": "ddb560bf6757c2f6ae3fd9f0881f988730d182a26812ddfedbd0ce09d2306062"
+    },
+    {
+      "id": "termination-171",
+      "adapter": "termination",
+      "family": "UNRELATED",
+      "sha256": "01afcd8e71c4af521b36a92eee69960137a54bfc6487cf380fc84dae4551c7b2"
+    },
+    {
+      "id": "termination-172",
+      "adapter": "termination",
+      "family": "PARTY_ASYMMETRY",
+      "sha256": "2b2e99a08d8158625bd409edc076994bcdf24d0e12c9176ee76387c2a6055e67"
+    },
+    {
+      "id": "termination-173",
+      "adapter": "termination",
+      "family": "NUMERIC",
+      "sha256": "89f97ef728f78567ea37c6439355ec239027c44dd88080fe26dbfc6cc0a4ecf1"
+    },
+    {
+      "id": "termination-174",
+      "adapter": "termination",
+      "family": "BACKWARD_QUALIFIER",
+      "sha256": "cb2952b001045353d9f00ef1426c73ccbf0155739c1c57f328cfc75349376ab2"
+    },
+    {
+      "id": "termination-175",
+      "adapter": "termination",
+      "family": "FORWARD_QUALIFIER",
+      "sha256": "6b8d944e760e956e847cb36f511a7fc4086f35b917afa04bf83d7045ea1f88ad"
+    },
+    {
+      "id": "termination-176",
+      "adapter": "termination",
+      "family": "LONG_DISTANCE",
+      "sha256": "90d236dc2d3a10f052758988503a25115fba2790cb685eee55de0926019bccb9"
+    },
+    {
+      "id": "termination-177",
+      "adapter": "termination",
+      "family": "CONTRADICTION",
+      "sha256": "630f6a4cc2d1123a7f5b3ff945b9be9c661525e7c23c98a5f1a209acf34a21d8"
+    },
+    {
+      "id": "termination-178",
+      "adapter": "termination",
+      "family": "MISSING_CLAUSE",
+      "sha256": "12856f35faa16a0eb6ec370a98c23792100ab4bc7a338b50931c46956a395c3f"
+    },
+    {
+      "id": "termination-179",
+      "adapter": "termination",
+      "family": "UNUSUAL_VALID_DRAFTING",
+      "sha256": "b8b865a74a20595bbc3ae1ae9958aacc58b102c6c914bd94191b970e0479fb4b"
+    },
+    {
+      "id": "warranties-180",
+      "adapter": "warranties",
+      "family": "LEE1",
+      "sha256": "c774c463aaab899cc6a8fba2e06e21ab4eeed9aa0d4f0d43872b9834dbcc9e37"
+    },
+    {
+      "id": "warranties-181",
+      "adapter": "warranties",
+      "family": "LEE2",
+      "sha256": "bd93d99ffcd7076dd6fbdd75e2a870c95553cdfbd66d975ef1b3e0a974781668"
+    },
+    {
+      "id": "warranties-182",
+      "adapter": "warranties",
+      "family": "LEE3",
+      "sha256": "5e5f00be2b379eb702929d75e8904c06704d36109ac3aae927a8508d9eaf808a"
+    },
+    {
+      "id": "warranties-183",
+      "adapter": "warranties",
+      "family": "LEE4",
+      "sha256": "6f782485c0ff0fd479f7b0ad612ee29a6e88b475d8c5dcb3733752b282f7fd23"
+    },
+    {
+      "id": "warranties-184",
+      "adapter": "warranties",
+      "family": "LEE5",
+      "sha256": "8fa4dddfb1691d2b1c59282d1489807f44cda1f54af8b6c36f21f2b3c5d3365f"
+    },
+    {
+      "id": "warranties-185",
+      "adapter": "warranties",
+      "family": "LEE6",
+      "sha256": "796978354dcc20900a5863db4815d8376acc6e5c204183b67fd5177e1c624a71"
+    },
+    {
+      "id": "warranties-186",
+      "adapter": "warranties",
+      "family": "LEE7",
+      "sha256": "43e7997b53c0659aeaec3076c0303715ce3df8eb4d749b52d3618cc10a01cd8a"
+    },
+    {
+      "id": "warranties-187",
+      "adapter": "warranties",
+      "family": "LEE8",
+      "sha256": "517d560acfc1e4c8accf2ae2890c7a06b661508d87666035d95403bf9a9eba0e"
+    },
+    {
+      "id": "warranties-188",
+      "adapter": "warranties",
+      "family": "LEE9",
+      "sha256": "b0e89fb16afa03cc3f20bebca65933de2d61a99873e4b8b094ea44f14b64cd0d"
+    },
+    {
+      "id": "warranties-189",
+      "adapter": "warranties",
+      "family": "LEE10",
+      "sha256": "f0eddacc7cff77764fe6b21e3226f5cfd693261489e1027dfe57342ed83cb469"
+    },
+    {
+      "id": "warranties-190",
+      "adapter": "warranties",
+      "family": "NEGATED",
+      "sha256": "6a75d96a2c236c198890e99e01f5b0409968fdedd3f8d35a174b9357dd8d23cd"
+    },
+    {
+      "id": "warranties-191",
+      "adapter": "warranties",
+      "family": "UNRELATED",
+      "sha256": "90d26067a87063a6261b6211610c35c057d13c2db1af01a8e98ea00aac665c9d"
+    },
+    {
+      "id": "warranties-192",
+      "adapter": "warranties",
+      "family": "PARTY_ASYMMETRY",
+      "sha256": "39d7b73bf1cb0540e9953adbb66522879ed9b7ef4f809de49fc749bcc4ec3d0c"
+    },
+    {
+      "id": "warranties-193",
+      "adapter": "warranties",
+      "family": "NUMERIC",
+      "sha256": "4f90d0f5bcc8dc23eb6407bae22ebb0ecd52222842580e6037c0bdb68fca51b5"
+    },
+    {
+      "id": "warranties-194",
+      "adapter": "warranties",
+      "family": "BACKWARD_QUALIFIER",
+      "sha256": "e49333b6f37f07257daa2b92b535dbad4e46651b80734593ceac406e5f360d2a"
+    },
+    {
+      "id": "warranties-195",
+      "adapter": "warranties",
+      "family": "FORWARD_QUALIFIER",
+      "sha256": "e546d1233fcd48a18cb1a9a7ca756bae183f42070135c69c45ceb22b8b27f6ef"
+    },
+    {
+      "id": "warranties-196",
+      "adapter": "warranties",
+      "family": "LONG_DISTANCE",
+      "sha256": "c07f9d57623e412d0753cef91002faabb976f1c464c17b821160b4d52f72a1e0"
+    },
+    {
+      "id": "warranties-197",
+      "adapter": "warranties",
+      "family": "CONTRADICTION",
+      "sha256": "d788210deb207e87359d6001d228fbf36d68f36fd702cd311dc8c42539ddf477"
+    },
+    {
+      "id": "warranties-198",
+      "adapter": "warranties",
+      "family": "MISSING_CLAUSE",
+      "sha256": "a74a89a773304abcbcbbc0608a2b1633bb97f2cc48baaafedb0ead5e128b42c7"
+    },
+    {
+      "id": "warranties-199",
+      "adapter": "warranties",
+      "family": "UNUSUAL_VALID_DRAFTING",
+      "sha256": "087bda3e7e133b00edd1853d3790a1dc7a867eacdf03b211366072f0743298b0"
+    },
+    {
+      "id": "sla-200",
+      "adapter": "sla",
+      "family": "LEE1",
+      "sha256": "63c1ca8975c6ec146ff1b1497617207764529ca11c00a3d1376ba0bf38623c12"
+    },
+    {
+      "id": "sla-201",
+      "adapter": "sla",
+      "family": "LEE2",
+      "sha256": "b4e0c7cbc4ea3c16523506080d2558ae8da5ac30d12cf949067af55b85001405"
+    },
+    {
+      "id": "sla-202",
+      "adapter": "sla",
+      "family": "LEE3",
+      "sha256": "125b711b4d6bf909c337a2ac0d1388c1f0b42df4d5e728d4287105fb420b1065"
+    },
+    {
+      "id": "sla-203",
+      "adapter": "sla",
+      "family": "LEE4",
+      "sha256": "75b9d1ac22671645db75bb34ab0a19a38dd8368e3d539636bcd0a2b460d8f94c"
+    },
+    {
+      "id": "sla-204",
+      "adapter": "sla",
+      "family": "LEE5",
+      "sha256": "060d41aad295a992c127953325419619292bcc875a8dc482af40ae286c827fe8"
+    },
+    {
+      "id": "sla-205",
+      "adapter": "sla",
+      "family": "LEE6",
+      "sha256": "ae3102317c62a6ad3366fa5db02e15a118602b7db58e0445d2e35bcfad388fef"
+    },
+    {
+      "id": "sla-206",
+      "adapter": "sla",
+      "family": "LEE7",
+      "sha256": "8c89880f0473313f04c6fafe4daf7336afd1cb649914ea40233988d07e395ca7"
+    },
+    {
+      "id": "sla-207",
+      "adapter": "sla",
+      "family": "LEE8",
+      "sha256": "108d70f4caf8fc8ac9aca5c5a51fa24c3925c2656d770797b25871a8587b628c"
+    },
+    {
+      "id": "sla-208",
+      "adapter": "sla",
+      "family": "LEE9",
+      "sha256": "924cb0f90b701bf30e7543dd2ffc70245ee585989d26fe8d0b6ae7d0b387ac2b"
+    },
+    {
+      "id": "sla-209",
+      "adapter": "sla",
+      "family": "LEE10",
+      "sha256": "419c418519862a8c1163e1300f0c8623107fcbace5900b5f874e4e532c2cce90"
+    },
+    {
+      "id": "sla-210",
+      "adapter": "sla",
+      "family": "NEGATED",
+      "sha256": "f5e31753f61236009560ad4ad0fa364a24653864ea531da8027a364fabc22437"
+    },
+    {
+      "id": "sla-211",
+      "adapter": "sla",
+      "family": "UNRELATED",
+      "sha256": "f75a5345671094f080920ae255460b9b669806567252bc72ec6cd120bdd11df8"
+    },
+    {
+      "id": "sla-212",
+      "adapter": "sla",
+      "family": "PARTY_ASYMMETRY",
+      "sha256": "ccd8c09a34862b880243b4ffc21342eb2d7c373bd2951a304b30acc8eece8ace"
+    },
+    {
+      "id": "sla-213",
+      "adapter": "sla",
+      "family": "NUMERIC",
+      "sha256": "7ab79c4bbd0fa71410868cd7f6b13ca074f4d981cbba0f262b794c8063ffb345"
+    },
+    {
+      "id": "sla-214",
+      "adapter": "sla",
+      "family": "BACKWARD_QUALIFIER",
+      "sha256": "f444e55dc046bcef9611a06f8a983197cb2e1840b8d343703a128d33084414bb"
+    },
+    {
+      "id": "sla-215",
+      "adapter": "sla",
+      "family": "FORWARD_QUALIFIER",
+      "sha256": "c378a5bf3f5d9bb0dc1f4e4e5be1da6228845ba521fd59910f16aebbcc9d247b"
+    },
+    {
+      "id": "sla-216",
+      "adapter": "sla",
+      "family": "LONG_DISTANCE",
+      "sha256": "40f1a865c50ca665422f45d4d75a2db550c957cd1a447ca17577d705b80e557d"
+    },
+    {
+      "id": "sla-217",
+      "adapter": "sla",
+      "family": "CONTRADICTION",
+      "sha256": "b4b9b55c2bcb6253691647e87c86cf881e7feb50d928e0e4aa761a3ef04be545"
+    },
+    {
+      "id": "sla-218",
+      "adapter": "sla",
+      "family": "MISSING_CLAUSE",
+      "sha256": "7d1e30de85bc46d7d789b7bab8d40e163b3c5149c8994d1955939af9160c6563"
+    },
+    {
+      "id": "sla-219",
+      "adapter": "sla",
+      "family": "UNUSUAL_VALID_DRAFTING",
+      "sha256": "0ef319c992c7553103d040cff98f0c6481ad09d7e19382ccb844146cc81b4c1e"
+    },
+    {
+      "id": "assignment-220",
+      "adapter": "assignment",
+      "family": "LEE1",
+      "sha256": "fefa410845e945f001e65c43bb9186b7d8005940bbc54b91c47bdcff22c0ac17"
+    },
+    {
+      "id": "assignment-221",
+      "adapter": "assignment",
+      "family": "LEE2",
+      "sha256": "2a08fe00883ee7645805cdaec012ae543ea346b9274a0f120a40987d3c09e268"
+    },
+    {
+      "id": "assignment-222",
+      "adapter": "assignment",
+      "family": "LEE3",
+      "sha256": "5dc32900c23a378f77aeb7cf213387c28e378dda42a9505e54d530019d268b4f"
+    },
+    {
+      "id": "assignment-223",
+      "adapter": "assignment",
+      "family": "LEE4",
+      "sha256": "17f002d53e5c952218db5f786b6207a5571ba843e071d0198423d4fdf884490a"
+    },
+    {
+      "id": "assignment-224",
+      "adapter": "assignment",
+      "family": "LEE5",
+      "sha256": "86578bc1439729da2561df01349f2c2d08e1da50bbf9f076e7b89d867a12aa60"
+    },
+    {
+      "id": "assignment-225",
+      "adapter": "assignment",
+      "family": "LEE6",
+      "sha256": "5781a868f82efc6db8db5ebabca35fd2d4375a9a253c0b11900047a8a4736eb7"
+    },
+    {
+      "id": "assignment-226",
+      "adapter": "assignment",
+      "family": "LEE7",
+      "sha256": "8e749fa270c35cc9c66b4e1d6e69e365422a3d2b9a7303496964d0caaa87a149"
+    },
+    {
+      "id": "assignment-227",
+      "adapter": "assignment",
+      "family": "LEE8",
+      "sha256": "e40dbc68e3cf0cb62ecb8ad1aa9453804c34505fe663687251b52a21644fbde1"
+    },
+    {
+      "id": "assignment-228",
+      "adapter": "assignment",
+      "family": "LEE9",
+      "sha256": "ab30806aac5c9db20b2a475e5ce4ace3f67bfef77777d0c3f8e06ff2755b3b28"
+    },
+    {
+      "id": "assignment-229",
+      "adapter": "assignment",
+      "family": "LEE10",
+      "sha256": "3ddedae19e5af12063fd06c1ee8f3dfc5f6ea7797e4a52c25307746a7aa5090a"
+    },
+    {
+      "id": "assignment-230",
+      "adapter": "assignment",
+      "family": "NEGATED",
+      "sha256": "67b7b13cf212f46f38e14a87a49dac52509061afb23268082ec949af84d0293e"
+    },
+    {
+      "id": "assignment-231",
+      "adapter": "assignment",
+      "family": "UNRELATED",
+      "sha256": "5ebc6a40748e17740e09ca2f6b3767368b7fa0e8bb9302b11ec4b8fdd32b2a46"
+    },
+    {
+      "id": "assignment-232",
+      "adapter": "assignment",
+      "family": "PARTY_ASYMMETRY",
+      "sha256": "36cb7033d1c2f5ee1b5b45b69547cdb0c71ea47a0f9dbad4e111bd60483b23e4"
+    },
+    {
+      "id": "assignment-233",
+      "adapter": "assignment",
+      "family": "NUMERIC",
+      "sha256": "17eb05ec23bdde4b5e69ad5f84adfb801083dd7e5999b6d01a7e48e81ded0908"
+    },
+    {
+      "id": "assignment-234",
+      "adapter": "assignment",
+      "family": "BACKWARD_QUALIFIER",
+      "sha256": "bc17e8f22613c02942f0691095022f9efd9c963a53ec050c8c5b99c236516951"
+    },
+    {
+      "id": "assignment-235",
+      "adapter": "assignment",
+      "family": "FORWARD_QUALIFIER",
+      "sha256": "ae0f0e3c3838d50bd3650e0cba51ffcf21331b7cf4ffc338b4efb04c9802af4f"
+    },
+    {
+      "id": "assignment-236",
+      "adapter": "assignment",
+      "family": "LONG_DISTANCE",
+      "sha256": "b3a302b8a82fcbbe29373e92d661826b43b179b6e527dcbc198668575616a66f"
+    },
+    {
+      "id": "assignment-237",
+      "adapter": "assignment",
+      "family": "CONTRADICTION",
+      "sha256": "0281037d6ed82f5b4fc31105d3b75744476fa5559ef41c74e6f0c1e677ac1182"
+    },
+    {
+      "id": "assignment-238",
+      "adapter": "assignment",
+      "family": "MISSING_CLAUSE",
+      "sha256": "d381b829a529bb7295319a12f4ca310913512ac0aaf535bd7a6afbf913c630a6"
+    },
+    {
+      "id": "assignment-239",
+      "adapter": "assignment",
+      "family": "UNUSUAL_VALID_DRAFTING",
+      "sha256": "957a56dcfeccbb120740ed2a9cdce872bedd5cc1aa29466e96662c8aefcc7617"
+    }
+  ]
+}

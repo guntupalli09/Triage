@@ -1,0 +1,362 @@
+[
+  {
+    "case_id": "limitation_of_liability-011",
+    "adapter": "limitation_of_liability",
+    "expected": "NO_NOT_OPERATIVE",
+    "run_states": [
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE"
+    ],
+    "state_variation": false,
+    "ai_output_variation": false,
+    "unsafe_review_to_clean_transition": false
+  },
+  {
+    "case_id": "limitation_of_liability-018",
+    "adapter": "limitation_of_liability",
+    "expected": "MISSING_CLAUSE",
+    "run_states": [
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE"
+    ],
+    "state_variation": false,
+    "ai_output_variation": false,
+    "unsafe_review_to_clean_transition": false
+  },
+  {
+    "case_id": "indemnification-020",
+    "adapter": "indemnification",
+    "expected": "YES_OPERATIVE",
+    "run_states": [
+      "MUST_REDLINE",
+      "MUST_REDLINE",
+      "MUST_REDLINE",
+      "MUST_REDLINE",
+      "MUST_REDLINE"
+    ],
+    "state_variation": false,
+    "ai_output_variation": false,
+    "unsafe_review_to_clean_transition": false
+  },
+  {
+    "case_id": "indemnification-027",
+    "adapter": "indemnification",
+    "expected": "AMBIGUOUS",
+    "run_states": [
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW"
+    ],
+    "state_variation": false,
+    "ai_output_variation": false,
+    "unsafe_review_to_clean_transition": false
+  },
+  {
+    "case_id": "confidentiality-044",
+    "adapter": "confidentiality",
+    "expected": "NO_NOT_OPERATIVE",
+    "run_states": [
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "REQUIRES_REVIEW",
+      "NOT_APPLICABLE"
+    ],
+    "state_variation": true,
+    "ai_output_variation": false,
+    "unsafe_review_to_clean_transition": false
+  },
+  {
+    "case_id": "confidentiality-051",
+    "adapter": "confidentiality",
+    "expected": "NO_NOT_OPERATIVE",
+    "run_states": [
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE"
+    ],
+    "state_variation": false,
+    "ai_output_variation": false,
+    "unsafe_review_to_clean_transition": false
+  },
+  {
+    "case_id": "payment_terms-064",
+    "adapter": "payment_terms",
+    "expected": "NO_NOT_OPERATIVE",
+    "run_states": [
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE"
+    ],
+    "state_variation": false,
+    "ai_output_variation": false,
+    "unsafe_review_to_clean_transition": false
+  },
+  {
+    "case_id": "payment_terms-071",
+    "adapter": "payment_terms",
+    "expected": "NO_NOT_OPERATIVE",
+    "run_states": [
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE"
+    ],
+    "state_variation": false,
+    "ai_output_variation": false,
+    "unsafe_review_to_clean_transition": false
+  },
+  {
+    "case_id": "ip_ownership-081",
+    "adapter": "ip_ownership",
+    "expected": "NO_NOT_OPERATIVE",
+    "run_states": [
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE"
+    ],
+    "state_variation": false,
+    "ai_output_variation": false,
+    "unsafe_review_to_clean_transition": false
+  },
+  {
+    "case_id": "ip_ownership-099",
+    "adapter": "ip_ownership",
+    "expected": "YES_OPERATIVE",
+    "run_states": [
+      "NOT_APPLICABLE",
+      "ACCEPT",
+      "NOT_APPLICABLE",
+      "ACCEPT",
+      "NOT_APPLICABLE"
+    ],
+    "state_variation": true,
+    "ai_output_variation": false,
+    "unsafe_review_to_clean_transition": true
+  },
+  {
+    "case_id": "insurance-111",
+    "adapter": "insurance",
+    "expected": "NO_NOT_OPERATIVE",
+    "run_states": [
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE"
+    ],
+    "state_variation": false,
+    "ai_output_variation": false,
+    "unsafe_review_to_clean_transition": false
+  },
+  {
+    "case_id": "insurance-118",
+    "adapter": "insurance",
+    "expected": "MISSING_CLAUSE",
+    "run_states": [
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE"
+    ],
+    "state_variation": false,
+    "ai_output_variation": false,
+    "unsafe_review_to_clean_transition": false
+  },
+  {
+    "case_id": "data_security-123",
+    "adapter": "data_security",
+    "expected": "NO_NOT_OPERATIVE",
+    "run_states": [
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE"
+    ],
+    "state_variation": false,
+    "ai_output_variation": false,
+    "unsafe_review_to_clean_transition": false
+  },
+  {
+    "case_id": "data_security-131",
+    "adapter": "data_security",
+    "expected": "NO_NOT_OPERATIVE",
+    "run_states": [
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE"
+    ],
+    "state_variation": false,
+    "ai_output_variation": false,
+    "unsafe_review_to_clean_transition": false
+  },
+  {
+    "case_id": "governing_law-141",
+    "adapter": "governing_law",
+    "expected": "NO_NOT_OPERATIVE",
+    "run_states": [
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE"
+    ],
+    "state_variation": false,
+    "ai_output_variation": false,
+    "unsafe_review_to_clean_transition": false
+  },
+  {
+    "case_id": "governing_law-151",
+    "adapter": "governing_law",
+    "expected": "NO_NOT_OPERATIVE",
+    "run_states": [
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE"
+    ],
+    "state_variation": false,
+    "ai_output_variation": false,
+    "unsafe_review_to_clean_transition": false
+  },
+  {
+    "case_id": "termination-171",
+    "adapter": "termination",
+    "expected": "NO_NOT_OPERATIVE",
+    "run_states": [
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE"
+    ],
+    "state_variation": false,
+    "ai_output_variation": false,
+    "unsafe_review_to_clean_transition": false
+  },
+  {
+    "case_id": "termination-178",
+    "adapter": "termination",
+    "expected": "MISSING_CLAUSE",
+    "run_states": [
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE"
+    ],
+    "state_variation": false,
+    "ai_output_variation": false,
+    "unsafe_review_to_clean_transition": false
+  },
+  {
+    "case_id": "warranties-191",
+    "adapter": "warranties",
+    "expected": "NO_NOT_OPERATIVE",
+    "run_states": [
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE"
+    ],
+    "state_variation": false,
+    "ai_output_variation": false,
+    "unsafe_review_to_clean_transition": false
+  },
+  {
+    "case_id": "warranties-198",
+    "adapter": "warranties",
+    "expected": "MISSING_CLAUSE",
+    "run_states": [
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE"
+    ],
+    "state_variation": false,
+    "ai_output_variation": false,
+    "unsafe_review_to_clean_transition": false
+  },
+  {
+    "case_id": "sla-211",
+    "adapter": "sla",
+    "expected": "NO_NOT_OPERATIVE",
+    "run_states": [
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE"
+    ],
+    "state_variation": false,
+    "ai_output_variation": false,
+    "unsafe_review_to_clean_transition": false
+  },
+  {
+    "case_id": "sla-218",
+    "adapter": "sla",
+    "expected": "MISSING_CLAUSE",
+    "run_states": [
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE"
+    ],
+    "state_variation": false,
+    "ai_output_variation": false,
+    "unsafe_review_to_clean_transition": false
+  },
+  {
+    "case_id": "assignment-231",
+    "adapter": "assignment",
+    "expected": "NO_NOT_OPERATIVE",
+    "run_states": [
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE"
+    ],
+    "state_variation": false,
+    "ai_output_variation": false,
+    "unsafe_review_to_clean_transition": false
+  },
+  {
+    "case_id": "assignment-239",
+    "adapter": "assignment",
+    "expected": "YES_OPERATIVE",
+    "run_states": [
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW"
+    ],
+    "state_variation": false,
+    "ai_output_variation": false,
+    "unsafe_review_to_clean_transition": false
+  }
+]
