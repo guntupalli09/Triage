@@ -1839,7 +1839,7 @@ DOCUMENT_WIDE_NEGATION_RE = re.compile(
     r"\bno\s+specific\s+\w+(?:\s+\w+){0,2}\s+(?:is|are)\s+required\b"
     r"|\bdoes\s+not\s+guarantee\s+any\s+specific\b"
     r"|\bis\s+not\s+required\s+under\s+this\s+Agreement\b"
-    r"|\bretains?\s+all\s+ownership\s+rights\b(?:(?!\.).){0,60}?\bgrants?\s+(?:only\s+)?a\s+license\b"
+    r"|\bretains?\s+all\s+ownership\s+rights\b(?:(?!\.).){0,60}?\bgrants?\s+(?:[A-Z][\w']*\s+)?(?:only\s+)?a\s+license\b"
     # Scoped narrowly to "Section N shall not apply" (nullifying an ENTIRE
     # cross-referenced section wholesale) -- NOT a bare "the limitation
     # shall not apply to claims arising from X," which is a legitimate,
@@ -1908,10 +1908,11 @@ def cross_section_carveout_referencing(document_text: str, section_label: Option
     pattern = re.compile(
         rf"\bNotwithstanding\s+Section\s+{label}\b(?:(?!\.).){{0,200}}?"
         rf"(?:does\s+not\s+apply|shall\s+not\s+apply|is\s+excluded|are\s+excluded)"
-        rf"|\b(?:in|under)\s+Section\s+{label}\b(?:(?!\.).){{0,120}}?\bexcludes?\b"
+        rf"|\b(?:in|under)\s+Section\s+{label}\b(?:(?!\.).){{0,120}}?\b(?:excludes?|does\s+not\s+include)\b"
         rf"|\bSection\s+{label}\b(?:(?!\.).){{0,120}}?\bdoes\s+not\s+apply\b"
         rf"|\brequired\s+by\s+Section\s+{label}\b(?:(?!\.).){{0,120}}?\b(?:must|shall)\b"
-        rf"|\bcoverage\s+required\s+by\s+Section\s+{label}\b(?:(?!\.).){{0,120}}?\b(?:must|shall)\b",
+        rf"|\bcoverage\s+required\s+by\s+Section\s+{label}\b(?:(?!\.).){{0,120}}?\b(?:must|shall)\b"
+        rf"|\bSubject\s+to\s+Section\s+{label}\.\d+\b",
         re.I,
     )
     return bool(pattern.search(document_text))

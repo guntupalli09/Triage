@@ -76,6 +76,9 @@ from policy_engine_core import (
     requires_review_explanation, requires_review_required_action,
     PolicyDecision,
     EXTERNAL_DEFINITION_NOT_ATTACHED_RE as _EXTERNAL_DEFINITION_NOT_ATTACHED_RE,
+    document_wide_conflict_detected as _document_wide_conflict_detected,
+    unreconciled_ambiguity_marker_present as _unreconciled_ambiguity_marker_present,
+    cross_section_carveout_referencing as _cross_section_carveout_referencing,
 )
 
 RULE_ID = "POLICY_IP_OWNERSHIP"
@@ -279,6 +282,13 @@ class IPFacts:
     ai_identified_condition: Optional[str] = None
     ai_identified_exception: Optional[str] = None
     ai_identified_definition_or_reference: Optional[str] = None
+    # Candidate 3 zero-silent-loss mission — a document-wide contradiction,
+    # self-declared unreconciled ambiguity, cross-section carve-out
+    # referencing this clause's own section number, or a deterministically-
+    # detected same-clause condition/exception.
+    document_wide_conflict: bool = False
+    deterministic_condition_established: bool = False
+    deterministic_condition_excerpt: Optional[str] = None
 
 
 class IPPolicyRuleLike(Protocol):
@@ -685,6 +695,26 @@ def extract_ip_facts(text: str) -> Optional[IPFacts]:
         if not _any_other_established:
             facts.absence_state = "PRESENT_BUT_UNRESOLVED"
 
+    # Candidate 3 zero-silent-loss mission — a document-wide contradiction,
+    # self-declared unreconciled ambiguity, or cross-section carve-out
+    # referencing this clause's own section number must not be silently
+    # dropped merely because ownership otherwise resolved deterministically.
+    if (_document_wide_conflict_detected(text) or _unreconciled_ambiguity_marker_present(text)
+            or _cross_section_carveout_referencing(text, facts.section_label)):
+        facts.document_wide_conflict = True
+
+    # NOTE: a same-clause deterministic condition/exception check (mirroring
+    # liability/insurance/warranties' use of detect_condition_in_text) was
+    # attempted here but reverted -- ip_ownership's extremely common
+    # "To the extent any Deliverables do not qualify as a work made for
+    # hire, Vendor hereby assigns..." assign-or-fallback idiom triggered
+    # detect_condition_in_text's leading-condition detector as a false
+    # positive (it is a COMPLETE resolution, not a genuine unresolved
+    # condition), causing real regressions in benchmarks/ip_ownership_
+    # corpus.py (clean-01, own-04, lic-22, sow-crossref-02). Reported as
+    # an open gap (ip_ownership-085/086 remain unfixed) rather than
+    # shipping a fix that trades one bug for a confirmed regression.
+
     return facts
 
 
@@ -791,6 +821,18 @@ def evaluate_ip_policy(
     work_product_owner, work_product_unresolved = _resolve_owner(facts, policy.contract_side, "work_product")
 
     unresolved: List[str] = []
+    # Candidate 3 zero-silent-loss mission — a document-wide contradiction,
+    # unreconciled ambiguity, or cross-section carve-out must block clean.
+    if facts.document_wide_conflict:
+        unresolved.append(
+            "a separate statement elsewhere in the document appears to contradict, negate, or leave unreconciled "
+            "the ownership attribution established in this clause"
+        )
+    if facts.deterministic_condition_established:
+        unresolved.append(
+            f"ownership is stated as conditional (\"{facts.deterministic_condition_excerpt}\") — this "
+            f"evaluation does not determine whether the stated condition is satisfied"
+        )
     # Final trust architecture (Phase 4 hard gate) — a material condition/
     # exception the AI/context layer identified and grounded must not be
     # silently dropped merely because ownership otherwise resolved cleanly.
