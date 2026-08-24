@@ -1,0 +1,59 @@
+{
+  "corpus_name": "candidate3_independent_validation_v1",
+  "corpus_sha256": "102acc23327d19737e206706404999beafaf03cca6db976b9e0e45cdb8093e38",
+  "num_cases": 660,
+  "adapter_distribution": {
+    "limitation_of_liability": 56,
+    "indemnification": 55,
+    "confidentiality": 55,
+    "payment_terms": 56,
+    "ip_ownership": 55,
+    "insurance": 55,
+    "data_security": 55,
+    "governing_law": 54,
+    "termination": 56,
+    "warranties": 54,
+    "sla": 55,
+    "assignment": 54
+  },
+  "adversarial_family_distribution": {
+    "operative": 72,
+    "descriptive": 72,
+    "negated": 72,
+    "conditional": 72,
+    "exception": 72,
+    "cross_reference": 72,
+    "definition": 72,
+    "ambiguous": 72,
+    "missing": 72,
+    "interaction_uncapped_indemnity": 2,
+    "interaction_nonpayment_vs_dispute": 2,
+    "interaction_sla_payment_credit": 2,
+    "unusual_drafting_order": 1,
+    "role_ambiguity": 1,
+    "asymmetric_obligations": 1,
+    "deliberately_clean_agreement": 1,
+    "deliberately_unsafe_agreement": 1,
+    "conflicting_provisions": 1
+  },
+  "expected_label_distribution": {
+    "YES_OPERATIVE": 80,
+    "NO_NOT_OPERATIVE": 144,
+    "YES_BUT_CONDITIONAL": 73,
+    "YES_BUT_EXCEPTION": 73,
+    "CROSS_REFERENCE_DEPENDENT": 72,
+    "DEFINITION_DEPENDENT": 72,
+    "AMBIGUOUS": 74,
+    "MISSING_CLAUSE": 72
+  },
+  "generation_methodology": "Programmatic template generation: 9 core adversarial families (operative, descriptive/background, negated, conditional, exception/carve-out, cross-reference-dependent, definition-dependent, ambiguous/competing-conflicting, missing-clause) x 12 adapters x 6 distinct party-name pairs (Provider/Recipient, Contractor/Client, Licensor/Licensee, Supplier/Buyer, Operator/Subscriber, Company/Counterparty), each instantiated with genuinely varied numeric/detail parameters (day counts, dollar amounts, percentages, multipliers, jurisdictions, exhibit/schedule labels) so no two cases are near-duplicates beyond sharing a family shape. Plus 12 hand-authored composite/whole-document cases covering three real interaction-engine scenarios (each scored from both participating adapters), unusual drafting order, role ambiguity, asymmetric obligations, a deliberately clean agreement, a deliberately unsafe agreement, and a whole-document conflicting-provisions case. Every sentence was freshly authored for this corpus.",
+  "expected_result_methodology": "Expected labels use the SAME 8-value vocabulary already validated across three prior burned corpora and re-used here as a scoring RUBRIC only (YES_OPERATIVE, NO_NOT_OPERATIVE, YES_BUT_CONDITIONAL, YES_BUT_EXCEPTION, AMBIGUOUS, CROSS_REFERENCE_DEPENDENT, DEFINITION_DEPENDENT, MISSING_CLAUSE), graded via the same established_signal/_grade logic already used in replay_final_gap_closure.py (unmodified, imported as-is). Each case was labeled by the same deterministic linguistic shape used to author it (e.g. a case authored with a definition-dependent proposition is labeled DEFINITION_DEPENDENT) -- not by running it against Candidate 3 first and back-labeling the result, which would defeat the purpose of an independent corpus.",
+  "contamination_checks": [
+    "No case text appears in the burned 74-case corpus (artifacts/candidate2_remediation).",
+    "No case text appears in the burned 240-case corpus (artifacts/candidate3_real_ai_adversarial/corpus/cases.py).",
+    "No case text is copied or derived from any adapter unit-test fixture under tests/.",
+    "No case text is copied or derived from any prior repeatability fixture (artifacts/candidate3_zero_silent_loss/repeatability/, artifacts/candidate3_final_gap_closure/repeatability/).",
+    "ip_ownership-080 (and its exact failure-shape phrasing, \"shall be owned exclusively by X upon Y\") is explicitly excluded -- ip_ownership cases in this corpus use a structurally different ownership-transfer construction (\"owns all right, title, and interest\" / \"title shall transfer to X upon Y\") that does not reproduce the deferred defect's literal trigger phrase.",
+    "This corpus was constructed without inspecting any Candidate 3 failure log, burned-corpus case text, or repeatability result file for content ideas -- only the scoring rubric (label vocabulary + grading function) was reused, which is the correct, sound approach for an independent validation corpus."
+  ]
+}

@@ -1,0 +1,21 @@
+CANDIDATE 3 INDEPENDENT VALIDATION CORPUS — FREEZE DECLARATION
+
+CORPUS_SHA256 (canonical, over json.dumps(CASES, sort_keys=True).encode("utf-8"), the same
+methodology used by every prior burned-corpus manifest in this repository):
+102acc23327d19737e206706404999beafaf03cca6db976b9e0e45cdb8093e38
+
+cases.json file-level SHA-256 (for file-integrity verification of the artifact as committed):
+9cef77b23eb77817e1c1f55407458737bc0093f345c4a3f9675f135db88a051e
+
+CORPUS_SIZE: 660 cases
+
+Files made read-only (chmod 444) immediately after hash computation:
+- cases.json
+- CORPUS_MANIFEST.json
+- corpus_sha256.txt
+
+FROM THIS POINT FORWARD: no case may be edited, no expected result may be edited, no case
+may be removed, no replacement case may be added. Any corpus-construction defect discovered
+during or after Phase 3 execution must be documented independently in a separate addendum
+(never edited into this frozen file) and must not be used to alter case count, case text, or
+expected labels post-hoc.
