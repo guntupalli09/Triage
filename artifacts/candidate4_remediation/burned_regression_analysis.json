@@ -1,0 +1,211 @@
+{
+  "hard_gates": {
+    "FALSE_SAFE": 0,
+    "UNVERIFIED_FEEDING_CLEAN": 6,
+    "FALSE_ABSENCE": 11,
+    "FALSE_OPERATIVE_TO_CLEAN": 0,
+    "MATERIAL_CONTEXT_SILENTLY_LOST": 4,
+    "ARBITRARILY_SELECTED_COMPETING_READING": 0,
+    "UNRESOLVED_CROSS_REFERENCE_TO_CLEAN": 0,
+    "UNRESOLVED_DEFINITION_TO_CLEAN": 17
+  },
+  "hard_gate_cases": {
+    "UNVERIFIED_FEEDING_CLEAN": [
+      "iv-insurance-0277",
+      "iv-insurance-0286",
+      "iv-insurance-0295",
+      "iv-insurance-0304",
+      "iv-insurance-0313",
+      "iv-insurance-0322"
+    ],
+    "FALSE_ABSENCE": [
+      "iv-ip_ownership-0220",
+      "iv-ip_ownership-0221",
+      "iv-ip_ownership-0229",
+      "iv-ip_ownership-0238",
+      "iv-ip_ownership-0247",
+      "iv-ip_ownership-0256",
+      "iv-ip_ownership-0265",
+      "iv-ip_ownership-0266",
+      "iv-warranties-0503",
+      "iv-warranties-0510",
+      "iv-warranties-0512"
+    ],
+    "MATERIAL_CONTEXT_SILENTLY_LOST": [
+      "iv-sla-0590",
+      "iv-assignment-0608",
+      "iv-assignment-0635",
+      "iv-termination-0651"
+    ],
+    "UNRESOLVED_DEFINITION_TO_CLEAN": [
+      "iv-ip_ownership-0223",
+      "iv-ip_ownership-0232",
+      "iv-ip_ownership-0241",
+      "iv-ip_ownership-0250",
+      "iv-ip_ownership-0259",
+      "iv-ip_ownership-0268",
+      "iv-insurance-0277",
+      "iv-insurance-0286",
+      "iv-insurance-0295",
+      "iv-insurance-0304",
+      "iv-insurance-0313",
+      "iv-insurance-0322",
+      "iv-warranties-0493",
+      "iv-warranties-0502",
+      "iv-warranties-0511",
+      "iv-warranties-0520",
+      "iv-warranties-0538"
+    ]
+  },
+  "false_escalation": 88,
+  "conservative_review_rate": 0.6636363636363637,
+  "correct_clean": 38,
+  "correct_non_clean": 463,
+  "overall_pass_rate": 0.759090909090909,
+  "adapter_matrix": {
+    "limitation_of_liability": {
+      "display": "Limitation of Liability",
+      "cases": 56,
+      "correct": 50,
+      "false_safe": 0,
+      "false_absence": 0,
+      "false_operative_to_clean": 0,
+      "silent_context_loss": 0,
+      "unresolved_dependency_to_clean": 0,
+      "false_escalation": 11,
+      "final_gate": "PASS"
+    },
+    "indemnification": {
+      "display": "Indemnification",
+      "cases": 55,
+      "correct": 49,
+      "false_safe": 0,
+      "false_absence": 0,
+      "false_operative_to_clean": 0,
+      "silent_context_loss": 0,
+      "unresolved_dependency_to_clean": 0,
+      "false_escalation": 12,
+      "final_gate": "PASS"
+    },
+    "termination": {
+      "display": "Termination",
+      "cases": 56,
+      "correct": 43,
+      "false_safe": 0,
+      "false_absence": 0,
+      "false_operative_to_clean": 0,
+      "silent_context_loss": 1,
+      "unresolved_dependency_to_clean": 0,
+      "false_escalation": 12,
+      "final_gate": "FAIL"
+    },
+    "confidentiality": {
+      "display": "Confidentiality",
+      "cases": 55,
+      "correct": 36,
+      "false_safe": 0,
+      "false_absence": 0,
+      "false_operative_to_clean": 0,
+      "silent_context_loss": 0,
+      "unresolved_dependency_to_clean": 0,
+      "false_escalation": 12,
+      "final_gate": "PASS"
+    },
+    "assignment": {
+      "display": "Assignment",
+      "cases": 54,
+      "correct": 40,
+      "false_safe": 0,
+      "false_absence": 0,
+      "false_operative_to_clean": 0,
+      "silent_context_loss": 2,
+      "unresolved_dependency_to_clean": 0,
+      "false_escalation": 12,
+      "final_gate": "FAIL"
+    },
+    "governing_law": {
+      "display": "Governing Law",
+      "cases": 54,
+      "correct": 42,
+      "false_safe": 0,
+      "false_absence": 0,
+      "false_operative_to_clean": 0,
+      "silent_context_loss": 0,
+      "unresolved_dependency_to_clean": 0,
+      "false_escalation": 6,
+      "final_gate": "PASS"
+    },
+    "data_security": {
+      "display": "Data Protection & Security",
+      "cases": 55,
+      "correct": 37,
+      "false_safe": 0,
+      "false_absence": 0,
+      "false_operative_to_clean": 0,
+      "silent_context_loss": 0,
+      "unresolved_dependency_to_clean": 0,
+      "false_escalation": 6,
+      "final_gate": "PASS"
+    },
+    "ip_ownership": {
+      "display": "IP Ownership & Licensing",
+      "cases": 55,
+      "correct": 34,
+      "false_safe": 0,
+      "false_absence": 8,
+      "false_operative_to_clean": 0,
+      "silent_context_loss": 0,
+      "unresolved_dependency_to_clean": 6,
+      "false_escalation": 1,
+      "final_gate": "FAIL"
+    },
+    "insurance": {
+      "display": "Insurance",
+      "cases": 55,
+      "correct": 31,
+      "false_safe": 0,
+      "false_absence": 0,
+      "false_operative_to_clean": 0,
+      "silent_context_loss": 0,
+      "unresolved_dependency_to_clean": 6,
+      "false_escalation": 6,
+      "final_gate": "FAIL"
+    },
+    "payment_terms": {
+      "display": "Payment Terms",
+      "cases": 56,
+      "correct": 54,
+      "false_safe": 0,
+      "false_absence": 0,
+      "false_operative_to_clean": 0,
+      "silent_context_loss": 0,
+      "unresolved_dependency_to_clean": 0,
+      "false_escalation": 9,
+      "final_gate": "PASS"
+    },
+    "warranties": {
+      "display": "Warranties",
+      "cases": 54,
+      "correct": 37,
+      "false_safe": 0,
+      "false_absence": 3,
+      "false_operative_to_clean": 0,
+      "silent_context_loss": 0,
+      "unresolved_dependency_to_clean": 5,
+      "false_escalation": 0,
+      "final_gate": "FAIL"
+    },
+    "sla": {
+      "display": "SLA / Service Levels",
+      "cases": 55,
+      "correct": 48,
+      "false_safe": 0,
+      "false_absence": 0,
+      "false_operative_to_clean": 0,
+      "silent_context_loss": 1,
+      "unresolved_dependency_to_clean": 0,
+      "false_escalation": 1,
+      "final_gate": "FAIL"
+    }
+  }
+}
