@@ -102,12 +102,15 @@ WARRANTY_CATEGORIES: Tuple[str, ...] = (
     "performance",
     "title",
     "third_party_rights",
+    "defect_free",
 )
 
 # --- Clause presence -----------------------------------------------------------------------
 # Deliberately narrow: bare "warrant" root only. No blanket "represents"
 # or "guarantee" anchor -- see module docstring's negative-control note.
 _ANCHOR_RE = re.compile(r"warrant(?:s|y|ies|ed|ing)?\b", re.I)
+
+_WARRANTY_EXCEPT_FOR_RE = re.compile(r"\bexcept\s+for\b", re.I)
 
 # --- Warranting-party attribution -----------------------------------------------------------
 # Case-sensitive name capture nested in an overall re.I compile: the
@@ -118,9 +121,18 @@ _ANCHOR_RE = re.compile(r"warrant(?:s|y|ies|ed|ing)?\b", re.I)
 # confidentiality, assignment, insurance, payment_terms, and, as of this
 # hardening pass, governing_law).
 _WARRANTING_PARTY_RE = re.compile(
+    # Candidate 5.1 remediation (warranties FALSE_ABSENCE general root
+    # cause): "that" was previously REQUIRED after the warranting verb,
+    # missing the equally common object-direct construction ("Operator
+    # warrants the deliverables will be free of material defects" -- no
+    # "that" at all) alongside the that-clause form ("Operator warrants
+    # that the deliverables will be..."). Both are the same grammatical
+    # act of warranting; making "that" optional (rather than adding a
+    # second, near-duplicate pattern) generalizes the existing anchor to
+    # cover both without narrowing what it already correctly matched.
     r"(?-i:([A-Z][A-Za-z]{2,30}))\s+(?:hereby\s+|further\s+|also\s+|additionally\s+)?"
     r"(?:represents\s+and\s+warrants|warrants|represents)\s+"
-    r"(?:to\s+(?:the\s+other\s+party|[A-Za-z]{2,30})\s+)?that\b",
+    r"(?:to\s+(?:the\s+other\s+party|[A-Za-z]{2,30})\s+)?(?:that\b)?",
     re.I,
 )
 _MUTUAL_OPENER_RE = re.compile(
@@ -174,6 +186,19 @@ _CATEGORY_AFFIRMATIVE_RE: Dict[str, "re.Pattern"] = {
     ),
     "malware_free": re.compile(
         r"free\s+(?:of|from)\s+(?:any\s+)?(?:computer\s+)?(?:viruses|malware|malicious\s+code|disabling\s+(?:code|device)s?|trojan)", re.I,
+    ),
+    # Candidate 5.1 remediation (ip_ownership/warranties FALSE_ABSENCE
+    # general root cause): a basic product/deliverable-quality warranty
+    # ("free of material defects", "free from defects in workmanship")
+    # is one of the single most common warranty categories in ordinary
+    # commercial drafting, yet had NO category pattern at all -- a clause
+    # consisting ONLY of this warranty (with no other recognized
+    # category also present) previously matched zero categories, leaving
+    # `found_anything=False` and silently returning None/NOT_APPLICABLE.
+    "defect_free": re.compile(
+        r"free\s+(?:of|from)\s+(?:any\s+|all\s+)?(?:material\s+)?defects?"
+        r"|free\s+(?:of|from)\s+defects?\s+in\s+(?:materials?|workmanship|design)"
+        r"|shall\s+be\s+(?:free\s+of\s+defects|of\s+good\s+quality|merchantable)", re.I,
     ),
     "security": re.compile(
         r"(?:it\s+)?(?:maintains?|has\s+implemented)\s+(?:commercially\s+reasonable\s+)?"
@@ -546,6 +571,32 @@ def extract_warranties_facts(text: str) -> Optional[WarrantiesFacts]:
                     _attribute_warranting_party(facts.categories[cat], name)
                     facts.categories[cat].raw_excerpt = facts.categories[cat].raw_excerpt or _excerpt(window, m.start(), min(len(window), m.end() + len(local)))
                     found_anything = True
+                    # Candidate 5.1 remediation (MATERIAL_CONTEXT_
+                    # SILENTLY_LOST general root cause): "except for"
+                    # (distinct from "except when"/"except to the
+                    # extent"/"except that", already covered by the
+                    # shared `detect_condition_in_text` call below) is
+                    # also an extremely common exception connector, but
+                    # broadening it in the SHARED primitive
+                    # (policy_engine_core.py) was found to cause
+                    # widespread over-triggering across unrelated
+                    # adapters (liability, indemnification, termination,
+                    # confidentiality, assignment, governing_law) whose
+                    # own text frequently uses "except for" in ways that
+                    # are NOT a proviso on the fact just matched. Scoped
+                    # instead to the warranting party's OWN sentence,
+                    # mirroring ip_ownership_policy_engine.py's identical,
+                    # already-precedented `_OWNERSHIP_EXCEPT_FOR_RE`
+                    # local check for the same reason.
+                    if not facts.deterministic_condition_established:
+                        sent_start = window.rfind(".", 0, m.start()) + 1
+                        sent_end_dot = window.find(".", m.end())
+                        sent_end = sent_end_dot + 1 if sent_end_dot != -1 else len(window)
+                        sentence = window[sent_start:sent_end]
+                        ex_m = _WARRANTY_EXCEPT_FOR_RE.search(sentence)
+                        if ex_m:
+                            facts.deterministic_condition_established = True
+                            facts.deterministic_condition_excerpt = sentence[ex_m.start():min(len(sentence), ex_m.start() + 120)].strip()
         for m in _MUTUAL_OPENER_RE.finditer(window):
             facts.mutual_opener_present = True
             other_positions = [p for p in all_positions if p != m.start()]

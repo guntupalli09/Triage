@@ -89,6 +89,7 @@ from policy_engine_core import (
     document_wide_conflict_detected as _document_wide_conflict_detected,
     unreconciled_ambiguity_marker_present as _unreconciled_ambiguity_marker_present,
     cross_section_carveout_referencing as _cross_section_carveout_referencing,
+    detect_condition_in_span as _core_detect_condition_in_span,
 )
 
 RULE_ID = "POLICY_SLA"
@@ -368,6 +369,15 @@ class SLAFacts:
     ai_identified_exception: Optional[str] = None
     ai_identified_definition_or_reference: Optional[str] = None
     document_wide_conflict: bool = False
+    # Candidate 5.1 remediation (MATERIAL_CONTEXT_SILENTLY_LOST general
+    # root cause): a deterministically-detected condition/exception
+    # attached to the uptime commitment itself (e.g. "..., except that
+    # downtime caused by X's own network or equipment shall not count
+    # against ...'s uptime commitment"), using the same shared
+    # `detect_condition_in_text` primitive liability/insurance/warranties/
+    # ip_ownership already use for this exact purpose.
+    deterministic_condition_established: bool = False
+    deterministic_condition_excerpt: Optional[str] = None
 
 
 class SLAPolicyRuleLike(Protocol):
@@ -534,6 +544,24 @@ def extract_sla_facts(text: str) -> Optional[SLAFacts]:
             raw = m.group(1) or m.group(2)
             if raw:
                 uptime_values.add(float(raw))
+            # Candidate 5.1 remediation (MATERIAL_CONTEXT_SILENTLY_LOST
+            # general root cause) -- a condition/exception attached to
+            # THIS SPECIFIC uptime commitment sentence (e.g. "..., except
+            # that downtime caused by X's own network or equipment shall
+            # not count..."), scoped via detect_condition_in_span to the
+            # uptime match's OWN sentence -- never the whole document --
+            # so an unrelated leading condition on a DIFFERENT sentence
+            # (e.g. the SLA's own credit-trigger phrasing, "If Provider
+            # fails to meet the Service Level, Customer shall receive a
+            # service credit...", which this adapter already structures
+            # deterministically via its own dedicated credit-trigger
+            # fields) is never double-counted as an unresolved condition
+            # on the uptime commitment itself.
+            if not facts.deterministic_condition_established:
+                cond = _core_detect_condition_in_span(text, ws + m.start(), ws + m.end())
+                if cond.status == "ESTABLISHED":
+                    facts.deterministic_condition_established = True
+                    facts.deterministic_condition_excerpt = cond.evidence_span
                 found_anything = True
 
         for m in _MEASUREMENT_PERIOD_RE.finditer(window):
@@ -888,6 +916,15 @@ def evaluate_sla_policy(
         unresolved_facts.append(
             f"a material definition/cross-reference dependency was identified by contextual analysis "
             f"({facts.ai_identified_definition_or_reference})"
+        )
+    # Candidate 5.1 remediation (MATERIAL_CONTEXT_SILENTLY_LOST general
+    # root cause) -- a deterministically-detected condition/exception
+    # attached to the uptime commitment must not be silently dropped
+    # merely because the uptime percentage itself resolved cleanly.
+    if facts.deterministic_condition_established:
+        unresolved_facts.append(
+            f"the service-level commitment is stated with a condition/exception (\"{facts.deterministic_condition_excerpt}\") "
+            f"— this evaluation does not determine whether the stated condition/exception affects the commitment"
         )
 
     if facts.uptime_conflict:
