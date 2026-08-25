@@ -255,7 +255,7 @@ _PD_CONFIDENTIALITY_RE = re.compile(
 
 # --- Delegation to an external DPA/Schedule/Exhibit -------------------------
 _DPA_CROSSREF_RE = re.compile(
-    r"as\s+(?:set\s+forth|described|specified)\s+in\s+(?:the\s+)?(?:attached\s+)?"
+    r"as\s+(?:set\s+forth|described|specified)\s+in\s+(?:the\s+)?(?:attached\s+)?(?:[A-Z][a-zA-Z]+\s+)?"
     r"(?:Data\s+Processing\s+(?:Agreement|Addendum)|DPA|Schedule|Exhibit|Annex)"
     r"|subject\s+to\s+(?:the\s+)?terms\s+of\s+(?:the\s+)?(?:attached\s+)?(?:DPA|Data\s+Processing\s+(?:Agreement|Addendum))"
     r"|governed\s+by\s+(?:the\s+)?(?:attached\s+)?(?:DPA|Data\s+Processing\s+(?:Agreement|Addendum))",

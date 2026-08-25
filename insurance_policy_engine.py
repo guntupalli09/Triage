@@ -155,7 +155,7 @@ _EVIDENCE_BEFORE_RE = re.compile(
     r"|evidence\s+of\s+(?:such\s+)?insurance\s+(?:shall\s+be\s+)?(?:provided|furnished)\s+prior\s+to", re.I,
 )
 _SCHEDULE_CROSSREF_RE = re.compile(
-    r"as\s+(?:set\s+forth|described|specified)\s+in\s+(?:the\s+)?(?:attached\s+)?(?:Schedule|Exhibit|Insurance\s+Schedule|Annex)"
+    r"as\s+(?:set\s+forth|described|specified)\s+in\s+(?:the\s+)?(?:attached\s+)?(?:[A-Z][a-zA-Z]+\s+)?(?:Schedule|Exhibit|Insurance\s+Schedule|Annex)"
     r"|governed\s+by\s+(?:the\s+)?(?:attached\s+)?(?:Schedule|Exhibit)", re.I,
 )
 

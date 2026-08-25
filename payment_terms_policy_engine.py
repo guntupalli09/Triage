@@ -444,7 +444,7 @@ _SERVICE_CREDIT_RE = re.compile(r"service\s+credits?", re.I)
 
 # --- Schedule / Order Form cross-reference ------------------------------------------------------
 _SCHEDULE_CROSSREF_RE = re.compile(
-    r"as\s+(?:set\s+forth|described|specified)\s+in\s+(?:the\s+)?(?:applicable\s+)?(?:Order\s+Form|SOW|Statement\s+of\s+Work|Schedule|Exhibit)"
+    r"as\s+(?:set\s+forth|described|specified)\s+in\s+(?:the\s+)?(?:applicable\s+)?(?:[A-Z][a-zA-Z]+\s+)?(?:Order\s+Form|SOW|Statement\s+of\s+Work|Schedule|Exhibit)"
     r"|governed\s+by\s+(?:the\s+)?(?:applicable\s+)?(?:Order\s+Form|SOW|Schedule)", re.I,
 )
 # Step 4A.7.3 (A7-PA-05) — a single-level delegation to ANY named external

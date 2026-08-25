@@ -105,9 +105,23 @@ _GENERIC_WORDS = {"each", "the", "any", "such", "this", "that", "both", "either"
 _OWNERSHIP_EXCEPT_FOR_RE = re.compile(r"\bexcept\s+for\b", re.I)
 
 # --- Anchor -------------------------------------------------------------
+# Candidate 5 remediation (FALSE_ABSENCE general root cause, "no
+# deterministic anchor" failure class): a common title-passage
+# construction ("Title to the deliverables shall transfer/pass/vest to
+# X upon Y") names no IP-specific vocabulary at all -- confirmed via the
+# burned corpus's "conditional" family and Phase 11 repeatability
+# testing to depend ENTIRELY on AI-candidate admission (which is
+# genuinely non-deterministic run-to-run) when this deterministic anchor
+# is absent. Adding it gives real channel redundancy (per this mission's
+# Section 4: deterministic extraction should catch what AI sometimes
+# misses, not the reverse only) without meaningfully widening false-
+# positive risk: it requires "title" co-occurring with an explicit
+# transfer/pass/vest verb, not a bare mention (e.g. a job "title" or
+# section "title" never matches this).
 _ANCHOR_RE = re.compile(
     r"intellectual\s+property|proprietary\s+rights|work\s+product|work\s+made\s+for\s+hire"
-    r"|works?\s+for\s+hire|license\s+(?:grant|to\s+use)|IP\s+(?:ownership|rights|license)",
+    r"|works?\s+for\s+hire|license\s+(?:grant|to\s+use)|IP\s+(?:ownership|rights|license)"
+    r"|\btitle\b\s*(?:to\s+[^.,;]{0,80})?\s*(?:shall|will)\s+(?:transfer|pass|vest)",
     re.I,
 )
 
@@ -219,7 +233,7 @@ _EMBEDDED_LICENSE_RE = re.compile(
 )
 
 _SOW_CROSSREF_RE = re.compile(
-    r"as\s+(?:set\s+forth|described|specified)\s+in\s+(?:the\s+)?(?:applicable\s+)?(?:Statement\s+of\s+Work|SOW|Schedule|Exhibit|Order\s+Form)"
+    r"as\s+(?:set\s+forth|described|specified)\s+in\s+(?:the\s+)?(?:applicable\s+)?(?:[A-Z][a-zA-Z]+\s+)?(?:Statement\s+of\s+Work|SOW|Schedule|Exhibit|Order\s+Form)"
     r"|governed\s+by\s+(?:the\s+)?(?:applicable\s+)?(?:SOW|Statement\s+of\s+Work)", re.I,
 )
 

@@ -240,9 +240,16 @@ _REFUND_CREDIT_RE = re.compile(
 # --- Survival / cross-reference -----------------------------------------------------------------
 _SURVIVAL_RE = re.compile(r"warrant(?:y|ies)\s+shall\s+survive|survives?\s+(?:the\s+)?(?:termination|expiration)", re.I)
 _SCHEDULE_CROSSREF_RE = re.compile(
-    r"as\s+(?:set\s+forth|described|specified)\s+in\s+(?:the\s+)?(?:applicable\s+)?"
+    # Candidate 5 remediation (FALSE_ABSENCE general root cause): allow an
+    # optional single qualifying word between "the"/"applicable" and the
+    # Schedule/Exhibit/SOW noun (e.g. "the Warranty Schedule", "the
+    # Pricing Exhibit") -- confirmed via the burned corpus
+    # (iv-warranties-0501: "as set forth in the Warranty Schedule
+    # attached as Exhibit X") that the un-qualified form alone silently
+    # missed a real, material cross-reference.
+    r"as\s+(?:set\s+forth|described|specified)\s+in\s+(?:the\s+)?(?:applicable\s+)?(?:[A-Z][a-zA-Z]+\s+)?"
     r"(?:Statement\s+of\s+Work|SOW|Schedule|Exhibit)"
-    r"|warrant(?:y|ies)\s+(?:set\s+forth|specified)\s+in\s+(?:the\s+)?(?:applicable\s+)?(?:SOW|Statement\s+of\s+Work|Schedule)",
+    r"|warrant(?:y|ies)\s+(?:set\s+forth|specified)\s+in\s+(?:the\s+)?(?:applicable\s+)?(?:[A-Z][a-zA-Z]+\s+)?(?:SOW|Statement\s+of\s+Work|Schedule)",
     re.I,
 )
 
