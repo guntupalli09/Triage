@@ -2,7 +2,7 @@
   "hard_gates": {
     "FALSE_SAFE": 0,
     "UNVERIFIED_FEEDING_CLEAN": 0,
-    "FALSE_ABSENCE": 3,
+    "FALSE_ABSENCE": 7,
     "FALSE_OPERATIVE_TO_CLEAN": 0,
     "MATERIAL_CONTEXT_SILENTLY_LOST": 2,
     "ARBITRARILY_SELECTED_COMPETING_READING": 0,
@@ -11,20 +11,24 @@
   },
   "hard_gate_cases": {
     "FALSE_ABSENCE": [
-      "iv-ip_ownership-0239",
-      "iv-ip_ownership-0253",
+      "iv-ip_ownership-0220",
+      "iv-ip_ownership-0238",
+      "iv-ip_ownership-0247",
+      "iv-ip_ownership-0256",
+      "iv-ip_ownership-0265",
+      "iv-warranties-0501",
       "iv-warranties-0527"
     ],
     "MATERIAL_CONTEXT_SILENTLY_LOST": [
-      "iv-sla-0545",
-      "iv-sla-0581"
+      "iv-sla-0563",
+      "iv-termination-0651"
     ]
   },
-  "false_escalation": 86,
-  "conservative_review_rate": 0.693939393939394,
-  "correct_clean": 37,
-  "correct_non_clean": 484,
-  "overall_pass_rate": 0.7893939393939394,
+  "false_escalation": 87,
+  "conservative_review_rate": 0.6984848484848485,
+  "correct_clean": 36,
+  "correct_non_clean": 487,
+  "overall_pass_rate": 0.7924242424242425,
   "adapter_matrix": {
     "limitation_of_liability": {
       "display": "Limitation of Liability",
@@ -53,14 +57,14 @@
     "termination": {
       "display": "Termination",
       "cases": 56,
-      "correct": 44,
+      "correct": 43,
       "false_safe": 0,
       "false_absence": 0,
       "false_operative_to_clean": 0,
-      "silent_context_loss": 0,
+      "silent_context_loss": 1,
       "unresolved_dependency_to_clean": 0,
       "false_escalation": 12,
-      "final_gate": "PASS"
+      "final_gate": "FAIL"
     },
     "confidentiality": {
       "display": "Confidentiality",
@@ -113,9 +117,9 @@
     "ip_ownership": {
       "display": "IP Ownership & Licensing",
       "cases": 55,
-      "correct": 41,
+      "correct": 43,
       "false_safe": 0,
-      "false_absence": 2,
+      "false_absence": 5,
       "false_operative_to_clean": 0,
       "silent_context_loss": 0,
       "unresolved_dependency_to_clean": 0,
@@ -143,7 +147,7 @@
       "false_operative_to_clean": 0,
       "silent_context_loss": 0,
       "unresolved_dependency_to_clean": 0,
-      "false_escalation": 9,
+      "false_escalation": 10,
       "final_gate": "PASS"
     },
     "warranties": {
@@ -151,7 +155,7 @@
       "cases": 54,
       "correct": 42,
       "false_safe": 0,
-      "false_absence": 1,
+      "false_absence": 2,
       "false_operative_to_clean": 0,
       "silent_context_loss": 0,
       "unresolved_dependency_to_clean": 0,
@@ -161,11 +165,11 @@
     "sla": {
       "display": "SLA / Service Levels",
       "cases": 55,
-      "correct": 47,
+      "correct": 48,
       "false_safe": 0,
       "false_absence": 0,
       "false_operative_to_clean": 0,
-      "silent_context_loss": 2,
+      "silent_context_loss": 1,
       "unresolved_dependency_to_clean": 0,
       "false_escalation": 0,
       "final_gate": "FAIL"
