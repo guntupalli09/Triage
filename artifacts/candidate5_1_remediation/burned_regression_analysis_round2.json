@@ -2,28 +2,26 @@
   "hard_gates": {
     "FALSE_SAFE": 0,
     "UNVERIFIED_FEEDING_CLEAN": 0,
-    "FALSE_ABSENCE": 1,
+    "FALSE_ABSENCE": 0,
     "FALSE_OPERATIVE_TO_CLEAN": 0,
-    "MATERIAL_CONTEXT_SILENTLY_LOST": 3,
+    "MATERIAL_CONTEXT_SILENTLY_LOST": 4,
     "ARBITRARILY_SELECTED_COMPETING_READING": 0,
     "UNRESOLVED_CROSS_REFERENCE_TO_CLEAN": 0,
     "UNRESOLVED_DEFINITION_TO_CLEAN": 0
   },
   "hard_gate_cases": {
-    "FALSE_ABSENCE": [
-      "iv-warranties-0512"
-    ],
     "MATERIAL_CONTEXT_SILENTLY_LOST": [
-      "iv-payment_terms-0167",
+      "iv-assignment-0608",
+      "iv-assignment-0617",
       "iv-assignment-0635",
       "iv-termination-0651"
     ]
   },
   "false_escalation": 86,
-  "conservative_review_rate": 0.693939393939394,
+  "conservative_review_rate": 0.7,
   "correct_clean": 40,
-  "correct_non_clean": 494,
-  "overall_pass_rate": 0.8090909090909091,
+  "correct_non_clean": 493,
+  "overall_pass_rate": 0.8075757575757576,
   "adapter_matrix": {
     "limitation_of_liability": {
       "display": "Limitation of Liability",
@@ -76,11 +74,11 @@
     "assignment": {
       "display": "Assignment",
       "cases": 54,
-      "correct": 41,
+      "correct": 39,
       "false_safe": 0,
       "false_absence": 0,
       "false_operative_to_clean": 0,
-      "silent_context_loss": 1,
+      "silent_context_loss": 3,
       "unresolved_dependency_to_clean": 0,
       "false_escalation": 12,
       "final_gate": "FAIL"
@@ -136,26 +134,26 @@
     "payment_terms": {
       "display": "Payment Terms",
       "cases": 56,
-      "correct": 53,
+      "correct": 54,
       "false_safe": 0,
       "false_absence": 0,
       "false_operative_to_clean": 0,
-      "silent_context_loss": 1,
+      "silent_context_loss": 0,
       "unresolved_dependency_to_clean": 0,
       "false_escalation": 9,
-      "final_gate": "FAIL"
+      "final_gate": "PASS"
     },
     "warranties": {
       "display": "Warranties",
       "cases": 54,
       "correct": 54,
       "false_safe": 0,
-      "false_absence": 1,
+      "false_absence": 0,
       "false_operative_to_clean": 0,
       "silent_context_loss": 0,
       "unresolved_dependency_to_clean": 0,
       "false_escalation": 0,
-      "final_gate": "FAIL"
+      "final_gate": "PASS"
     },
     "sla": {
       "display": "SLA / Service Levels",
