@@ -611,14 +611,36 @@ def extract_insurance_facts(text: str) -> Optional[InsuranceFacts]:
     # exists but no coverage type/limit or ancillary term could be
     # deterministically structured from it -- this must never silently
     # reach ACCEPT ("no policy gaps found") merely because nothing was
-    # established. Scoped specifically to the AI-admitted-candidate case
-    # (bool(admitted_semantic)), NOT to a bare deterministic anchor match
-    # with nothing else in the document (e.g. a lone "9. Insurance."
-    # heading) -- that is the pre-existing, correct "operative but
-    # nothing required by policy" ACCEPT path Candidate 2 already
-    # established and must not be touched by this remediation. See
-    # CANONICAL_PRIMARY_FACT_SCHEMA.md's PRESENT_BUT_UNRESOLVED state.
-    if not deterministic_value_found and admitted_semantic:
+    # established. NOT scoped to a bare deterministic anchor match with
+    # nothing else in the document (e.g. a lone "9. Insurance." heading)
+    # -- that case never reaches this line at all, because `found_anything`
+    # itself already requires `_core_is_operative_context` (see its
+    # definition above); a non-operative heading fails `found_anything`
+    # and returns None before this point, preserving the pre-existing,
+    # correct "nothing here at all" NOT_APPLICABLE path.
+    #
+    # Candidate 4 remediation (independent-validation UNVERIFIED_FEEDING_
+    # CLEAN / FALSE_ABSENCE root cause): the ORIGINAL condition here was
+    # `not deterministic_value_found and admitted_semantic` -- requiring
+    # an admitted AI candidate specifically. That silently missed the
+    # confirmed failure mode where a deterministic anchor match IS
+    # operative (`found_anything=True` via the anchor alone, e.g.
+    # "Provider shall maintain liability coverage of at least $1
+    # million" -- operative, but not the specific "commercial general
+    # liability insurance" phrasing the named-coverage-type regexes
+    # require) while AI discovery independently returns zero candidates
+    # (a genuine recall miss, not a disproven claim, so admitted_semantic
+    # is also empty). That combination left `facts.absence_state` at its
+    # default CONFIRMED_ABSENT, which downstream reaches ACCEPT -- an
+    # operative, evaluated-but-unverified insurance obligation silently
+    # treated as "affirmatively confirmed absent." Broadened to trigger
+    # on `found_anything` (which already requires either an admitted
+    # candidate or an operative deterministic anchor -- never a bare,
+    # non-operative heading) rather than requiring `admitted_semantic`
+    # specifically: the invariant is "operative signal without
+    # verifiable structure is unresolved, not absent," regardless of
+    # WHICH channel produced the operative signal.
+    if not deterministic_value_found and found_anything:
         facts.absence_state = "PRESENT_BUT_UNRESOLVED"
 
     # Zero-silent-loss mission follow-up (data_security-139 general failure
@@ -831,20 +853,6 @@ def evaluate_insurance_policy(
     if facts.schedule_cross_reference and established_dimension_count == 0:
         unresolved.append("material insurance requirements are delegated to a referenced Schedule/Exhibit not included in this text")
 
-    # Candidate 3 remediation (Root Cause 1): a candidate that contextual
-    # discovery identified and verified (ESTABLISHED, grounded, ADMITTED)
-    # exists for this document, but nothing could be deterministically
-    # structured from it into a specific coverage type/limit/ancillary
-    # term. Never let this fall through to a bare "no policy gaps found"
-    # ACCEPT merely because no policy field happened to be requiring a
-    # coverage type -- the material finding itself must still surface.
-    if facts.absence_state == "PRESENT_BUT_UNRESOLVED" and established_dimension_count == 0 and not facts.schedule_cross_reference:
-        unresolved.append(
-            "contextual discovery identified and verified insurance-relevant language in this contract, but "
-            "deterministic extraction could not structure it into a specific coverage type, limit, or other "
-            "requirement — this is not the same as confirming no insurance requirement exists"
-        )
-
     if unresolved:
         explanation = requires_review_explanation("insurance clause", facts.raw_excerpt, unresolved)
         return PolicyDecision(
@@ -925,9 +933,39 @@ def evaluate_insurance_policy(
             extracted_summary_parts.append(f"{_COVERAGE_LABELS[ct]}: addressed")
     extracted_summary = "; ".join(extracted_summary_parts) or "Insurance clause found; limited structured detail extractable"
 
+    # Candidate 3 remediation (Root Cause 1) / Candidate 4 remediation
+    # (independent-validation UNVERIFIED_FEEDING_CLEAN / FALSE_ABSENCE root
+    # cause): a candidate that contextual discovery identified and verified
+    # exists for this document, or a bare deterministic anchor that IS
+    # operative (see `found_anything`'s definition in extract_insurance_
+    # facts), but nothing could be deterministically structured from it
+    # into a specific coverage type/limit/ancillary term. Deliberately
+    # placed AFTER the per-dimension required/minimum/ancillary comparison
+    # loop above (not before it, as Candidate 3's original placement did)
+    # so a genuinely MORE SPECIFIC, already-correct finding (e.g. "policy
+    # requires CGL but the clause does not address it" -> MUST_REDLINE, or
+    # "policy requires a waiver of subrogation, but none was found" ->
+    # NEGOTIATE) is never downgraded to a less-informative generic
+    # REQUIRES_REVIEW. This fallback fires ONLY when the per-dimension
+    # comparisons found no problem at all (`worst == ACCEPT`) yet the
+    # underlying content still could not be verified -- exactly the "we
+    # failed to establish the fact" case that must never silently pass as
+    # "no policy gaps found."
+    if (worst == ACCEPT and facts.absence_state == "PRESENT_BUT_UNRESOLVED"
+            and established_dimension_count == 0 and not facts.schedule_cross_reference):
+        worst = REQUIRES_REVIEW
+        notes.append(
+            "contextual discovery identified and verified insurance-relevant language in this contract, but "
+            "deterministic extraction could not structure it into a specific coverage type, limit, or other "
+            "requirement — this is not the same as confirming no insurance requirement exists"
+        )
+
     if worst == ACCEPT and not notes:
         required_action = "None — insurance terms meet policy"
         explanation = f"Contract language: \"{facts.raw_excerpt}\". No policy gaps found. Result: {ACCEPT}."
+    elif worst == REQUIRES_REVIEW:
+        required_action = "Manual review required — " + "; ".join(notes)
+        explanation = f"Contract language: \"{facts.raw_excerpt}\". {'; '.join(notes)}. Result: {worst}."
     else:
         if worst in (ESCALATE, PROHIBITED):
             required_action = f"Escalate to {policy.escalation_approval_authority or 'Legal Director'} — " + "; ".join(notes)

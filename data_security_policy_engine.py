@@ -69,6 +69,7 @@ from policy_engine_core import (
     requires_review_explanation, requires_review_required_action,
     word_number_alternation as _word_number_alternation, parse_multiplier_token as _parse_number_token,
     EXTERNAL_DEFINITION_NOT_ATTACHED_RE as _EXTERNAL_DEFINITION_NOT_ATTACHED_RE,
+    is_operative_context as _core_is_operative_context,
 )
 
 RULE_ID = "POLICY_DATA_SECURITY"
@@ -774,6 +775,35 @@ def extract_data_security_facts(text: str) -> Optional[DataSecurityFacts]:
                 facts.ai_identified_definition_or_reference or unresolved_dependency_note
             )
 
+    # Candidate 4 remediation (independent-validation UNVERIFIED_FEEDING_
+    # CLEAN root cause, general failure class shared with insurance/
+    # ip_ownership): NEITHER an admitted AI candidate NOR an unresolved
+    # dependency note exist -- AI discovery returned nothing at all (a
+    # genuine recall miss, not a disproven claim) -- yet a deterministic
+    # anchor DID match and IS operative (a real party obligation, not
+    # descriptive/recital/negated language -- see `is_operative_context`),
+    # and still nothing could be structured from it. This must not be
+    # silently left at the default CONFIRMED_ABSENT (-> ACCEPT) either:
+    # an operative anchor with zero structured content is "we failed to
+    # establish the fact," never "affirmatively confirmed absent."
+    # Deliberately requires operative context (unlike a bare topical
+    # anchor mention, e.g. a recital merely naming "personal data") so a
+    # genuinely non-operative, descriptive mention of the topic does not
+    # over-escalate.
+    if (not admitted_semantic and unresolved_dependency_note is None
+            and facts.absence_state == "CONFIRMED_ABSENT"
+            and any(_core_is_operative_context(text, m.start(), m.end()) for m in anchors)):
+        _any_established = any(v is not None and v is not False for v in (
+            facts.breach_notification_hours, facts.transfer_mechanism, facts.data_residency_region,
+            facts.security_standard, facts.subprocessor_treatment, facts.deletion_or_return_required,
+            facts.retention_days, facts.audit_rights, facts.cooperation_obligation,
+            facts.confidentiality_of_personal_data,
+        )) or bool(facts.role_attributions) or facts.breach_notification_explicitly_disclaimed \
+            or facts.breach_notification_ambiguous_unit or facts.breach_without_undue_delay \
+            or facts.retention_indefinite or facts.dpa_cross_reference or facts.liability_cross_reference
+        if not _any_established:
+            facts.absence_state = "PRESENT_BUT_UNRESOLVED"
+
     return facts
 
 
@@ -930,19 +960,6 @@ def evaluate_data_security_policy(
     if facts.dpa_cross_reference and established_dimension_count == 0:
         unresolved.append("material data-protection obligations are delegated to a referenced DPA/Schedule/Exhibit not included in this text")
 
-    # Candidate 3 remediation (Root Cause 1): an admitted AI candidate
-    # exists but no data-security dimension could be deterministically
-    # structured from it -- never let this silently reach ACCEPT merely
-    # because no policy field happened to require anything. See
-    # CANONICAL_PRIMARY_FACT_SCHEMA.md.
-    if (facts.absence_state == "PRESENT_BUT_UNRESOLVED" and established_dimension_count == 0
-            and not facts.dpa_cross_reference):
-        unresolved.append(
-            "contextual discovery identified and verified data-security-relevant language in this contract, but "
-            "deterministic extraction could not structure it into a specific requirement — this is not the same "
-            "as confirming no data security provision exists"
-        )
-
     if unresolved:
         explanation = requires_review_explanation("data protection / security clause", facts.raw_excerpt, unresolved)
         return PolicyDecision(
@@ -1094,9 +1111,31 @@ def evaluate_data_security_policy(
         extracted_summary_parts.append("Breach notice: without undue delay")
     extracted_summary = "; ".join(extracted_summary_parts) or "Data protection clause found; limited structured detail extractable"
 
+    # Candidate 3 remediation (Root Cause 1) / Candidate 4 remediation
+    # (independent-validation UNVERIFIED_FEEDING_CLEAN / FALSE_ABSENCE root
+    # cause): an admitted AI candidate, or a bare deterministic anchor that
+    # IS operative, exists for this document, but no data-security
+    # dimension could be deterministically structured from it. Placed
+    # AFTER the full per-dimension comparison loop above (not before, as
+    # the original Candidate 3 placement did) so a more specific,
+    # already-correct finding from that loop is never downgraded to a
+    # generic REQUIRES_REVIEW -- this fallback only fires when nothing
+    # more specific was already found (`worst == ACCEPT`).
+    if (worst == ACCEPT and facts.absence_state == "PRESENT_BUT_UNRESOLVED" and established_dimension_count == 0
+            and not facts.dpa_cross_reference):
+        worst = REQUIRES_REVIEW
+        notes.append(
+            "contextual discovery identified and verified data-security-relevant language in this contract, but "
+            "deterministic extraction could not structure it into a specific requirement — this is not the same "
+            "as confirming no data security provision exists"
+        )
+
     if worst == ACCEPT and not notes:
         required_action = "None — data protection terms meet policy"
         explanation = f"Contract language: \"{facts.raw_excerpt}\". No policy gaps found. Result: {ACCEPT}."
+    elif worst == REQUIRES_REVIEW:
+        required_action = "Manual review required — " + "; ".join(notes)
+        explanation = f"Contract language: \"{facts.raw_excerpt}\". {'; '.join(notes)}. Result: {worst}."
     else:
         if worst in (ESCALATE, PROHIBITED):
             required_action = f"Escalate to {policy.escalation_approval_authority or 'Legal Director'} — " + "; ".join(notes)

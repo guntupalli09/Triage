@@ -80,6 +80,7 @@ from policy_engine_core import (
     unreconciled_ambiguity_marker_present as _unreconciled_ambiguity_marker_present,
     cross_section_carveout_referencing as _cross_section_carveout_referencing,
     detect_condition_in_span as _core_detect_condition_in_span,
+    is_operative_context as _core_is_operative_context,
 )
 
 RULE_ID = "POLICY_IP_OWNERSHIP"
@@ -767,6 +768,30 @@ def extract_ip_facts(text: str) -> Optional[IPFacts]:
                 facts.ai_identified_definition_or_reference or unresolved_dependency_note
             )
 
+    # Candidate 4 remediation (independent-validation FALSE_ABSENCE root
+    # cause, general failure class shared with insurance/data_security):
+    # NEITHER an admitted AI candidate NOR an unresolved dependency note
+    # exist -- AI discovery returned nothing (a genuine recall miss) -- yet
+    # a deterministic anchor DID match and IS operative (a real party
+    # obligation, e.g. a less-common ownership-transfer construction like
+    # "Title... shall transfer to Recipient upon...", not descriptive/
+    # recital/negated language), and still no ownership attribution or
+    # other IP dimension could be structured. Requiring operative context
+    # (rather than a bare topical anchor mention) avoids over-escalating a
+    # merely descriptive mention of "intellectual property."
+    if (not admitted_semantic and unresolved_dependency_note is None
+            and facts.absence_state == "CONFIRMED_ABSENT"
+            and any(_core_is_operative_context(text, m.start(), m.end()) for m in matches)):
+        _any_other_established = any(v is not None for v in (
+            facts.exclusivity, facts.royalty, facts.duration, facts.license_term_years, facts.revocability,
+            facts.sublicensable, facts.transferable, facts.territory, facts.purpose_limited,
+            facts.derivative_works_permitted, facts.feedback_treatment, facts.residual_knowledge_rights,
+            facts.open_source_obligations_present, facts.infringement_remedy_referenced,
+            facts.post_termination_survival, facts.embedded_background_ip_license_present,
+        )) or facts.sow_cross_reference
+        if not facts.ownership_attributions and not _any_other_established:
+            facts.absence_state = "PRESENT_BUT_UNRESOLVED"
+
     # Candidate 3 zero-silent-loss mission — a document-wide contradiction,
     # self-declared unreconciled ambiguity, or cross-section carve-out
     # referencing this clause's own section number must not be silently
@@ -873,21 +898,16 @@ def evaluate_ip_policy(
             start_index=None, end_index=None,
         )
 
-    if facts.absence_state == "PRESENT_BUT_UNRESOLVED":
-        return PolicyDecision(
-            **common, state=REQUIRES_REVIEW,
-            contract_language="", extracted_summary="An IP-ownership-relevant clause was found and verified, but no specific ownership/licensing dimension could be structured from it",
-            policy_limit_summary="N/A",
-            required_action="Manual review required — a candidate clause was discovered and verified but could not be deterministically structured into a specific ownership or licensing term.",
-            explanation=(
-                "Contextual discovery identified and verified IP-ownership-relevant language in this contract, "
-                "but deterministic extraction could not structure it into a specific ownership attribution or "
-                "licensing term. This is not the same as confirming no IP ownership provision exists, and must "
-                "not be treated as a clean result."
-            ),
-            negotiation_ladder=_build_ladder(policy, REQUIRES_REVIEW), category_treatments=[], unresolved_facts=[],
-            start_index=None, end_index=None,
-        )
+    # Candidate 4 remediation: the PRESENT_BUT_UNRESOLVED absence-state used
+    # to force an immediate REQUIRES_REVIEW return HERE, before the per-
+    # dimension comparison loop below ever ran -- pre-empting a more
+    # specific, already-correct finding (e.g. "policy requires us to own
+    # work product, but the clause attributes it to Vendor" -> MUST_REDLINE)
+    # with a generic, less-informative REQUIRES_REVIEW. See the equivalent
+    # fallback placed AFTER the notes loop below (near `worst == ACCEPT`),
+    # which fires only when nothing more specific was already found --
+    # mirrors the identical restructuring applied to insurance and
+    # data_security for the same independent-validation root cause.
 
     background_owner, background_unresolved = _resolve_owner(facts, policy.contract_side, "background_ip")
     work_product_owner, work_product_unresolved = _resolve_owner(facts, policy.contract_side, "work_product")
@@ -1101,9 +1121,20 @@ def evaluate_ip_policy(
         extracted_summary_parts.append(f"Duration: {facts.duration}")
     extracted_summary = "; ".join(extracted_summary_parts) or "IP ownership/licensing clause found; limited structured detail extractable"
 
+    if worst == ACCEPT and facts.absence_state == "PRESENT_BUT_UNRESOLVED" and established_dimension_count == 0:
+        worst = REQUIRES_REVIEW
+        notes.append(
+            "contextual discovery identified and verified IP-ownership-relevant language in this contract, but "
+            "deterministic extraction could not structure it into a specific ownership attribution or licensing "
+            "term — this is not the same as confirming no IP ownership provision exists"
+        )
+
     if worst == ACCEPT and not notes:
         required_action = "None — IP ownership and license terms meet policy"
         explanation = f"Contract language: \"{facts.raw_excerpt}\". No policy gaps found. Result: {ACCEPT}."
+    elif worst == REQUIRES_REVIEW:
+        required_action = "Manual review required — " + "; ".join(notes)
+        explanation = f"Contract language: \"{facts.raw_excerpt}\". {'; '.join(notes)}. Result: {worst}."
     else:
         if worst in (ESCALATE, PROHIBITED):
             required_action = f"Escalate to {policy.escalation_approval_authority or 'Legal Director'} — " + "; ".join(notes)

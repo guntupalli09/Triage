@@ -523,10 +523,14 @@ CASES += [
                "hits."),
     case("malformed-02", ["malformed", "heading_only"],
          "9. Insurance.",
-         "ACCEPT",
+         "REQUIRES_REVIEW",
          notes="The section heading itself ('Insurance') matches the anchor, so clause_found=True "
-               "even with no body — with nothing required by default policy, no notes fire -> "
-               "ACCEPT, not a fabricated NOT_APPLICABLE."),
+               "even with no body. Candidate 4 remediation: previously this fell through to ACCEPT "
+               "('no policy gaps found') purely because the default policy has no active "
+               "requirements — but an operative-looking anchor with literally zero body is exactly "
+               "'we failed to establish anything,' not 'affirmatively confirmed nothing is "
+               "required.' Now correctly reaches REQUIRES_REVIEW via the same PRESENT_BUT_UNRESOLVED "
+               "fallback that catches an AI-admitted candidate with nothing structurable."),
     case("malformed-03", ["malformed", "ocr_noise"],
          "9.  Insurance .   Vendor  shall   maintain   Commercial   General   Liability  "
          "insurance  with  limits  of  not  less  than  $1,000,000   per   occurrence .",
