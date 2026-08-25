@@ -82,9 +82,9 @@ import os
 import re
 import threading
 import time
-import urllib.error
-import urllib.request
 from dataclasses import dataclass, field, fields
+
+import openai_provider as _openai_provider
 from typing import Any, Dict, List, Optional, Tuple
 
 # ---------------------------------------------------------------------------
@@ -326,10 +326,17 @@ def assert_authority_boundary_intact() -> None:
 #   (b) an arbitrary adversarial verification proposition.
 # Both entry points share the same request plumbing and the same fail-
 # closed error handling.
+#
+# Provider config/transport-consolidation: the API URL/model used to be
+# hardcoded here (and duplicated, with the SAME hardcoded model, in
+# semantic_discovery_real.py for indemnification's separate discovery
+# step) -- neither read OPENAI_MODEL at all. Both now delegate to
+# openai_provider.py, the single shared config/transport module for
+# every OpenAI call in the application, so there is exactly one place
+# that knows the OPENAI_API_KEY/OPENAI_MODEL environment variable names
+# and the default model.
 # ---------------------------------------------------------------------------
 
-_API_URL = "https://api.openai.com/v1/chat/completions"
-_MODEL = "gpt-4o-mini"
 _TIMEOUT_SECONDS = 30
 
 CALL_LOG: List[dict] = []
@@ -362,36 +369,19 @@ class ProviderUnavailable(RuntimeError):
 
 
 def _call_model(system_prompt: str, user_prompt: str, *, api_key: Optional[str]) -> dict:
-    key = api_key or os.environ.get("OPENAI_API_KEY")
+    key = _openai_provider.get_api_key(api_key)
     if not key:
         _log_call(0, None, None, "no_api_key")
         raise ProviderUnavailable("OPENAI_API_KEY not set — semantic verifier unavailable")
 
-    body = json.dumps({
-        "model": _MODEL,
-        "max_tokens": 1024,
-        "messages": [
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": user_prompt},
-        ],
-        "response_format": {"type": "json_object"},
-    }).encode("utf-8")
-    req = urllib.request.Request(
-        _API_URL, data=body, method="POST",
-        headers={
-            "Authorization": f"Bearer {key}",
-            "content-type": "application/json",
-        },
-    )
     t0 = time.perf_counter()
     try:
-        with urllib.request.urlopen(req, timeout=_TIMEOUT_SECONDS) as resp:
-            payload = json.loads(resp.read().decode("utf-8"))
-    except urllib.error.URLError as exc:
-        _log_call(time.perf_counter() - t0, None, None, f"network_error:{exc}")
-        raise ProviderUnavailable(f"semantic verifier request failed: {exc}") from exc
-    except (TimeoutError, OSError) as exc:
-        _log_call(time.perf_counter() - t0, None, None, f"timeout_or_os_error:{exc}")
+        payload = _openai_provider.call_chat_completion(
+            system_prompt, user_prompt, api_key=key, max_tokens=1024,
+            timeout_seconds=_TIMEOUT_SECONDS,
+        )
+    except _openai_provider.OpenAIProviderError as exc:
+        _log_call(time.perf_counter() - t0, None, None, f"provider_error:{exc}")
         raise ProviderUnavailable(f"semantic verifier request failed: {exc}") from exc
     elapsed = time.perf_counter() - t0
     usage = payload.get("usage", {}) if isinstance(payload, dict) else {}

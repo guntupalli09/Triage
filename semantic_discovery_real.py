@@ -31,14 +31,12 @@ security-critical file):
 from __future__ import annotations
 
 import json
-import os
 import re
 import threading
 import time
-import urllib.error
-import urllib.request
 from typing import List
 
+import openai_provider as _openai_provider
 from semantic_discovery import DiscoveryCandidate, assert_authority_boundary_intact
 
 # Step 4A.9.2 Phase (latency/cost measurement) — append-only call log, one
@@ -47,8 +45,13 @@ from semantic_discovery import DiscoveryCandidate, assert_authority_boundary_int
 CALL_LOG: List[dict] = []
 _CALL_LOG_LOCK = threading.Lock()
 
-_API_URL = "https://api.openai.com/v1/chat/completions"
-_MODEL = "gpt-4o-mini"
+# Provider config/transport-consolidation: this module used to duplicate
+# fact_admission.py's own hardcoded API URL/model/timeout and raw urllib
+# call -- neither read OPENAI_MODEL at all, and indemnification's
+# discovery step ran through a completely separate HTTP call than the
+# other 11 adapters. Both now delegate to openai_provider.py, the single
+# shared config/transport module for every OpenAI call in the
+# application.
 _TIMEOUT_SECONDS = 30
 
 _SYSTEM_PROMPT = (
@@ -86,35 +89,20 @@ def discover_candidate_spans_real(document_text: str, concept: str, *, api_key: 
     if concept != "indemnification":
         return []
 
-    key = api_key or os.environ.get("OPENAI_API_KEY")
+    key = _openai_provider.get_api_key(api_key)
     if not key:
         _log_call(0, None, None, "no_api_key")
         raise RuntimeError("OPENAI_API_KEY not set — real semantic provider unavailable")
 
     user_prompt = f"<document>\n{document_text}\n</document>"
-    body = json.dumps({
-        "model": _MODEL,
-        "max_tokens": 1024,
-        "messages": [
-            {"role": "system", "content": _SYSTEM_PROMPT},
-            {"role": "user", "content": user_prompt},
-        ],
-        "response_format": {"type": "json_object"},
-    }).encode("utf-8")
-
-    req = urllib.request.Request(
-        _API_URL, data=body, method="POST",
-        headers={
-            "Authorization": f"Bearer {key}",
-            "content-type": "application/json",
-        },
-    )
     t0 = time.perf_counter()
     try:
-        with urllib.request.urlopen(req, timeout=_TIMEOUT_SECONDS) as resp:
-            payload = json.loads(resp.read().decode("utf-8"))
-    except urllib.error.URLError as exc:
-        _log_call(time.perf_counter() - t0, None, None, f"network_error:{exc}")
+        payload = _openai_provider.call_chat_completion(
+            _SYSTEM_PROMPT, user_prompt, api_key=key, max_tokens=1024,
+            timeout_seconds=_TIMEOUT_SECONDS,
+        )
+    except _openai_provider.OpenAIProviderError as exc:
+        _log_call(time.perf_counter() - t0, None, None, f"provider_error:{exc}")
         raise RuntimeError(f"real semantic provider request failed: {exc}") from exc
     elapsed = time.perf_counter() - t0
     usage = payload.get("usage", {})
@@ -153,7 +141,7 @@ def discover_candidate_spans_real(document_text: str, concept: str, *, api_key: 
             start_offset=start,
             end_offset=end,
             source="SEMANTIC_REAL",
-            discovery_metadata={"provider": "openai", "model": _MODEL},
+            discovery_metadata={"provider": "openai", "model": _openai_provider.get_model()},
         ))
     return candidates
 
