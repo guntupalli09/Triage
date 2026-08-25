@@ -68,7 +68,20 @@ _CONSENT_REASONABLE_RE = re.compile(r"not\s+(?:to\s+be\s+|be\s+)?unreasonably\s+
 _EXCEPTION_RE: Dict[str, re.Pattern] = {
     "affiliate": re.compile(r"\baffiliate", re.I),
     "change_of_control": re.compile(r"change\s+(?:of|in)\s+control", re.I),
-    "merger_acquisition": re.compile(r"merger|acquisition|sale\s+of\s+(?:all\s+or\s+)?substantially\s+all\s+(?:of\s+its\s+)?assets", re.I),
+    # Candidate 5.1 remediation (MATERIAL_CONTEXT_SILENTLY_LOST general
+    # root cause): only the NOUN form "acquisition" was recognized --
+    # missing the equally common VERB form ("an entity that ACQUIRES
+    # substantially all of its assets"), and only "sale of...assets" was
+    # recognized, not "acquires...assets" (the buyer-side phrasing of
+    # the identical M&A carve-out). Scoped to require "...substantially
+    # all...assets" nearby (same as the existing noun-form pattern),
+    # never a bare "acquires" anywhere, to avoid over-triggering on
+    # unrelated uses of the verb.
+    "merger_acquisition": re.compile(
+        r"merger|acquisition"
+        r"|(?:sale\s+of|acquir(?:es|ing|ed))\s+(?:all\s+or\s+)?substantially\s+all\s+(?:of\s+its\s+)?assets",
+        re.I,
+    ),
 }
 
 _ROLE_ATTRIBUTION_RE = re.compile(
