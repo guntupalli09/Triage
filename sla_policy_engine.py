@@ -105,6 +105,8 @@ MAINTENANCE_EXCLUSION_TYPES: Tuple[str, ...] = (
 # --- Clause presence ---------------------------------------------------------------------------
 _ANCHOR_RE = re.compile(r"service\s+level|\bSLA\b|\buptime\b|availability\s+commitment", re.I)
 
+_SLA_EXCEPT_THAT_RE = re.compile(r"\bexcept\s+that\b", re.I)
+
 # --- Sentence-boundary-safe local window (decimal-safe -- reused verbatim from
 # payment_terms_policy_engine._local_window, per the same "copy the proven fix,
 # don't reintroduce the naive version" discipline already applied when fixing
@@ -562,6 +564,29 @@ def extract_sla_facts(text: str) -> Optional[SLAFacts]:
                 if cond.status == "ESTABLISHED":
                     facts.deterministic_condition_established = True
                     facts.deterministic_condition_excerpt = cond.evidence_span
+                else:
+                    # "except that" (distinct from "except when"/"except
+                    # to the extent", already covered by
+                    # detect_condition_in_span above) needed its own
+                    # scoped, sentence-local check -- adding it to the
+                    # SHARED _TRAILING_PROVISO_RE was tried and reverted
+                    # after it caused a real regression in
+                    # liability_policy_engine.py (its own, more specific
+                    # per-category exception mechanism uses the same
+                    # shared primitive and was double-counting an
+                    # already-resolved category exception as also a
+                    # generic unresolved condition). Scoped instead to
+                    # the uptime match's own sentence, mirroring
+                    # ip_ownership_policy_engine.py's identical, already-
+                    # precedented local `_OWNERSHIP_EXCEPT_FOR_RE` check.
+                    sent_start = text.rfind(".", 0, ws + m.start()) + 1
+                    sent_end_dot = text.find(".", ws + m.end())
+                    sent_end = sent_end_dot + 1 if sent_end_dot != -1 else len(text)
+                    sentence = text[sent_start:sent_end]
+                    ex_m = _SLA_EXCEPT_THAT_RE.search(sentence)
+                    if ex_m:
+                        facts.deterministic_condition_established = True
+                        facts.deterministic_condition_excerpt = sentence[ex_m.start():min(len(sentence), ex_m.start() + 120)].strip()
                 found_anything = True
 
         for m in _MEASUREMENT_PERIOD_RE.finditer(window):

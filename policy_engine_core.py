@@ -1056,19 +1056,24 @@ _LEADING_CONDITION_RE = re.compile(
 # Trailing proviso: after the main clause, within the SAME sentence, a
 # connector introduces a qualifying clause running toward the sentence's
 # own end ("..., provided that...", "..., unless...", "..., to the extent...").
-# Candidate 5.1 remediation (SLA/warranties MATERIAL_CONTEXT_SILENTLY_LOST
-# general root cause): "except that" is one of the most common exception/
-# carve-out connectors in ordinary contract drafting (e.g. "Provider
-# shall maintain 99.5% uptime, except that downtime caused by Recipient's
-# own network or equipment shall not count against Provider's uptime
-# commitment") but was previously missing from this alternation entirely
-# -- only "except when"/"except to the extent" were recognized, so this
-# connector shape had NO deterministic detection at all and depended
-# solely on AI's own `exception` field being populated, with nothing to
-# catch it if AI missed it. This is a general connector-vocabulary gap in
-# a shared primitive, not a sentence-specific pattern.
+# NOTE (Candidate 5.1 remediation, reverted): "except that" was added
+# here to close a real SLA/warranties gap, but broadening this SHARED
+# primitive was found (via a proper full-suite run) to cause a genuine
+# regression in liability_policy_engine.py -- its OWN, more specific
+# per-category exception/carve-out mechanism relies on THIS SAME
+# detect_condition_in_text/detect_condition_in_span call, and a text
+# like "..., except that the foregoing limitation shall not apply to
+# claims arising from intellectual property infringement" was already
+# correctly classified there as a RESOLVED, category-specific uncapped
+# exception -- broadening this shared pattern made it ALSO get flagged
+# as a generic, unresolved condition, forcing a spurious REQUIRES_REVIEW
+# on an already-correctly-handled case. Reverted for the same reason
+# "except for" was reverted here earlier; see sla_policy_engine.py's
+# and warranties_policy_engine.py's own LOCAL, sentence-scoped "except
+# that"/"except for" checks instead (mirroring ip_ownership's existing,
+# already-precedented pattern) rather than widening this shared regex.
 _TRAILING_PROVISO_RE = re.compile(
-    r",?\s*(?:provided(?:,)?\s+(?:however,?\s+)?that|unless|except\s+(?:when|to\s+the\s+extent|that)|"
+    r",?\s*(?:provided(?:,)?\s+(?:however,?\s+)?that|unless|except\s+(?:when|to\s+the\s+extent)|"
     r"only\s+if|but\s+only\s+if|to\s+the\s+extent|only\s+to\s+the\s+extent|"
     r"only\s+for|but\s+only\s+for|"
     r"so\s+long\s+as|as\s+long\s+as|where\s+applicable)\b",
