@@ -81,6 +81,7 @@ from policy_engine_core import (
     cross_section_carveout_referencing as _cross_section_carveout_referencing,
     detect_condition_in_span as _core_detect_condition_in_span,
     is_operative_context as _core_is_operative_context,
+    self_referential_definition_unresolved as _self_referential_definition_unresolved,
 )
 
 RULE_ID = "POLICY_IP_OWNERSHIP"
@@ -791,6 +792,17 @@ def extract_ip_facts(text: str) -> Optional[IPFacts]:
         )) or facts.sow_cross_reference
         if not facts.ownership_attributions and not _any_other_established:
             facts.absence_state = "PRESENT_BUT_UNRESOLVED"
+
+    # Candidate 5 remediation (UNRESOLVED_DEFINITION_TO_CLEAN general root
+    # cause, confirmed shared with insurance/warranties): e.g. "Recipient
+    # owns all Custom Work Product, as defined in this Agreement" where
+    # "Custom Work Product" is never actually defined anywhere in the
+    # text. Fires regardless of what else was established -- see
+    # insurance_policy_engine.py's identical fix for the full rationale.
+    self_ref_note = _self_referential_definition_unresolved(text)
+    if self_ref_note is not None:
+        facts.absence_state = "PRESENT_BUT_UNRESOLVED"
+        facts.ai_identified_definition_or_reference = facts.ai_identified_definition_or_reference or self_ref_note
 
     # Candidate 3 zero-silent-loss mission — a document-wide contradiction,
     # self-declared unreconciled ambiguity, or cross-section carve-out

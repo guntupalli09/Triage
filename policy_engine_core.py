@@ -1965,6 +1965,70 @@ EXTERNAL_DEFINITION_NOT_ATTACHED_RE = re.compile(
     re.I,
 )
 
+# Candidate 5 remediation: a general, cross-adapter failure class (the
+# entire cause of Candidate 4's UNRESOLVED_DEFINITION_TO_CLEAN=17)
+# confirmed across insurance/ip_ownership/warranties -- a capitalized
+# defined term ("the Required Coverage", "Custom Work Product", "the
+# Deliverables") is used with an explicit self-referential pointer
+# ("as defined in this Agreement" / "as defined herein" / "as defined
+# above/below"), but the term is NEVER actually defined anywhere in the
+# document. Unlike EXTERNAL_DEFINITION_NOT_ATTACHED_RE (which only
+# catches an EXPLICIT admission that a document is missing), this is a
+# SILENT gap: the drafter's cross-reference looks resolvable ("this
+# Agreement" -- not some external, admittedly-missing document) but
+# there is, in fact, no definition clause for the referenced term
+# anywhere in the supplied text. A deterministic check can only confirm
+# the term's own document DOES define it (a real definition clause is a
+# concrete, checkable structural pattern); it cannot itself prove a
+# negative for arbitrary phrasing, so this stays a conservative,
+# high-precision detector: it only fires when a clear "as defined in
+# this Agreement/herein/above/below" self-reference exists AND no
+# recognizable definition-clause pattern for that exact term is found
+# anywhere in the text.
+_SELF_REFERENTIAL_DEFINITION_POINTER_RE = re.compile(
+    r"((?:the\s+)?(?:[A-Z][a-zA-Z]*(?:\s+[A-Z][a-zA-Z]*){0,4}))"
+    r",?\s+as\s+defined\s+(?:in\s+this\s+Agreement|herein|above|below)\b",
+)
+
+
+def _definition_clause_exists_for_term(text: str, term: str) -> bool:
+    """True if `text` contains a recognizable definition clause binding
+    `term` to a meaning -- e.g. `"Required Coverage" means ...`,
+    `Required Coverage shall mean ...`, `(the "Required Coverage")`,
+    `Required Coverage is defined as ...`. Deliberately permissive about
+    quote style/capitalization of the SURROUNDING clause, but requires
+    the exact term text to appear immediately adjacent to one of these
+    concrete definitional constructions -- a bare second mention of the
+    term elsewhere (e.g. reused in another sentence) does not count."""
+    term_re = re.escape(term.strip())
+    patterns = [
+        rf'["“]?{term_re}["”]?\s+(?:shall\s+)?means?\b',
+        rf'["“]?{term_re}["”]?\s+(?:is|are)\s+defined\s+as\b',
+        rf'\(\s*(?:the\s+)?["“]{term_re}["”]\s*\)',
+        rf'{term_re}\s+shall\s+have\s+the\s+meaning\b',
+    ]
+    return any(re.search(p, text, re.I) for p in patterns)
+
+
+def self_referential_definition_unresolved(text: str) -> Optional[str]:
+    """Returns a human-readable note if a material, self-referential
+    "as defined in this Agreement/herein/above/below" pointer exists for
+    a capitalized term that is never actually defined anywhere in `text`
+    -- else None. See the module note above `_SELF_REFERENTIAL_
+    DEFINITION_POINTER_RE` for the precision rationale."""
+    for m in _SELF_REFERENTIAL_DEFINITION_POINTER_RE.finditer(text):
+        term = m.group(1).strip()
+        term_bare = re.sub(r"^(?:the|a|an)\s+", "", term, flags=re.I).strip()
+        if not term_bare or term_bare.lower() in ("agreement", "this agreement"):
+            continue
+        if not _definition_clause_exists_for_term(text, term_bare):
+            return (
+                f'"{term_bare}" is referenced as "defined in this Agreement" (or an equivalent '
+                f"self-reference), but no definition clause for that exact term could be found anywhere "
+                f"in the supplied text"
+            )
+    return None
+
 _DESCRIPTIVE_ABOUT_CLAUSE_RE = re.compile(
     r"\ba\s+(?:supplier|vendor|party|contractor|licensee|licensor|customer|"
     r"client)\s+(?:might|could|may|would)\s+agree\s+that\b"

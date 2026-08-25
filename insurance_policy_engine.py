@@ -65,6 +65,7 @@ from policy_engine_core import (
     unreconciled_ambiguity_marker_present as _unreconciled_ambiguity_marker_present,
     detect_condition_in_text as _core_detect_condition_in_text,
     cross_section_carveout_referencing as _cross_section_carveout_referencing,
+    self_referential_definition_unresolved as _self_referential_definition_unresolved,
 )
 
 RULE_ID = "POLICY_INSURANCE"
@@ -642,6 +643,23 @@ def extract_insurance_facts(text: str) -> Optional[InsuranceFacts]:
     # WHICH channel produced the operative signal.
     if not deterministic_value_found and found_anything:
         facts.absence_state = "PRESENT_BUT_UNRESOLVED"
+
+    # Candidate 5 remediation (UNRESOLVED_DEFINITION_TO_CLEAN general root
+    # cause, confirmed shared with ip_ownership/warranties): the obligation
+    # is stated ("Provider shall maintain the Required Coverage") but
+    # defers WHAT is required to a term explicitly flagged as "as defined
+    # in this Agreement" that is never actually defined anywhere in the
+    # text. Unlike the check above (which only fires when NOTHING at all
+    # was structured), this fires REGARDLESS of what else was established
+    # -- an incidental ancillary fact (e.g. a maintenance-duration
+    # commitment) being present does not resolve what coverage is
+    # actually required, so it must not be allowed to mask this
+    # unconditionally material gap. Mirrors `note_is_unconditional`'s
+    # unconditional-escalation treatment in fact_admission.py.
+    self_ref_note = _self_referential_definition_unresolved(text)
+    if self_ref_note is not None:
+        facts.absence_state = "PRESENT_BUT_UNRESOLVED"
+        facts.ai_identified_definition_or_reference = facts.ai_identified_definition_or_reference or self_ref_note
 
     # Zero-silent-loss mission follow-up (data_security-139 general failure
     # class) -- a candidate was discovered but its OWN semantic

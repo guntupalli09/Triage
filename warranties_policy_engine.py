@@ -83,6 +83,7 @@ from policy_engine_core import (
     requires_review_explanation, requires_review_required_action,
     PolicyDecision,
     detect_condition_in_text as _core_detect_condition_in_text,
+    self_referential_definition_unresolved as _self_referential_definition_unresolved,
 )
 
 RULE_ID = "POLICY_WARRANTIES"
@@ -667,6 +668,18 @@ def extract_warranties_facts(text: str) -> Optional[WarrantiesFacts]:
             facts.deterministic_condition_established = True
             facts.deterministic_condition_excerpt = cond.evidence_span
             break
+
+    # Candidate 5 remediation (UNRESOLVED_DEFINITION_TO_CLEAN general root
+    # cause, confirmed shared with insurance/ip_ownership): e.g. "Provider
+    # warrants that the Deliverables, as defined in this Agreement, will
+    # materially conform..." where "Deliverables" is never actually
+    # defined anywhere in the text. Fires regardless of what else was
+    # established -- see insurance_policy_engine.py's identical fix for
+    # the full rationale.
+    self_ref_note = _self_referential_definition_unresolved(text)
+    if self_ref_note is not None:
+        facts.absence_state = "PRESENT_BUT_UNRESOLVED"
+        facts.ai_identified_definition_or_reference = facts.ai_identified_definition_or_reference or self_ref_note
 
     return facts
 
