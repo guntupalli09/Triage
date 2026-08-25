@@ -585,8 +585,28 @@ def verify_candidate_proposition(
         evidence_quote = None
 
     def _optional_quote(key: str) -> Optional[str]:
+        # Candidate 5.1 remediation (real-provider repeatability
+        # authority leak, confirmed general/cross-adapter): OpenAI's
+        # JSON output occasionally emits the QUOTED STRING "null" (or
+        # "none"/"n/a") for an empty optional field instead of the JSON
+        # literal `null` -- a known LLM JSON-generation quirk. Before this
+        # fix, that string passed straight through as if it were a real
+        # value (`isinstance(value, str) and value` is True for the
+        # non-empty string "null"), causing e.g. `definition_term:
+        # "null"` to trigger a genuine (but spurious) "depends on defined
+        # term 'null' which could not be resolved" NOT_ADMITTED outcome --
+        # confirmed via 10x real-provider repeatability testing of
+        # iv-termination-0433 (a fact-admission pipeline case common to
+        # ALL 12 adapters, not termination-specific) to be the actual
+        # cause of run-to-run CLEAN/REQUIRES_REVIEW variance on text with
+        # no genuine condition/exception/cross-reference/definition
+        # dependency at all.
         value = parsed.get(key)
-        return value if isinstance(value, str) and value else None
+        if not isinstance(value, str) or not value:
+            return None
+        if value.strip().lower() in ("null", "none", "n/a", "na"):
+            return None
+        return value
 
     condition_quote = _optional_quote("condition_quote")
     exception_quote = _optional_quote("exception_quote")

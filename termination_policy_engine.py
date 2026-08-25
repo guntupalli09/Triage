@@ -62,6 +62,7 @@ from policy_engine_core import (
     excerpt as _excerpt, section_label_before as _section_label_before,
     requires_review_explanation, requires_review_required_action,
     detect_role_attributed_asymmetry,
+    detect_condition_in_span as _core_detect_condition_in_span,
 )
 
 RULE_ID = "POLICY_TERMINATION"
@@ -286,6 +287,17 @@ class TerminationFacts:
     # first_resolved_dependency_note / first_unresolved_dependency_note.
     # Never populated from an unground claim; always forces REQUIRES_REVIEW.
     ai_identified_definition_or_reference: Optional[str] = None
+    # Candidate 5.1 remediation (real-provider repeatability authority
+    # leak): a deterministically-detected condition attached to a
+    # termination right (e.g. "..., provided that Recipient has first
+    # paid all outstanding invoices in full"), mirroring liability/
+    # insurance/warranties/sla/ip_ownership's identical use of this
+    # shared primitive -- gives a non-AI-dependent backstop for the same
+    # class of genuine condition that AI's own admission was confirmed
+    # (via 10x real-provider repeatability testing) to miss on
+    # roughly 1 run in 10.
+    deterministic_condition_established: bool = False
+    deterministic_condition_excerpt: Optional[str] = None
 
 
 class TerminationPolicyRuleLike(Protocol):
@@ -473,6 +485,20 @@ def extract_termination_facts(text: str) -> Optional[TerminationFacts]:
 
     rights: List[TerminationRight] = []
     seen_spans: List[Tuple[int, int]] = []
+    # Candidate 5.1 remediation (real-provider repeatability authority
+    # leak) -- see TerminationFacts.deterministic_condition_established's
+    # docstring above.
+    deterministic_condition_established = False
+    deterministic_condition_excerpt: Optional[str] = None
+
+    def _check_deterministic_condition(m_start: int, m_end: int) -> None:
+        nonlocal deterministic_condition_established, deterministic_condition_excerpt
+        if deterministic_condition_established:
+            return
+        cond = _core_detect_condition_in_span(text, m_start, m_end)
+        if cond.status == "ESTABLISHED":
+            deterministic_condition_established = True
+            deterministic_condition_excerpt = cond.evidence_span
 
     for m in _NAMED_RIGHT_RE.finditer(text):
         if any(abs(m.start() - s) < 30 for s, _ in seen_spans):
@@ -493,6 +519,7 @@ def extract_termination_facts(text: str) -> Optional[TerminationFacts]:
             section_label=_section_label_before(text, m.start()),
         ))
         seen_spans.append((m.start(), m.end()))
+        _check_deterministic_condition(m.start(), m.end())
 
     for m in _MUTUAL_RIGHT_RE.finditer(text):
         if any(abs(m.start() - s) < 30 for s, _ in seen_spans):
@@ -512,6 +539,7 @@ def extract_termination_facts(text: str) -> Optional[TerminationFacts]:
             asymmetry_reasons=_detect_right_asymmetry(window),
         ))
         seen_spans.append((m.start(), m.end()))
+        _check_deterministic_condition(m.start(), m.end())
 
     survival_topics: Dict[str, SurvivalTreatment] = {}
     survival_clause_found = bool(_SURVIVAL_ANCHOR_RE.search(text))
@@ -556,6 +584,34 @@ def extract_termination_facts(text: str) -> Optional[TerminationFacts]:
     for candidate in admitted_semantic:
         ai_identified_condition = ai_identified_condition or candidate.condition
         ai_identified_exception = ai_identified_exception or candidate.exception
+    # Candidate 5.1 remediation (termination real-provider repeatability
+    # authority leak): confirmed via 6 identical real-provider runs of
+    # "Either party may terminate this Agreement for convenience upon 30
+    # days' prior written notice to the other party" that AI's own
+    # `condition` classification is itself inconsistent run-to-run for
+    # notice-period language -- it sometimes quotes the notice-period
+    # phrase itself ("30 days' prior written notice to the other party.")
+    # as if it were a CONDITION on the termination right, and sometimes
+    # does not, even though the quote grounds successfully both times
+    # (it IS verbatim text) -- the underlying AI JUDGMENT of "is this a
+    # condition" varies, not the grounding. A notice period is a
+    # procedural requirement (how much notice to give), not a
+    # conditional precedent that could fail to be satisfied, and it is
+    # ALREADY deterministically captured in `notice_period_days` for
+    # this exact right -- so when the AI's condition quote is nothing
+    # more than a restatement of that same notice-period phrase (matches
+    # `_NOTICE_DAYS_RE` and contains none of the genuine conditional-
+    # precedent connectors), it is suppressed as a redundant restatement,
+    # not a novel material qualifier. A GENUINE condition ("provided
+    # that Recipient has first paid all outstanding invoices in full")
+    # is unaffected -- it contains no notice-period match at all, or
+    # (if a notice period also happens to be present in the same clause)
+    # a real conditional connector, and still forces review as before.
+    if ai_identified_condition and _NOTICE_DAYS_RE.search(ai_identified_condition) and not re.search(
+        r"\b(?:provided|unless|except|only\s+if|subject\s+to|so\s+long\s+as|to\s+the\s+extent)\b",
+        ai_identified_condition, re.I,
+    ):
+        ai_identified_condition = None
     ai_identified_definition_or_reference = _fa.first_resolved_dependency_note(admitted_semantic) or unresolved_dependency_note
 
     if not rights:
@@ -565,6 +621,8 @@ def extract_termination_facts(text: str) -> Optional[TerminationFacts]:
             transition_assistance=transition_assistance,
             ai_identified_condition=ai_identified_condition, ai_identified_exception=ai_identified_exception,
             ai_identified_definition_or_reference=ai_identified_definition_or_reference,
+            deterministic_condition_established=deterministic_condition_established,
+            deterministic_condition_excerpt=deterministic_condition_excerpt,
         )
 
     rights.sort(key=lambda r: r.start_index)
@@ -574,6 +632,8 @@ def extract_termination_facts(text: str) -> Optional[TerminationFacts]:
         transition_assistance=transition_assistance,
         ai_identified_condition=ai_identified_condition, ai_identified_exception=ai_identified_exception,
         ai_identified_definition_or_reference=ai_identified_definition_or_reference,
+        deterministic_condition_established=deterministic_condition_established,
+        deterministic_condition_excerpt=deterministic_condition_excerpt,
     )
 
 
@@ -721,6 +781,15 @@ def evaluate_termination_policy(
         unresolved_facts.append(
             f"a material definition/cross-reference dependency was identified by contextual analysis "
             f"({facts.ai_identified_definition_or_reference})"
+        )
+    # Candidate 5.1 remediation (real-provider repeatability authority
+    # leak) -- a deterministically-detected condition on a termination
+    # right must not be silently dropped merely because AI's own
+    # admission missed it on this particular run.
+    if facts.deterministic_condition_established:
+        unresolved_facts.append(
+            f"a termination right is stated with a condition (\"{facts.deterministic_condition_excerpt}\") "
+            f"— this evaluation does not determine whether the stated condition is satisfied"
         )
 
     required_survival = list(policy.required_survival_topics_json or [])
