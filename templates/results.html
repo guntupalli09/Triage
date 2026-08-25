@@ -184,6 +184,9 @@
                     <span class="text-2xl font-extrabold {% if overall_risk == 'high' %}text-red-700{% elif overall_risk == 'medium' %}text-amber-700{% else %}text-green-700{% endif %}">
                         {{ overall_risk|upper }} RISK
                     </span>
+                    {% if document_state in ('HAS_CRITICAL_INTERACTION', 'HAS_POLICY_VIOLATION', 'REQUIRES_REVIEW', 'CONFIGURATION_UNRESOLVED') and overall_risk != 'high' %}
+                    <span class="text-xs font-bold uppercase tracking-wide text-red-600" title="Deterministic policy/interaction review found a material issue not reflected in the risk level above">NEEDS ATTENTION</span>
+                    {% endif %}
                 </div>
             </div>
             <div class="grid grid-cols-2 gap-x-8 gap-y-2 text-sm">

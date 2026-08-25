@@ -36,6 +36,9 @@ from policy_engine_core import (
     excerpt as _excerpt, section_label_before as _section_label_before,
     requires_review_explanation, requires_review_required_action,
     detect_role_attributed_asymmetry,
+    document_wide_conflict_detected as _document_wide_conflict_detected,
+    unreconciled_ambiguity_marker_present as _unreconciled_ambiguity_marker_present,
+    cross_section_carveout_referencing as _cross_section_carveout_referencing,
 )
 
 RULE_ID = "POLICY_ASSIGNMENT"
@@ -65,7 +68,20 @@ _CONSENT_REASONABLE_RE = re.compile(r"not\s+(?:to\s+be\s+|be\s+)?unreasonably\s+
 _EXCEPTION_RE: Dict[str, re.Pattern] = {
     "affiliate": re.compile(r"\baffiliate", re.I),
     "change_of_control": re.compile(r"change\s+(?:of|in)\s+control", re.I),
-    "merger_acquisition": re.compile(r"merger|acquisition|sale\s+of\s+(?:all\s+or\s+)?substantially\s+all\s+(?:of\s+its\s+)?assets", re.I),
+    # Candidate 5.1 remediation (MATERIAL_CONTEXT_SILENTLY_LOST general
+    # root cause): only the NOUN form "acquisition" was recognized --
+    # missing the equally common VERB form ("an entity that ACQUIRES
+    # substantially all of its assets"), and only "sale of...assets" was
+    # recognized, not "acquires...assets" (the buyer-side phrasing of
+    # the identical M&A carve-out). Scoped to require "...substantially
+    # all...assets" nearby (same as the existing noun-form pattern),
+    # never a bare "acquires" anywhere, to avoid over-triggering on
+    # unrelated uses of the verb.
+    "merger_acquisition": re.compile(
+        r"merger|acquisition"
+        r"|(?:sale\s+of|acquir(?:es|ing|ed))\s+(?:all\s+or\s+)?substantially\s+all\s+(?:of\s+its\s+)?assets",
+        re.I,
+    ),
 }
 
 _ROLE_ATTRIBUTION_RE = re.compile(
@@ -101,6 +117,19 @@ class AssignmentFacts:
     clause_found: bool
     restrictions: List[AssignmentRestriction] = field(default_factory=list)
     unrestricted_assignment: bool = False
+
+    # Fact-admission architecture — mirrors confidentiality_policy_engine.
+    # ConfidentialityFacts.absence_state. evaluate_assignment_policy's
+    # existing `if not facts.restrictions and not facts.
+    # unrestricted_assignment` branch already routes to REQUIRES_REVIEW
+    # regardless of the reason, so RECOGNITION_UNCERTAIN never needs its
+    # own separate branch there.
+    absence_state: str = "CONFIRMED_ABSENT"
+    semantic_discovery_error: Optional[str] = None
+    ai_identified_condition: Optional[str] = None
+    ai_identified_exception: Optional[str] = None
+    ai_identified_definition_or_reference: Optional[str] = None
+    document_wide_conflict: bool = False
 
 
 class AssignmentPolicyRuleLike(Protocol):
@@ -169,10 +198,86 @@ def _detect_restriction_asymmetry(window: str) -> List[str]:
     )
 
 
+# Off by default — same rollout discipline as every other adapter this
+# session integrated.
+ASSIGNMENT_SEMANTIC_DISCOVERY_ENABLED = False  # module-load-time default; immediately overridden below
+import fact_admission as _fact_admission_env_check
+ASSIGNMENT_SEMANTIC_DISCOVERY_ENABLED = _fact_admission_env_check.semantic_discovery_enabled("ASSIGNMENT_SEMANTIC_DISCOVERY_ENABLED")
+del _fact_admission_env_check
+
+_ASSIGNMENT_SEMANTIC_FOCUS = (
+    "a restriction on one party's ability to assign, transfer, or delegate this agreement to "
+    "another entity -- or a statement that assignment is unrestricted -- even if the wording is "
+    "unusual and does not use the word 'assign' at all"
+)
+_ASSIGNMENT_SEMANTIC_PROPOSITION = (
+    "This sentence or clause is operative language of this agreement that restricts, "
+    "conditions, or permits a party's ability to assign, transfer, or delegate this agreement."
+)
+
+
+def _run_semantic_discovery(text: str) -> Tuple[List, Optional[str], Optional[str]]:
+    """Mirrors liability_policy_engine._run_semantic_discovery exactly.
+    Returns (admitted_candidates, unresolved_dependency_note, error)."""
+    if not ASSIGNMENT_SEMANTIC_DISCOVERY_ENABLED:
+        return [], None, None
+    import fact_admission as _fa
+    try:
+        raw_candidates = _fa.discover_candidate_spans(text, "assignment", _ASSIGNMENT_SEMANTIC_FOCUS)
+    except Exception as exc:  # noqa: BLE001 — provider unavailable, never "confirmed absent"
+        return [], None, f"{type(exc).__name__}: {exc}"
+
+    verified_candidates = [
+        _fa.verify_and_ground(candidate, text, _ASSIGNMENT_SEMANTIC_PROPOSITION) for candidate in raw_candidates
+    ]
+    admitted = [c for c in verified_candidates if c.admission_status == _fa.ADMITTED]
+    unresolved_dependency_note = _fa.first_unresolved_dependency_note(verified_candidates)
+    return admitted, unresolved_dependency_note, None
+
+
 def extract_assignment_facts(text: str) -> Optional[AssignmentFacts]:
+    """Thin wrapper over _extract_assignment_facts_inner that additionally
+    flags a document-wide contradiction/unreconciled-ambiguity marker
+    (Candidate 3 zero-silent-loss mission, Phase 3)."""
+    facts = _extract_assignment_facts_inner(text)
+    if facts is not None:
+        if _document_wide_conflict_detected(text) or _unreconciled_ambiguity_marker_present(text):
+            facts.document_wide_conflict = True
+        else:
+            for r in facts.restrictions:
+                if _cross_section_carveout_referencing(text, r.section_label):
+                    facts.document_wide_conflict = True
+                    break
+    return facts
+
+
+def _extract_assignment_facts_inner(text: str) -> Optional[AssignmentFacts]:
+    """Returns None only when no anchor exists at all AND semantic
+    discovery also ran successfully and found nothing — a provider
+    outage/error becomes RECOGNITION_UNCERTAIN instead (see
+    absence_state)."""
     anchors = [m for m in _ANCHOR_RE.finditer(text) if not re.search(r"\bno\s+$", text[max(0, m.start() - 15):m.start()], re.I)]
+    admitted_semantic: List = []
+    unresolved_dependency_note: Optional[str] = None
+    # Candidate 3 remediation (Root Cause 2): contextual discovery is no
+    # longer gated behind "deterministic anchor discovery found zero
+    # matches" -- see confidentiality_policy_engine.py's identical fix.
+    admitted_semantic, unresolved_dependency_note, semantic_error = _run_semantic_discovery(text)
     if not anchors:
-        return None
+        if semantic_error is not None:
+            return AssignmentFacts(clause_found=True, restrictions=[], unrestricted_assignment=False, absence_state="RECOGNITION_UNCERTAIN", semantic_discovery_error=semantic_error)
+        if not admitted_semantic and not unresolved_dependency_note:
+            return None
+        # A semantically-admitted candidate does not itself become a
+        # restriction — it only earns this document a shot at the SAME
+        # deterministic NAMED_RESTRICTION_RE/MUTUAL_RESTRICTION_RE
+        # structuring below (which already scans the full document
+        # unconditionally, not gated on `anchors`). If that structuring
+        # still can't parse a restriction, this falls through to the
+        # existing "restrictions=[]" REQUIRES_REVIEW path a few lines
+        # down — never a fabricated restriction.
+    elif semantic_error is not None:
+        admitted_semantic = []
 
     restrictions: List[AssignmentRestriction] = []
     seen_spans: List[Tuple[int, int]] = []
@@ -216,11 +321,29 @@ def extract_assignment_facts(text: str) -> Optional[AssignmentFacts]:
         ))
         seen_spans.append((m.start(), m.end()))
 
+    # Final trust architecture (Phase 5/6) — see confidentiality_policy_
+    # engine.py's identical composition for the full rationale.
+    import fact_admission as _fa
+    ai_identified_condition = None
+    ai_identified_exception = None
+    for candidate in admitted_semantic:
+        ai_identified_condition = ai_identified_condition or candidate.condition
+        ai_identified_exception = ai_identified_exception or candidate.exception
+    ai_identified_definition_or_reference = _fa.first_resolved_dependency_note(admitted_semantic) or unresolved_dependency_note
+
     if not restrictions and not unrestricted:
-        return AssignmentFacts(clause_found=True, restrictions=[], unrestricted_assignment=False)
+        return AssignmentFacts(
+            clause_found=True, restrictions=[], unrestricted_assignment=False,
+            ai_identified_condition=ai_identified_condition, ai_identified_exception=ai_identified_exception,
+            ai_identified_definition_or_reference=ai_identified_definition_or_reference,
+        )
 
     restrictions.sort(key=lambda r: r.start_index)
-    return AssignmentFacts(clause_found=True, restrictions=restrictions, unrestricted_assignment=unrestricted)
+    return AssignmentFacts(
+        clause_found=True, restrictions=restrictions, unrestricted_assignment=unrestricted,
+        ai_identified_condition=ai_identified_condition, ai_identified_exception=ai_identified_exception,
+        ai_identified_definition_or_reference=ai_identified_definition_or_reference,
+    )
 
 
 def _build_ladder(policy: AssignmentPolicyRuleLike, state: str) -> List[LadderStep]:
@@ -312,6 +435,22 @@ def evaluate_assignment_policy(
         )
 
     if not facts.restrictions and not facts.unrestricted_assignment:
+        no_structure_unresolved = ["assignment restriction structure could not be parsed"]
+        if facts.ai_identified_condition:
+            no_structure_unresolved.append(
+                f"a material condition was identified by contextual analysis and grounded against the "
+                f"source document (\"{facts.ai_identified_condition}\")"
+            )
+        if facts.ai_identified_exception:
+            no_structure_unresolved.append(
+                f"a material exception was identified by contextual analysis and grounded against the "
+                f"source document (\"{facts.ai_identified_exception}\")"
+            )
+        if facts.ai_identified_definition_or_reference:
+            no_structure_unresolved.append(
+                f"a material definition/cross-reference dependency was identified by contextual analysis "
+                f"({facts.ai_identified_definition_or_reference})"
+            )
         return PolicyDecision(
             rule_id=RULE_ID, clause_type="assignment", state=REQUIRES_REVIEW,
             contract_language="", extracted_summary="Assignment referenced but no restriction could be parsed",
@@ -320,7 +459,47 @@ def evaluate_assignment_policy(
             explanation="The document references assignment but no parseable restriction or unrestricted-"
                         "assignment structure was found.",
             negotiation_ladder=_build_ladder(policy, REQUIRES_REVIEW), category_treatments=[],
-            unresolved_facts=["assignment restriction structure could not be parsed"],
+            unresolved_facts=no_structure_unresolved,
+            start_index=None, end_index=None, source=source, summary_label="Assignment treatment",
+            our_position_label="Our assignment restriction", counterparty_position_label="Counterparty's assignment restriction",
+        )
+
+    if facts.ai_identified_condition or facts.ai_identified_exception or facts.ai_identified_definition_or_reference or facts.document_wide_conflict:
+        # Final trust architecture (Phase 4 hard gate) — checked before
+        # the unrestricted-assignment ACCEPT/NEGOTIATE path specifically
+        # so a grounded AI-identified qualifier can never be outrun by a
+        # clean ACCEPT, even in the one branch of this adapter that can
+        # otherwise reach ACCEPT with zero structured restrictions.
+        qualifier_unresolved = []
+        if facts.document_wide_conflict:
+            qualifier_unresolved.append(
+                "a separate statement elsewhere in the document appears to contradict, negate, or leave "
+                "unreconciled the assignment restriction established in this clause"
+            )
+        if facts.ai_identified_condition:
+            qualifier_unresolved.append(
+                f"a material condition was identified by contextual analysis and grounded against the "
+                f"source document (\"{facts.ai_identified_condition}\")"
+            )
+        if facts.ai_identified_exception:
+            qualifier_unresolved.append(
+                f"a material exception was identified by contextual analysis and grounded against the "
+                f"source document (\"{facts.ai_identified_exception}\")"
+            )
+        if facts.ai_identified_definition_or_reference:
+            qualifier_unresolved.append(
+                f"a material definition/cross-reference dependency was identified by contextual analysis "
+                f"({facts.ai_identified_definition_or_reference})"
+            )
+        return PolicyDecision(
+            rule_id=RULE_ID, clause_type="assignment", state=REQUIRES_REVIEW,
+            contract_language="", extracted_summary="Assignment terms established, but subject to a material qualifier",
+            policy_limit_summary="N/A",
+            required_action="Manual review required — a material condition/exception affecting assignment was identified",
+            explanation="Contextual analysis identified and grounded a material condition or exception "
+                        "affecting the assignment terms — this evaluation does not determine the qualifier's effect.",
+            negotiation_ladder=_build_ladder(policy, REQUIRES_REVIEW), category_treatments=[],
+            unresolved_facts=qualifier_unresolved,
             start_index=None, end_index=None, source=source, summary_label="Assignment treatment",
             our_position_label="Our assignment restriction", counterparty_position_label="Counterparty's assignment restriction",
         )

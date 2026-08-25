@@ -299,8 +299,10 @@ def extract_text_from_file(file_bytes: bytes, filename: str) -> str:
             return file_bytes.decode("latin-1", errors="ignore")
     if ext == ".pdf":
         reader = PdfReader(io.BytesIO(file_bytes))
-        upload_security.validate_pdf_page_count(len(reader.pages))
+        page_count = len(reader.pages)
+        upload_security.validate_pdf_page_count(page_count)
         text = "\n".join(p.extract_text() or "" for p in reader.pages)
+        upload_security.assess_pdf_text_density(text, page_count)
         return upload_security.enforce_extracted_text_limit(text)
     if ext == ".docx":
         upload_security.validate_docx_zip_safety(file_bytes)
@@ -1747,6 +1749,7 @@ async def download_batch_pdfs(request: Request, batch_id: str, db: DBSession = D
                 risk_balance=contract.risk_balance_json,
                 structure_report=contract.structure_report_json,
                 clause_quality=contract.clause_quality_json,
+                document_state=_document_state_for_contract(contract),
             )
             safe_name = sanitize_filename(contract.filename)
             zf.writestr(f"TriageAI_{safe_name}_{contract.id}.pdf", pdf_bytes)
@@ -1888,6 +1891,15 @@ async def view_contract(request: Request, contract_id: int, db: DBSession = Depe
         "metadata": contract.metadata_json,
         "risk_balance": contract.risk_balance_json,
         "progress": compute_progress(contract.findings_json or [], contract.review_decisions_json or {}).as_dict(),
+        # Candidate 3 final pre-freeze blocker remediation (Blocker 5) --
+        # the Full Report page previously presented ONLY legacy overall_risk
+        # (computed before policy enforcement ever runs) as though it were
+        # the authoritative status. document_state is the SAME aggregated,
+        # policy/interaction-aware signal the dashboard/history/review pages
+        # already read via _document_state_for_contract -- see the template's
+        # NEEDS ATTENTION badge, which fires exactly when overall_risk alone
+        # would misleadingly present as clean.
+        "document_state": _document_state_for_contract(contract),
     })
 
 
@@ -1962,7 +1974,8 @@ def _build_pdf_bytes(filename: str, overall_risk: str, rule_counts: dict, rule_e
                       negotiation_difficulty_score: Optional[int] = None,
                       risk_balance: Optional[dict] = None,
                       structure_report: Optional[dict] = None,
-                      clause_quality: Optional[dict] = None) -> bytes:
+                      clause_quality: Optional[dict] = None,
+                      document_state: Optional[str] = None) -> bytes:
     pdf = FPDF()
     pdf.set_auto_page_break(auto=True, margin=20)
     pdf.add_page()
@@ -1990,6 +2003,19 @@ def _build_pdf_bytes(filename: str, overall_risk: str, rule_counts: dict, rule_e
     pdf.set_font("Helvetica", "B", 14)
     pdf.cell(0, 10, f"Overall Risk: {risk_label}", new_x="LMARGIN", new_y="NEXT")
     pdf.set_font("Helvetica", "", 10)
+    # Candidate 3 final pre-freeze blocker remediation (Blocker 5) -- the
+    # PDF export previously presented ONLY legacy overall_risk (computed
+    # before policy enforcement ever runs) with no reference to the
+    # aggregated, policy/interaction-aware document_state at all. Mirrors
+    # the same NEEDS ATTENTION signal the dashboard/history/review/full-
+    # report pages already surface via document_aggregation.
+    if document_state in ("HAS_CRITICAL_INTERACTION", "HAS_POLICY_VIOLATION", "REQUIRES_REVIEW", "CONFIGURATION_UNRESOLVED"):
+        pdf.set_font("Helvetica", "B", 11)
+        pdf.set_text_color(200, 0, 0)
+        pdf.cell(0, 8, "NEEDS ATTENTION -- deterministic policy/interaction review found a material issue "
+                       "not reflected in the risk level above.", new_x="LMARGIN", new_y="NEXT")
+        pdf.set_text_color(0, 0, 0)
+        pdf.set_font("Helvetica", "", 10)
     pdf.cell(0, 6, f"High: {rule_counts.get('high', 0)}  |  Medium: {rule_counts.get('medium', 0)}  |  Low: {rule_counts.get('low', 0)}", new_x="LMARGIN", new_y="NEXT")
     pdf.ln(4)
 
@@ -2133,6 +2159,7 @@ async def download_contract_pdf(request: Request, contract_id: int, db: DBSessio
         risk_balance=contract.risk_balance_json,
         structure_report=contract.structure_report_json,
         clause_quality=contract.clause_quality_json,
+        document_state=_document_state_for_contract(contract),
     )
 
     safe_name = sanitize_filename(contract.filename)
@@ -2384,6 +2411,15 @@ async def review_contract(request: Request, contract_id: int, db: DBSession = De
     return templates.TemplateResponse("review.html", {
         "request": request, "user": user, "contract_id": contract.id,
         "filename": contract.filename, "overall_risk": contract.overall_risk,
+        # Step 10 (fact-admission architecture) -- the single-contract
+        # review page previously showed only the legacy overall_risk badge
+        # (see templates/review.html), the same false-clean surface
+        # dashboard.html/history.html already closed in Step 4B (commit
+        # d6f4875). document_state is the authoritative aggregation
+        # (document_aggregation.aggregate_document_state, via the same
+        # _document_state_for_contract helper the dashboard/history routes
+        # use) -- rendered alongside, never in place of, the legacy badge.
+        "document_state": _document_state_for_contract(contract),
         "rule_engine_version": contract.rule_engine_version or "2.0.0",
         "contract_text": contract.contract_text,
         "findings": findings, "decisions": decisions, "progress": progress.as_dict(),
@@ -2625,7 +2661,8 @@ async def download_negotiation_package(request: Request, contract_id: int, db: D
         contract.filename, contract.contract_text, findings, decisions,
         author=user.name or user.email,
     )
-    memo_text = build_cover_memo_text(contract.filename, findings, decisions)
+    memo_text = build_cover_memo_text(contract.filename, findings, decisions,
+                                       document_state=_document_state_for_contract(contract))
     audit_text = build_audit_trail_text(contract.filename, contract.rule_engine_version or "2.0.0", findings, decisions)
 
     safe_name = sanitize_filename(contract.filename)
@@ -2761,6 +2798,9 @@ def _render_shared_report(request: Request, contract: Contract, db: DBSession) -
         "legal_risk_score": contract.legal_risk_score,
         "business_risk_score": contract.business_risk_score,
         "negotiation_difficulty_score": contract.negotiation_difficulty_score,
+        # Candidate 3 final pre-freeze blocker remediation (Blocker 5) --
+        # see the identical fix on results.html/PDF/negotiation package.
+        "document_state": _document_state_for_contract(contract),
     })
 
 

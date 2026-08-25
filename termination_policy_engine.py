@@ -62,6 +62,7 @@ from policy_engine_core import (
     excerpt as _excerpt, section_label_before as _section_label_before,
     requires_review_explanation, requires_review_required_action,
     detect_role_attributed_asymmetry,
+    detect_condition_in_span as _core_detect_condition_in_span,
 )
 
 RULE_ID = "POLICY_TERMINATION"
@@ -267,6 +268,37 @@ class TerminationFacts:
     fee: TerminationFee = field(default_factory=lambda: TerminationFee(kind="not_mentioned"))
     transition_assistance: bool = False
 
+    # Fact-admission architecture — mirrors confidentiality_policy_engine.
+    # ConfidentialityFacts.absence_state. evaluate_termination_policy's
+    # existing `if not facts.rights` branch already routes empty rights to
+    # REQUIRES_REVIEW regardless of the reason, so RECOGNITION_UNCERTAIN
+    # never needs its own separate branch there (same as confidentiality).
+    absence_state: str = "CONFIRMED_ABSENT"
+    semantic_discovery_error: Optional[str] = None
+    # Final trust architecture (Phase 1-6) — a material condition/
+    # exception the AI/contextual layer identified and independently
+    # grounded (fact_admission.ground_qualifiers). Never populated from
+    # an ungrounded claim.
+    ai_identified_condition: Optional[str] = None
+    ai_identified_exception: Optional[str] = None
+    # Adapter-completion pass — a material definition/cross-reference
+    # dependency the AI identified, whether it resolved deterministically
+    # (preserved verbatim) or not (failure preserved) — see fact_admission.
+    # first_resolved_dependency_note / first_unresolved_dependency_note.
+    # Never populated from an unground claim; always forces REQUIRES_REVIEW.
+    ai_identified_definition_or_reference: Optional[str] = None
+    # Candidate 5.1 remediation (real-provider repeatability authority
+    # leak): a deterministically-detected condition attached to a
+    # termination right (e.g. "..., provided that Recipient has first
+    # paid all outstanding invoices in full"), mirroring liability/
+    # insurance/warranties/sla/ip_ownership's identical use of this
+    # shared primitive -- gives a non-AI-dependent backstop for the same
+    # class of genuine condition that AI's own admission was confirmed
+    # (via 10x real-provider repeatability testing) to miss on
+    # roughly 1 run in 10.
+    deterministic_condition_established: bool = False
+    deterministic_condition_excerpt: Optional[str] = None
+
 
 class TerminationPolicyRuleLike(Protocol):
     contract_side: str
@@ -385,17 +417,88 @@ def _detect_right_asymmetry(window: str) -> List[str]:
     )
 
 
+# Off by default — same rollout discipline as every other adapter this
+# session integrated.
+TERMINATION_SEMANTIC_DISCOVERY_ENABLED = False  # module-load-time default; immediately overridden below
+import fact_admission as _fact_admission_env_check
+TERMINATION_SEMANTIC_DISCOVERY_ENABLED = _fact_admission_env_check.semantic_discovery_enabled("TERMINATION_SEMANTIC_DISCOVERY_ENABLED")
+del _fact_admission_env_check
+
+_TERMINATION_SEMANTIC_FOCUS = (
+    "one party's right to end this agreement -- for convenience, for cause, upon insolvency, "
+    "or otherwise -- even if the wording is unusual and does not use the word 'terminate' at all"
+)
+_TERMINATION_SEMANTIC_PROPOSITION = (
+    "This sentence or clause is operative language of this agreement that establishes a "
+    "party's right to end this agreement."
+)
+
+
+def _run_semantic_discovery(text: str) -> Tuple[List, Optional[str], Optional[str]]:
+    """Mirrors liability_policy_engine._run_semantic_discovery exactly.
+    Returns (admitted_candidates, unresolved_dependency_note, error)."""
+    if not TERMINATION_SEMANTIC_DISCOVERY_ENABLED:
+        return [], None, None
+    import fact_admission as _fa
+    try:
+        raw_candidates = _fa.discover_candidate_spans(text, "termination", _TERMINATION_SEMANTIC_FOCUS)
+    except Exception as exc:  # noqa: BLE001 — provider unavailable, never "confirmed absent"
+        return [], None, f"{type(exc).__name__}: {exc}"
+
+    verified_candidates = [
+        _fa.verify_and_ground(candidate, text, _TERMINATION_SEMANTIC_PROPOSITION) for candidate in raw_candidates
+    ]
+    admitted = [c for c in verified_candidates if c.admission_status == _fa.ADMITTED]
+    unresolved_dependency_note = _fa.first_unresolved_dependency_note(verified_candidates)
+    return admitted, unresolved_dependency_note, None
+
+
 def extract_termination_facts(text: str) -> Optional[TerminationFacts]:
     """Finds every termination right stated in the full document. Like
     Indemnification's obligations, rights are NOT reconciled into one
     controlling provision — a contract legitimately states several
-    independently-true rights (convenience, cause, insolvency, ...)."""
+    independently-true rights (convenience, cause, insolvency, ...).
+    Returns None only when no anchor exists at all AND semantic discovery
+    also ran successfully and found nothing — a provider outage/error
+    becomes RECOGNITION_UNCERTAIN instead (see absence_state)."""
     anchors = [m for m in _ANCHOR_RE.finditer(text) if not re.search(r"\bno\s+$", text[max(0, m.start() - 15):m.start()], re.I)]
+    admitted_semantic: List = []
+    unresolved_dependency_note: Optional[str] = None
+    # Candidate 3 remediation (Root Cause 2): contextual discovery is no
+    # longer gated behind "deterministic anchor discovery found zero
+    # matches" -- see confidentiality_policy_engine.py's identical fix.
+    admitted_semantic, unresolved_dependency_note, semantic_error = _run_semantic_discovery(text)
     if not anchors:
-        return None
+        if semantic_error is not None:
+            return TerminationFacts(clause_found=True, absence_state="RECOGNITION_UNCERTAIN", semantic_discovery_error=semantic_error)
+        if not admitted_semantic and not unresolved_dependency_note:
+            return None
+        # A semantically-admitted candidate does not itself become a
+        # right — it only earns this document a shot at the SAME
+        # deterministic NAMED_RIGHT_RE/MUTUAL_RIGHT_RE structuring below
+        # (which already scans the full document unconditionally, not
+        # gated on `anchors`). If that structuring still can't parse a
+        # right, this falls through to the existing "rights=[]"
+        # REQUIRES_REVIEW path a few lines down — never a fabricated right.
+    elif semantic_error is not None:
+        admitted_semantic = []
 
     rights: List[TerminationRight] = []
     seen_spans: List[Tuple[int, int]] = []
+    # Candidate 5.1 remediation (real-provider repeatability authority
+    # leak) -- see TerminationFacts.deterministic_condition_established's
+    # docstring above.
+    deterministic_condition_established = False
+    deterministic_condition_excerpt: Optional[str] = None
+
+    def _check_deterministic_condition(m_start: int, m_end: int) -> None:
+        nonlocal deterministic_condition_established, deterministic_condition_excerpt
+        if deterministic_condition_established:
+            return
+        cond = _core_detect_condition_in_span(text, m_start, m_end)
+        if cond.status == "ESTABLISHED":
+            deterministic_condition_established = True
+            deterministic_condition_excerpt = cond.evidence_span
 
     for m in _NAMED_RIGHT_RE.finditer(text):
         if any(abs(m.start() - s) < 30 for s, _ in seen_spans):
@@ -416,6 +519,7 @@ def extract_termination_facts(text: str) -> Optional[TerminationFacts]:
             section_label=_section_label_before(text, m.start()),
         ))
         seen_spans.append((m.start(), m.end()))
+        _check_deterministic_condition(m.start(), m.end())
 
     for m in _MUTUAL_RIGHT_RE.finditer(text):
         if any(abs(m.start() - s) < 30 for s, _ in seen_spans):
@@ -435,6 +539,7 @@ def extract_termination_facts(text: str) -> Optional[TerminationFacts]:
             asymmetry_reasons=_detect_right_asymmetry(window),
         ))
         seen_spans.append((m.start(), m.end()))
+        _check_deterministic_condition(m.start(), m.end())
 
     survival_topics: Dict[str, SurvivalTreatment] = {}
     survival_clause_found = bool(_SURVIVAL_ANCHOR_RE.search(text))
@@ -467,11 +572,57 @@ def extract_termination_facts(text: str) -> Optional[TerminationFacts]:
 
     transition_assistance = bool(_TRANSITION_ASSISTANCE_RE.search(text))
 
+    # Final trust architecture (Phase 5/6) — see confidentiality_policy_
+    # engine.py's identical composition for the full rationale: an
+    # admitted semantic candidate may carry a GROUNDED condition/exception
+    # neither NAMED_RIGHT_RE nor MUTUAL_RIGHT_RE has vocabulary to
+    # structure; never dropped, surfaced via dedicated fields regardless
+    # of whether a right otherwise structured.
+    import fact_admission as _fa
+    ai_identified_condition = None
+    ai_identified_exception = None
+    for candidate in admitted_semantic:
+        ai_identified_condition = ai_identified_condition or candidate.condition
+        ai_identified_exception = ai_identified_exception or candidate.exception
+    # Candidate 5.1 remediation (termination real-provider repeatability
+    # authority leak): confirmed via 6 identical real-provider runs of
+    # "Either party may terminate this Agreement for convenience upon 30
+    # days' prior written notice to the other party" that AI's own
+    # `condition` classification is itself inconsistent run-to-run for
+    # notice-period language -- it sometimes quotes the notice-period
+    # phrase itself ("30 days' prior written notice to the other party.")
+    # as if it were a CONDITION on the termination right, and sometimes
+    # does not, even though the quote grounds successfully both times
+    # (it IS verbatim text) -- the underlying AI JUDGMENT of "is this a
+    # condition" varies, not the grounding. A notice period is a
+    # procedural requirement (how much notice to give), not a
+    # conditional precedent that could fail to be satisfied, and it is
+    # ALREADY deterministically captured in `notice_period_days` for
+    # this exact right -- so when the AI's condition quote is nothing
+    # more than a restatement of that same notice-period phrase (matches
+    # `_NOTICE_DAYS_RE` and contains none of the genuine conditional-
+    # precedent connectors), it is suppressed as a redundant restatement,
+    # not a novel material qualifier. A GENUINE condition ("provided
+    # that Recipient has first paid all outstanding invoices in full")
+    # is unaffected -- it contains no notice-period match at all, or
+    # (if a notice period also happens to be present in the same clause)
+    # a real conditional connector, and still forces review as before.
+    if ai_identified_condition and _NOTICE_DAYS_RE.search(ai_identified_condition) and not re.search(
+        r"\b(?:provided|unless|except|only\s+if|subject\s+to|so\s+long\s+as|to\s+the\s+extent)\b",
+        ai_identified_condition, re.I,
+    ):
+        ai_identified_condition = None
+    ai_identified_definition_or_reference = _fa.first_resolved_dependency_note(admitted_semantic) or unresolved_dependency_note
+
     if not rights:
         return TerminationFacts(
             clause_found=True, rights=[], survival_topics=survival_topics,
             survival_clause_found=survival_clause_found, fee=fee,
             transition_assistance=transition_assistance,
+            ai_identified_condition=ai_identified_condition, ai_identified_exception=ai_identified_exception,
+            ai_identified_definition_or_reference=ai_identified_definition_or_reference,
+            deterministic_condition_established=deterministic_condition_established,
+            deterministic_condition_excerpt=deterministic_condition_excerpt,
         )
 
     rights.sort(key=lambda r: r.start_index)
@@ -479,6 +630,10 @@ def extract_termination_facts(text: str) -> Optional[TerminationFacts]:
         clause_found=True, rights=rights, survival_topics=survival_topics,
         survival_clause_found=survival_clause_found, fee=fee,
         transition_assistance=transition_assistance,
+        ai_identified_condition=ai_identified_condition, ai_identified_exception=ai_identified_exception,
+        ai_identified_definition_or_reference=ai_identified_definition_or_reference,
+        deterministic_condition_established=deterministic_condition_established,
+        deterministic_condition_excerpt=deterministic_condition_excerpt,
     )
 
 
@@ -576,6 +731,22 @@ def evaluate_termination_policy(
         )
 
     if not facts.rights:
+        no_structure_unresolved = ["termination right structure could not be parsed"]
+        if facts.ai_identified_condition:
+            no_structure_unresolved.append(
+                f"a material condition was identified by contextual analysis and grounded against the "
+                f"source document (\"{facts.ai_identified_condition}\")"
+            )
+        if facts.ai_identified_exception:
+            no_structure_unresolved.append(
+                f"a material exception was identified by contextual analysis and grounded against the "
+                f"source document (\"{facts.ai_identified_exception}\")"
+            )
+        if facts.ai_identified_definition_or_reference:
+            no_structure_unresolved.append(
+                f"a material definition/cross-reference dependency was identified by contextual analysis "
+                f"({facts.ai_identified_definition_or_reference})"
+            )
         return PolicyDecision(
             rule_id=RULE_ID, clause_type="termination", state=REQUIRES_REVIEW,
             contract_language="", extracted_summary="Termination referenced but no right could be parsed",
@@ -585,13 +756,41 @@ def evaluate_termination_policy(
                         "or reciprocal structure was found — the clause may be malformed, cross-referenced "
                         "elsewhere, or drafted in a form this extractor doesn't recognize.",
             negotiation_ladder=_build_ladder(policy, REQUIRES_REVIEW), category_treatments=[],
-            unresolved_facts=["termination right structure could not be parsed"],
+            unresolved_facts=no_structure_unresolved,
             start_index=None, end_index=None, source=source, summary_label="Termination treatment",
             our_position_label="Our termination rights", counterparty_position_label="Counterparty's termination rights against us",
         )
 
     our_rights, their_rights, resolution_reasons = _resolve_rights_for_side(facts.rights, policy.contract_side)
     unresolved_facts = list(resolution_reasons)
+
+    # Final trust architecture (Phase 4 hard gate) — surfaced here too so
+    # a qualifier the AI identified never disappears merely because a
+    # right ALSO happened to structure successfully elsewhere in the text.
+    if facts.ai_identified_condition:
+        unresolved_facts.append(
+            f"a material condition was identified by contextual analysis and grounded against the source "
+            f"document (\"{facts.ai_identified_condition}\")"
+        )
+    if facts.ai_identified_exception:
+        unresolved_facts.append(
+            f"a material exception was identified by contextual analysis and grounded against the source "
+            f"document (\"{facts.ai_identified_exception}\")"
+        )
+    if facts.ai_identified_definition_or_reference:
+        unresolved_facts.append(
+            f"a material definition/cross-reference dependency was identified by contextual analysis "
+            f"({facts.ai_identified_definition_or_reference})"
+        )
+    # Candidate 5.1 remediation (real-provider repeatability authority
+    # leak) -- a deterministically-detected condition on a termination
+    # right must not be silently dropped merely because AI's own
+    # admission missed it on this particular run.
+    if facts.deterministic_condition_established:
+        unresolved_facts.append(
+            f"a termination right is stated with a condition (\"{facts.deterministic_condition_excerpt}\") "
+            f"— this evaluation does not determine whether the stated condition is satisfied"
+        )
 
     required_survival = list(policy.required_survival_topics_json or [])
     for topic in required_survival:

@@ -1056,6 +1056,22 @@ _LEADING_CONDITION_RE = re.compile(
 # Trailing proviso: after the main clause, within the SAME sentence, a
 # connector introduces a qualifying clause running toward the sentence's
 # own end ("..., provided that...", "..., unless...", "..., to the extent...").
+# NOTE (Candidate 5.1 remediation, reverted): "except that" was added
+# here to close a real SLA/warranties gap, but broadening this SHARED
+# primitive was found (via a proper full-suite run) to cause a genuine
+# regression in liability_policy_engine.py -- its OWN, more specific
+# per-category exception/carve-out mechanism relies on THIS SAME
+# detect_condition_in_text/detect_condition_in_span call, and a text
+# like "..., except that the foregoing limitation shall not apply to
+# claims arising from intellectual property infringement" was already
+# correctly classified there as a RESOLVED, category-specific uncapped
+# exception -- broadening this shared pattern made it ALSO get flagged
+# as a generic, unresolved condition, forcing a spurious REQUIRES_REVIEW
+# on an already-correctly-handled case. Reverted for the same reason
+# "except for" was reverted here earlier; see sla_policy_engine.py's
+# and warranties_policy_engine.py's own LOCAL, sentence-scoped "except
+# that"/"except for" checks instead (mirroring ip_ownership's existing,
+# already-precedented pattern) rather than widening this shared regex.
 _TRAILING_PROVISO_RE = re.compile(
     r",?\s*(?:provided(?:,)?\s+(?:however,?\s+)?that|unless|except\s+(?:when|to\s+the\s+extent)|"
     r"only\s+if|but\s+only\s+if|to\s+the\s+extent|only\s+to\s+the\s+extent|"
@@ -1087,7 +1103,7 @@ _MIDCLAUSE_UPON_RE = re.compile(
 )
 _MIDCLAUSE_CONTINGENT_RE = re.compile(r"\b(?:contingent|conditioned)\s+(?:up)?on\b", re.I)
 _MIDCLAUSE_WHERE_APPLICABLE_RE = re.compile(r"\bwhere\s+applicable\b", re.I)
-_MIDCLAUSE_EXCEPT_RE = re.compile(r"\bexcept\s+(?:when|to\s+the\s+extent)\b", re.I)
+_MIDCLAUSE_EXCEPT_RE = re.compile(r"\bexcept\s+(?:when|to\s+the\s+extent|in|where)\b", re.I)
 # "shall apply only if/when/to the extent" / "applies only if/when/to the
 # extent" -- a direct (no leading comma) applicability restriction, as
 # opposed to the temporal-only shape below.
@@ -1367,6 +1383,63 @@ _BACKWARD_CONDITION_ON_SECTION_RE = re.compile(
     re.I,
 )
 _TEMPORAL_ANTONYM_PAIRS = (("after", "before"), ("until", "after"))
+
+# Candidate 2 root-cause fix (indemnification material-context silent
+# loss): _BACKWARD_CONDITION_ON_SECTION_RE above requires the qualifying
+# clause to open with "<the obligation> under/in Section N ...", i.e.
+# the section reference comes BEFORE the "shall apply only" language.
+# Real drafting very commonly inverts this with a leading "Notwithstanding
+# Section N, ..." construct instead -- a materially different surface
+# form of the exact same backward cross-reference concept, not covered
+# by the existing pattern at all.
+_NOTWITHSTANDING_SECTION_QUALIFIER_RE = re.compile(
+    r"notwithstanding\s+(?:the\s+foregoing\s+in\s+|anything\s+(?:to\s+the\s+contrary\s+)?(?:contained\s+)?in\s+)?"
+    r"(" + _DIVISION_KIND_ALTERNATION + r")\s+(" + _DIVISION_IDENTIFIER_FRAGMENT + r")\b"
+    r"(?:(?!\.).){1,220}?\b(?:shall\s+apply\s+only|applies\s+only|shall\s+not\s+apply|shall\s+not\s+exceed"
+    r"|is\s+limited\s+to|shall\s+be\s+limited\s+to)\b(?:(?!\.).){0,220}",
+    re.I,
+)
+
+
+def detect_backward_referenced_qualifier(full_text: str, source_kind: str, source_identifier: str) -> Optional[ConditionEvidence]:
+    """Generalizes `detect_conflicting_backward_conditions` (below) to the
+    SINGLE-reference case. That function only ever returns non-None when
+    TWO backward-references to the same division conflict -- a genuine,
+    material qualifier stated via exactly ONE such reference ("Notwithstanding
+    Section 12, Vendor's indemnification obligation applies only to
+    claims filed within ninety days...") was previously invisible to
+    both this codebase's regex vocabulary (the leading-"notwithstanding"
+    surface form) AND the "needs 2+ to fire at all" gate -- silently
+    discarding a real modifier rather than surfacing it. Returns
+    ESTABLISHED (an unresolved, but real, qualifier exists) the first
+    time ANY matching backward-reference is found, or CONFLICTING when
+    2+ disagree (reusing the same temporal-antonym check the sibling
+    function already trusts), never silently None once a qualifying
+    reference exists."""
+    matches = [
+        m for m in _NOTWITHSTANDING_SECTION_QUALIFIER_RE.finditer(full_text)
+        if m.group(1).lower() == source_kind.lower() and m.group(2).upper() == source_identifier.upper()
+    ] + [
+        m for m in _BACKWARD_CONDITION_ON_SECTION_RE.finditer(full_text)
+        if m.group(1).lower() == source_kind.lower() and m.group(2).upper() == source_identifier.upper()
+    ]
+    if not matches:
+        return None
+    tails = [m.group(0).lower() for m in matches]
+    for a, b in _TEMPORAL_ANTONYM_PAIRS:
+        if any(a in t for t in tails) and any(b in t for t in tails):
+            return ConditionEvidence(
+                status="CONFLICTING", condition_type="temporal",
+                evidence_span=" | ".join(m.group(0).strip() for m in matches),
+                note=f"{len(matches)} separately operative provisions impose incompatible temporal "
+                     f"conditions on {source_kind} {source_identifier} -- cannot be deterministically reconciled",
+            )
+    return ConditionEvidence(
+        status="ESTABLISHED", condition_type="backward_reference",
+        evidence_span=matches[0].group(0).strip(),
+        note=f"a separately-stated provision imposes a qualifier on {source_kind} {source_identifier} via a "
+             f"backward cross-reference -- this evaluation does not determine whether it applies or its full scope",
+    )
 
 
 def detect_conflicting_backward_conditions(full_text: str, source_kind: str, source_identifier: str) -> Optional[ConditionEvidence]:
@@ -1654,7 +1727,8 @@ _NEGATED_OR_REJECTED_MATERIAL_RE = re.compile(
     r"|\bnot\s+part\s+of\s+the\s+Agreement\b"
     r"|\bfor\s+reference\s+purposes\s+only\b"
     r"|\bprovided\s+for\s+reference\s+only\b"
-    r"|\b(?:shown|provided|given|included|listed)\s+(?:here\s+)?for\s+reference\b"
+    r"|\b(?:shown|provided|given|included|listed|attached)\s+(?:here\s+)?for\s+reference(?:\s+only)?\b"
+    r"|\bnot\s+incorporated\b"
     # A hypothetical/unfinalized-draft marker: the surrounding text
     # explicitly states nothing has been agreed/finalized yet.
     r"|\bhave\s+not\s+been\s+finalized\b"
@@ -1694,6 +1768,282 @@ _META_INSTRUCTIONAL_RE = re.compile(
     r"|\[(?:drafting\s+note|redline\s+instruction|comment\s+bubble|system\s+instruction)\]",
     re.I,
 )
+
+# Candidate 2 root-cause fix (shared primitive gap): the existing
+# structural cue families above catch a quoted example, a drafting
+# instruction, a narrow set of "language stating that..." descriptive
+# phrasings, and WHEREAS-recital intent -- but NOT the extremely common
+# real-world pattern of industry-norm commentary ("It is common practice
+# for a vendor to carry X", "SaaS agreements typically commit to Y")
+# combined with an explicit statement that THIS agreement's own terms
+# are not yet settled ("remains to be negotiated", "have not yet agreed").
+# Found via two independent adapters (insurance, sla) both extracting an
+# "established" fact from exactly this shape of sentence -- reported as
+# a shared-primitive defect, not two adapter-local bugs, and fixed once
+# here so every caller of is_operative_context benefits.
+_INDUSTRY_NORM_DESCRIPTIVE_RE = re.compile(
+    r"\bit\s+is\s+(?:common|typical|standard)\s+(?:practice\s+)?(?:for\b|to\b)"
+    r"|\b(?:commonly|typically|usually|generally)\s+(?:commits?\s+to|requires?|includes?|provides?|"
+    r"carr(?:y|ies)|specif(?:y|ies)|states?|caps?)\b"
+    r"|\bagreements?\s+of\s+this\s+(?:type|kind)\s+(?:typically|commonly|usually|generally)\b"
+    r"|\bin\s+(?:this\s+)?(?:industry|line\s+of\s+business)\b.{0,40}?\b(?:typically|commonly|usually)\b",
+    re.I,
+)
+_NOT_YET_AGREED_RE = re.compile(
+    r"remains?\s+to\s+be\s+(?:negotiated|agreed|finalized|determined|settled)"
+    r"|(?:have|has)\s+not\s+(?:yet\s+)?(?:been\s+)?(?:agreed|negotiated|finalized|settled\s+on|addressed|decided)"
+    r"|(?:is|are)\s+(?:yet\s+)?to\s+be\s+(?:agreed|negotiated|finalized|determined)"
+    r"|subject\s+to\s+(?:future|further)\s+negotiation"
+    r"|not\s+(?:yet\s+)?(?:finalized|final(?:i[sz]ed)?)\b",
+    re.I,
+)
+
+# Candidate 3 final gap-closure fix (Root Cause A) — a structural signal
+# that a named contract party is itself the subject of a modal-obligation
+# construction anchored in the local window ("Vendor shall maintain...",
+# "Customer will pay..."). Used to REBUT the industry-norm-descriptive
+# signal below: a clause that opens with a benign industry-context lead-in
+# but then states a real, party-specific obligation ("As is standard in
+# the industry, Vendor shall maintain 99.9% uptime...") must not be
+# suppressed just because it also contains industry-norm framing. Kept
+# deliberately generic (any of the common party-role nouns, not a
+# blacklist of specific sentences) so it generalizes across adapters.
+_PARTY_OBLIGATION_ANCHOR_RE = re.compile(
+    r"\b(?:Vendor|Customer|Supplier|Contractor|Licensee|Licensor|Client|"
+    r"Company|Provider|Recipient|Disclosing\s+Party|Receiving\s+Party|"
+    r"Party|Parties)\b(?:(?!\.).){0,40}?\b(?:shall|will|must|agrees?\s+to|"
+    r"is\s+required\s+to|are\s+required\s+to)\b",
+    re.I,
+)
+
+# Candidate 3 final gap-closure fix (Root Cause A) — the matched clause
+# directly negates the very obligation/commitment it describes ("Vendor
+# shall have NO obligation to notify...", "makes no uptime commitment").
+# Distinct from _NEGATED_OR_REJECTED_MATERIAL_RE above, which covers
+# meta-textual negation of a QUOTED example ("this sentence does not
+# actually appear..."); this covers direct grammatical negation of the
+# duty itself, present in the operative sentence with no quoting involved
+# (found via data_security-130 / sla-210 -- a real "Vendor shall have no
+# obligation to notify Customer of any personal data breach" clause was
+# being extracted as if it established an affirmative notification duty).
+_DIRECT_OBLIGATION_NEGATION_RE = re.compile(
+    r"\b(?:shall|will)\s+have\s+no\s+(?:obligation|duty|requirement)\s+to\b"
+    r"|\bis\s+not\s+(?:obligated|required)\s+to\b"
+    r"|\bare\s+not\s+(?:obligated|required)\s+to\b"
+    r"|\bmakes?\s+no\s+(?:\w+\s+){0,2}(?:commitment|guarantee|warranty)\b"
+    r"|\bno\s+(?:\w+\s+){0,2}commitment\s+of\s+any\s+kind\b"
+    r"|\bshall\s+not\s+be\s+(?:obligated|required)\s+to\b",
+    re.I,
+)
+
+# Candidate 3 zero-silent-loss mission (Phase 3, shared reconciliation
+# primitive) -- a DIFFERENT, SEPARATE statement elsewhere in the SAME
+# document can broadly negate or supersede a value already established
+# elsewhere ("Vendor shall maintain CGL insurance with a $2,000,000
+# limit... For clarity, no specific insurance limits are required under
+# this Agreement..."). This is distinct from _DIRECT_OBLIGATION_NEGATION_RE
+# (which negates the obligation AT the matched span itself) -- here the
+# negation is a genuinely separate, later clause about the SAME concept,
+# and from _NEGATED_OR_REJECTED_MATERIAL_RE (which covers meta-textual
+# negation of a QUOTED example). Deliberately general structural
+# vocabulary -- "no specific X (is/are) required", "does not guarantee
+# any specific X", "retains all ownership rights ... grants only a
+# license" -- not a blacklist of the specific burned-corpus sentences;
+# these are standard contract-drafting negation/override patterns that
+# recur across liability, insurance, SLA, and IP-ownership domains alike.
+DOCUMENT_WIDE_NEGATION_RE = re.compile(
+    r"\bno\s+specific\s+\w+(?:\s+\w+){0,2}\s+(?:is|are)\s+required\b"
+    r"|\bdoes\s+not\s+guarantee\s+any\s+specific\b"
+    r"|\bis\s+not\s+required\s+under\s+this\s+Agreement\b"
+    r"|\bretains?\s+all\s+ownership\s+rights\b(?:(?!\.).){0,60}?\bgrants?\s+(?:[A-Z][\w']*\s+)?(?:only\s+)?a\s+license\b"
+    # Scoped narrowly to "Section N shall not apply" (nullifying an ENTIRE
+    # cross-referenced section wholesale) -- NOT a bare "the limitation
+    # shall not apply to claims arising from X," which is a legitimate,
+    # already-handled, category-scoped carve-out (see category_treatments'
+    # "uncapped" treatment), not a document-wide contradiction.
+    r"|\bSection\s+\d+[A-Za-z]?\s+shall\s+not\s+apply\b"
+    # A later statement affirmatively grants unrestricted freedom to do
+    # the very thing an earlier statement required consent/restriction
+    # for ("may freely assign ... without consent or notice") -- a direct
+    # reversal of a consent/restriction requirement, general across any
+    # adapter that structures a consent-gated right.
+    r"|\bmay\s+freely\s+\w+\b(?:(?!\.).){0,60}?\bwithout\s+consent\b",
+    re.I,
+)
+
+# Candidate 3 zero-silent-loss mission (Phase 3) -- an explicit textual
+# marker that the DOCUMENT ITSELF states two provisions are unreconciled
+# ("without indicating which governs", "without reconciling the two",
+# "without reconciling which controls", "without resolving which
+# applies") is a standard drafting-review convention for flagging real
+# ambiguity, not vocabulary invented for one test corpus -- a document
+# containing this marker is asserting its own internal inconsistency.
+UNRECONCILED_AMBIGUITY_MARKER_RE = re.compile(
+    r"\bwithout\s+(?:indicating|reconciling|resolving|specifying)\s+which\s+(?:governs|controls|applies)\b"
+    r"|\bwithout\s+reconciling\s+the\s+two\b",
+    re.I,
+)
+
+
+def document_wide_conflict_detected(document_text: str, established_start: int = 0, established_end: int = 0) -> bool:
+    """Returns True when the document contains a DOCUMENT_WIDE_NEGATION_RE
+    match anywhere. No exclusion window is needed: this regex's vocabulary
+    (broad negation phrasing -- "no specific X is required", "does not
+    guarantee any specific X") is structurally incompatible with the
+    affirmative value-establishing phrasing every adapter's own primary-
+    value regex requires (e.g. "shall maintain ... with a $X limit"), so
+    a match can only ever come from a genuinely SEPARATE clause, never
+    the same one that established the value. established_start/end are
+    accepted for call-site compatibility but not currently used."""
+    return bool(DOCUMENT_WIDE_NEGATION_RE.search(document_text))
+
+
+def unreconciled_ambiguity_marker_present(document_text: str) -> bool:
+    """Returns True when the document contains an explicit self-declared
+    unreconciled-ambiguity marker (see UNRECONCILED_AMBIGUITY_MARKER_RE)."""
+    return bool(UNRECONCILED_AMBIGUITY_MARKER_RE.search(document_text))
+
+
+# Candidate 3 zero-silent-loss mission (Phase 3) -- a cross-section
+# carve-out that EXPLICITLY NAMES the section number of an already-
+# established value ("Notwithstanding Section 14, the uptime commitment
+# described therein does not apply during the first thirty days...",
+# "For clarity, the 99.9% uptime commitment in Section 14 excludes any
+# beta or preview features...") is a general, section-number-driven
+# structural pattern -- not specific vocabulary for any one adapter's
+# domain concept, since it works for any material dimension a document
+# might scope-limit by explicit section cross-reference. Deliberately
+# parameterized by the established value's own section_label (already
+# tracked by every adapter's facts object) rather than hardcoding a
+# clause-type keyword.
+def cross_section_carveout_referencing(document_text: str, section_label: Optional[str]) -> bool:
+    """Returns True when the document contains a carve-out/exception/
+    exclusion/additional-requirement statement that explicitly cross-
+    references section_label (the section number that established the
+    adapter's primary value) -- either narrowing it (an exclusion) or
+    supplementing it (an additional condition), since both shapes mean
+    the primary value alone no longer fully describes the document's
+    actual position. No-ops (returns False) when section_label is falsy."""
+    if not section_label:
+        return False
+    label = re.escape(str(section_label))
+    pattern = re.compile(
+        rf"\bNotwithstanding\s+Section\s+{label}\b(?:(?!\.).){{0,200}}?"
+        rf"(?:does\s+not\s+apply|shall\s+not\s+apply|is\s+excluded|are\s+excluded)"
+        rf"|\b(?:in|under|referenced\s+in)\s+Section\s+{label}\b(?:(?!\.).){{0,120}}?"
+        rf"\b(?:excludes?|does\s+not\s+include|is\s+measured\s+from)\b"
+        rf"|\bSection\s+{label}\b(?:(?!\.).){{0,120}}?\bdoes\s+not\s+apply\b"
+        rf"|\brequired\s+by\s+Section\s+{label}\b(?:(?!\.).){{0,120}}?\b(?:must|shall)\b"
+        rf"|\bcoverage\s+required\s+by\s+Section\s+{label}\b(?:(?!\.).){{0,120}}?\b(?:must|shall)\b"
+        rf"|\bSubject\s+to\s+(?:the\s+\w+(?:\s+\w+){{0,2}}\s+in\s+)?Section\s+{label}\.\d+\b"
+        rf"|\bpermitted\s+under\s+Section\s+{label}\b(?:(?!\.).){{0,120}}?\b(?:does\s+not\s+relieve|remains?\s+liable|shall\s+not\s+relieve)\b",
+        re.I,
+    )
+    return bool(pattern.search(document_text))
+
+# Candidate 3 final gap-closure fix (Root Cause A) — a hypothetical/
+# illustrative framing that does not rely on quote marks at all
+# ("For example, if Vendor were required to carry Cyber Liability
+# insurance, a $1,000,000 limit would be typical...") and so is invisible
+# to the existing _QUOTATION_INTRODUCING_RE check (which only fires when
+# a quote-mark span is found). Requires an explicit hypothetical
+# conditional marker ("for example, if" / "if ... were ...") co-occurring
+# with an illustrative-typicality claim ("would be typical", "illustrating
+# common ..."), so a genuine "For example, Vendor shall..." cross-
+# reference to a real defined example elsewhere is not falsely caught
+# (that shape lacks the subjunctive "were"/"would be typical" pairing).
+_HYPOTHETICAL_ILLUSTRATIVE_RE = re.compile(
+    r"\bfor\s+example\b(?:(?!\.).){0,80}?\bif\b(?:(?!\.).){0,80}?\bwere\b"
+    r"|\bif\s+a\s+\w+\s+(?:committed|agreed|were)\b(?:(?!\.).){0,80}?"
+    r"\bwould\s+be\s+(?:typical|common|standard)\b"
+    r"|\bwould\s+be\s+(?:typical|common|standard)\s+for\s+an?\b"
+    r"|\billustrating\s+common\b",
+    re.I,
+)
+
+# Candidate 3 final gap-closure fix (Root Cause B) -- a defined term whose
+# definition is delegated to an external document that the text itself
+# states is not attached ("as defined in the Data Processing Addendum,
+# which is not attached here") must be flagged as an unresolved
+# dependency, not silently treated as a self-contained defined term.
+# Deliberately shared here (not re-derived per adapter) -- insurance,
+# data_security, and ip_ownership all showed the identical gap
+# (UNRESOLVED_DEFINITION_TO_CLEAN) via three independently-phrased but
+# structurally identical cases. General, not phrase-specific -- matches
+# any external-document name, and the "not attached" clause independent
+# of exact wording. Separates DETECTION (a defined term delegates to an
+# external document -- this regex) from TARGET RESOLUTION (whether that
+# document's content is actually available -- it never is, once "not
+# attached" is stated, so no further resolution step is needed here).
+EXTERNAL_DEFINITION_NOT_ATTACHED_RE = re.compile(
+    r"(?:as\s+)?defined\s+in\s+(?:the\s+)?[^,.;]{1,80},?\s+which\s+is\s+not\s+attached"
+    r"|is\s+defined\s+in\s+(?:the\s+)?[^,.;]{1,80}\s*[,.]?\s*(?:that\s+document\s+is\s+)?not\s+attached",
+    re.I,
+)
+
+# Candidate 5 remediation: a general, cross-adapter failure class (the
+# entire cause of Candidate 4's UNRESOLVED_DEFINITION_TO_CLEAN=17)
+# confirmed across insurance/ip_ownership/warranties -- a capitalized
+# defined term ("the Required Coverage", "Custom Work Product", "the
+# Deliverables") is used with an explicit self-referential pointer
+# ("as defined in this Agreement" / "as defined herein" / "as defined
+# above/below"), but the term is NEVER actually defined anywhere in the
+# document. Unlike EXTERNAL_DEFINITION_NOT_ATTACHED_RE (which only
+# catches an EXPLICIT admission that a document is missing), this is a
+# SILENT gap: the drafter's cross-reference looks resolvable ("this
+# Agreement" -- not some external, admittedly-missing document) but
+# there is, in fact, no definition clause for the referenced term
+# anywhere in the supplied text. A deterministic check can only confirm
+# the term's own document DOES define it (a real definition clause is a
+# concrete, checkable structural pattern); it cannot itself prove a
+# negative for arbitrary phrasing, so this stays a conservative,
+# high-precision detector: it only fires when a clear "as defined in
+# this Agreement/herein/above/below" self-reference exists AND no
+# recognizable definition-clause pattern for that exact term is found
+# anywhere in the text.
+_SELF_REFERENTIAL_DEFINITION_POINTER_RE = re.compile(
+    r"((?:the\s+)?(?:[A-Z][a-zA-Z]*(?:\s+[A-Z][a-zA-Z]*){0,4}))"
+    r",?\s+as\s+defined\s+(?:in\s+this\s+Agreement|herein|above|below)\b",
+)
+
+
+def _definition_clause_exists_for_term(text: str, term: str) -> bool:
+    """True if `text` contains a recognizable definition clause binding
+    `term` to a meaning -- e.g. `"Required Coverage" means ...`,
+    `Required Coverage shall mean ...`, `(the "Required Coverage")`,
+    `Required Coverage is defined as ...`. Deliberately permissive about
+    quote style/capitalization of the SURROUNDING clause, but requires
+    the exact term text to appear immediately adjacent to one of these
+    concrete definitional constructions -- a bare second mention of the
+    term elsewhere (e.g. reused in another sentence) does not count."""
+    term_re = re.escape(term.strip())
+    patterns = [
+        rf'["“]?{term_re}["”]?\s+(?:shall\s+)?means?\b',
+        rf'["“]?{term_re}["”]?\s+(?:is|are)\s+defined\s+as\b',
+        rf'\(\s*(?:the\s+)?["“]{term_re}["”]\s*\)',
+        rf'{term_re}\s+shall\s+have\s+the\s+meaning\b',
+    ]
+    return any(re.search(p, text, re.I) for p in patterns)
+
+
+def self_referential_definition_unresolved(text: str) -> Optional[str]:
+    """Returns a human-readable note if a material, self-referential
+    "as defined in this Agreement/herein/above/below" pointer exists for
+    a capitalized term that is never actually defined anywhere in `text`
+    -- else None. See the module note above `_SELF_REFERENTIAL_
+    DEFINITION_POINTER_RE` for the precision rationale."""
+    for m in _SELF_REFERENTIAL_DEFINITION_POINTER_RE.finditer(text):
+        term = m.group(1).strip()
+        term_bare = re.sub(r"^(?:the|a|an)\s+", "", term, flags=re.I).strip()
+        if not term_bare or term_bare.lower() in ("agreement", "this agreement"):
+            continue
+        if not _definition_clause_exists_for_term(text, term_bare):
+            return (
+                f'"{term_bare}" is referenced as "defined in this Agreement" (or an equivalent '
+                f"self-reference), but no definition clause for that exact term could be found anywhere "
+                f"in the supplied text"
+            )
+    return None
 
 _DESCRIPTIVE_ABOUT_CLAUSE_RE = re.compile(
     r"\ba\s+(?:supplier|vendor|party|contractor|licensee|licensor|customer|"
@@ -1762,20 +2112,34 @@ def _same_or_adjacent_clause(full_window: str, from_end: bool) -> str:
         return full_window
 
 
-def is_operative_context(text: str, match_start: int, match_end: int,
-                          before_window: int = 220, after_window: int = 220) -> bool:
-    """Returns False when a structuring-regex match's surrounding context
-    marks it as NOT the document's own operative term -- a quoted
-    hypothetical example, a drafting instruction/comment, a descriptive
-    statement about the general concept, meta-instructional text
-    (including prompt-injection payloads), or text explicitly negated/
-    rejected nearby (before OR after the match, since negation of a
-    quoted example commonly follows it: "...appeared in this document:
-    '...'. This sentence does not actually appear anywhere below.").
+# Candidate 3 final gap-closure fix (Root Cause A) -- the four states
+# distinguishing WHY a structuring-regex match is or isn't the document's
+# own operative term, replacing the previous plain boolean. Deliberately
+# not a fifth "just return False more often" tweak: OPERATIVE_UNRESOLVED
+# and CONFLICTING_CONTEXT let a caller (or a future caller) distinguish
+# "structurally confirmed operative"/"structurally confirmed
+# non-operative" from "structural cues are ambiguous/contradictory" --
+# which the old boolean silently collapsed into a coin-flip between the
+# two confirmed states.
+OPERATIVE_CONFIRMED = "OPERATIVE_CONFIRMED"
+NON_OPERATIVE_CONFIRMED = "NON_OPERATIVE_CONFIRMED"
+OPERATIVE_UNRESOLVED = "OPERATIVE_UNRESOLVED"
+CONFLICTING_CONTEXT = "CONFLICTING_CONTEXT"
 
-    Deliberately a set of STRUCTURAL cue families, not a blacklist of
-    specific sentences -- see policy_engine_core.py's module comment
-    above this function and artifacts/step4a10_1/s4_root_cause.md.
+
+def classify_operative_context(text: str, match_start: int, match_end: int,
+                                before_window: int = 220, after_window: int = 220) -> str:
+    """Classifies a structuring-regex match's surrounding context as one
+    of OPERATIVE_CONFIRMED / NON_OPERATIVE_CONFIRMED / OPERATIVE_UNRESOLVED
+    / CONFLICTING_CONTEXT, using STRUCTURAL cue families (quoted
+    hypothetical examples, drafting instructions/comments, descriptive
+    statements about the general concept, meta-instructional text
+    including prompt-injection payloads, direct or meta-textual negation,
+    hypothetical/illustrative framing, and industry-norm commentary) --
+    never a blacklist of specific sentences. See the module comment above
+    this function and artifacts/step4a10_1/s4_root_cause.md for the
+    original design, and artifacts/candidate3_final_gap_closure/
+    OPERATIVE_CONTEXT_DESIGN.md for this revision's rationale.
     """
     lo, hi = max(0, match_start - before_window), min(len(text), match_end + after_window)
     window_before_full = text[lo:match_start]
@@ -1790,6 +2154,8 @@ def is_operative_context(text: str, match_start: int, match_end: int,
     window_after = _same_or_adjacent_clause(window_after_full, from_end=False)
     local_window = window_before + text[match_start:match_end] + window_after
 
+    confirmed_non_operative = False
+
     # Enclosed in quote marks whose most recent opening quote is itself
     # preceded (nearby) by quotation-introducing framing.
     quote_positions = [window_before.rfind(ch) for ch in _QUOTE_CHARS]
@@ -1797,17 +2163,90 @@ def is_operative_context(text: str, match_start: int, match_end: int,
     if quote_open != -1:
         pre_quote_context = window_before[max(0, quote_open - 120):quote_open]
         if _QUOTATION_INTRODUCING_RE.search(pre_quote_context):
-            return False
+            confirmed_non_operative = True
 
     if _NEGATED_OR_REJECTED_MATERIAL_RE.search(local_window):
-        return False
+        confirmed_non_operative = True
     if _META_INSTRUCTIONAL_RE.search(window_before) or _META_INSTRUCTIONAL_RE.search(local_window[:before_window]):
-        return False
+        confirmed_non_operative = True
     if _DESCRIPTIVE_ABOUT_CLAUSE_RE.search(window_before):
-        return False
+        confirmed_non_operative = True
     if _RECITAL_INTENT_RE.search(window_before):
-        return False
-    return True
+        confirmed_non_operative = True
+    # A direct grammatical negation of the very obligation/commitment the
+    # match is about ("Vendor shall have no obligation to notify...") is
+    # a confirmed non-operative signal by itself -- no rebuttal applies,
+    # because the match IS the negation, not a mere lead-in.
+    if _DIRECT_OBLIGATION_NEGATION_RE.search(local_window):
+        confirmed_non_operative = True
+    # A hypothetical/hedged illustrative framing not anchored in quote
+    # marks ("For example, if Vendor were required to carry..., a
+    # $1,000,000 limit would be typical").
+    if _HYPOTHETICAL_ILLUSTRATIVE_RE.search(local_window):
+        confirmed_non_operative = True
+
+    # Candidate 2's original design: industry-norm descriptive framing
+    # ("It is common practice for...", "SaaS agreements typically...")
+    # combined with an explicit statement that THIS agreement's own terms
+    # are not yet settled ("remains to be negotiated") is a reliable,
+    # structural signal of non-operative commentary.
+    #
+    # Candidate 3 final gap-closure fix: requiring BOTH signals left a
+    # gap -- plain descriptive/generic-subject commentary ("SaaS
+    # agreements typically commit to 99.9% uptime...") that never states
+    # anything about being "not yet agreed" (because nothing has been
+    # proposed to agree to) was passing through as OPERATIVE_CONFIRMED.
+    # The general, non-phrase-specific distinguishing signal is whether a
+    # NAMED CONTRACT PARTY is itself the subject of a modal-obligation
+    # construction near the match (_PARTY_OBLIGATION_ANCHOR_RE) -- real
+    # operative clauses that merely open with a benign industry-context
+    # lead-in ("As is standard in the industry, Vendor shall maintain
+    # 99.9% uptime...") have this; pure background commentary about what
+    # "agreements of this type" or "vendors" typically do does not.
+    industry_norm = bool(_INDUSTRY_NORM_DESCRIPTIVE_RE.search(local_window))
+    not_yet_agreed = bool(_NOT_YET_AGREED_RE.search(local_window))
+    party_anchor = bool(_PARTY_OBLIGATION_ANCHOR_RE.search(local_window))
+    if industry_norm and not party_anchor:
+        confirmed_non_operative = True
+    elif not_yet_agreed:
+        confirmed_non_operative = True
+    elif industry_norm and party_anchor:
+        # Industry-norm framing IS present, and so is a real party
+        # obligation -- these two signals point in opposite directions
+        # for the same match. Neither the original AND-gate nor a naive
+        # OR-gate resolves this correctly; it is a genuine structural
+        # ambiguity, not a case either confirmed state fits, so it must
+        # not be silently folded into OPERATIVE_CONFIRMED (the pre-
+        # Candidate-3 behavior) or into NON_OPERATIVE_CONFIRMED (which
+        # would risk suppressing a real obligation with a norm-
+        # referencing lead-in).
+        return CONFLICTING_CONTEXT
+
+    if confirmed_non_operative:
+        return NON_OPERATIVE_CONFIRMED
+    return OPERATIVE_CONFIRMED
+
+
+def is_operative_context(text: str, match_start: int, match_end: int,
+                          before_window: int = 220, after_window: int = 220) -> bool:
+    """Boolean convenience wrapper over classify_operative_context(), kept
+    for every existing call site's `if is_operative_context(...):` gate.
+    OPERATIVE_CONFIRMED -> True (establish the match). NON_OPERATIVE_
+    CONFIRMED -> False (suppress it). OPERATIVE_UNRESOLVED (reserved for
+    future structural-ambiguity signals that aren't yet in play) -> True,
+    since suppressing on mere uncertainty here would re-create the
+    over-suppression risk Candidate 2's dual-signal design was built to
+    avoid; the fact-admission pipeline downstream (verification, dependency
+    grounding, absence-state routing) is where genuine ambiguity in an
+    established candidate gets escalated to REQUIRES_REVIEW, not here.
+    CONFLICTING_CONTEXT -> False: a genuinely contradictory structural
+    signal set must not be silently treated as a confirmed clean
+    establishment; each adapter's own absence-state / PRESENT_BUT_
+    UNRESOLVED safety net (Candidate 3 remediation, Root Cause 1) is what
+    keeps this from silently reaching a clean ACCEPT.
+    """
+    state = classify_operative_context(text, match_start, match_end, before_window, after_window)
+    return state in (OPERATIVE_CONFIRMED, OPERATIVE_UNRESOLVED)
 
 
 def chained_delegation_excerpt(window: str, before: int = 60, after: int = 40) -> Optional[str]:

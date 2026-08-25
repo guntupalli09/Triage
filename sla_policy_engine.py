@@ -85,6 +85,11 @@ from policy_engine_core import (
     excerpt as _excerpt, section_label_before as _section_label_before,
     requires_review_explanation, requires_review_required_action,
     PolicyDecision,
+    is_operative_context as _core_is_operative_context,
+    document_wide_conflict_detected as _document_wide_conflict_detected,
+    unreconciled_ambiguity_marker_present as _unreconciled_ambiguity_marker_present,
+    cross_section_carveout_referencing as _cross_section_carveout_referencing,
+    detect_condition_in_span as _core_detect_condition_in_span,
 )
 
 RULE_ID = "POLICY_SLA"
@@ -99,6 +104,8 @@ MAINTENANCE_EXCLUSION_TYPES: Tuple[str, ...] = (
 
 # --- Clause presence ---------------------------------------------------------------------------
 _ANCHOR_RE = re.compile(r"service\s+level|\bSLA\b|\buptime\b|availability\s+commitment", re.I)
+
+_SLA_EXCEPT_THAT_RE = re.compile(r"\bexcept\s+that\b", re.I)
 
 # --- Sentence-boundary-safe local window (decimal-safe -- reused verbatim from
 # payment_terms_policy_engine._local_window, per the same "copy the proven fix,
@@ -263,9 +270,9 @@ _SLA_EXCLUSIVE_REMEDY_RE = re.compile(
 )
 
 _SCHEDULE_CROSSREF_RE = re.compile(
-    r"as\s+(?:set\s+forth|described|specified)\s+in\s+the\s+(?:applicable\s+)?"
+    r"as\s+(?:set\s+forth|described|specified)\s+in\s+(?:the\s+)?(?:applicable\s+)?(?:[A-Z][a-zA-Z]+\s+)?"
     r"(?:Service\s+Level\s+)?(?:Schedule|Exhibit|SLA\s+Exhibit|Statement\s+of\s+Work|SOW)"
-    r"|service\s+levels?\s+(?:set\s+forth|specified)\s+in\s+(?:the\s+)?(?:applicable\s+)?(?:Schedule|Exhibit)", re.I,
+    r"|service\s+levels?\s+(?:set\s+forth|specified)\s+in\s+(?:the\s+)?(?:applicable\s+)?(?:[A-Z][a-zA-Z]+\s+)?(?:Schedule|Exhibit)", re.I,
 )
 
 
@@ -352,6 +359,28 @@ class SLAFacts:
 
     schedule_cross_reference: bool = False
 
+    # Fact-admission architecture — mirrors warranties_policy_engine.
+    # WarrantiesFacts.absence_state. This adapter's "anchor fired but
+    # nothing structured" gate also returns None/NOT_APPLICABLE (see
+    # `if not found_anything: return None`), so RECOGNITION_UNCERTAIN on
+    # the NO-anchor path needs its own explicit branch in
+    # evaluate_sla_policy.
+    absence_state: str = "CONFIRMED_ABSENT"
+    semantic_discovery_error: Optional[str] = None
+    ai_identified_condition: Optional[str] = None
+    ai_identified_exception: Optional[str] = None
+    ai_identified_definition_or_reference: Optional[str] = None
+    document_wide_conflict: bool = False
+    # Candidate 5.1 remediation (MATERIAL_CONTEXT_SILENTLY_LOST general
+    # root cause): a deterministically-detected condition/exception
+    # attached to the uptime commitment itself (e.g. "..., except that
+    # downtime caused by X's own network or equipment shall not count
+    # against ...'s uptime commitment"), using the same shared
+    # `detect_condition_in_text` primitive liability/insurance/warranties/
+    # ip_ownership already use for this exact purpose.
+    deterministic_condition_established: bool = False
+    deterministic_condition_excerpt: Optional[str] = None
+
 
 class SLAPolicyRuleLike(Protocol):
     contract_side: str
@@ -400,25 +429,85 @@ _SEVERITY_POLICY_FIELD_MAP = {
 }
 
 
+# Off by default — same rollout discipline as every other adapter this
+# session integrated.
+SLA_SEMANTIC_DISCOVERY_ENABLED = False  # module-load-time default; immediately overridden below
+import fact_admission as _fact_admission_env_check
+SLA_SEMANTIC_DISCOVERY_ENABLED = _fact_admission_env_check.semantic_discovery_enabled("SLA_SEMANTIC_DISCOVERY_ENABLED")
+del _fact_admission_env_check
+
+_SLA_SEMANTIC_FOCUS = (
+    "a service-level commitment -- an uptime/availability target, a severity-based response "
+    "or restoration time, or a service-credit remedy for failing to meet a commitment -- even "
+    "if the wording is unusual and does not use standard terms like 'SLA' or 'uptime'"
+)
+_SLA_SEMANTIC_PROPOSITION = (
+    "This sentence or clause is operative language of this agreement that establishes a "
+    "service-level commitment (an availability target, a response/restoration time "
+    "commitment, or a service-credit remedy)."
+)
+
+
+def _run_semantic_discovery(text: str) -> Tuple[List, Optional[str], bool, Optional[str]]:
+    """Mirrors liability_policy_engine._run_semantic_discovery exactly.
+    Returns (admitted_candidates, unresolved_dependency_note, error)."""
+    if not SLA_SEMANTIC_DISCOVERY_ENABLED:
+        return [], None, False, None
+    import fact_admission as _fa
+    try:
+        raw_candidates = _fa.discover_candidate_spans(text, "sla", _SLA_SEMANTIC_FOCUS)
+    except Exception as exc:  # noqa: BLE001 — provider unavailable, never "confirmed absent"
+        return [], None, False, f"{type(exc).__name__}: {exc}"
+
+    verified_candidates = [
+        _fa.verify_and_ground(candidate, text, _SLA_SEMANTIC_PROPOSITION) for candidate in raw_candidates
+    ]
+    admitted = [c for c in verified_candidates if c.admission_status == _fa.ADMITTED]
+    unresolved_dependency_note = _fa.first_unresolved_dependency_note(verified_candidates)
+    note_is_unconditional = _fa.first_unresolved_dependency_note_is_unconditional(verified_candidates)
+    return admitted, unresolved_dependency_note, note_is_unconditional, None
+
+
 def extract_sla_facts(text: str) -> Optional[SLAFacts]:
     anchors = list(_ANCHOR_RE.finditer(text))
+    semantic_error: Optional[str] = None
+    admitted_semantic: List = []
+    unresolved_dependency_note: Optional[str] = None
+    # Candidate 3 remediation (Root Cause 2): contextual discovery is no
+    # longer gated behind "deterministic anchor discovery found zero
+    # matches" -- see confidentiality_policy_engine.py's identical fix.
+    admitted_semantic, unresolved_dependency_note, note_is_unconditional, semantic_error = _run_semantic_discovery(text)
     if not anchors:
-        return None
+        if semantic_error is not None:
+            return SLAFacts(clause_found=True, absence_state="RECOGNITION_UNCERTAIN", semantic_discovery_error=semantic_error)
+        if not admitted_semantic and not unresolved_dependency_note:
+            return None
+        if not admitted_semantic:
+            # See warranties_policy_engine.py's identical fix: a genuine
+            # candidate was found (competing readings, or an unresolved
+            # definition/cross-reference) but never resolved to something
+            # admissible -- never the same as "nothing here at all."
+            return SLAFacts(clause_found=True, ai_identified_definition_or_reference=unresolved_dependency_note)
+    elif semantic_error is not None:
+        admitted_semantic = []
 
+    anchor_spans = sorted(
+        [(m.start(), m.end()) for m in anchors] + [(c.start_offset, c.end_offset) for c in admitted_semantic]
+    )
     windows: List[Tuple[int, int]] = []
-    for m in anchors:
-        s = max(0, m.start() - 200)
-        e = min(len(text), m.end() + _PROVISION_WINDOW_CHARS)
+    for (m_start, m_end) in anchor_spans:
+        s = max(0, m_start - 200)
+        e = min(len(text), m_end + _PROVISION_WINDOW_CHARS)
         if windows and s - windows[-1][1] < 200:
             windows[-1] = (windows[-1][0], max(windows[-1][1], e))
         else:
             windows.append((s, e))
 
-    first_match = anchors[0]
-    start_index = max(0, first_match.start() - 200)
-    end_index = min(len(text), first_match.end() + 400)
+    first_start, first_end = anchor_spans[0]
+    start_index = max(0, first_start - 200)
+    end_index = min(len(text), first_end + 400)
     raw_excerpt = _excerpt(text, start_index, end_index)
-    section_label = _section_label_before(text, first_match.start())
+    section_label = _section_label_before(text, first_start)
 
     facts = SLAFacts(clause_found=True, raw_excerpt=raw_excerpt, start_index=start_index,
                       end_index=end_index, section_label=section_label)
@@ -442,12 +531,75 @@ def extract_sla_facts(text: str) -> Optional[SLAFacts]:
         for m in _UPTIME_WITH_PERCENT_RE.finditer(window):
             if _UPTIME_NEGATION_RE.search(window[max(0, m.start() - 20):m.start() + 20]):
                 continue
+            # Root-cause fix (Candidate 2, false-operative -> clean): the
+            # SAME shared-primitive gap found in insurance_policy_engine
+            # -- a percentage figure inside descriptive/background prose
+            # ("SaaS agreements typically commit to 99.9% uptime ...
+            # although the parties have not yet negotiated specific
+            # service levels") was previously admitted as this
+            # Agreement's own established commitment. Reuses the shared
+            # is_operative_context primitive (now covering this
+            # industry-norm-plus-not-yet-agreed pattern at the source),
+            # not an adapter-local blacklist.
+            if not _core_is_operative_context(text, ws + m.start(), ws + m.end()):
+                continue
             raw = m.group(1) or m.group(2)
             if raw:
                 uptime_values.add(float(raw))
+            # Candidate 5.1 remediation (MATERIAL_CONTEXT_SILENTLY_LOST
+            # general root cause) -- a condition/exception attached to
+            # THIS SPECIFIC uptime commitment sentence (e.g. "..., except
+            # that downtime caused by X's own network or equipment shall
+            # not count..."), scoped via detect_condition_in_span to the
+            # uptime match's OWN sentence -- never the whole document --
+            # so an unrelated leading condition on a DIFFERENT sentence
+            # (e.g. the SLA's own credit-trigger phrasing, "If Provider
+            # fails to meet the Service Level, Customer shall receive a
+            # service credit...", which this adapter already structures
+            # deterministically via its own dedicated credit-trigger
+            # fields) is never double-counted as an unresolved condition
+            # on the uptime commitment itself.
+            if not facts.deterministic_condition_established:
+                cond = _core_detect_condition_in_span(text, ws + m.start(), ws + m.end())
+                if cond.status == "ESTABLISHED":
+                    facts.deterministic_condition_established = True
+                    facts.deterministic_condition_excerpt = cond.evidence_span
+                else:
+                    # "except that" (distinct from "except when"/"except
+                    # to the extent", already covered by
+                    # detect_condition_in_span above) needed its own
+                    # scoped, sentence-local check -- adding it to the
+                    # SHARED _TRAILING_PROVISO_RE was tried and reverted
+                    # after it caused a real regression in
+                    # liability_policy_engine.py (its own, more specific
+                    # per-category exception mechanism uses the same
+                    # shared primitive and was double-counting an
+                    # already-resolved category exception as also a
+                    # generic unresolved condition). Scoped instead to
+                    # the uptime match's own sentence, mirroring
+                    # ip_ownership_policy_engine.py's identical, already-
+                    # precedented local `_OWNERSHIP_EXCEPT_FOR_RE` check.
+                    sent_start = text.rfind(".", 0, ws + m.start()) + 1
+                    sent_end_dot = text.find(".", ws + m.end())
+                    sent_end = sent_end_dot + 1 if sent_end_dot != -1 else len(text)
+                    sentence = text[sent_start:sent_end]
+                    ex_m = _SLA_EXCEPT_THAT_RE.search(sentence)
+                    if ex_m:
+                        facts.deterministic_condition_established = True
+                        facts.deterministic_condition_excerpt = sentence[ex_m.start():min(len(sentence), ex_m.start() + 120)].strip()
                 found_anything = True
 
         for m in _MEASUREMENT_PERIOD_RE.finditer(window):
+            # Candidate 3 final gap-closure fix (Root Cause A, sla-202):
+            # this match was never gated by is_operative_context at all --
+            # a hypothetical/illustrative sentence ("if a vendor committed
+            # to an SLA, ... with monthly measurement would be typical")
+            # could still establish a real measurement-period fact via
+            # THIS regex even after the uptime-percent match immediately
+            # above was correctly suppressed, letting the decision reach a
+            # clean ACCEPT anyway. Same shared primitive, same gate.
+            if not _core_is_operative_context(text, ws + m.start(), ws + m.end()):
+                continue
             token = m.group(1).lower()
             normalized = _MEASUREMENT_PERIOD_NORMALIZE.get(token)
             if normalized:
@@ -557,6 +709,8 @@ def extract_sla_facts(text: str) -> Optional[SLAFacts]:
         for m in _CREDIT_ANCHOR_RE.finditer(window):
             if re.search(r"\bno\s+(?:service\s+)?$", window[max(0, m.start() - 25):m.start()], re.I):
                 continue
+            if not _core_is_operative_context(text, ws + m.start(), ws + m.end()):
+                continue
             facts.service_credit_present = True
             found_anything = True
             local = _local_window(window, m.end(), [])
@@ -656,7 +810,41 @@ def extract_sla_facts(text: str) -> Optional[SLAFacts]:
         facts.claim_deadline_conflict = True
 
     if not found_anything:
+        # Candidate 3 remediation (Root Cause 1): an admitted AI candidate
+        # exists but no SLA dimension could be deterministically
+        # structured from it -- never silently discard as "nothing here
+        # at all" (see warranties_policy_engine.py's identical fix).
+        if admitted_semantic or unresolved_dependency_note is not None:
+            facts.absence_state = "PRESENT_BUT_UNRESOLVED"
+            import fact_admission as _fa
+            for candidate in admitted_semantic:
+                facts.ai_identified_condition = facts.ai_identified_condition or candidate.condition
+                facts.ai_identified_exception = facts.ai_identified_exception or candidate.exception
+            # Zero-silent-loss mission follow-up (data_security-139 general
+            # failure class) -- a candidate whose OWN semantic verification
+            # reported genuine uncertainty (never admitted) must not be
+            # silently discarded merely because a deterministic anchor
+            # elsewhere in the document also failed to structure anything.
+            facts.ai_identified_definition_or_reference = (
+                _fa.first_resolved_dependency_note(admitted_semantic) or unresolved_dependency_note
+            )
+            return facts
         return None
+
+    # Final trust architecture (Phase 5/6) — reached only when
+    # found_anything is True (the base SLA structure DID resolve
+    # deterministically, so this candidate already passed the negative-
+    # control gate above). See confidentiality_policy_engine.py's
+    # identical composition for the full rationale.
+    import fact_admission as _fa
+    for candidate in admitted_semantic:
+        facts.ai_identified_condition = facts.ai_identified_condition or candidate.condition
+        facts.ai_identified_exception = facts.ai_identified_exception or candidate.exception
+    facts.ai_identified_definition_or_reference = _fa.first_resolved_dependency_note(admitted_semantic)
+
+    if (_document_wide_conflict_detected(text) or _unreconciled_ambiguity_marker_present(text)
+            or _cross_section_carveout_referencing(text, facts.section_label)):
+        facts.document_wide_conflict = True
 
     return facts
 
@@ -690,7 +878,79 @@ def evaluate_sla_policy(
             interaction_facts={"service_credit_present": None},
         )
 
+    if facts.absence_state == "RECOGNITION_UNCERTAIN":
+        return PolicyDecision(
+            rule_id=RULE_ID, clause_type="sla", state=REQUIRES_REVIEW,
+            contract_language="", extracted_summary="Could not determine whether an SLA/service-level clause is present",
+            policy_limit_summary="N/A",
+            required_action="Manual review required — automated recognition was unavailable for this document.",
+            explanation=(
+                "Deterministic pattern matching found no SLA/service-level clause, and semantic "
+                f"verification could not confirm its absence ({facts.semantic_discovery_error or 'unavailable'}). "
+                "This is not the same as confirming the contract has no such clause."
+            ),
+            negotiation_ladder=_build_ladder(policy, REQUIRES_REVIEW), category_treatments=[], unresolved_facts=[],
+            start_index=None, end_index=None, source=source, summary_label="SLA treatment",
+            our_position_label="Our SLA commitments", counterparty_position_label="Counterparty's SLA commitments",
+            interaction_facts={"service_credit_present": None},
+        )
+
+    if facts.absence_state == "PRESENT_BUT_UNRESOLVED":
+        return PolicyDecision(
+            rule_id=RULE_ID, clause_type="sla", state=REQUIRES_REVIEW,
+            contract_language="", extracted_summary="An SLA-relevant clause was found and verified, but no specific service-level dimension could be structured from it",
+            policy_limit_summary="N/A",
+            required_action="Manual review required — a candidate clause was discovered and verified but could not be deterministically structured into a specific SLA term.",
+            explanation=(
+                "Contextual discovery identified and verified SLA-relevant language in this contract, but "
+                "deterministic extraction could not structure it into a specific uptime/response/credit term. "
+                "This is not the same as confirming no SLA provision exists, and must not be treated as a clean "
+                "result."
+            ),
+            negotiation_ladder=_build_ladder(policy, REQUIRES_REVIEW), category_treatments=[], unresolved_facts=[],
+            start_index=None, end_index=None, source=source, summary_label="SLA treatment",
+            our_position_label="Our SLA commitments", counterparty_position_label="Counterparty's SLA commitments",
+            interaction_facts={"service_credit_present": None},
+        )
+
     unresolved_facts: List[str] = []
+
+    # Candidate 3 zero-silent-loss mission — a document-wide contradiction
+    # or self-declared unreconciled ambiguity must block clean regardless
+    # of what the local anchor window otherwise established.
+    if facts.document_wide_conflict:
+        unresolved_facts.append(
+            "a separate statement elsewhere in the document appears to contradict, negate, or leave unreconciled "
+            "the service-level commitment established in this clause"
+        )
+
+    # Final trust architecture (Phase 4 hard gate) — a material condition/
+    # exception the AI/context layer identified and grounded must not be
+    # silently dropped merely because the SLA otherwise resolved cleanly.
+    if facts.ai_identified_condition:
+        unresolved_facts.append(
+            f"a material condition was identified by contextual analysis and grounded against the source "
+            f"document (\"{facts.ai_identified_condition}\")"
+        )
+    if facts.ai_identified_exception:
+        unresolved_facts.append(
+            f"a material exception was identified by contextual analysis and grounded against the source "
+            f"document (\"{facts.ai_identified_exception}\")"
+        )
+    if facts.ai_identified_definition_or_reference:
+        unresolved_facts.append(
+            f"a material definition/cross-reference dependency was identified by contextual analysis "
+            f"({facts.ai_identified_definition_or_reference})"
+        )
+    # Candidate 5.1 remediation (MATERIAL_CONTEXT_SILENTLY_LOST general
+    # root cause) -- a deterministically-detected condition/exception
+    # attached to the uptime commitment must not be silently dropped
+    # merely because the uptime percentage itself resolved cleanly.
+    if facts.deterministic_condition_established:
+        unresolved_facts.append(
+            f"the service-level commitment is stated with a condition/exception (\"{facts.deterministic_condition_excerpt}\") "
+            f"— this evaluation does not determine whether the stated condition/exception affects the commitment"
+        )
 
     if facts.uptime_conflict:
         unresolved_facts.append("multiple, conflicting uptime/availability percentages stated")

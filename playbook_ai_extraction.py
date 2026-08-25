@@ -45,6 +45,8 @@ import typing
 from dataclasses import dataclass, field as dataclass_field
 from typing import Any, Dict, List, Optional, Tuple
 
+import openai_provider as _openai_provider
+
 import assignment_policy_engine as ape
 import confidentiality_policy_engine as cpe
 import data_security_policy_engine as dse
@@ -279,13 +281,14 @@ class LLMClient(typing.Protocol):
 
 
 class OpenAIExtractionClient:
-    """Production client. Mirrors evaluator.LLMEvaluator's own
-    initialization discipline exactly: reads OPENAI_API_KEY/OPENAI_MODEL,
-    degrades to "unavailable" (never crashes the caller) if unconfigured."""
+    """Production client. Reads its API key/model from openai_provider.py,
+    the single shared config module every OpenAI call in the application
+    uses (the same one evaluator.LLMEvaluator reads from), degrading to
+    "unavailable" (never crashing the caller) if unconfigured."""
 
     def __init__(self, api_key: Optional[str] = None, model: Optional[str] = None):
-        self.api_key = (api_key or os.getenv("OPENAI_API_KEY") or "").strip() or None
-        self.model = model or os.getenv("OPENAI_MODEL", "gpt-4o-mini")
+        self.api_key = _openai_provider.get_api_key(api_key)
+        self.model = _openai_provider.get_model(model)
         self._client = None
         if self.api_key:
             try:

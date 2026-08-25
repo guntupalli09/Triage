@@ -1,0 +1,991 @@
+{
+  "mode": "cutover",
+  "policy_decisions": {
+    "limitation_of_liability": {
+      "rule_id": "POLICY_LOL_CAP",
+      "clause_type": "limitation_of_liability",
+      "state": "ESCALATE",
+      "contract_language": "three (3) times the total fees",
+      "extracted_summary": "3x annual fees",
+      "policy_limit_summary": "unspecified",
+      "required_action": "Escalate to Legal Director \u2014 exceeds negotiable range",
+      "explanation": "Contract language: \"three (3) times the total fees\". Extracted value: 3x annual fees. Policy \u2014 preferred: 1x annual fees, acceptable up to: unspecified, negotiable up to: unspecified. Result: ESCALATE.",
+      "negotiation_ladder": [
+        {
+          "label": "IDEAL",
+          "description": "Preferred position: 1x annual fees",
+          "status": "passed"
+        },
+        {
+          "label": "ACCEPTABLE",
+          "description": "Auto-accept up to unspecified",
+          "status": "passed"
+        },
+        {
+          "label": "FALLBACK",
+          "description": "Negotiate up to unspecified",
+          "status": "passed"
+        },
+        {
+          "label": "ESCALATE",
+          "description": "Beyond negotiable range \u2014 route to Legal Director",
+          "status": "current"
+        },
+        {
+          "label": "WALK-AWAY",
+          "description": "Unlimited liability \u2014 prohibited by policy",
+          "status": "not_reached"
+        }
+      ],
+      "category_treatments": [
+        {
+          "category": "data_breach",
+          "treatment": "not_addressed",
+          "cap_summary": null,
+          "raw_excerpt": "",
+          "established": true
+        },
+        {
+          "category": "ip_infringement",
+          "treatment": "not_addressed",
+          "cap_summary": null,
+          "raw_excerpt": "",
+          "established": true
+        },
+        {
+          "category": "confidentiality",
+          "treatment": "within_general_cap",
+          "cap_summary": null,
+          "raw_excerpt": "third-party claims arising from Vendor's breach of this Agreement.\n\n3. Confidential Information. Each party shall protect the other's Confidential Information",
+          "established": true
+        },
+        {
+          "category": "indemnification",
+          "treatment": "within_general_cap",
+          "cap_summary": null,
+          "raw_excerpt": "from either party's gross negligence or willful misconduct.\n\n2. Indemnification. Vendor shall indemnify, defend, and hold harmless Customer",
+          "established": true
+        },
+        {
+          "category": "fraud",
+          "treatment": "not_addressed",
+          "cap_summary": null,
+          "raw_excerpt": "",
+          "established": true
+        },
+        {
+          "category": "gross_negligence",
+          "treatment": "uncapped",
+          "cap_summary": null,
+          "raw_excerpt": "this cap shall not apply to claims arising from either party's gross negligence or willful misconduct.\n\n2. Indemnification. Vendor shall indemnify,",
+          "established": true
+        },
+        {
+          "category": "willful_misconduct",
+          "treatment": "uncapped",
+          "cap_summary": null,
+          "raw_excerpt": "apply to claims arising from either party's gross negligence or willful misconduct.\n\n2. Indemnification. Vendor shall indemnify, defend, and hold",
+          "established": true
+        }
+      ],
+      "unresolved_facts": [],
+      "start_index": 136,
+      "end_index": 166,
+      "escalate_to": "Legal Director",
+      "fallback_text": null,
+      "source": "Phase1 Validation Playbook \u2014 Limitation of Liability (policy position #1)",
+      "controlling_provision": {
+        "label": "Section 1 \u2014 Limitation of Liability",
+        "excerpt": "three (3) times the total fees",
+        "start_index": 136,
+        "end_index": 166
+      },
+      "our_position": null,
+      "counterparty_position": null,
+      "reconciliation": "single",
+      "interaction_facts": {}
+    },
+    "indemnification": {
+      "rule_id": "POLICY_INDEMNIFICATION",
+      "clause_type": "indemnification",
+      "state": "REQUIRES_REVIEW",
+      "contract_language": "gross negligence or willful misconduct.\n\n2. Indemnification. Vendor shall indemnify, defend, and hold harmless Customer from and against any third-party claims arising from Vendor's",
+      "extracted_summary": "Could not be reliably established",
+      "policy_limit_summary": "unspecified",
+      "required_action": "Manual review required \u2014 contract states directional (non-mutual) indemnification obligations, but this playbook is configured for a mutual position \u2014 cannot determine which obligation is ours",
+      "explanation": "Contract language: \"gross negligence or willful misconduct.\n\n2. Indemnification. Vendor shall indemnify, defend, and hold harmless Customer from and against any third-party claims arising from Vendor's\". This indemnification structure could not be evaluated deterministically \u2014 the following fact(s) required for a policy decision could not be reliably established: contract states directional (non-mutual) indemnification obligations, but this playbook is configured for a mutual position \u2014 cannot determine which obligation is ours. Result: REQUIRES_REVIEW.",
+      "negotiation_ladder": [
+        {
+          "label": "IDEAL",
+          "description": "Preferred exposure cap: unspecified",
+          "status": "not_reached"
+        },
+        {
+          "label": "ACCEPTABLE",
+          "description": "Auto-accept exposure up to unspecified",
+          "status": "not_reached"
+        },
+        {
+          "label": "FALLBACK",
+          "description": "Negotiate exposure up to unspecified",
+          "status": "not_reached"
+        },
+        {
+          "label": "ESCALATE",
+          "description": "Beyond negotiable range \u2014 route to Legal Director",
+          "status": "not_reached"
+        },
+        {
+          "label": "WALK-AWAY",
+          "description": "Uncapped exposure",
+          "status": "not_reached"
+        }
+      ],
+      "category_treatments": [],
+      "unresolved_facts": [
+        "contract states directional (non-mutual) indemnification obligations, but this playbook is configured for a mutual position \u2014 cannot determine which obligation is ours"
+      ],
+      "start_index": 355,
+      "end_index": 413,
+      "escalate_to": null,
+      "fallback_text": null,
+      "source": "Phase1 Validation Playbook \u2014 Indemnification (policy position #2)",
+      "controlling_provision": {
+        "label": "Section 2 \u2014 Vendor indemnifies Customer",
+        "excerpt": "gross negligence or willful misconduct.\n\n2. Indemnification. Vendor shall indemnify, defend, and hold harmless Customer from and against any third-party claims arising from Vendor's",
+        "start_index": 355,
+        "end_index": 413
+      },
+      "our_position": null,
+      "counterparty_position": null,
+      "reconciliation": null,
+      "interaction_facts": {}
+    },
+    "termination": {
+      "rule_id": "POLICY_TERMINATION",
+      "clause_type": "termination",
+      "state": "NOT_APPLICABLE",
+      "contract_language": "",
+      "extracted_summary": "No termination clause found",
+      "policy_limit_summary": "N/A",
+      "required_action": "None \u2014 this contract does not address termination",
+      "explanation": "No termination clause was found in this contract, so the policy has nothing to evaluate against.",
+      "negotiation_ladder": [
+        {
+          "label": "IDEAL",
+          "description": "Preferred termination fee: unspecified",
+          "status": "not_reached"
+        },
+        {
+          "label": "ACCEPTABLE",
+          "description": "Auto-accept within acceptable termination terms",
+          "status": "not_reached"
+        },
+        {
+          "label": "FALLBACK",
+          "description": "Negotiate termination terms within fallback range",
+          "status": "not_reached"
+        },
+        {
+          "label": "ESCALATE",
+          "description": "Beyond negotiable range \u2014 route to Legal Director",
+          "status": "not_reached"
+        },
+        {
+          "label": "WALK-AWAY",
+          "description": "Uncapped termination fee",
+          "status": "not_reached"
+        }
+      ],
+      "category_treatments": [],
+      "unresolved_facts": [],
+      "start_index": null,
+      "end_index": null,
+      "escalate_to": null,
+      "fallback_text": null,
+      "source": "Phase1 Validation Playbook \u2014 Termination (policy position #3)",
+      "controlling_provision": null,
+      "our_position": null,
+      "counterparty_position": null,
+      "reconciliation": null,
+      "interaction_facts": {}
+    },
+    "confidentiality": {
+      "rule_id": "POLICY_CONFIDENTIALITY",
+      "clause_type": "confidentiality",
+      "state": "REQUIRES_REVIEW",
+      "contract_language": "",
+      "extracted_summary": "Confidentiality referenced but no directional obligation could be parsed",
+      "policy_limit_summary": "N/A",
+      "required_action": "Manual review required \u2014 confidentiality language present but structure unclear",
+      "explanation": "The document references confidentiality but no parseable directional or mutual structure was found \u2014 the clause may be malformed or drafted in a form this extractor doesn't recognize.",
+      "negotiation_ladder": [
+        {
+          "label": "IDEAL",
+          "description": "Preferred protection duration: unspecified years minimum",
+          "status": "not_reached"
+        },
+        {
+          "label": "ACCEPTABLE",
+          "description": "Auto-accept within acceptable confidentiality terms",
+          "status": "not_reached"
+        },
+        {
+          "label": "FALLBACK",
+          "description": "Negotiate confidentiality terms within fallback range",
+          "status": "not_reached"
+        },
+        {
+          "label": "ESCALATE",
+          "description": "Beyond negotiable range \u2014 route to Legal Director",
+          "status": "not_reached"
+        },
+        {
+          "label": "WALK-AWAY",
+          "description": "Prohibited confidentiality terms",
+          "status": "not_reached"
+        }
+      ],
+      "category_treatments": [],
+      "unresolved_facts": [
+        "confidentiality obligation structure could not be parsed",
+        "a material definition/cross-reference dependency was identified by contextual analysis (contextual analysis identified a dependency on the defined term \"Confidential Information\", which could not be deterministically resolved against this document (NOT_FOUND))"
+      ],
+      "start_index": null,
+      "end_index": null,
+      "escalate_to": null,
+      "fallback_text": null,
+      "source": "Phase1 Validation Playbook \u2014 Confidentiality (policy position #4)",
+      "controlling_provision": null,
+      "our_position": null,
+      "counterparty_position": null,
+      "reconciliation": null,
+      "interaction_facts": {}
+    },
+    "assignment": {
+      "rule_id": "POLICY_ASSIGNMENT",
+      "clause_type": "assignment",
+      "state": "NOT_APPLICABLE",
+      "contract_language": "",
+      "extracted_summary": "No assignment clause found",
+      "policy_limit_summary": "N/A",
+      "required_action": "None \u2014 this contract does not address assignment",
+      "explanation": "No assignment clause was found in this contract, so the policy has nothing to evaluate against.",
+      "negotiation_ladder": [
+        {
+          "label": "IDEAL",
+          "description": "Mutual consent requirement with standard exceptions",
+          "status": "not_reached"
+        },
+        {
+          "label": "ACCEPTABLE",
+          "description": "Auto-accept within acceptable assignment terms",
+          "status": "not_reached"
+        },
+        {
+          "label": "FALLBACK",
+          "description": "Negotiate assignment terms within fallback range",
+          "status": "not_reached"
+        },
+        {
+          "label": "ESCALATE",
+          "description": "Beyond negotiable range \u2014 route to Legal Director",
+          "status": "not_reached"
+        },
+        {
+          "label": "WALK-AWAY",
+          "description": "Prohibited assignment terms",
+          "status": "not_reached"
+        }
+      ],
+      "category_treatments": [],
+      "unresolved_facts": [],
+      "start_index": null,
+      "end_index": null,
+      "escalate_to": null,
+      "fallback_text": null,
+      "source": "Phase1 Validation Playbook \u2014 Assignment (policy position #5)",
+      "controlling_provision": null,
+      "our_position": null,
+      "counterparty_position": null,
+      "reconciliation": null,
+      "interaction_facts": {}
+    },
+    "governing_law": {
+      "rule_id": "POLICY_GOVERNING_LAW",
+      "clause_type": "governing_law",
+      "state": "NEGOTIATE",
+      "contract_language": "within a reasonable time.\n\n5. Governing Law. This Agreement is governed by the laws of the State of Delaware.",
+      "extracted_summary": "Jurisdiction: Delaware; Dispute resolution: not_stated",
+      "policy_limit_summary": "unspecified",
+      "required_action": "Negotiate \u2014 governing law jurisdiction (Delaware) is not on our preferred or acceptable list",
+      "explanation": "Contract language: \"within a reasonable time.\n\n5. Governing Law. This Agreement is governed by the laws of the State of Delaware.\". governing law jurisdiction (Delaware) is not on our preferred or acceptable list. Result: NEGOTIATE.",
+      "negotiation_ladder": [
+        {
+          "label": "IDEAL",
+          "description": "Preferred jurisdiction(s): unspecified",
+          "status": "passed"
+        },
+        {
+          "label": "ACCEPTABLE",
+          "description": "Acceptable jurisdiction(s): unspecified",
+          "status": "passed"
+        },
+        {
+          "label": "FALLBACK",
+          "description": "Negotiate an acceptable jurisdiction",
+          "status": "current"
+        },
+        {
+          "label": "ESCALATE",
+          "description": "Beyond negotiable range \u2014 route to Legal Director",
+          "status": "not_reached"
+        },
+        {
+          "label": "WALK-AWAY",
+          "description": "Prohibited jurisdiction",
+          "status": "not_reached"
+        }
+      ],
+      "category_treatments": [],
+      "unresolved_facts": [],
+      "start_index": 837,
+      "end_index": 883,
+      "escalate_to": null,
+      "fallback_text": "Approved fallback text.",
+      "source": "Phase1 Validation Playbook \u2014 Governing Law (policy position #6)",
+      "controlling_provision": {
+        "label": "Governing Law",
+        "excerpt": "within a reasonable time.\n\n5. Governing Law. This Agreement is governed by the laws of the State of Delaware.",
+        "start_index": 837,
+        "end_index": 883
+      },
+      "our_position": null,
+      "counterparty_position": null,
+      "reconciliation": null,
+      "interaction_facts": {}
+    },
+    "data_security": {
+      "rule_id": "POLICY_DATA_SECURITY",
+      "clause_type": "data_security",
+      "state": "REQUIRES_REVIEW",
+      "contract_language": "Information using no less than a reasonable standard of care.\n\n4. Data Security. Should Vendor discover that someone gained unauthorized access to personal data, Vendor will let Customer know within a reasonable time.\n\n5. Governing Law. This Agreement is governed by the laws of the State of Delaware.",
+      "extracted_summary": "Could not be reliably established",
+      "policy_limit_summary": "N/A",
+      "required_action": "Manual review required \u2014 contextual discovery identified and verified data-security-relevant language in this contract, but deterministic extraction could not structure it into a specific requirement \u2014 this is not the same as confirming no data security provision exists",
+      "explanation": "Contract language: \"Information using no less than a reasonable standard of care.\n\n4. Data Security. Should Vendor discover that someone gained unauthorized access to personal data, Vendor will let Customer know within a reasonable time.\n\n5. Governing Law. This Agreement is governed by the laws of the State of Delaware.\". This data protection / security clause could not be evaluated deterministically \u2014 the following fact(s) required for a policy decision could not be reliably established: contextual discovery identified and verified data-security-relevant language in this contract, but deterministic extraction could not structure it into a specific requirement \u2014 this is not the same as confirming no data security provision exists. Result: REQUIRES_REVIEW.",
+      "negotiation_ladder": [
+        {
+          "label": "IDEAL",
+          "description": "Preferred data-protection terms met in full",
+          "status": "not_reached"
+        },
+        {
+          "label": "ACCEPTABLE",
+          "description": "Auto-accept within acceptable data-protection terms",
+          "status": "not_reached"
+        },
+        {
+          "label": "FALLBACK",
+          "description": "Negotiate data-protection terms within fallback range",
+          "status": "not_reached"
+        },
+        {
+          "label": "ESCALATE",
+          "description": "Beyond negotiable range \u2014 route to Legal Director",
+          "status": "not_reached"
+        },
+        {
+          "label": "WALK-AWAY",
+          "description": "Prohibited data-protection terms",
+          "status": "not_reached"
+        }
+      ],
+      "category_treatments": [],
+      "unresolved_facts": [
+        "contextual discovery identified and verified data-security-relevant language in this contract, but deterministic extraction could not structure it into a specific requirement \u2014 this is not the same as confirming no data security provision exists"
+      ],
+      "start_index": 648,
+      "end_index": 884,
+      "escalate_to": null,
+      "fallback_text": null,
+      "source": "Phase1 Validation Playbook \u2014 Data Protection & Security (policy position #7)",
+      "controlling_provision": {
+        "label": "Section 4 \u2014 Data Protection",
+        "excerpt": "Information using no less than a reasonable standard of care.\n\n4. Data Security. Should Vendor discover that someone gained unauthorized access to personal data, Vendor will let Customer know within a reasonable time.\n\n5. Governing Law. This Agreement is governed by the laws of the State of Delaware.",
+        "start_index": 648,
+        "end_index": 884
+      },
+      "our_position": null,
+      "counterparty_position": null,
+      "reconciliation": null,
+      "interaction_facts": {}
+    },
+    "ip_ownership": {
+      "rule_id": "POLICY_IP_OWNERSHIP",
+      "clause_type": "ip_ownership",
+      "state": "NOT_APPLICABLE",
+      "contract_language": "",
+      "extracted_summary": "No IP ownership / licensing clause found",
+      "policy_limit_summary": "N/A",
+      "required_action": "None \u2014 this contract does not address IP ownership or licensing",
+      "explanation": "No IP ownership or licensing clause was found in this contract, so the policy has nothing to evaluate against.",
+      "negotiation_ladder": [
+        {
+          "label": "IDEAL",
+          "description": "Preferred IP ownership/license terms met in full",
+          "status": "not_reached"
+        },
+        {
+          "label": "ACCEPTABLE",
+          "description": "Auto-accept within acceptable IP terms",
+          "status": "not_reached"
+        },
+        {
+          "label": "FALLBACK",
+          "description": "Negotiate IP terms within fallback range",
+          "status": "not_reached"
+        },
+        {
+          "label": "ESCALATE",
+          "description": "Beyond negotiable range \u2014 route to Legal Director",
+          "status": "not_reached"
+        },
+        {
+          "label": "WALK-AWAY",
+          "description": "Prohibited IP ownership/license terms",
+          "status": "not_reached"
+        }
+      ],
+      "category_treatments": [],
+      "unresolved_facts": [],
+      "start_index": null,
+      "end_index": null,
+      "escalate_to": null,
+      "fallback_text": null,
+      "source": "Phase1 Validation Playbook \u2014 IP Ownership & Licensing (policy position #8)",
+      "controlling_provision": null,
+      "our_position": null,
+      "counterparty_position": null,
+      "reconciliation": null,
+      "interaction_facts": {}
+    },
+    "insurance": {
+      "rule_id": "POLICY_INSURANCE",
+      "clause_type": "insurance",
+      "state": "NOT_APPLICABLE",
+      "contract_language": "",
+      "extracted_summary": "No insurance clause found",
+      "policy_limit_summary": "N/A",
+      "required_action": "None \u2014 this contract does not address insurance",
+      "explanation": "No insurance clause was found in this contract, so the policy has nothing to evaluate against.",
+      "negotiation_ladder": [
+        {
+          "label": "IDEAL",
+          "description": "Preferred insurance terms met in full",
+          "status": "not_reached"
+        },
+        {
+          "label": "ACCEPTABLE",
+          "description": "Auto-accept within acceptable insurance terms",
+          "status": "not_reached"
+        },
+        {
+          "label": "FALLBACK",
+          "description": "Negotiate insurance terms within fallback range",
+          "status": "not_reached"
+        },
+        {
+          "label": "ESCALATE",
+          "description": "Beyond negotiable range \u2014 route to Legal Director",
+          "status": "not_reached"
+        },
+        {
+          "label": "WALK-AWAY",
+          "description": "Prohibited insurance terms",
+          "status": "not_reached"
+        }
+      ],
+      "category_treatments": [],
+      "unresolved_facts": [],
+      "start_index": null,
+      "end_index": null,
+      "escalate_to": null,
+      "fallback_text": null,
+      "source": "Phase1 Validation Playbook \u2014 Insurance (policy position #9)",
+      "controlling_provision": null,
+      "our_position": null,
+      "counterparty_position": null,
+      "reconciliation": null,
+      "interaction_facts": {}
+    },
+    "payment_terms": {
+      "rule_id": "POLICY_PAYMENT_TERMS",
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "contract_language": "MASTER SERVICES AGREEMENT\n\n1. Limitation of Liability. In no event shall either party's aggregate liability under this Agreement exceed three (3) times the total fees paid in the twelve (12) months preceding the claim, except that this cap shall not apply to claims arising from either party's gross negligence or willful misconduct.\n\n2. Indemnification. Vendor shall indemnify, defend, and hold harmless Customer from and against any third-party claims arising from Vendor's breach of this Agreement.\n\n3. Confidential Information. Each party shall protect the other's Confidential Information using no less than a reasonable standard",
+      "extracted_summary": "Payment terms clause found; limited structured detail extractable",
+      "policy_limit_summary": "See configured policy",
+      "required_action": "None \u2014 payment terms meet policy",
+      "explanation": "Contract language: \"MASTER SERVICES AGREEMENT\n\n1. Limitation of Liability. In no event shall either party's aggregate liability under this Agreement exceed three (3) times the total fees paid in the twelve (12) months preceding the claim, except that this cap shall not apply to claims arising from either party's gross negligence or willful misconduct.\n\n2. Indemnification. Vendor shall indemnify, defend, and hold harmless Customer from and against any third-party claims arising from Vendor's breach of this Agreement.\n\n3. Confidential Information. Each party shall protect the other's Confidential Information using no less than a reasonable standard\". No policy gaps found. Result: ACCEPT.",
+      "negotiation_ladder": [
+        {
+          "label": "IDEAL",
+          "description": "Preferred payment terms met in full",
+          "status": "current"
+        },
+        {
+          "label": "ACCEPTABLE",
+          "description": "Auto-accept within acceptable payment terms",
+          "status": "not_reached"
+        },
+        {
+          "label": "FALLBACK",
+          "description": "Negotiate payment terms within fallback range",
+          "status": "not_reached"
+        },
+        {
+          "label": "ESCALATE",
+          "description": "Beyond negotiable range \u2014 route to Legal Director",
+          "status": "not_reached"
+        },
+        {
+          "label": "WALK-AWAY",
+          "description": "Prohibited payment terms",
+          "status": "not_reached"
+        }
+      ],
+      "category_treatments": [
+        {
+          "category": "payor",
+          "treatment": "not_addressed",
+          "cap_summary": null,
+          "raw_excerpt": "",
+          "established": false
+        },
+        {
+          "category": "net_days",
+          "treatment": "not_addressed",
+          "cap_summary": null,
+          "raw_excerpt": "",
+          "established": false
+        }
+      ],
+      "unresolved_facts": [],
+      "start_index": 0,
+      "end_index": 574,
+      "escalate_to": null,
+      "fallback_text": null,
+      "source": "Phase1 Validation Playbook \u2014 Payment Terms (policy position #10)",
+      "controlling_provision": {
+        "label": "Section 3 \u2014 Payment Terms",
+        "excerpt": "MASTER SERVICES AGREEMENT\n\n1. Limitation of Liability. In no event shall either party's aggregate liability under this Agreement exceed three (3) times the total fees paid in the twelve (12) months preceding the claim, except that this cap shall not apply to claims arising from either party's gross negligence or willful misconduct.\n\n2. Indemnification. Vendor shall indemnify, defend, and hold harmless Customer from and against any third-party claims arising from Vendor's breach of this Agreement.\n\n3. Confidential Information. Each party shall protect the other's Confidential Information using no less than a reasonable standard",
+        "start_index": 0,
+        "end_index": 574
+      },
+      "our_position": null,
+      "counterparty_position": null,
+      "reconciliation": null,
+      "interaction_facts": {
+        "disputed_amounts_withholdable": null,
+        "service_credit_present": null
+      }
+    },
+    "warranties": {
+      "rule_id": "POLICY_WARRANTIES",
+      "clause_type": "warranties",
+      "state": "NOT_APPLICABLE",
+      "contract_language": "",
+      "extracted_summary": "No warranties clause found",
+      "policy_limit_summary": "N/A",
+      "required_action": "None \u2014 this contract does not address warranties",
+      "explanation": "No warranties clause was found in this contract, so the policy has nothing to evaluate against.",
+      "negotiation_ladder": [
+        {
+          "label": "IDEAL",
+          "description": "Required warranty categories established with adequate duration and no unfavorable disclaimer/remedy limits",
+          "status": "not_reached"
+        },
+        {
+          "label": "ACCEPTABLE",
+          "description": "Auto-accept within acceptable warranty terms",
+          "status": "not_reached"
+        },
+        {
+          "label": "FALLBACK",
+          "description": "Negotiate warranty terms within fallback range",
+          "status": "not_reached"
+        },
+        {
+          "label": "ESCALATE",
+          "description": "Beyond negotiable range \u2014 route to Legal Director",
+          "status": "not_reached"
+        },
+        {
+          "label": "WALK-AWAY",
+          "description": "Prohibited warranty terms",
+          "status": "not_reached"
+        }
+      ],
+      "category_treatments": [],
+      "unresolved_facts": [],
+      "start_index": null,
+      "end_index": null,
+      "escalate_to": null,
+      "fallback_text": null,
+      "source": "Phase1 Validation Playbook \u2014 Warranties (policy position #11)",
+      "controlling_provision": null,
+      "our_position": null,
+      "counterparty_position": null,
+      "reconciliation": null,
+      "interaction_facts": {}
+    },
+    "sla": {
+      "rule_id": "POLICY_SLA",
+      "clause_type": "sla",
+      "state": "NOT_APPLICABLE",
+      "contract_language": "",
+      "extracted_summary": "No SLA/service-level clause found",
+      "policy_limit_summary": "N/A",
+      "required_action": "None \u2014 this contract does not address service levels",
+      "explanation": "No SLA/service-level clause was found in this contract, so the policy has nothing to evaluate against.",
+      "negotiation_ladder": [
+        {
+          "label": "IDEAL",
+          "description": "Required availability, severity targets, and service credits all established at or better than policy",
+          "status": "not_reached"
+        },
+        {
+          "label": "ACCEPTABLE",
+          "description": "Auto-accept within acceptable SLA terms",
+          "status": "not_reached"
+        },
+        {
+          "label": "FALLBACK",
+          "description": "Negotiate SLA terms within fallback range",
+          "status": "not_reached"
+        },
+        {
+          "label": "ESCALATE",
+          "description": "Beyond negotiable range \u2014 route to Legal Director",
+          "status": "not_reached"
+        },
+        {
+          "label": "WALK-AWAY",
+          "description": "Prohibited SLA terms",
+          "status": "not_reached"
+        }
+      ],
+      "category_treatments": [],
+      "unresolved_facts": [],
+      "start_index": null,
+      "end_index": null,
+      "escalate_to": null,
+      "fallback_text": null,
+      "source": "Phase1 Validation Playbook \u2014 SLA / Service Levels (policy position #12)",
+      "controlling_provision": null,
+      "our_position": null,
+      "counterparty_position": null,
+      "reconciliation": null,
+      "interaction_facts": {
+        "service_credit_present": null
+      }
+    }
+  },
+  "interaction_decisions": {
+    "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY": {
+      "interaction_id": "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY",
+      "label": "IP infringement: uncapped liability with indemnity exposure",
+      "kind": "CONFLICT",
+      "state": "INSUFFICIENT_FACTS",
+      "participating_clause_types": [
+        "limitation_of_liability",
+        "indemnification"
+      ],
+      "participating_provisions": {
+        "limitation_of_liability": {
+          "label": "Section 1 \u2014 Limitation of Liability",
+          "excerpt": "three (3) times the total fees",
+          "start_index": 136,
+          "end_index": 166
+        },
+        "indemnification": {
+          "label": "Section 2 \u2014 Vendor indemnifies Customer",
+          "excerpt": "gross negligence or willful misconduct.\n\n2. Indemnification. Vendor shall indemnify, defend, and hold harmless Customer from and against any third-party claims arising from Vendor's",
+          "start_index": 355,
+          "end_index": 413
+        }
+      },
+      "participating_decision_snapshot": {
+        "limitation_of_liability": {
+          "state": "ESCALATE",
+          "decision_hash": "144a42a895f0396ee73fb59696f0edf193b7f7cb5585e58c032ca86c6b3067ce"
+        },
+        "indemnification": {
+          "state": "REQUIRES_REVIEW",
+          "decision_hash": "4e67c876b18248cc8d69535aaa551ac93b4dab945b27dbc1133a20af6e29e931"
+        }
+      },
+      "explanation": "This interaction could not be evaluated because the following participating clause type(s) have no established decision to reason over this review: indemnification.",
+      "required_action": "None \u2014 insufficient facts to evaluate this interaction",
+      "escalate_to": null,
+      "matched_facts": {},
+      "missing_clause_types": [
+        "indemnification"
+      ],
+      "version": "v1",
+      "stale": false,
+      "stale_reason": null
+    },
+    "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH": {
+      "interaction_id": "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH",
+      "label": "Shared risk category: uncapped liability with indemnity exposure",
+      "kind": "CONFLICT",
+      "state": "INSUFFICIENT_FACTS",
+      "participating_clause_types": [
+        "limitation_of_liability",
+        "indemnification"
+      ],
+      "participating_provisions": {
+        "limitation_of_liability": {
+          "label": "Section 1 \u2014 Limitation of Liability",
+          "excerpt": "three (3) times the total fees",
+          "start_index": 136,
+          "end_index": 166
+        },
+        "indemnification": {
+          "label": "Section 2 \u2014 Vendor indemnifies Customer",
+          "excerpt": "gross negligence or willful misconduct.\n\n2. Indemnification. Vendor shall indemnify, defend, and hold harmless Customer from and against any third-party claims arising from Vendor's",
+          "start_index": 355,
+          "end_index": 413
+        }
+      },
+      "participating_decision_snapshot": {
+        "limitation_of_liability": {
+          "state": "ESCALATE",
+          "decision_hash": "144a42a895f0396ee73fb59696f0edf193b7f7cb5585e58c032ca86c6b3067ce"
+        },
+        "indemnification": {
+          "state": "REQUIRES_REVIEW",
+          "decision_hash": "4e67c876b18248cc8d69535aaa551ac93b4dab945b27dbc1133a20af6e29e931"
+        }
+      },
+      "explanation": "This interaction could not be evaluated because the following participating clause type(s) have no established decision to reason over this review: indemnification.",
+      "required_action": "None \u2014 insufficient facts to evaluate this interaction",
+      "escalate_to": null,
+      "matched_facts": {},
+      "missing_clause_types": [
+        "indemnification"
+      ],
+      "version": "v1",
+      "stale": false,
+      "stale_reason": null
+    },
+    "IX_INDEMNITY_WITHIN_GENERAL_CAP": {
+      "interaction_id": "IX_INDEMNITY_WITHIN_GENERAL_CAP",
+      "label": "Indemnification exposure rides inside the general liability cap",
+      "kind": "DEPENDENCY",
+      "state": "INSUFFICIENT_FACTS",
+      "participating_clause_types": [
+        "limitation_of_liability",
+        "indemnification"
+      ],
+      "participating_provisions": {
+        "limitation_of_liability": {
+          "label": "Section 1 \u2014 Limitation of Liability",
+          "excerpt": "three (3) times the total fees",
+          "start_index": 136,
+          "end_index": 166
+        },
+        "indemnification": {
+          "label": "Section 2 \u2014 Vendor indemnifies Customer",
+          "excerpt": "gross negligence or willful misconduct.\n\n2. Indemnification. Vendor shall indemnify, defend, and hold harmless Customer from and against any third-party claims arising from Vendor's",
+          "start_index": 355,
+          "end_index": 413
+        }
+      },
+      "participating_decision_snapshot": {
+        "limitation_of_liability": {
+          "state": "ESCALATE",
+          "decision_hash": "144a42a895f0396ee73fb59696f0edf193b7f7cb5585e58c032ca86c6b3067ce"
+        },
+        "indemnification": {
+          "state": "REQUIRES_REVIEW",
+          "decision_hash": "4e67c876b18248cc8d69535aaa551ac93b4dab945b27dbc1133a20af6e29e931"
+        }
+      },
+      "explanation": "This interaction could not be evaluated because the following participating clause type(s) have no established decision to reason over this review: indemnification.",
+      "required_action": "None \u2014 insufficient facts to evaluate this interaction",
+      "escalate_to": null,
+      "matched_facts": {},
+      "missing_clause_types": [
+        "indemnification"
+      ],
+      "version": "v1",
+      "stale": false,
+      "stale_reason": null
+    },
+    "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY": {
+      "interaction_id": "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY",
+      "label": "Liability/Indemnification: ambiguous shared-category treatment",
+      "kind": "DEPENDENCY",
+      "state": "INSUFFICIENT_FACTS",
+      "participating_clause_types": [
+        "limitation_of_liability",
+        "indemnification"
+      ],
+      "participating_provisions": {
+        "limitation_of_liability": {
+          "label": "Section 1 \u2014 Limitation of Liability",
+          "excerpt": "three (3) times the total fees",
+          "start_index": 136,
+          "end_index": 166
+        },
+        "indemnification": {
+          "label": "Section 2 \u2014 Vendor indemnifies Customer",
+          "excerpt": "gross negligence or willful misconduct.\n\n2. Indemnification. Vendor shall indemnify, defend, and hold harmless Customer from and against any third-party claims arising from Vendor's",
+          "start_index": 355,
+          "end_index": 413
+        }
+      },
+      "participating_decision_snapshot": {
+        "limitation_of_liability": {
+          "state": "ESCALATE",
+          "decision_hash": "144a42a895f0396ee73fb59696f0edf193b7f7cb5585e58c032ca86c6b3067ce"
+        },
+        "indemnification": {
+          "state": "REQUIRES_REVIEW",
+          "decision_hash": "4e67c876b18248cc8d69535aaa551ac93b4dab945b27dbc1133a20af6e29e931"
+        }
+      },
+      "explanation": "This interaction could not be evaluated because the following participating clause type(s) have no established decision to reason over this review: indemnification.",
+      "required_action": "None \u2014 insufficient facts to evaluate this interaction",
+      "escalate_to": null,
+      "matched_facts": {},
+      "missing_clause_types": [
+        "indemnification"
+      ],
+      "version": "v1",
+      "stale": false,
+      "stale_reason": null
+    },
+    "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE": {
+      "interaction_id": "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE",
+      "label": "Uncapped data-breach liability with no cyber insurance",
+      "kind": "CONFLICT",
+      "state": "INSUFFICIENT_FACTS",
+      "participating_clause_types": [
+        "limitation_of_liability",
+        "insurance"
+      ],
+      "participating_provisions": {
+        "limitation_of_liability": {
+          "label": "Section 1 \u2014 Limitation of Liability",
+          "excerpt": "three (3) times the total fees",
+          "start_index": 136,
+          "end_index": 166
+        },
+        "insurance": null
+      },
+      "participating_decision_snapshot": {
+        "limitation_of_liability": {
+          "state": "ESCALATE",
+          "decision_hash": "144a42a895f0396ee73fb59696f0edf193b7f7cb5585e58c032ca86c6b3067ce"
+        },
+        "insurance": {
+          "state": "NOT_APPLICABLE",
+          "decision_hash": "4c3438140f78f3eb24d3779d4b042e624ac5b55874bfd22e27356acac1a0f5bb"
+        }
+      },
+      "explanation": "This interaction could not be evaluated because the following participating clause type(s) have no established decision to reason over this review: insurance.",
+      "required_action": "None \u2014 insufficient facts to evaluate this interaction",
+      "escalate_to": null,
+      "matched_facts": {},
+      "missing_clause_types": [
+        "insurance"
+      ],
+      "version": "v1",
+      "stale": false,
+      "stale_reason": null
+    },
+    "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING": {
+      "interaction_id": "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+      "label": "Non-payment termination right vs. dispute withholding",
+      "kind": "CONFLICT",
+      "state": "INSUFFICIENT_FACTS",
+      "participating_clause_types": [
+        "termination",
+        "payment_terms"
+      ],
+      "participating_provisions": {
+        "termination": null,
+        "payment_terms": {
+          "label": "Section 3 \u2014 Payment Terms",
+          "excerpt": "MASTER SERVICES AGREEMENT\n\n1. Limitation of Liability. In no event shall either party's aggregate liability under this Agreement exceed three (3) times the total fees paid in the twelve (12) months preceding the claim, except that this cap shall not apply to claims arising from either party's gross negligence or willful misconduct.\n\n2. Indemnification. Vendor shall indemnify, defend, and hold harmless Customer from and against any third-party claims arising from Vendor's breach of this Agreement.\n\n3. Confidential Information. Each party shall protect the other's Confidential Information using no less than a reasonable standard",
+          "start_index": 0,
+          "end_index": 574
+        }
+      },
+      "participating_decision_snapshot": {
+        "termination": {
+          "state": "NOT_APPLICABLE",
+          "decision_hash": "a8ad8729664556c8c734e70504e6d4eef08be8a445934ffa1daef8f8d1aa565a"
+        },
+        "payment_terms": {
+          "state": "ACCEPT",
+          "decision_hash": "93d1d760e591de4727ed5ffb85fec40aec76e8e5d7501b31dd8590a924278df6"
+        }
+      },
+      "explanation": "This interaction could not be evaluated because the following participating clause type(s) have no established decision to reason over this review: termination.",
+      "required_action": "None \u2014 insufficient facts to evaluate this interaction",
+      "escalate_to": null,
+      "matched_facts": {},
+      "missing_clause_types": [
+        "termination"
+      ],
+      "version": "v1",
+      "stale": false,
+      "stale_reason": null
+    },
+    "IX_SLA_PAYMENT_CREDIT_DEPENDENCY": {
+      "interaction_id": "IX_SLA_PAYMENT_CREDIT_DEPENDENCY",
+      "label": "SLA and Payment Terms both reference service credits",
+      "kind": "DEPENDENCY",
+      "state": "INSUFFICIENT_FACTS",
+      "participating_clause_types": [
+        "sla",
+        "payment_terms"
+      ],
+      "participating_provisions": {
+        "sla": null,
+        "payment_terms": {
+          "label": "Section 3 \u2014 Payment Terms",
+          "excerpt": "MASTER SERVICES AGREEMENT\n\n1. Limitation of Liability. In no event shall either party's aggregate liability under this Agreement exceed three (3) times the total fees paid in the twelve (12) months preceding the claim, except that this cap shall not apply to claims arising from either party's gross negligence or willful misconduct.\n\n2. Indemnification. Vendor shall indemnify, defend, and hold harmless Customer from and against any third-party claims arising from Vendor's breach of this Agreement.\n\n3. Confidential Information. Each party shall protect the other's Confidential Information using no less than a reasonable standard",
+          "start_index": 0,
+          "end_index": 574
+        }
+      },
+      "participating_decision_snapshot": {
+        "sla": {
+          "state": "NOT_APPLICABLE",
+          "decision_hash": "9fcd319e71457ba94d681e214a10b3781a5c63fb059786785e15b322e0d53cea"
+        },
+        "payment_terms": {
+          "state": "ACCEPT",
+          "decision_hash": "93d1d760e591de4727ed5ffb85fec40aec76e8e5d7501b31dd8590a924278df6"
+        }
+      },
+      "explanation": "This interaction could not be evaluated because the following participating clause type(s) have no established decision to reason over this review: sla.",
+      "required_action": "None \u2014 insufficient facts to evaluate this interaction",
+      "escalate_to": null,
+      "matched_facts": {},
+      "missing_clause_types": [
+        "sla"
+      ],
+      "version": "v1",
+      "stale": false,
+      "stale_reason": null
+    }
+  },
+  "aggregated_document_state": "HAS_POLICY_VIOLATION"
+}

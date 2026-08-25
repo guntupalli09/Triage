@@ -1,0 +1,80 @@
+[
+  {
+    "family": "interaction_uncapped_indemnity",
+    "policy_decisions": {
+      "limitation_of_liability": "MUST_REDLINE",
+      "indemnification": "REQUIRES_REVIEW",
+      "termination": "NOT_APPLICABLE",
+      "confidentiality": "NOT_APPLICABLE",
+      "assignment": "NOT_APPLICABLE",
+      "governing_law": "NOT_APPLICABLE",
+      "data_security": "NOT_APPLICABLE",
+      "ip_ownership": "NOT_APPLICABLE",
+      "insurance": "NOT_APPLICABLE",
+      "payment_terms": "NOT_APPLICABLE",
+      "warranties": "NOT_APPLICABLE",
+      "sla": "NOT_APPLICABLE"
+    },
+    "interaction_decisions": {
+      "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY": "INSUFFICIENT_FACTS",
+      "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH": "INSUFFICIENT_FACTS",
+      "IX_INDEMNITY_WITHIN_GENERAL_CAP": "INSUFFICIENT_FACTS",
+      "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY": "INSUFFICIENT_FACTS",
+      "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE": "INSUFFICIENT_FACTS",
+      "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING": "INSUFFICIENT_FACTS",
+      "IX_SLA_PAYMENT_CREDIT_DEPENDENCY": "INSUFFICIENT_FACTS"
+    }
+  },
+  {
+    "family": "interaction_nonpayment_vs_dispute",
+    "policy_decisions": {
+      "limitation_of_liability": "NOT_APPLICABLE",
+      "indemnification": "NOT_APPLICABLE",
+      "termination": "REQUIRES_REVIEW",
+      "confidentiality": "NOT_APPLICABLE",
+      "assignment": "NOT_APPLICABLE",
+      "governing_law": "NOT_APPLICABLE",
+      "data_security": "NOT_APPLICABLE",
+      "ip_ownership": "NOT_APPLICABLE",
+      "insurance": "NOT_APPLICABLE",
+      "payment_terms": "REQUIRES_REVIEW",
+      "warranties": "NOT_APPLICABLE",
+      "sla": "NOT_APPLICABLE"
+    },
+    "interaction_decisions": {
+      "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY": "INSUFFICIENT_FACTS",
+      "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH": "INSUFFICIENT_FACTS",
+      "IX_INDEMNITY_WITHIN_GENERAL_CAP": "INSUFFICIENT_FACTS",
+      "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY": "INSUFFICIENT_FACTS",
+      "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE": "INSUFFICIENT_FACTS",
+      "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING": "INSUFFICIENT_FACTS",
+      "IX_SLA_PAYMENT_CREDIT_DEPENDENCY": "INSUFFICIENT_FACTS"
+    }
+  },
+  {
+    "family": "interaction_sla_payment_credit",
+    "policy_decisions": {
+      "limitation_of_liability": "NOT_APPLICABLE",
+      "indemnification": "NOT_APPLICABLE",
+      "termination": "NOT_APPLICABLE",
+      "confidentiality": "NOT_APPLICABLE",
+      "assignment": "NOT_APPLICABLE",
+      "governing_law": "NOT_APPLICABLE",
+      "data_security": "NOT_APPLICABLE",
+      "ip_ownership": "NOT_APPLICABLE",
+      "insurance": "NOT_APPLICABLE",
+      "payment_terms": "ACCEPT",
+      "warranties": "REQUIRES_REVIEW",
+      "sla": "ACCEPT"
+    },
+    "interaction_decisions": {
+      "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY": "INSUFFICIENT_FACTS",
+      "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH": "INSUFFICIENT_FACTS",
+      "IX_INDEMNITY_WITHIN_GENERAL_CAP": "INSUFFICIENT_FACTS",
+      "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY": "INSUFFICIENT_FACTS",
+      "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE": "INSUFFICIENT_FACTS",
+      "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING": "INSUFFICIENT_FACTS",
+      "IX_SLA_PAYMENT_CREDIT_DEPENDENCY": "REQUIRES_REVIEW"
+    }
+  }
+]

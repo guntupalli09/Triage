@@ -207,3 +207,39 @@ def test_clamd_backend_falls_back_to_noop_when_clamd_unreachable(monkeypatch):
     assert isinstance(scanner, us.NoopMalwareScanner)
     monkeypatch.delenv("MALWARE_SCANNER", raising=False)
     us.reset_malware_scanner_cache()
+
+
+# --- Extraction-quality gate (fact-admission architecture, Step 12) -------
+
+def test_pdf_text_density_rejects_near_empty_extraction():
+    """A 10-page scanned PDF where only a stray watermark/page-number
+    survives extraction (a handful of characters per page) must be
+    rejected as insufficient, not silently treated as a normal document."""
+    sparse_text = "\n".join(f"Page {i}" for i in range(1, 11))  # ~7 chars/page
+    with pytest.raises(us.UploadRejected):
+        us.assess_pdf_text_density(sparse_text, page_count=10)
+
+
+def test_pdf_text_density_accepts_normal_document():
+    normal_text = "This Agreement is entered into by and between the parties. " * 50
+    us.assess_pdf_text_density(normal_text, page_count=1)  # must not raise
+
+
+def test_pdf_text_density_accepts_short_but_real_single_page_document():
+    """A genuinely short one-page order form should not be penalized —
+    the floor is a per-page average, not an absolute document minimum."""
+    short_real_text = "Order Form. Customer: Acme Corp. Total: $1,200. Net 30 payment terms apply."
+    us.assess_pdf_text_density(short_real_text, page_count=1)  # must not raise
+
+
+def test_pdf_text_density_rejects_fully_empty_extraction():
+    with pytest.raises(us.UploadRejected):
+        us.assess_pdf_text_density("", page_count=5)
+
+
+def test_pdf_text_density_handles_zero_page_count_defensively():
+    """page_count=0 (a malformed/edge-case reader result) must not raise a
+    ZeroDivisionError — it degrades to treating it as one page, still
+    correctly rejecting empty text."""
+    with pytest.raises(us.UploadRejected):
+        us.assess_pdf_text_density("", page_count=0)

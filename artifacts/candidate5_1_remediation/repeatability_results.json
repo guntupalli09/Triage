@@ -1,0 +1,920 @@
+{
+  "cases_tested": 48,
+  "executions_per_case": 5,
+  "total_executions": 240,
+  "unsafe_clean_state_variance": 0,
+  "results": [
+    {
+      "id": "iv-limitation_of_liability-0001",
+      "adapter": "limitation_of_liability",
+      "states": [
+        "NEGOTIATE",
+        "NEGOTIATE",
+        "NEGOTIATE",
+        "NEGOTIATE",
+        "NEGOTIATE"
+      ],
+      "buckets": [
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN"
+      ],
+      "unsafe_variance": false
+    },
+    {
+      "id": "iv-limitation_of_liability-0002",
+      "adapter": "limitation_of_liability",
+      "states": [
+        "MUST_REDLINE",
+        "MUST_REDLINE",
+        "MUST_REDLINE",
+        "MUST_REDLINE",
+        "MUST_REDLINE"
+      ],
+      "buckets": [
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN"
+      ],
+      "unsafe_variance": false
+    },
+    {
+      "id": "iv-limitation_of_liability-0003",
+      "adapter": "limitation_of_liability",
+      "states": [
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW"
+      ],
+      "buckets": [
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN"
+      ],
+      "unsafe_variance": false
+    },
+    {
+      "id": "iv-limitation_of_liability-0004",
+      "adapter": "limitation_of_liability",
+      "states": [
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW"
+      ],
+      "buckets": [
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN"
+      ],
+      "unsafe_variance": false
+    },
+    {
+      "id": "iv-indemnification-0055",
+      "adapter": "indemnification",
+      "states": [
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW"
+      ],
+      "buckets": [
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN"
+      ],
+      "unsafe_variance": false
+    },
+    {
+      "id": "iv-indemnification-0056",
+      "adapter": "indemnification",
+      "states": [
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW"
+      ],
+      "buckets": [
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN"
+      ],
+      "unsafe_variance": false
+    },
+    {
+      "id": "iv-indemnification-0057",
+      "adapter": "indemnification",
+      "states": [
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW"
+      ],
+      "buckets": [
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN"
+      ],
+      "unsafe_variance": false
+    },
+    {
+      "id": "iv-indemnification-0058",
+      "adapter": "indemnification",
+      "states": [
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW"
+      ],
+      "buckets": [
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN"
+      ],
+      "unsafe_variance": false
+    },
+    {
+      "id": "iv-confidentiality-0109",
+      "adapter": "confidentiality",
+      "states": [
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW"
+      ],
+      "buckets": [
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN"
+      ],
+      "unsafe_variance": false
+    },
+    {
+      "id": "iv-confidentiality-0110",
+      "adapter": "confidentiality",
+      "states": [
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW"
+      ],
+      "buckets": [
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN"
+      ],
+      "unsafe_variance": false
+    },
+    {
+      "id": "iv-confidentiality-0111",
+      "adapter": "confidentiality",
+      "states": [
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW"
+      ],
+      "buckets": [
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN"
+      ],
+      "unsafe_variance": false
+    },
+    {
+      "id": "iv-confidentiality-0112",
+      "adapter": "confidentiality",
+      "states": [
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW"
+      ],
+      "buckets": [
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN"
+      ],
+      "unsafe_variance": false
+    },
+    {
+      "id": "iv-payment_terms-0163",
+      "adapter": "payment_terms",
+      "states": [
+        "ACCEPT",
+        "ACCEPT",
+        "ACCEPT",
+        "ACCEPT",
+        "ACCEPT"
+      ],
+      "buckets": [
+        "CLEAN",
+        "CLEAN",
+        "CLEAN",
+        "CLEAN",
+        "CLEAN"
+      ],
+      "unsafe_variance": false
+    },
+    {
+      "id": "iv-payment_terms-0164",
+      "adapter": "payment_terms",
+      "states": [
+        "NEGOTIATE",
+        "NEGOTIATE",
+        "NEGOTIATE",
+        "NEGOTIATE",
+        "NEGOTIATE"
+      ],
+      "buckets": [
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN"
+      ],
+      "unsafe_variance": false
+    },
+    {
+      "id": "iv-payment_terms-0165",
+      "adapter": "payment_terms",
+      "states": [
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW"
+      ],
+      "buckets": [
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN"
+      ],
+      "unsafe_variance": false
+    },
+    {
+      "id": "iv-payment_terms-0166",
+      "adapter": "payment_terms",
+      "states": [
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW"
+      ],
+      "buckets": [
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN"
+      ],
+      "unsafe_variance": false
+    },
+    {
+      "id": "iv-ip_ownership-0217",
+      "adapter": "ip_ownership",
+      "states": [
+        "ACCEPT",
+        "ACCEPT",
+        "ACCEPT",
+        "ACCEPT",
+        "ACCEPT"
+      ],
+      "buckets": [
+        "CLEAN",
+        "CLEAN",
+        "CLEAN",
+        "CLEAN",
+        "CLEAN"
+      ],
+      "unsafe_variance": false
+    },
+    {
+      "id": "iv-ip_ownership-0218",
+      "adapter": "ip_ownership",
+      "states": [
+        "NOT_APPLICABLE",
+        "NOT_APPLICABLE",
+        "NOT_APPLICABLE",
+        "NOT_APPLICABLE",
+        "NOT_APPLICABLE"
+      ],
+      "buckets": [
+        "CLEAN",
+        "CLEAN",
+        "CLEAN",
+        "CLEAN",
+        "CLEAN"
+      ],
+      "unsafe_variance": false
+    },
+    {
+      "id": "iv-ip_ownership-0219",
+      "adapter": "ip_ownership",
+      "states": [
+        "NOT_APPLICABLE",
+        "NOT_APPLICABLE",
+        "NOT_APPLICABLE",
+        "NOT_APPLICABLE",
+        "NOT_APPLICABLE"
+      ],
+      "buckets": [
+        "CLEAN",
+        "CLEAN",
+        "CLEAN",
+        "CLEAN",
+        "CLEAN"
+      ],
+      "unsafe_variance": false
+    },
+    {
+      "id": "iv-ip_ownership-0220",
+      "adapter": "ip_ownership",
+      "states": [
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW"
+      ],
+      "buckets": [
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN"
+      ],
+      "unsafe_variance": false
+    },
+    {
+      "id": "iv-insurance-0271",
+      "adapter": "insurance",
+      "states": [
+        "ACCEPT",
+        "ACCEPT",
+        "ACCEPT",
+        "ACCEPT",
+        "ACCEPT"
+      ],
+      "buckets": [
+        "CLEAN",
+        "CLEAN",
+        "CLEAN",
+        "CLEAN",
+        "CLEAN"
+      ],
+      "unsafe_variance": false
+    },
+    {
+      "id": "iv-insurance-0272",
+      "adapter": "insurance",
+      "states": [
+        "NOT_APPLICABLE",
+        "NOT_APPLICABLE",
+        "NOT_APPLICABLE",
+        "NOT_APPLICABLE",
+        "NOT_APPLICABLE"
+      ],
+      "buckets": [
+        "CLEAN",
+        "CLEAN",
+        "CLEAN",
+        "CLEAN",
+        "CLEAN"
+      ],
+      "unsafe_variance": false
+    },
+    {
+      "id": "iv-insurance-0273",
+      "adapter": "insurance",
+      "states": [
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW"
+      ],
+      "buckets": [
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN"
+      ],
+      "unsafe_variance": false
+    },
+    {
+      "id": "iv-insurance-0274",
+      "adapter": "insurance",
+      "states": [
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW"
+      ],
+      "buckets": [
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN"
+      ],
+      "unsafe_variance": false
+    },
+    {
+      "id": "iv-data_security-0325",
+      "adapter": "data_security",
+      "states": [
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW"
+      ],
+      "buckets": [
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN"
+      ],
+      "unsafe_variance": false
+    },
+    {
+      "id": "iv-data_security-0326",
+      "adapter": "data_security",
+      "states": [
+        "NOT_APPLICABLE",
+        "NOT_APPLICABLE",
+        "NOT_APPLICABLE",
+        "NOT_APPLICABLE",
+        "NOT_APPLICABLE"
+      ],
+      "buckets": [
+        "CLEAN",
+        "CLEAN",
+        "CLEAN",
+        "CLEAN",
+        "CLEAN"
+      ],
+      "unsafe_variance": false
+    },
+    {
+      "id": "iv-data_security-0327",
+      "adapter": "data_security",
+      "states": [
+        "MUST_REDLINE",
+        "MUST_REDLINE",
+        "MUST_REDLINE",
+        "MUST_REDLINE",
+        "MUST_REDLINE"
+      ],
+      "buckets": [
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN"
+      ],
+      "unsafe_variance": false
+    },
+    {
+      "id": "iv-data_security-0328",
+      "adapter": "data_security",
+      "states": [
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW"
+      ],
+      "buckets": [
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN"
+      ],
+      "unsafe_variance": false
+    },
+    {
+      "id": "iv-governing_law-0379",
+      "adapter": "governing_law",
+      "states": [
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW"
+      ],
+      "buckets": [
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN"
+      ],
+      "unsafe_variance": false
+    },
+    {
+      "id": "iv-governing_law-0380",
+      "adapter": "governing_law",
+      "states": [
+        "NOT_APPLICABLE",
+        "NOT_APPLICABLE",
+        "NOT_APPLICABLE",
+        "NOT_APPLICABLE",
+        "NOT_APPLICABLE"
+      ],
+      "buckets": [
+        "CLEAN",
+        "CLEAN",
+        "CLEAN",
+        "CLEAN",
+        "CLEAN"
+      ],
+      "unsafe_variance": false
+    },
+    {
+      "id": "iv-governing_law-0381",
+      "adapter": "governing_law",
+      "states": [
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW"
+      ],
+      "buckets": [
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN"
+      ],
+      "unsafe_variance": false
+    },
+    {
+      "id": "iv-governing_law-0382",
+      "adapter": "governing_law",
+      "states": [
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "NEGOTIATE",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW"
+      ],
+      "buckets": [
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN"
+      ],
+      "unsafe_variance": false
+    },
+    {
+      "id": "iv-termination-0433",
+      "adapter": "termination",
+      "states": [
+        "ACCEPT",
+        "ACCEPT",
+        "ACCEPT",
+        "ACCEPT",
+        "ACCEPT"
+      ],
+      "buckets": [
+        "CLEAN",
+        "CLEAN",
+        "CLEAN",
+        "CLEAN",
+        "CLEAN"
+      ],
+      "unsafe_variance": false
+    },
+    {
+      "id": "iv-termination-0434",
+      "adapter": "termination",
+      "states": [
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW"
+      ],
+      "buckets": [
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN"
+      ],
+      "unsafe_variance": false
+    },
+    {
+      "id": "iv-termination-0435",
+      "adapter": "termination",
+      "states": [
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW"
+      ],
+      "buckets": [
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN"
+      ],
+      "unsafe_variance": false
+    },
+    {
+      "id": "iv-termination-0436",
+      "adapter": "termination",
+      "states": [
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW"
+      ],
+      "buckets": [
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN"
+      ],
+      "unsafe_variance": false
+    },
+    {
+      "id": "iv-warranties-0487",
+      "adapter": "warranties",
+      "states": [
+        "ACCEPT",
+        "ACCEPT",
+        "ACCEPT",
+        "ACCEPT",
+        "ACCEPT"
+      ],
+      "buckets": [
+        "CLEAN",
+        "CLEAN",
+        "CLEAN",
+        "CLEAN",
+        "CLEAN"
+      ],
+      "unsafe_variance": false
+    },
+    {
+      "id": "iv-warranties-0488",
+      "adapter": "warranties",
+      "states": [
+        "NOT_APPLICABLE",
+        "NOT_APPLICABLE",
+        "NOT_APPLICABLE",
+        "NOT_APPLICABLE",
+        "NOT_APPLICABLE"
+      ],
+      "buckets": [
+        "CLEAN",
+        "CLEAN",
+        "CLEAN",
+        "CLEAN",
+        "CLEAN"
+      ],
+      "unsafe_variance": false
+    },
+    {
+      "id": "iv-warranties-0489",
+      "adapter": "warranties",
+      "states": [
+        "NOT_APPLICABLE",
+        "NOT_APPLICABLE",
+        "NOT_APPLICABLE",
+        "NOT_APPLICABLE",
+        "NOT_APPLICABLE"
+      ],
+      "buckets": [
+        "CLEAN",
+        "CLEAN",
+        "CLEAN",
+        "CLEAN",
+        "CLEAN"
+      ],
+      "unsafe_variance": false
+    },
+    {
+      "id": "iv-warranties-0490",
+      "adapter": "warranties",
+      "states": [
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW"
+      ],
+      "buckets": [
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN"
+      ],
+      "unsafe_variance": false
+    },
+    {
+      "id": "iv-sla-0541",
+      "adapter": "sla",
+      "states": [
+        "ACCEPT",
+        "ACCEPT",
+        "ACCEPT",
+        "ACCEPT",
+        "ACCEPT"
+      ],
+      "buckets": [
+        "CLEAN",
+        "CLEAN",
+        "CLEAN",
+        "CLEAN",
+        "CLEAN"
+      ],
+      "unsafe_variance": false
+    },
+    {
+      "id": "iv-sla-0542",
+      "adapter": "sla",
+      "states": [
+        "NOT_APPLICABLE",
+        "NOT_APPLICABLE",
+        "NOT_APPLICABLE",
+        "NOT_APPLICABLE",
+        "NOT_APPLICABLE"
+      ],
+      "buckets": [
+        "CLEAN",
+        "CLEAN",
+        "CLEAN",
+        "CLEAN",
+        "CLEAN"
+      ],
+      "unsafe_variance": false
+    },
+    {
+      "id": "iv-sla-0543",
+      "adapter": "sla",
+      "states": [
+        "NOT_APPLICABLE",
+        "NOT_APPLICABLE",
+        "NOT_APPLICABLE",
+        "NOT_APPLICABLE",
+        "NOT_APPLICABLE"
+      ],
+      "buckets": [
+        "CLEAN",
+        "CLEAN",
+        "CLEAN",
+        "CLEAN",
+        "CLEAN"
+      ],
+      "unsafe_variance": false
+    },
+    {
+      "id": "iv-sla-0544",
+      "adapter": "sla",
+      "states": [
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW"
+      ],
+      "buckets": [
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN"
+      ],
+      "unsafe_variance": false
+    },
+    {
+      "id": "iv-assignment-0595",
+      "adapter": "assignment",
+      "states": [
+        "ACCEPT",
+        "ACCEPT",
+        "ACCEPT",
+        "ACCEPT",
+        "ACCEPT"
+      ],
+      "buckets": [
+        "CLEAN",
+        "CLEAN",
+        "CLEAN",
+        "CLEAN",
+        "CLEAN"
+      ],
+      "unsafe_variance": false
+    },
+    {
+      "id": "iv-assignment-0596",
+      "adapter": "assignment",
+      "states": [
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW"
+      ],
+      "buckets": [
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN"
+      ],
+      "unsafe_variance": false
+    },
+    {
+      "id": "iv-assignment-0597",
+      "adapter": "assignment",
+      "states": [
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW"
+      ],
+      "buckets": [
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN"
+      ],
+      "unsafe_variance": false
+    },
+    {
+      "id": "iv-assignment-0598",
+      "adapter": "assignment",
+      "states": [
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW",
+        "REQUIRES_REVIEW"
+      ],
+      "buckets": [
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN",
+        "NONCLEAN"
+      ],
+      "unsafe_variance": false
+    }
+  ]
+}

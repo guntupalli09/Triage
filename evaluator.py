@@ -25,6 +25,8 @@ from typing import Dict, List, Optional, Set
 
 from openai import OpenAI
 
+import openai_provider as _openai_provider
+
 import prompt_security
 
 logger = logging.getLogger(__name__)
@@ -53,11 +55,11 @@ def _normalize_title(title: str) -> str:
 
 class LLMEvaluator:
     def __init__(self, api_key: Optional[str] = None, model: Optional[str] = None):
-        self.api_key = api_key or os.getenv("OPENAI_API_KEY")
-        # Strip whitespace in case .env file has spaces
-        if self.api_key:
-            self.api_key = self.api_key.strip()
-        self.model = model or os.getenv("OPENAI_MODEL", "gpt-4o-mini")
+        # Provider config-consolidation: reads from openai_provider.py,
+        # the single shared config module for every OpenAI call in the
+        # application, instead of its own independent os.getenv calls.
+        self.api_key = _openai_provider.get_api_key(api_key)
+        self.model = _openai_provider.get_model(model)
         self.client: Optional[OpenAI] = None
 
         if self.api_key:

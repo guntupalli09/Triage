@@ -194,6 +194,11 @@
                 <p class="text-green-800 leading-relaxed">Few risk indicators detected. Standard review recommended.</p>
             </div>
             {% endif %}
+            {% if document_state in ('HAS_CRITICAL_INTERACTION', 'HAS_POLICY_VIOLATION', 'REQUIRES_REVIEW', 'CONFIGURATION_UNRESOLVED') and overall_risk != 'high' %}
+            <div class="risk-badge-high rounded-xl p-4 mt-3 premium-card">
+                <span class="text-sm font-bold uppercase tracking-wide text-red-700">NEEDS ATTENTION — deterministic policy/interaction review found a material issue not reflected in the risk level above.</span>
+            </div>
+            {% endif %}
         </div>
 
         {% if legal_risk_score is not none and business_risk_score is not none and negotiation_difficulty_score is not none %}

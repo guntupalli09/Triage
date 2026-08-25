@@ -82,6 +82,17 @@ class GoverningLawFacts:
     end_index: Optional[int] = None
     section_label: Optional[str] = None
 
+    # Fact-admission architecture — mirrors confidentiality_policy_engine.
+    # ConfidentialityFacts.absence_state. evaluate_governing_law_policy's
+    # existing `if facts.jurisdiction is None` branch already routes to
+    # REQUIRES_REVIEW regardless of the reason, so RECOGNITION_UNCERTAIN
+    # never needs its own separate branch there.
+    absence_state: str = "CONFIRMED_ABSENT"
+    semantic_discovery_error: Optional[str] = None
+    ai_identified_condition: Optional[str] = None
+    ai_identified_exception: Optional[str] = None
+    ai_identified_definition_or_reference: Optional[str] = None
+
 
 class GoverningLawPolicyRuleLike(Protocol):
     contract_side: str
@@ -118,14 +129,89 @@ def _classify_dispute_resolution(text: str) -> str:
     return "not_stated"
 
 
+# Off by default — same rollout discipline as every other adapter this
+# session integrated.
+GOVERNING_LAW_SEMANTIC_DISCOVERY_ENABLED = False  # module-load-time default; immediately overridden below
+import fact_admission as _fact_admission_env_check
+GOVERNING_LAW_SEMANTIC_DISCOVERY_ENABLED = _fact_admission_env_check.semantic_discovery_enabled("GOVERNING_LAW_SEMANTIC_DISCOVERY_ENABLED")
+del _fact_admission_env_check
+
+_GOVERNING_LAW_SEMANTIC_FOCUS = (
+    "which jurisdiction's law governs this agreement, or where disputes must be brought -- "
+    "even if the wording is unusual and does not use standard terms like 'governing law' or "
+    "'governed by'"
+)
+_GOVERNING_LAW_SEMANTIC_PROPOSITION = (
+    "This sentence or clause is operative language of this agreement that establishes which "
+    "jurisdiction's law governs this agreement, or the venue/forum for disputes."
+)
+
+
+def _run_semantic_discovery(text: str) -> Tuple[List, Optional[str], Optional[str]]:
+    """Mirrors liability_policy_engine._run_semantic_discovery exactly.
+    Returns (admitted_candidates, unresolved_dependency_note, error)."""
+    if not GOVERNING_LAW_SEMANTIC_DISCOVERY_ENABLED:
+        return [], None, None
+    import fact_admission as _fa
+    try:
+        raw_candidates = _fa.discover_candidate_spans(text, "governing_law", _GOVERNING_LAW_SEMANTIC_FOCUS)
+    except Exception as exc:  # noqa: BLE001 — provider unavailable, never "confirmed absent"
+        return [], None, f"{type(exc).__name__}: {exc}"
+
+    verified_candidates = [
+        _fa.verify_and_ground(candidate, text, _GOVERNING_LAW_SEMANTIC_PROPOSITION) for candidate in raw_candidates
+    ]
+    admitted = [c for c in verified_candidates if c.admission_status == _fa.ADMITTED]
+    unresolved_dependency_note = _fa.first_unresolved_dependency_note(verified_candidates)
+    return admitted, unresolved_dependency_note, None
+
+
 def extract_governing_law_facts(text: str) -> Optional[GoverningLawFacts]:
+    """Returns None only when no anchor exists at all AND semantic
+    discovery also ran successfully and found nothing — a provider
+    outage/error becomes RECOGNITION_UNCERTAIN instead (see
+    absence_state), which the existing `if facts.jurisdiction is None`
+    REQUIRES_REVIEW branch in evaluate_governing_law_policy already
+    safely absorbs."""
     anchors = [m for m in _ANCHOR_RE.finditer(text) if not re.search(r"\bno\s+$", text[max(0, m.start() - 15):m.start()], re.I)]
+    admitted_semantic: List = []
+    unresolved_dependency_note: Optional[str] = None
+    # Candidate 3 remediation (Root Cause 2): contextual discovery is no
+    # longer gated behind "deterministic anchor discovery found zero
+    # matches" -- see confidentiality_policy_engine.py's identical fix.
+    admitted_semantic, unresolved_dependency_note, semantic_error = _run_semantic_discovery(text)
     if not anchors:
-        return None
+        if semantic_error is not None:
+            return GoverningLawFacts(clause_found=True, jurisdiction=None, absence_state="RECOGNITION_UNCERTAIN", semantic_discovery_error=semantic_error)
+        if not admitted_semantic and not unresolved_dependency_note:
+            return None
+        # A semantically-admitted candidate does not itself establish a
+        # jurisdiction — it only earns this document a shot at the SAME
+        # deterministic _JURISDICTION_RE parsing below (which already
+        # scans the full document unconditionally, not gated on
+        # `anchors`). If that parsing still can't find a jurisdiction,
+        # this falls through to the existing "jurisdiction=None"
+        # REQUIRES_REVIEW path — never a fabricated jurisdiction.
+    elif semantic_error is not None:
+        admitted_semantic = []
+
+    # Final trust architecture (Phase 5/6) — see confidentiality_policy_
+    # engine.py's identical composition for the full rationale.
+    import fact_admission as _fa
+    ai_identified_condition = None
+    ai_identified_exception = None
+    for candidate in admitted_semantic:
+        ai_identified_condition = ai_identified_condition or candidate.condition
+        ai_identified_exception = ai_identified_exception or candidate.exception
+    ai_identified_definition_or_reference = _fa.first_resolved_dependency_note(admitted_semantic) or unresolved_dependency_note
 
     m = _JURISDICTION_RE.search(text)
     if not m:
-        return GoverningLawFacts(clause_found=True, jurisdiction=None, raw_excerpt="", start_index=None, end_index=None)
+        return GoverningLawFacts(
+            clause_found=True, jurisdiction=None, raw_excerpt="", start_index=None, end_index=None,
+            ai_identified_condition=ai_identified_condition, ai_identified_exception=ai_identified_exception,
+            ai_identified_definition_or_reference=ai_identified_definition_or_reference,
+        )
 
     jurisdiction = _normalize_jurisdiction(m.group(1))
     venue_m = _VENUE_RE.search(text)
@@ -140,6 +226,8 @@ def extract_governing_law_facts(text: str) -> Optional[GoverningLawFacts]:
         raw_excerpt=_excerpt(text, m.start(), m.end()),
         start_index=m.start(), end_index=m.end(),
         section_label=_section_label_before(text, m.start()),
+        ai_identified_condition=ai_identified_condition, ai_identified_exception=ai_identified_exception,
+        ai_identified_definition_or_reference=ai_identified_definition_or_reference,
     )
 
 
@@ -186,6 +274,22 @@ def evaluate_governing_law_policy(
         )
 
     if facts.jurisdiction is None:
+        no_structure_unresolved = ["governing law jurisdiction could not be parsed"]
+        if facts.ai_identified_condition:
+            no_structure_unresolved.append(
+                f"a material condition was identified by contextual analysis and grounded against the "
+                f"source document (\"{facts.ai_identified_condition}\")"
+            )
+        if facts.ai_identified_exception:
+            no_structure_unresolved.append(
+                f"a material exception was identified by contextual analysis and grounded against the "
+                f"source document (\"{facts.ai_identified_exception}\")"
+            )
+        if facts.ai_identified_definition_or_reference:
+            no_structure_unresolved.append(
+                f"a material definition/cross-reference dependency was identified by contextual analysis "
+                f"({facts.ai_identified_definition_or_reference})"
+            )
         return PolicyDecision(
             rule_id=RULE_ID, clause_type="governing_law", state=REQUIRES_REVIEW,
             contract_language="", extracted_summary="Governing law referenced but no jurisdiction could be parsed",
@@ -194,9 +298,47 @@ def evaluate_governing_law_policy(
             explanation="The document references governing law but no parseable jurisdiction was found — "
                         "the clause may be malformed or drafted in a form this extractor doesn't recognize.",
             negotiation_ladder=_build_ladder(policy, REQUIRES_REVIEW), category_treatments=[],
-            unresolved_facts=["governing law jurisdiction could not be parsed"],
+            unresolved_facts=no_structure_unresolved,
             start_index=None, end_index=None, source=source, summary_label="Governing law treatment",
             our_position_label="N/A", counterparty_position_label="N/A",
+        )
+
+    # Final trust architecture (Phase 4 hard gate) — this adapter's found-
+    # jurisdiction path has no pre-existing "unresolved" concept to piggy-
+    # back onto (it accumulates ACCEPT/NEGOTIATE/... notes, never
+    # REQUIRES_REVIEW, once a jurisdiction is parsed) — an explicit early
+    # branch is required so a grounded AI-identified qualifier is never
+    # silently dropped merely because the jurisdiction ALSO happened to
+    # parse successfully.
+    if facts.ai_identified_condition or facts.ai_identified_exception or facts.ai_identified_definition_or_reference:
+        qualifier_unresolved = []
+        if facts.ai_identified_condition:
+            qualifier_unresolved.append(
+                f"a material condition was identified by contextual analysis and grounded against the "
+                f"source document (\"{facts.ai_identified_condition}\")"
+            )
+        if facts.ai_identified_exception:
+            qualifier_unresolved.append(
+                f"a material exception was identified by contextual analysis and grounded against the "
+                f"source document (\"{facts.ai_identified_exception}\")"
+            )
+        if facts.ai_identified_definition_or_reference:
+            qualifier_unresolved.append(
+                f"a material definition/cross-reference dependency was identified by contextual analysis "
+                f"({facts.ai_identified_definition_or_reference})"
+            )
+        return PolicyDecision(
+            rule_id=RULE_ID, clause_type="governing_law", state=REQUIRES_REVIEW,
+            contract_language=facts.raw_excerpt, extracted_summary="Governing law established, but subject to a material qualifier",
+            policy_limit_summary="N/A",
+            required_action="Manual review required — a material condition/exception affecting governing law was identified",
+            explanation="Governing law was established, but contextual analysis identified and grounded a "
+                        "material condition or exception affecting it — this evaluation does not determine "
+                        "the qualifier's effect.",
+            negotiation_ladder=_build_ladder(policy, REQUIRES_REVIEW), category_treatments=[],
+            unresolved_facts=qualifier_unresolved,
+            start_index=facts.start_index, end_index=facts.end_index, source=source,
+            summary_label="Governing law treatment", our_position_label="N/A", counterparty_position_label="N/A",
         )
 
     notes: List[str] = []

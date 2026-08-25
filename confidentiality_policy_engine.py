@@ -37,6 +37,7 @@ from policy_engine_core import (
     excerpt as _excerpt, section_label_before as _section_label_before,
     requires_review_explanation, requires_review_required_action,
     detect_role_attributed_asymmetry,
+    cross_section_carveout_referencing as _cross_section_carveout_referencing,
 )
 
 RULE_ID = "POLICY_CONFIDENTIALITY"
@@ -122,6 +123,37 @@ class ConfidentialityObligation:
 class ConfidentialityFacts:
     clause_found: bool
     obligations: List[ConfidentialityObligation] = field(default_factory=list)
+    # Fact-admission architecture — mirrors liability_policy_engine.
+    # LiabilityFacts.absence_state exactly. Diagnostic; evaluate_
+    # confidentiality_policy already routes empty `obligations` to
+    # REQUIRES_REVIEW regardless of the reason (see the `if not facts.
+    # obligations` branch below), so RECOGNITION_UNCERTAIN never needs its
+    # own separate branch there the way liability's did.
+    absence_state: str = "CONFIRMED_ABSENT"
+    semantic_discovery_error: Optional[str] = None
+    # Final trust architecture (Phase 1-6) — a material condition/
+    # exception the AI/contextual layer identified and that independently
+    # passed deterministic grounding (fact_admission.ground_qualifiers).
+    # Never populated from an ungrounded claim. evaluate_confidentiality_
+    # policy forces REQUIRES_REVIEW whenever either is set, since neither
+    # obligation regex has vocabulary to structure a qualifier.
+    ai_identified_condition: Optional[str] = None
+    ai_identified_exception: Optional[str] = None
+    # Final trust architecture (Step A) — "Confidential Information" is
+    # itself almost always a defined term; when the AI-sourced candidate's
+    # proposition depended on resolving that definition, this holds
+    # EITHER the deterministically-located definition text (definition
+    # RESOLVED — preserved, never the AI's own claim about what it says)
+    # OR a description of why it could NOT be resolved (forces REQUIRES_
+    # REVIEW via evaluate_confidentiality_policy, same as condition/
+    # exception — never silently evaluated as though the dependency
+    # didn't exist).
+    ai_identified_definition_dependency: Optional[str] = None
+    # Candidate 3 zero-silent-loss mission — a carve-out/exclusion
+    # statement elsewhere in the document explicitly cross-references
+    # this obligation's own section number ("Notwithstanding Section 8,
+    # information that becomes publicly available ... is excluded").
+    document_wide_conflict: bool = False
 
 
 class ConfidentialityPolicyRuleLike(Protocol):
@@ -206,13 +238,157 @@ def _detect_confidentiality_asymmetry(window: str) -> List[str]:
     )
 
 
+# Off by default — same rollout discipline as
+# liability_policy_engine.LIABILITY_SEMANTIC_DISCOVERY_ENABLED. With this
+# off, extraction behaves byte-identically to before this integration.
+CONFIDENTIALITY_SEMANTIC_DISCOVERY_ENABLED = False  # module-load-time default; immediately overridden below
+import fact_admission as _fact_admission_env_check
+CONFIDENTIALITY_SEMANTIC_DISCOVERY_ENABLED = _fact_admission_env_check.semantic_discovery_enabled("CONFIDENTIALITY_SEMANTIC_DISCOVERY_ENABLED")
+del _fact_admission_env_check
+
+_CONFIDENTIALITY_SEMANTIC_FOCUS = (
+    "one party being obligated to protect another party's confidential, proprietary, "
+    "or trade-secret information from disclosure or use — a confidentiality/non-"
+    "disclosure concept — even if the wording is unusual and does not use the word "
+    "'confidential' at all (e.g. 'proprietary information', 'trade secrets', "
+    "'non-public information')"
+)
+_CONFIDENTIALITY_SEMANTIC_PROPOSITION = (
+    "This sentence or clause is operative language of this agreement that obligates "
+    "one party to protect another party's confidential, proprietary, or non-public "
+    "information from disclosure or misuse."
+)
+
+
+def _run_semantic_discovery(text: str) -> Tuple[List, Optional[str], Optional[str]]:
+    """Additive semantic discovery for confidentiality language the
+    deterministic anchor (`_ANCHOR_RE`, a broad "confidential\\w*" match)
+    did not find at all. Mirrors liability_policy_engine._run_semantic_
+    discovery exactly. Returns (admitted_candidates, unresolved_dependency_
+    note, error).
+
+    unresolved_dependency_note (final trust architecture, Step A/H) —
+    when a candidate's proposition depended on a defined term/cross-
+    reference that fact_admission.verify_and_ground could NOT resolve,
+    the whole candidate is correctly NOT_ADMITTED (see fact_admission.
+    evaluate_admission's zero-silent-loss gate) and so never becomes an
+    obligation — but that failure itself is preserved here rather than
+    disappearing, so the caller can still force REQUIRES_REVIEW instead
+    of silently treating the document as though nothing was ever
+    identified."""
+    if not CONFIDENTIALITY_SEMANTIC_DISCOVERY_ENABLED:
+        return [], None, None
+    import fact_admission as _fa
+    try:
+        raw_candidates = _fa.discover_candidate_spans(text, "confidentiality", _CONFIDENTIALITY_SEMANTIC_FOCUS)
+    except Exception as exc:  # noqa: BLE001 — provider unavailable, never "confirmed absent"
+        return [], None, f"{type(exc).__name__}: {exc}"
+
+    verified_candidates = [
+        _fa.verify_and_ground(candidate, text, _CONFIDENTIALITY_SEMANTIC_PROPOSITION) for candidate in raw_candidates
+    ]
+    admitted = [c for c in verified_candidates if c.admission_status == _fa.ADMITTED]
+    # Uses the shared helper (not a hand-rolled duplicate) so this adapter
+    # automatically picks up every unresolved-dependency case the shared
+    # framework knows about, including competing readings.
+    unresolved_dependency_note = _fa.first_unresolved_dependency_note(verified_candidates)
+    return admitted, unresolved_dependency_note, None
+
+
 def extract_confidentiality_facts(text: str) -> Optional[ConfidentialityFacts]:
+    """Thin wrapper over _extract_confidentiality_facts_inner that
+    additionally flags a cross-section carve-out explicitly referencing
+    one of the discovered obligations' own section number (Candidate 3
+    zero-silent-loss mission, Phase 3)."""
+    facts = _extract_confidentiality_facts_inner(text)
+    if facts is not None:
+        for o in facts.obligations:
+            label = o.section_label
+            # o.section_label sometimes resolves to the NEAREST preceding
+            # numbered heading rather than the obligation's own top-level
+            # section (e.g. "8.5" from a forward-referenced sub-section
+            # heading that textually precedes where the extractor looks,
+            # even though the obligation itself is under "8"). Also try
+            # the integer-only prefix so a forward reference phrased
+            # against the parent section number ("Section 8.5") is still
+            # matched.
+            candidates = {label}
+            if label and "." in str(label):
+                candidates.add(str(label).split(".")[0])
+            if any(_cross_section_carveout_referencing(text, c) for c in candidates if c):
+                facts.document_wide_conflict = True
+                break
+    return facts
+
+
+def _extract_confidentiality_facts_inner(text: str) -> Optional[ConfidentialityFacts]:
+    """Returns None only when no confidentiality-protection language
+    exists at all AND semantic discovery (see _run_semantic_discovery)
+    also ran successfully and found nothing. A semantic-discovery
+    provider outage/error never collapses into "no clause" — see
+    RECOGNITION_UNCERTAIN below, which the existing `if not facts.
+    obligations` REQUIRES_REVIEW branch in evaluate_confidentiality_policy
+    already safely absorbs (see ConfidentialityFacts.absence_state)."""
     anchors = [m for m in _ANCHOR_RE.finditer(text) if not re.search(r"\bno\s+$", text[max(0, m.start() - 15):m.start()], re.I)]
+    admitted_semantic: List = []
+    unresolved_dependency_note: Optional[str] = None
+    # Candidate 3 remediation (Root Cause 2): contextual discovery is no
+    # longer gated behind "deterministic anchor discovery found zero
+    # matches." It now always runs (when enabled), so it can also
+    # corroborate/contextualize an ALREADY-anchored clause -- e.g.
+    # surfacing a competing reading/contradiction the deterministic
+    # NAMED_OBLIGATION_RE/MUTUAL_OBLIGATION_RE scan (below, which already
+    # runs unconditionally over the full document) has no mechanism to
+    # detect on its own.
+    admitted_semantic, unresolved_dependency_note, semantic_error = _run_semantic_discovery(text)
     if not anchors:
-        return None
+        if semantic_error is not None:
+            return ConfidentialityFacts(
+                clause_found=True, obligations=[], absence_state="RECOGNITION_UNCERTAIN",
+                semantic_discovery_error=semantic_error,
+            )
+        if not admitted_semantic and not unresolved_dependency_note:
+            return None
+        # A semantically-admitted candidate does not itself become an
+        # obligation — it only earns this document a shot at the SAME
+        # deterministic NAMED_OBLIGATION_RE/MUTUAL_OBLIGATION_RE
+        # structuring below (which already scans the full document
+        # unconditionally, not gated on `anchors`). If that structuring
+        # still can't parse a directional obligation, this correctly
+        # falls through to the existing "obligations=[]" REQUIRES_REVIEW
+        # path a few lines down — never a fabricated obligation.
+    elif semantic_error is not None:
+        # Deterministic anchors already exist; the AI channel independently
+        # errored. Best-effort proceed with deterministic structuring —
+        # never silently drop this into a fabricated clean result, but
+        # also never abort extraction over an AI-channel-only failure when
+        # the deterministic side has real anchors to work with.
+        admitted_semantic = []
 
     obligations: List[ConfidentialityObligation] = []
     seen_spans: List[Tuple[int, int]] = []
+
+    # Root-cause fix (Candidate 2): a fixed 1200-char forward window per
+    # obligation is wide enough to swallow a SECOND, separately-stated
+    # directional obligation's own language -- e.g. "...for five years...
+    # Customer shall protect Vendor's Confidential Information
+    # indefinitely..." previously bled "indefinitely" into the FIRST
+    # obligation's own duration classification, making two obligations
+    # with genuinely different terms both classify as perpetual and
+    # masking any asymmetry between them. Bound every obligation's
+    # window at the START of the next obligation anchor (of either
+    # pattern), not just the fixed cap, so classification never reads
+    # past where the next obligation's own language begins.
+    _next_anchor_starts = sorted(
+        m.start() for m in list(_NAMED_OBLIGATION_RE.finditer(text)) + list(_MUTUAL_OBLIGATION_RE.finditer(text))
+    )
+
+    def _bounded_window_end(start: int) -> int:
+        cap = min(len(text), start + _PROVISION_WINDOW_CHARS)
+        for other_start in _next_anchor_starts:
+            if other_start > start:
+                return min(cap, other_start)
+        return cap
 
     for m in _NAMED_OBLIGATION_RE.finditer(text):
         if any(abs(m.start() - s) < 30 for s, _ in seen_spans):
@@ -220,7 +396,7 @@ def extract_confidentiality_facts(text: str) -> Optional[ConfidentialityFacts]:
         protecting_role, protected_role = m.group(1), m.group(2)
         if protecting_role.lower() == protected_role.lower():
             continue
-        window = text[m.start():min(len(text), m.start() + _PROVISION_WINDOW_CHARS)]
+        window = text[m.start():_bounded_window_end(m.start())]
         duration_years, perpetual = _classify_duration(window)
         obligations.append(ConfidentialityObligation(
             protecting_role=protecting_role, protecting_side=side_for_role(protecting_role),
@@ -239,7 +415,7 @@ def extract_confidentiality_facts(text: str) -> Optional[ConfidentialityFacts]:
     for m in _MUTUAL_OBLIGATION_RE.finditer(text):
         if any(abs(m.start() - s) < 30 for s, _ in seen_spans):
             continue
-        window = text[m.start():min(len(text), m.start() + _PROVISION_WINDOW_CHARS)]
+        window = text[m.start():_bounded_window_end(m.start())]
         duration_years, perpetual = _classify_duration(window)
         obligations.append(ConfidentialityObligation(
             protecting_role="Each Party", protecting_side=None,
@@ -257,11 +433,41 @@ def extract_confidentiality_facts(text: str) -> Optional[ConfidentialityFacts]:
         ))
         seen_spans.append((m.start(), m.end()))
 
+    # Final trust architecture (Phase 5/6) — an admitted semantic
+    # candidate (only ever populated when deterministic anchoring found
+    # nothing at all, see above) may carry a GROUNDED condition/exception
+    # the deterministic obligation regexes have no vocabulary to express
+    # (they structure WHO protects WHOM, not conditions on that
+    # protection). Never silently dropped: preserved onto dedicated
+    # fields and forced into REQUIRES_REVIEW by evaluate_confidentiality_
+    # policy's explicit check, regardless of whether obligations were
+    # otherwise successfully structured.
+    ai_identified_condition = None
+    ai_identified_exception = None
+    ai_identified_definition_dependency = unresolved_dependency_note
+    for candidate in admitted_semantic:
+        ai_identified_condition = ai_identified_condition or candidate.condition
+        ai_identified_exception = ai_identified_exception or candidate.exception
+        dr = candidate.definition_resolution
+        if dr is not None and dr.status == "RESOLVED" and ai_identified_definition_dependency is None:
+            ai_identified_definition_dependency = f'depends on the defined term "{dr.term}": {dr.definition_evidence}'
+        xr = candidate.cross_reference_resolution
+        if xr is not None and xr.status == "RESOLVED" and ai_identified_definition_dependency is None:
+            ai_identified_definition_dependency = f'depends on the cross-referenced "{xr.label}": {xr.target_evidence}'
+
     if not obligations:
-        return ConfidentialityFacts(clause_found=True, obligations=[])
+        return ConfidentialityFacts(
+            clause_found=True, obligations=[],
+            ai_identified_condition=ai_identified_condition, ai_identified_exception=ai_identified_exception,
+            ai_identified_definition_dependency=ai_identified_definition_dependency,
+        )
 
     obligations.sort(key=lambda o: o.start_index)
-    return ConfidentialityFacts(clause_found=True, obligations=obligations)
+    return ConfidentialityFacts(
+        clause_found=True, obligations=obligations,
+        ai_identified_condition=ai_identified_condition, ai_identified_exception=ai_identified_exception,
+        ai_identified_definition_dependency=ai_identified_definition_dependency,
+    )
 
 
 def _build_ladder(policy: ConfidentialityPolicyRuleLike, state: str) -> List[LadderStep]:
@@ -346,6 +552,26 @@ def evaluate_confidentiality_policy(
         )
 
     if not facts.obligations:
+        no_structure_unresolved = ["confidentiality obligation structure could not be parsed"]
+        # Final trust architecture (Phase 4 hard gate) — even when the
+        # base obligation itself never structured, a material condition/
+        # exception the AI/context layer identified and grounded must
+        # still surface in the decision, never disappear silently.
+        if facts.ai_identified_condition:
+            no_structure_unresolved.append(
+                f"a material condition was identified by contextual analysis and grounded against the "
+                f"source document (\"{facts.ai_identified_condition}\")"
+            )
+        if facts.ai_identified_exception:
+            no_structure_unresolved.append(
+                f"a material exception was identified by contextual analysis and grounded against the "
+                f"source document (\"{facts.ai_identified_exception}\")"
+            )
+        if facts.ai_identified_definition_dependency:
+            no_structure_unresolved.append(
+                f"a material definition/cross-reference dependency was identified by contextual analysis "
+                f"({facts.ai_identified_definition_dependency})"
+            )
         return PolicyDecision(
             rule_id=RULE_ID, clause_type="confidentiality", state=REQUIRES_REVIEW,
             contract_language="", extracted_summary="Confidentiality referenced but no directional obligation could be parsed",
@@ -355,13 +581,44 @@ def evaluate_confidentiality_policy(
                         "structure was found — the clause may be malformed or drafted in a form this "
                         "extractor doesn't recognize.",
             negotiation_ladder=_build_ladder(policy, REQUIRES_REVIEW), category_treatments=[],
-            unresolved_facts=["confidentiality obligation structure could not be parsed"],
+            unresolved_facts=no_structure_unresolved,
             start_index=None, end_index=None, source=source, summary_label="Confidentiality treatment",
             our_position_label="Our confidentiality exposure", counterparty_position_label="Counterparty's protection of our information",
         )
 
     exposure, protection, resolution_reasons = _resolve_obligations_for_side(facts.obligations, policy.contract_side)
     unresolved_facts = list(resolution_reasons)
+
+    # Candidate 3 zero-silent-loss mission — a cross-section carve-out
+    # explicitly naming this obligation's own section number must not be
+    # silently dropped merely because the base obligation parsed cleanly.
+    if facts.document_wide_conflict:
+        unresolved_facts.append(
+            "a separate statement elsewhere in the document, explicitly cross-referencing this clause's own "
+            "section number, appears to carve out or narrow the confidentiality obligation established here"
+        )
+
+    # Final trust architecture (Phase 4 hard gate) — a material condition
+    # or exception the AI/context layer identified and grounded, but that
+    # neither obligation regex has any vocabulary to structure, must not
+    # be silently dropped merely because the base obligation itself
+    # parsed cleanly.
+    if facts.ai_identified_condition:
+        unresolved_facts.append(
+            f"a material condition was identified by contextual analysis and grounded against the source "
+            f"document (\"{facts.ai_identified_condition}\") — this evaluation does not determine whether "
+            f"the stated condition is satisfied"
+        )
+    if facts.ai_identified_exception:
+        unresolved_facts.append(
+            f"a material exception was identified by contextual analysis and grounded against the source "
+            f"document (\"{facts.ai_identified_exception}\")"
+        )
+    if facts.ai_identified_definition_dependency:
+        unresolved_facts.append(
+            f"a material definition/cross-reference dependency was identified by contextual analysis "
+            f"({facts.ai_identified_definition_dependency})"
+        )
 
     if unresolved_facts:
         controlling = exposure or protection or facts.obligations[0]
@@ -422,6 +679,35 @@ def evaluate_confidentiality_policy(
     if policy.require_mutual_confidentiality and protection is None and exposure is not None:
         notes.append("we are obligated to protect the counterparty's information, but no reciprocal obligation runs the other way")
         worst_state = _worse(worst_state, NEGOTIATE)
+    elif policy.require_mutual_confidentiality and protection is not None and exposure is not None and exposure is not protection:
+        # Root-cause fix (Candidate 2): a reciprocal relationship stated as
+        # TWO SEPARATE directional sentences (rather than one "each party"
+        # mutual opener) previously bypassed asymmetry detection entirely
+        # -- _detect_confidentiality_asymmetry only ever ran on the single
+        # local window around a _MUTUAL_OBLIGATION_RE match. `exposure` and
+        # `protection` are independently-resolved ConfidentialityObligation
+        # objects with their own already-parsed duration/care fields
+        # regardless of how the document phrased the two directions -- so
+        # compare THEM directly, using the same comparison function the
+        # mutual-opener path already trusts, instead of re-deriving a
+        # snapshot from raw text. `exposure is not protection` guards the
+        # genuinely-mutual (`mutual and not named`) case above, where both
+        # names are bound to the very same object and comparing it to
+        # itself would be meaningless.
+        asymmetry_reasons = _compare_confidentiality_attribution(
+            "our exposure obligation",
+            {"duration_years": exposure.duration_years, "perpetual": exposure.duration_perpetual, "care": exposure.standard_of_care},
+            "the counterparty's protection obligation",
+            {"duration_years": protection.duration_years, "perpetual": protection.duration_perpetual, "care": protection.standard_of_care},
+        )
+        if asymmetry_reasons:
+            notes.append(
+                "the two directions of this confidentiality obligation state materially different terms (" +
+                "; ".join(asymmetry_reasons) +
+                ") — policy requires mutual/symmetric confidentiality, and this evaluation cannot confirm the "
+                "obligation is actually symmetric"
+            )
+            worst_state = _worse(worst_state, NEGOTIATE)
 
     controlling = exposure or protection or facts.obligations[0]
     extracted_summary = (

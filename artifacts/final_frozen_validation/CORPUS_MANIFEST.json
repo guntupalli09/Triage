@@ -1,0 +1,672 @@
+{
+  "corpus_sha256": "dcf7c43c698c1857c202a692a4d3f86595399a3ff07d61584a08e6a957488d8c",
+  "total_cases": 74,
+  "cases": [
+    {
+      "id": "liability-01",
+      "adapter": "limitation_of_liability",
+      "category": "A/B",
+      "expected_bucket": "CLEAN",
+      "clause_present": true,
+      "operative": true,
+      "sha256": "59ac5d1a9c51d6befb88c8416443c510516cdf996273cea13e1e2ff18d20db9e"
+    },
+    {
+      "id": "liability-02",
+      "adapter": "limitation_of_liability",
+      "category": "C",
+      "expected_bucket": "NOT_CLEAN",
+      "clause_present": true,
+      "operative": true,
+      "sha256": "003a0bbcfe5373913423265812c0dbeaeedf4242853583e75e29c9ed5f1ac86b"
+    },
+    {
+      "id": "liability-03",
+      "adapter": "limitation_of_liability",
+      "category": "D",
+      "expected_bucket": "NOT_APPLICABLE",
+      "clause_present": false,
+      "operative": false,
+      "sha256": "b9c3b739b200793166eb9cdec8253b8e2b62cd64d669852b87ab6d0390455f5d"
+    },
+    {
+      "id": "liability-04",
+      "adapter": "limitation_of_liability",
+      "category": "F",
+      "expected_bucket": "NOT_APPLICABLE",
+      "clause_present": false,
+      "operative": false,
+      "sha256": "2d876f0c9c4e449081c6e560cdbf632e2d943fcf9082ec86efbe789fb6aac70b"
+    },
+    {
+      "id": "liability-05",
+      "adapter": "limitation_of_liability",
+      "category": "L",
+      "expected_bucket": "CLEAN",
+      "clause_present": true,
+      "operative": true,
+      "sha256": "3a794804946eda7dfc802cbcd15bc1ed992ea629ed4ed3d859638279e5ea2757"
+    },
+    {
+      "id": "liability-06",
+      "adapter": "limitation_of_liability",
+      "category": "K",
+      "expected_bucket": "NOT_APPLICABLE",
+      "clause_present": false,
+      "operative": false,
+      "sha256": "358a8046e423992b811b52ce846e7326edd51770194185b28159883b760f2c9e"
+    },
+    {
+      "id": "liability-07",
+      "adapter": "limitation_of_liability",
+      "category": "Z",
+      "expected_bucket": "REQUIRES_REVIEW",
+      "clause_present": true,
+      "operative": true,
+      "sha256": "1da42387ad693d1d7953cb2997b972187abdaf93f5a75b36a78d1cd01eb20368"
+    },
+    {
+      "id": "indemnification-01",
+      "adapter": "indemnification",
+      "category": "A/B",
+      "expected_bucket": "CLEAN",
+      "clause_present": true,
+      "operative": true,
+      "sha256": "1f6b5281476dfff00a0f8c9b3a9d5dbf7c4541065d366bd6550b3acc7bbeec7b"
+    },
+    {
+      "id": "indemnification-02",
+      "adapter": "indemnification",
+      "category": "C",
+      "expected_bucket": "NOT_CLEAN",
+      "clause_present": true,
+      "operative": true,
+      "sha256": "8c764fa2e125efa1cb2e0ef55eb70a76f53ca063414fa01448470f9d4ccd3314"
+    },
+    {
+      "id": "indemnification-03",
+      "adapter": "indemnification",
+      "category": "D",
+      "expected_bucket": "NOT_APPLICABLE",
+      "clause_present": false,
+      "operative": false,
+      "sha256": "e8ff6c98729862e6d87cad9507228cb00f208e68266a58de5b0418224d932b68"
+    },
+    {
+      "id": "indemnification-04",
+      "adapter": "indemnification",
+      "category": "K",
+      "expected_bucket": "NOT_APPLICABLE",
+      "clause_present": false,
+      "operative": false,
+      "sha256": "ed05fe5dbc36a5cc21fcb8b6fc8939524656411e4feaf8bea5f1cf3c77677603"
+    },
+    {
+      "id": "indemnification-05",
+      "adapter": "indemnification",
+      "category": "F",
+      "expected_bucket": "NOT_APPLICABLE",
+      "clause_present": false,
+      "operative": false,
+      "sha256": "85164de2d4dbf88312a05208c3746b713b1cc755edbbb0a93747ecbe56676884"
+    },
+    {
+      "id": "indemnification-06",
+      "adapter": "indemnification",
+      "category": "Z",
+      "expected_bucket": "REQUIRES_REVIEW",
+      "clause_present": true,
+      "operative": true,
+      "sha256": "c5012ab3331933aaa6cf52d9820b63c1fa6602d4a6917bec443bba2341a2ce77"
+    },
+    {
+      "id": "indemnification-07",
+      "adapter": "indemnification",
+      "category": "AA",
+      "expected_bucket": "REQUIRES_REVIEW",
+      "clause_present": true,
+      "operative": true,
+      "sha256": "0c523a8f744772f65b5a0251fbaa612fa7cb60811285ea69bee3f9181b1dd4f9"
+    },
+    {
+      "id": "confidentiality-01",
+      "adapter": "confidentiality",
+      "category": "A/B",
+      "expected_bucket": "CLEAN",
+      "clause_present": true,
+      "operative": true,
+      "sha256": "d4b3eb9533d53afd7e20346819d54a538de9f475535a41e435b4d9cb891c5bde"
+    },
+    {
+      "id": "confidentiality-02",
+      "adapter": "confidentiality",
+      "category": "C",
+      "expected_bucket": "NOT_CLEAN",
+      "clause_present": true,
+      "operative": true,
+      "sha256": "f1641b50f248875e043e7e0921b4bcdabe57a242575d7f7773f77c9f6158e327"
+    },
+    {
+      "id": "confidentiality-03",
+      "adapter": "confidentiality",
+      "category": "D",
+      "expected_bucket": "NOT_APPLICABLE",
+      "clause_present": false,
+      "operative": false,
+      "sha256": "8a5ba7b9e47824448205a46fe5c85fa7c95afd4c8fcbf162c02942be7c6eb778"
+    },
+    {
+      "id": "confidentiality-04",
+      "adapter": "confidentiality",
+      "category": "F",
+      "expected_bucket": "NOT_APPLICABLE",
+      "clause_present": false,
+      "operative": false,
+      "sha256": "755895d33e7bb65cf89872fb3d8637174ab1bf50549ba9f1e1166185d8f6aa40"
+    },
+    {
+      "id": "confidentiality-05",
+      "adapter": "confidentiality",
+      "category": "K",
+      "expected_bucket": "NOT_APPLICABLE",
+      "clause_present": false,
+      "operative": false,
+      "sha256": "905b4e5322ff53a33e64b465618311e3d6e6c3a1f952fe85aadee16f7e68d260"
+    },
+    {
+      "id": "confidentiality-06",
+      "adapter": "confidentiality",
+      "category": "Y",
+      "expected_bucket": "NOT_CLEAN",
+      "clause_present": true,
+      "operative": true,
+      "sha256": "0650ee5e22458d123dad7a1258466679d6bf75cda7a9c7299fafe947879fcccb"
+    },
+    {
+      "id": "confidentiality-07",
+      "adapter": "confidentiality",
+      "category": "I",
+      "expected_bucket": "NOT_APPLICABLE",
+      "clause_present": false,
+      "operative": false,
+      "sha256": "f3caa16327eb6ee29e1dc340fc042ab98ab5bfd563e4668e3e1ee0d1cdc9b9a8"
+    },
+    {
+      "id": "payment_terms-01",
+      "adapter": "payment_terms",
+      "category": "A/B",
+      "expected_bucket": "CLEAN",
+      "clause_present": true,
+      "operative": true,
+      "sha256": "52fe01fdb0ece3c5d0e19be6dc3e314ad234c1fb7e41bf0ff4e8519172a626c2"
+    },
+    {
+      "id": "payment_terms-02",
+      "adapter": "payment_terms",
+      "category": "C",
+      "expected_bucket": "NOT_CLEAN",
+      "clause_present": true,
+      "operative": true,
+      "sha256": "22e9910b9e830ff24979b3e60eae969c5316854315fb87b85aa879c5f0afd7fa"
+    },
+    {
+      "id": "payment_terms-03",
+      "adapter": "payment_terms",
+      "category": "D",
+      "expected_bucket": "NOT_APPLICABLE",
+      "clause_present": false,
+      "operative": false,
+      "sha256": "df1ef45c21421379d59eb5a2674b7c5a32920061a50e77b6edbc7dd84ee54a69"
+    },
+    {
+      "id": "payment_terms-04",
+      "adapter": "payment_terms",
+      "category": "F",
+      "expected_bucket": "NOT_APPLICABLE",
+      "clause_present": false,
+      "operative": false,
+      "sha256": "054e975b53084cc69f1479380203801c602256201fd46b9f4431efdf9dfb6059"
+    },
+    {
+      "id": "payment_terms-05",
+      "adapter": "payment_terms",
+      "category": "N",
+      "expected_bucket": "CLEAN",
+      "clause_present": true,
+      "operative": true,
+      "sha256": "b4b0c5236e4ff030509acc5eabe6c715538683528fd257dbd794c44547b16c56"
+    },
+    {
+      "id": "payment_terms-06",
+      "adapter": "payment_terms",
+      "category": "S",
+      "expected_bucket": "REQUIRES_REVIEW",
+      "clause_present": true,
+      "operative": "ambiguous",
+      "sha256": "01cd79e6c83f562b1ac5a106776fba3451c0594deb4951c30b1838931beeae8b"
+    },
+    {
+      "id": "ip_ownership-01",
+      "adapter": "ip_ownership",
+      "category": "A/B",
+      "expected_bucket": "CLEAN",
+      "clause_present": true,
+      "operative": true,
+      "sha256": "781db67fd3f8142910b42f6b0a82850988ab5ab32f5a501a23e1c3cbc89e041e"
+    },
+    {
+      "id": "ip_ownership-02",
+      "adapter": "ip_ownership",
+      "category": "C",
+      "expected_bucket": "NOT_CLEAN",
+      "clause_present": true,
+      "operative": true,
+      "sha256": "4033b05b3085880a3c60084f59154df27becc82ccabcba1fb04e648a0564909a"
+    },
+    {
+      "id": "ip_ownership-03",
+      "adapter": "ip_ownership",
+      "category": "D",
+      "expected_bucket": "NOT_APPLICABLE",
+      "clause_present": false,
+      "operative": false,
+      "sha256": "0633d7418e2c692e7e47a14129e214cfa91b56af75975c55d39eca8e630fd7aa"
+    },
+    {
+      "id": "ip_ownership-04",
+      "adapter": "ip_ownership",
+      "category": "F",
+      "expected_bucket": "NOT_APPLICABLE",
+      "clause_present": false,
+      "operative": false,
+      "sha256": "1c5d8d7ccd30d256d2c4d7cf8df4f8913cac84b502f90fe89c8e53f69a842db3"
+    },
+    {
+      "id": "ip_ownership-05",
+      "adapter": "ip_ownership",
+      "category": "Y",
+      "expected_bucket": "NOT_CLEAN",
+      "clause_present": true,
+      "operative": true,
+      "sha256": "dd9f4c749a936bee74294ac434caf97c941d9f3267c92665b05c2214b0790bb7"
+    },
+    {
+      "id": "ip_ownership-06",
+      "adapter": "ip_ownership",
+      "category": "K",
+      "expected_bucket": "NOT_APPLICABLE",
+      "clause_present": false,
+      "operative": false,
+      "sha256": "68ac7ebc7814f16edc3cedc181dbeb3125b50ff3a7d7c439617a1b70de0fd7af"
+    },
+    {
+      "id": "insurance-01",
+      "adapter": "insurance",
+      "category": "A/B",
+      "expected_bucket": "CLEAN",
+      "clause_present": true,
+      "operative": true,
+      "sha256": "ba9bd57ece4b2b8fc9d5f9f16ad99565d0523ba3c6c0b529933cc3b0f6c24989"
+    },
+    {
+      "id": "insurance-02",
+      "adapter": "insurance",
+      "category": "C",
+      "expected_bucket": "NOT_CLEAN",
+      "clause_present": true,
+      "operative": true,
+      "sha256": "971a83f8d51a588976b47f868befcd168e7c0651ddadac3086077aef90fd77a2"
+    },
+    {
+      "id": "insurance-03",
+      "adapter": "insurance",
+      "category": "D",
+      "expected_bucket": "NOT_APPLICABLE",
+      "clause_present": false,
+      "operative": false,
+      "sha256": "3afd64ad5f66be1cbcd993fae9515eb7601ac300154e13a55a5b7ec8c8a6e7a7"
+    },
+    {
+      "id": "insurance-04",
+      "adapter": "insurance",
+      "category": "F",
+      "expected_bucket": "NOT_APPLICABLE",
+      "clause_present": false,
+      "operative": false,
+      "sha256": "e62569d785ba22f961299f933b6b10a1538d6d6f0790e9dd54aa4981032fec87"
+    },
+    {
+      "id": "insurance-05",
+      "adapter": "insurance",
+      "category": "V",
+      "expected_bucket": "REQUIRES_REVIEW",
+      "clause_present": true,
+      "operative": "ambiguous",
+      "sha256": "cf63e3788b25a1b88e7ba3b4ef512a29b59c278c8291c4f46afebad0284116bd"
+    },
+    {
+      "id": "insurance-06",
+      "adapter": "insurance",
+      "category": "K",
+      "expected_bucket": "NOT_CLEAN",
+      "clause_present": true,
+      "operative": true,
+      "sha256": "569daa617304132bd727eb057a00f54571d6beaf585203a6204b1b9e2a02d7c4"
+    },
+    {
+      "id": "data_security-01",
+      "adapter": "data_security",
+      "category": "A/B",
+      "expected_bucket": "CLEAN",
+      "clause_present": true,
+      "operative": true,
+      "sha256": "6cd78d8858e3e13620d8bc2a7d9f0ef2c110fd8a1a3af64e4addb655a3668e4d"
+    },
+    {
+      "id": "data_security-02",
+      "adapter": "data_security",
+      "category": "C",
+      "expected_bucket": "NOT_CLEAN",
+      "clause_present": true,
+      "operative": true,
+      "sha256": "58a3a5f387a5fc472abbadb652be91e550841bdc5138f935dc7b06e9c9526010"
+    },
+    {
+      "id": "data_security-03",
+      "adapter": "data_security",
+      "category": "D",
+      "expected_bucket": "NOT_APPLICABLE",
+      "clause_present": false,
+      "operative": false,
+      "sha256": "d889894caed0cdb5164da40c545b888919133384a8c64006ba383ec7a71c00e3"
+    },
+    {
+      "id": "data_security-04",
+      "adapter": "data_security",
+      "category": "F",
+      "expected_bucket": "NOT_APPLICABLE",
+      "clause_present": false,
+      "operative": false,
+      "sha256": "fa6ff7f6487155950c658048be1726583cffeacbf5cb29fb19170580b7222a39"
+    },
+    {
+      "id": "data_security-05",
+      "adapter": "data_security",
+      "category": "K",
+      "expected_bucket": "NOT_CLEAN",
+      "clause_present": true,
+      "operative": true,
+      "sha256": "6172fc399fdb9997e16995555625b25f399b1fb9a8d68347a5be595ba60aa5f0"
+    },
+    {
+      "id": "data_security-06",
+      "adapter": "data_security",
+      "category": "AC",
+      "expected_bucket": "CLEAN",
+      "clause_present": true,
+      "operative": true,
+      "sha256": "ae55e046b26c6751550629ec4c9be18942b65fe4411143de7c9917ef71753995"
+    },
+    {
+      "id": "governing_law-01",
+      "adapter": "governing_law",
+      "category": "A/B",
+      "expected_bucket": "CLEAN",
+      "clause_present": true,
+      "operative": true,
+      "sha256": "adabc3a33cf57d884475853055182cba46d7e4adb1b652d71641c206459cbf34"
+    },
+    {
+      "id": "governing_law-02",
+      "adapter": "governing_law",
+      "category": "C",
+      "expected_bucket": "NOT_CLEAN",
+      "clause_present": true,
+      "operative": true,
+      "sha256": "4b919d261f8853906532c3ff06bc232b22b17e93e68fc90cfc53f5c73e6e16e2"
+    },
+    {
+      "id": "governing_law-03",
+      "adapter": "governing_law",
+      "category": "D",
+      "expected_bucket": "NOT_APPLICABLE",
+      "clause_present": false,
+      "operative": false,
+      "sha256": "32837dc7101769a1cf4c7e28691b2d980fb3aeae52a133d970e1435efae371f9"
+    },
+    {
+      "id": "governing_law-04",
+      "adapter": "governing_law",
+      "category": "F",
+      "expected_bucket": "NOT_APPLICABLE",
+      "clause_present": false,
+      "operative": false,
+      "sha256": "e5574f2643e41c0aeaa97dcbe56d12b628fa9cad3ce20f871a751803f3f7b738"
+    },
+    {
+      "id": "governing_law-05",
+      "adapter": "governing_law",
+      "category": "X",
+      "expected_bucket": "REQUIRES_REVIEW",
+      "clause_present": true,
+      "operative": "ambiguous",
+      "sha256": "a06ab262c59ec4882e20372e8de9f9a6fbb5c70f10266352d3cc00dd6bd7e4f5"
+    },
+    {
+      "id": "termination-01",
+      "adapter": "termination",
+      "category": "A/B",
+      "expected_bucket": "CLEAN",
+      "clause_present": true,
+      "operative": true,
+      "sha256": "065f7b0ea3550a4438ac39fe07882b970e527d8bacbe07c2aef5c0fef6951179"
+    },
+    {
+      "id": "termination-02",
+      "adapter": "termination",
+      "category": "C",
+      "expected_bucket": "NOT_CLEAN",
+      "clause_present": true,
+      "operative": true,
+      "sha256": "9384568cf855c75f18a1c92124a904f25492d5c56eb064b368c92b524cec26c6"
+    },
+    {
+      "id": "termination-03",
+      "adapter": "termination",
+      "category": "D",
+      "expected_bucket": "NOT_APPLICABLE",
+      "clause_present": false,
+      "operative": false,
+      "sha256": "9add8df55566163768ca0bc363460996d3d94ff0114bfd78b52ea882a4bac3de"
+    },
+    {
+      "id": "termination-04",
+      "adapter": "termination",
+      "category": "F",
+      "expected_bucket": "NOT_APPLICABLE",
+      "clause_present": false,
+      "operative": false,
+      "sha256": "849594cd13e0a6b1d07de6f2c13bfb49de327acff627575c0b5ad2f6a9081ea5"
+    },
+    {
+      "id": "termination-05",
+      "adapter": "termination",
+      "category": "Y",
+      "expected_bucket": "NOT_CLEAN",
+      "clause_present": true,
+      "operative": true,
+      "sha256": "de3782d83232ae04aab8eeb1f718001ee0f4f46b40282d64723c886c951d021e"
+    },
+    {
+      "id": "termination-06",
+      "adapter": "termination",
+      "category": "AB",
+      "expected_bucket": "CLEAN",
+      "clause_present": true,
+      "operative": true,
+      "sha256": "0e9a30a9210d0120cd9bb9741a6d736ba3c3340b375978e9c9dd47f60b39dbd0"
+    },
+    {
+      "id": "warranties-01",
+      "adapter": "warranties",
+      "category": "A/B",
+      "expected_bucket": "CLEAN",
+      "clause_present": true,
+      "operative": true,
+      "sha256": "501b68f82c9fcc1391ba1bd2a77541f0156cea15a85504232eae12549cd91761"
+    },
+    {
+      "id": "warranties-02",
+      "adapter": "warranties",
+      "category": "C",
+      "expected_bucket": "NOT_CLEAN",
+      "clause_present": true,
+      "operative": true,
+      "sha256": "6e18d8a51cf348560f434806717296f8cbf7f2dac06dcdb029965b8c97757127"
+    },
+    {
+      "id": "warranties-03",
+      "adapter": "warranties",
+      "category": "D",
+      "expected_bucket": "NOT_APPLICABLE",
+      "clause_present": false,
+      "operative": false,
+      "sha256": "c73a57e10958777425e4c0850097cd19eefd5b517a7ce0e97265f60e90dac145"
+    },
+    {
+      "id": "warranties-04",
+      "adapter": "warranties",
+      "category": "F",
+      "expected_bucket": "NOT_APPLICABLE",
+      "clause_present": false,
+      "operative": false,
+      "sha256": "f6ad6dab5d02bccc26b9018edccf514d2eacda7b752e8f5cf60c32fd12fe737d"
+    },
+    {
+      "id": "warranties-05",
+      "adapter": "warranties",
+      "category": "K",
+      "expected_bucket": "NOT_CLEAN",
+      "clause_present": true,
+      "operative": true,
+      "sha256": "5275afc4678ba98b8298a658cb4c438ac5d1c0eb76f1319dcda5c56a77963b52"
+    },
+    {
+      "id": "warranties-06",
+      "adapter": "warranties",
+      "category": "AA",
+      "expected_bucket": "REQUIRES_REVIEW",
+      "clause_present": true,
+      "operative": true,
+      "sha256": "3ea43f7ed22703dbb79aa5c764e007c23653569acc9b8efc616719f3e96d540d"
+    },
+    {
+      "id": "sla-01",
+      "adapter": "sla",
+      "category": "A/B",
+      "expected_bucket": "CLEAN",
+      "clause_present": true,
+      "operative": true,
+      "sha256": "8a3890c959752b51bce9f6880e5f0829ce74f11145d55595d180c82cb9a9b364"
+    },
+    {
+      "id": "sla-02",
+      "adapter": "sla",
+      "category": "C",
+      "expected_bucket": "NOT_CLEAN",
+      "clause_present": true,
+      "operative": true,
+      "sha256": "9ba8ee606d02dfc4bd1b9b8ab679dfdb9f8b5e4c01e10f1416cb0d671f5bfb74"
+    },
+    {
+      "id": "sla-03",
+      "adapter": "sla",
+      "category": "D",
+      "expected_bucket": "NOT_APPLICABLE",
+      "clause_present": false,
+      "operative": false,
+      "sha256": "601ca6a1153474ac5c8339684a916e9bb6c81bc1a78f491ef7e092d9b3dfef19"
+    },
+    {
+      "id": "sla-04",
+      "adapter": "sla",
+      "category": "F",
+      "expected_bucket": "NOT_APPLICABLE",
+      "clause_present": false,
+      "operative": false,
+      "sha256": "27b96b49a7f424954985310d6b870ad2072368005e92777886d056a4eb1a970b"
+    },
+    {
+      "id": "sla-05",
+      "adapter": "sla",
+      "category": "K",
+      "expected_bucket": "NOT_APPLICABLE",
+      "clause_present": false,
+      "operative": false,
+      "sha256": "4e81b6b46cbf4ded3ec229dfe419610c5162a764bb82f514bb0439ae53e30e81"
+    },
+    {
+      "id": "sla-06",
+      "adapter": "sla",
+      "category": "V",
+      "expected_bucket": "REQUIRES_REVIEW",
+      "clause_present": true,
+      "operative": "ambiguous",
+      "sha256": "9ae8d3514d9674dfbb483c34ee360fb7d088be5946ebb34a5dbf249150f4345c"
+    },
+    {
+      "id": "assignment-01",
+      "adapter": "assignment",
+      "category": "A/B",
+      "expected_bucket": "CLEAN",
+      "clause_present": true,
+      "operative": true,
+      "sha256": "6461a02c9b6ebc23089ac75e608c54681e050ef8096434cd31736cb51aebdda4"
+    },
+    {
+      "id": "assignment-02",
+      "adapter": "assignment",
+      "category": "C",
+      "expected_bucket": "NOT_CLEAN",
+      "clause_present": true,
+      "operative": true,
+      "sha256": "04280cf316a178413b26fdcd3dbebe3707ea50f3a831e38fb0787e095eeaa9f3"
+    },
+    {
+      "id": "assignment-03",
+      "adapter": "assignment",
+      "category": "D",
+      "expected_bucket": "NOT_APPLICABLE",
+      "clause_present": false,
+      "operative": false,
+      "sha256": "98e15592b560d2580228f49d03b380b89e9182f788c96256ffe34d66c39aef08"
+    },
+    {
+      "id": "assignment-04",
+      "adapter": "assignment",
+      "category": "F",
+      "expected_bucket": "NOT_APPLICABLE",
+      "clause_present": false,
+      "operative": false,
+      "sha256": "530c18bbedc3ad5790ac730606c7aeb76771811e35cbf16cf6cfd3798ae48ebe"
+    },
+    {
+      "id": "assignment-05",
+      "adapter": "assignment",
+      "category": "Y",
+      "expected_bucket": "NOT_CLEAN",
+      "clause_present": true,
+      "operative": true,
+      "sha256": "cab815357691186cf86da4eb60ff10317244b1cd32e40476e10a391b854f7e99"
+    },
+    {
+      "id": "assignment-06",
+      "adapter": "assignment",
+      "category": "K",
+      "expected_bucket": "NOT_CLEAN",
+      "clause_present": true,
+      "operative": true,
+      "sha256": "9fc86d65eaa0be0087fcca62cca7fe7b96599cb22551522702878094b3ea6a42"
+    }
+  ]
+}

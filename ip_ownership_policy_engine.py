@@ -75,12 +75,34 @@ from policy_engine_core import (
     excerpt, section_label_before,
     requires_review_explanation, requires_review_required_action,
     PolicyDecision,
+    EXTERNAL_DEFINITION_NOT_ATTACHED_RE as _EXTERNAL_DEFINITION_NOT_ATTACHED_RE,
+    document_wide_conflict_detected as _document_wide_conflict_detected,
+    unreconciled_ambiguity_marker_present as _unreconciled_ambiguity_marker_present,
+    cross_section_carveout_referencing as _cross_section_carveout_referencing,
+    detect_condition_in_span as _core_detect_condition_in_span,
+    is_operative_context as _core_is_operative_context,
+    self_referential_definition_unresolved as _self_referential_definition_unresolved,
 )
 
 RULE_ID = "POLICY_IP_OWNERSHIP"
 _PROVISION_WINDOW_CHARS = 2200
 
 _GENERIC_WORDS = {"each", "the", "any", "such", "this", "that", "both", "either", "party", "parties", "all", "it"}
+
+# Candidate 3 zero-silent-loss mission — "except for X, which Y retains"
+# is a real exception attached to an ownership statement ("Work product
+# shall be owned by Customer, except for Vendor's pre-existing background
+# IP..."). Deliberately LOCAL to this adapter rather than broadening the
+# shared policy_engine_core._MIDCLAUSE_EXCEPT_RE (which liability/
+# insurance/warranties also use): for liability specifically, "except for
+# claims arising from X" names a REQUIRED, already-correctly-handled
+# category carve-out, not a genuine unresolved condition -- broadening
+# the shared regex to include "except for" caused confirmed regressions
+# there. Ownership's "except for X, which Y retains" shape is
+# structurally different: it reassigns a PORTION of ownership to a
+# different party, which is exactly the kind of qualifier this adapter's
+# own category-attribution logic doesn't yet resolve automatically.
+_OWNERSHIP_EXCEPT_FOR_RE = re.compile(r"\bexcept\s+for\b", re.I)
 
 # --- Anchor -------------------------------------------------------------
 _ANCHOR_RE = re.compile(
@@ -89,21 +111,105 @@ _ANCHOR_RE = re.compile(
     re.I,
 )
 
+# Candidate 5.1 remediation (FALSE_ABSENCE semantic class: OWNERSHIP_
+# VESTING_STATEMENT): `_ANCHOR_RE` above is topic/noun-based
+# (intellectual property, work product, license grant...) and misses the
+# single MOST common way an ownership clause is actually drafted --  a
+# named party as the grammatical subject of an ownership-vesting verb
+# ("[Party] owns/retains/shall own all X created under this Agreement",
+# "Ownership of X shall transfer/pass/vest to [Party] upon Y") -- with NO
+# IP-specific noun anywhere in the sentence at all. Confirmed via the
+# burned corpus (iv-ip_ownership-0239: "Licensee owns all deliverables
+# created under this engagement..."; iv-ip_ownership-0253: "...Subscriber
+# owns all right, title, and interest in the deliverables...") that this
+# entire semantic class was previously undetectable by any deterministic
+# anchor and depended entirely on AI-candidate admission alone.
+#
+# This is NOT a new, ad hoc pattern: `_OWNERSHIP_ACTIVE_RE`/`_OWNERSHIP_
+# PASSIVE_RE` below already implement exactly this "party + ownership
+# verb" recognition, precisely and with negative-control discipline
+# (requiring a capitalized party name as subject, not a bare "owns"
+# anywhere) -- they were simply never wired into anchor/window-creation
+# at all, only used AFTER a window already existed via some other anchor.
+# `_OWNERSHIP_TRANSFER_VERB_RE` generalizes the transfer-verb anchor
+# (Candidate 5's original fix here only covered "title... shall
+# transfer", missing the equally common "Ownership of X shall transfer/
+# pass/vest" phrasing headed by "Ownership" instead of "Title").
+_OWNERSHIP_TRANSFER_VERB_RE = re.compile(
+    r"\b(?:right,?\s*title,?\s*and\s*interest|title|ownership)\b[^.;]{0,100}?"
+    r"\s+(?:shall|will)\s+(?:transfer|pass|vest)\b",
+    re.I,
+)
+
 # --- Ownership statements ------------------------------------------------
+# Candidate 5.1 remediation: the party-name capture group must be
+# case-SENSITIVELY capitalized -- a `re.I`-compiled pattern's `[A-Z]`
+# otherwise also matches lowercase, letting a stray pronoun/wh-word
+# ("who owns...", "it retains...") falsely satisfy the "looks like a
+# named party" heuristic. Confirmed as a live defect via the burned
+# corpus (iv-ip_ownership-0225: "...does not otherwise address who owns
+# any resulting work product" -- a MISSING_CLAUSE case -- matched "who
+# owns" as if "Who" were a capitalized party name) once these patterns
+# were wired into anchor/window-creation (Candidate 5.1's OWNERSHIP_
+# VESTING_STATEMENT fix). The `(?-i:...)` reset is the same established
+# fix already used for the identical hazard in data_security_policy_
+# engine.py's `_ROLE_STATEMENT_RE`.
 _OWNERSHIP_ACTIVE_RE = re.compile(
-    r"([A-Z][A-Za-z]{2,30})\s+(?:shall\s+(?:own|retain|be\s+(?:and\s+remain\s+)?the\s+"
+    r"(?-i:([A-Z][A-Za-z]{2,30}))\s+(?:shall\s+(?:own|retain|be\s+(?:and\s+remain\s+)?the\s+"
     r"(?:sole\s+and\s+exclusive|sole|exclusive)?\s*owner\s+of)|owns|retains|"
     r"shall\s+be\s+deemed\s+the\s+owner\s+of)\b",
     re.I,
 )
+# Candidate 5.1 remediation (semantic class distinction: BACKGROUND-IP
+# RETENTION vs. DEVELOPED-WORK VESTING): a bare "[Party] retains/shall
+# retain..." statement about a party's OWN pre-existing rights is a
+# fundamentally lower-signal, largely non-actionable class than an
+# affirmative "[Party] owns/shall own/shall be owner of" claim over
+# newly created work -- retention of what a party already had is the
+# routine, expected default in nearly every commercial agreement, not a
+# material vesting event. Confirmed via the burned corpus's "negated"
+# family (iv-ip_ownership-0219/0228/0237/0246/0255/0264: "Provider
+# retains all rights in its own pre-existing tools, and this Agreement
+# assigns no ownership interest in such tools to Recipient") that
+# treating a bare retention statement as anchor-worthy on its own
+# produced a real FALSE_SAFE regression once ownership-verb constructions
+# were wired into window-creation (see _OWNERSHIP_VESTING_ANCHOR_RE
+# below) -- the deterministic finding itself (Provider retains its own
+# background IP) is true and grounded, but is not the kind of material,
+# actionable fact this adapter's anchor gate should treat as sufficient
+# to skip escalation review on its own; excluding it from the ANCHOR
+# (window-creation) role, while still allowing `_scan_ownership` to
+# structure it normally once a window exists for some OTHER reason (via
+# `_OWNERSHIP_ACTIVE_RE` itself, unchanged below), preserves the
+# distinction without weakening detection of any genuine developed-work
+# ownership claim.
+_OWNERSHIP_VESTING_ANCHOR_RE = re.compile(
+    r"(?-i:([A-Z][A-Za-z]{2,30}))\s+(?:shall\s+(?:own|be\s+(?:and\s+remain\s+)?the\s+"
+    r"(?:sole\s+and\s+exclusive|sole|exclusive)?\s*owner\s+of)|owns|"
+    r"shall\s+be\s+deemed\s+the\s+owner\s+of)\b",
+    re.I,
+)
 _OWNERSHIP_PASSIVE_RE = re.compile(
-    r"shall\s+(?:remain|be)\s+(?:the\s+)?(?:sole\s+and\s+exclusive|sole|exclusive)?\s*property\s+of\s+([A-Z][A-Za-z]{2,30})"
-    r"|shall\s+be\s+(?:solely\s+)?owned\s+by\s+([A-Z][A-Za-z]{2,30})",
+    r"shall\s+(?:remain|be)\s+(?:the\s+)?(?:sole\s+and\s+exclusive|sole|exclusive)?\s*property\s+of\s+(?-i:([A-Z][A-Za-z]{2,30}))"
+    r"|shall\s+be\s+(?:solely\s+)?owned\s+(?:solely\s+|exclusively\s+)?by\s+(?-i:([A-Z][A-Za-z]{2,30}))",
+    re.I,
+)
+# Candidate 3 final gap-closure fix (Root Cause C) -- a subordinate
+# qualifier phrase ("including any pre-existing intellectual property
+# embodied therein", "other than X") names a DIFFERENT category than the
+# sentence's actual grammatical subject, but sits textually closer to the
+# ownership verb. Without this exclusion, _nearest_category's raw-
+# distance heuristic picks the subordinate mention over the true subject
+# (see PROVIDER_VARIANCE_ROOT_CAUSE.md). Matches the qualifier phrase up
+# to its closing comma/parenthesis so category words strictly inside it
+# can be deprioritized as non-governing.
+_SUBORDINATE_QUALIFIER_SPAN_RE = re.compile(
+    r"\b(?:including|except(?:ing)?|other\s+than|excluding)\b[^,.;]{0,120}[,;]?",
     re.I,
 )
 _IP_ASSIGNMENT_RE = re.compile(
-    r"([A-Z][A-Za-z]{2,30})\s+(?:hereby\s+)?assigns?,?\s+(?:transfers?,?\s+)?(?:and\s+)?(?:conveys?\s+)?"
-    r"(?:to\s+([A-Z][A-Za-z]{2,30})\s+)?all\s+(?:of\s+its\s+)?right,?\s*title\s*(?:and|,)?\s*interest",
+    r"(?-i:([A-Z][A-Za-z]{2,30}))\s+(?:hereby\s+)?assigns?,?\s+(?:transfers?,?\s+)?(?:and\s+)?(?:conveys?\s+)?"
+    r"(?:to\s+(?-i:([A-Z][A-Za-z]{2,30}))\s+)?all\s+(?:of\s+its\s+)?right,?\s*title\s*(?:and|,)?\s*interest",
     re.I,
 )
 _JOINT_OWNERSHIP_RE = re.compile(r"jointly\s+own|joint\s+ownership", re.I)
@@ -184,7 +290,7 @@ _EMBEDDED_LICENSE_RE = re.compile(
 )
 
 _SOW_CROSSREF_RE = re.compile(
-    r"as\s+(?:set\s+forth|described|specified)\s+in\s+the\s+(?:applicable\s+)?(?:Statement\s+of\s+Work|SOW|Schedule|Exhibit|Order\s+Form)"
+    r"as\s+(?:set\s+forth|described|specified)\s+in\s+(?:the\s+)?(?:applicable\s+)?(?:[A-Z][a-zA-Z]+\s+)?(?:Statement\s+of\s+Work|SOW|Schedule|Exhibit|Order\s+Form)"
     r"|governed\s+by\s+(?:the\s+)?(?:applicable\s+)?(?:SOW|Statement\s+of\s+Work)", re.I,
 )
 
@@ -240,6 +346,38 @@ class IPFacts:
     embedded_background_ip_license_present: Optional[bool] = None
 
     sow_cross_reference: bool = False
+    # Candidate 3 final gap-closure fix (Root Cause B) -- distinct from
+    # sow_cross_reference: a NAMED DEFINED TERM used in an already-
+    # established ownership/license statement is itself defined by an
+    # external, explicitly-not-attached document (e.g. "Vendor retains
+    # all rights to 'Pre-Existing Materials.' That term is defined in the
+    # Statement of Work, which is not attached."). This changes the SCOPE
+    # of an established fact rather than substituting for a missing one,
+    # so it must surface even when established_dimension_count > 0 --
+    # unlike sow_cross_reference, which is suppressed once something else
+    # is established (see evaluate_ip_policy).
+    definition_dependency_unresolved: bool = False
+
+    # Fact-admission architecture — mirrors data_security_policy_engine.
+    # DataSecurityFacts.absence_state exactly, for the same reason: this
+    # adapter's per-dimension evaluate logic can resolve an all-None facts
+    # object to ACCEPT when a playbook requires no specific dimension.
+    absence_state: str = "CONFIRMED_ABSENT"
+    semantic_discovery_error: Optional[str] = None
+    # Final trust architecture (Phase 1-6) — a material condition/
+    # exception the AI/contextual layer identified and independently
+    # grounded (fact_admission.ground_qualifiers). Never populated from
+    # an ungrounded claim.
+    ai_identified_condition: Optional[str] = None
+    ai_identified_exception: Optional[str] = None
+    ai_identified_definition_or_reference: Optional[str] = None
+    # Candidate 3 zero-silent-loss mission — a document-wide contradiction,
+    # self-declared unreconciled ambiguity, cross-section carve-out
+    # referencing this clause's own section number, or a deterministically-
+    # detected same-clause condition/exception.
+    document_wide_conflict: bool = False
+    deterministic_condition_established: bool = False
+    deterministic_condition_excerpt: Optional[str] = None
 
 
 class IPPolicyRuleLike(Protocol):
@@ -268,19 +406,38 @@ class IPPolicyRuleLike(Protocol):
 
 
 def _nearest_category(ctx: str, anchor_mid: float) -> Optional[str]:
-    best_category: Optional[str] = None
-    best_dist: Optional[float] = None
-    for name, regex in (
-        ("background_ip", _CAT_BACKGROUND_RE), ("work_product", _CAT_WORK_PRODUCT_RE),
-        ("customer_materials", _CAT_CUSTOMER_MATERIALS_RE), ("vendor_technology", _CAT_VENDOR_TECH_RE),
-    ):
-        for m in regex.finditer(ctx):
-            mid = (m.start() + m.end()) / 2
-            dist = abs(mid - anchor_mid)
-            if best_dist is None or dist < best_dist:
-                best_dist = dist
-                best_category = name
-    return best_category
+    # Candidate 3 final gap-closure fix (Root Cause C) -- a category word
+    # sitting inside a subordinate qualifier phrase ("including any
+    # pre-existing intellectual property embodied therein") names an
+    # exception/inclusion, not the sentence's governing subject, even
+    # when it happens to be the textually nearest mention. Two passes:
+    # first excluding any match inside such a span, falling back to the
+    # raw nearest-distance search only if nothing survives that
+    # exclusion (so a category word that legitimately IS the closest,
+    # non-subordinate mention still wins as before).
+    subordinate_spans = [(m.start(), m.end()) for m in _SUBORDINATE_QUALIFIER_SPAN_RE.finditer(ctx)]
+
+    def _inside_subordinate_span(pos: int) -> bool:
+        return any(lo <= pos < hi for lo, hi in subordinate_spans)
+
+    for exclude_subordinate in (True, False):
+        best_category: Optional[str] = None
+        best_dist: Optional[float] = None
+        for name, regex in (
+            ("background_ip", _CAT_BACKGROUND_RE), ("work_product", _CAT_WORK_PRODUCT_RE),
+            ("customer_materials", _CAT_CUSTOMER_MATERIALS_RE), ("vendor_technology", _CAT_VENDOR_TECH_RE),
+        ):
+            for m in regex.finditer(ctx):
+                if exclude_subordinate and _inside_subordinate_span(m.start()):
+                    continue
+                mid = (m.start() + m.end()) / 2
+                dist = abs(mid - anchor_mid)
+                if best_dist is None or dist < best_dist:
+                    best_dist = dist
+                    best_category = name
+        if best_category is not None:
+            return best_category
+    return None
 
 
 def _categorize(window: str, pos_start: int, pos_end: int, forward_radius: int = 250, backward_radius: int = 200) -> Optional[str]:
@@ -321,6 +478,34 @@ def _attribute_owner(facts: IPFacts, category: str, name: str) -> None:
 
 
 def _scan_ownership(window: str, facts: IPFacts) -> None:
+    # Candidate 3 zero-silent-loss mission — a deterministically-detected
+    # same-SENTENCE condition/exception attached to the specific ownership
+    # match (using detect_condition_in_span, scoped to just that match's
+    # own sentence via sentence_bounds -- NOT the whole window, which
+    # previously caused false positives on ip_ownership's common "To the
+    # extent any Deliverables do not qualify as a work made for hire,
+    # Vendor hereby assigns..." assign-or-fallback idiom living in a
+    # DIFFERENT sentence of the same window).
+    def _check_condition(m_start: int, m_end: int) -> None:
+        if facts.deterministic_condition_established:
+            return
+        cond = _core_detect_condition_in_span(window, m_start, m_end)
+        if cond.status == "ESTABLISHED":
+            facts.deterministic_condition_established = True
+            facts.deterministic_condition_excerpt = cond.evidence_span
+            return
+        # "except for" local check (see _OWNERSHIP_EXCEPT_FOR_RE) -- scoped
+        # to the same sentence as the ownership match, mirroring
+        # detect_condition_in_span's own scoping discipline.
+        sent_start = window.rfind(".", 0, m_start) + 1
+        sent_end_dot = window.find(".", m_end)
+        sent_end = sent_end_dot + 1 if sent_end_dot != -1 else len(window)
+        sentence = window[sent_start:sent_end]
+        ex_m = _OWNERSHIP_EXCEPT_FOR_RE.search(sentence)
+        if ex_m:
+            facts.deterministic_condition_established = True
+            facts.deterministic_condition_excerpt = sentence[ex_m.start():min(len(sentence), ex_m.start() + 100)].strip()
+
     for m in _OWNERSHIP_ACTIVE_RE.finditer(window):
         name = m.group(1)
         if name.lower() in _GENERIC_WORDS:
@@ -329,6 +514,7 @@ def _scan_ownership(window: str, facts: IPFacts) -> None:
         if cat is None:
             continue
         _attribute_owner(facts, cat, name)
+        _check_condition(m.start(), m.end())
 
     for m in _OWNERSHIP_PASSIVE_RE.finditer(window):
         name = m.group(1) or m.group(2)
@@ -338,6 +524,7 @@ def _scan_ownership(window: str, facts: IPFacts) -> None:
         if cat is None:
             continue
         _attribute_owner(facts, cat, name)
+        _check_condition(m.start(), m.end())
 
     for m in _IP_ASSIGNMENT_RE.finditer(window):
         assignee = m.group(2)
@@ -444,31 +631,117 @@ def _collect(all_found: set) -> Tuple[Optional[str], bool]:
     return None, False
 
 
+# Off by default — same rollout discipline as every other adapter this
+# session integrated.
+IP_OWNERSHIP_SEMANTIC_DISCOVERY_ENABLED = False  # module-load-time default; immediately overridden below
+import fact_admission as _fact_admission_env_check
+IP_OWNERSHIP_SEMANTIC_DISCOVERY_ENABLED = _fact_admission_env_check.semantic_discovery_enabled("IP_OWNERSHIP_SEMANTIC_DISCOVERY_ENABLED")
+del _fact_admission_env_check
+
+_IP_OWNERSHIP_SEMANTIC_FOCUS = (
+    "who owns intellectual property under this agreement -- background IP, work "
+    "product/deliverables, or a license grant between the parties -- even if the "
+    "wording is unusual and does not use standard terms like 'intellectual property' "
+    "or 'work product'"
+)
+_IP_OWNERSHIP_SEMANTIC_PROPOSITION = (
+    "This sentence or clause is operative language of this agreement that "
+    "establishes who owns intellectual property (background IP, work product, or "
+    "deliverables) created or used under this agreement, or grants a license to it."
+)
+
+
+def _run_semantic_discovery(text: str) -> Tuple[List, Optional[str], bool, Optional[str]]:
+    """Mirrors liability_policy_engine._run_semantic_discovery exactly.
+    Returns (admitted_candidates, unresolved_dependency_note, error)."""
+    if not IP_OWNERSHIP_SEMANTIC_DISCOVERY_ENABLED:
+        return [], None, False, None
+    import fact_admission as _fa
+    try:
+        raw_candidates = _fa.discover_candidate_spans(text, "ip_ownership", _IP_OWNERSHIP_SEMANTIC_FOCUS)
+    except Exception as exc:  # noqa: BLE001 — provider unavailable, never "confirmed absent"
+        return [], None, False, f"{type(exc).__name__}: {exc}"
+
+    verified_candidates = [
+        _fa.verify_and_ground(candidate, text, _IP_OWNERSHIP_SEMANTIC_PROPOSITION) for candidate in raw_candidates
+    ]
+    admitted = [c for c in verified_candidates if c.admission_status == _fa.ADMITTED]
+    unresolved_dependency_note = _fa.first_unresolved_dependency_note(verified_candidates)
+    note_is_unconditional = _fa.first_unresolved_dependency_note_is_unconditional(verified_candidates)
+    return admitted, unresolved_dependency_note, note_is_unconditional, None
+
+
 def extract_ip_facts(text: str) -> Optional[IPFacts]:
     """Single controlling-provision extraction for excerpt/label purposes
     (mirrors data_security's approach — IP clauses in real commercial
     agreements are typically one consolidated section), but scans EVERY
     anchored window document-wide for reconciliation, exactly like
     data_security's subprocessor/breach-notification handling, so a
-    genuinely conflicting second statement elsewhere is never missed."""
-    matches = list(_ANCHOR_RE.finditer(text))
+    genuinely conflicting second statement elsewhere is never missed.
+    Returns None only when no anchor exists at all AND semantic discovery
+    also ran successfully and found nothing — a provider outage/error
+    becomes RECOGNITION_UNCERTAIN instead (see absence_state)."""
+    # Candidate 5.1 remediation: anchor/window-creation now also fires on
+    # the OWNERSHIP_VESTING_STATEMENT semantic class -- a named party as
+    # subject of an ownership verb ("owns", "retains", "shall own",
+    # "shall be owner of"), the passive/property-of equivalent, an
+    # explicit "assigns...right, title and interest" grant, or a
+    # title/ownership transfer-verb construction -- not just the
+    # topic/noun-based `_ANCHOR_RE`. These are the SAME precise,
+    # already-tested classifiers `_scan_ownership` uses downstream to
+    # STRUCTURE an ownership finding once a window exists; reusing them
+    # here as anchor sources too closes the gap where they could
+    # previously only ever fire AFTER some other anchor already created a
+    # window, never on their own.
+    matches = sorted(
+        list(_ANCHOR_RE.finditer(text)) + list(_OWNERSHIP_VESTING_ANCHOR_RE.finditer(text))
+        + list(_OWNERSHIP_PASSIVE_RE.finditer(text)) + list(_OWNERSHIP_TRANSFER_VERB_RE.finditer(text))
+        + list(_IP_ASSIGNMENT_RE.finditer(text)),
+        key=lambda m: m.start(),
+    )
+    semantic_error: Optional[str] = None
+    admitted_semantic: List = []
+    unresolved_dependency_note: Optional[str] = None
+    # Candidate 3 remediation (Root Cause 2): contextual discovery is no
+    # longer gated behind "deterministic anchor discovery found zero
+    # matches" -- see confidentiality_policy_engine.py's identical fix.
+    admitted_semantic, unresolved_dependency_note, note_is_unconditional, semantic_error = _run_semantic_discovery(text)
     if not matches:
-        return None
+        if semantic_error is not None:
+            return IPFacts(clause_found=True, absence_state="RECOGNITION_UNCERTAIN", semantic_discovery_error=semantic_error)
+        if not admitted_semantic and not unresolved_dependency_note:
+            return None
+        if not admitted_semantic:
+            # A dependency-only failure (no candidate ever became
+            # admitted) never has a real anchor span to build windows
+            # from — preserve the failure directly rather than falling
+            # through to anchor_spans[0] below (zero-silent-loss, Step H).
+            return IPFacts(clause_found=True, ai_identified_definition_or_reference=unresolved_dependency_note)
+    elif semantic_error is not None:
+        admitted_semantic = []
+
+    # A semantically-admitted candidate contributes an (start, end) span
+    # exactly like a regex anchor match does — it never bypasses the
+    # window-merging or the per-window classification functions below.
+    anchor_spans = [(m.start(), m.end()) for m in matches] + [
+        (c.start_offset, c.end_offset) for c in admitted_semantic
+    ]
+    anchor_spans.sort()
 
     windows: List[Tuple[int, int]] = []
-    for m in matches:
-        s = max(0, m.start() - 200)
-        e = min(len(text), m.end() + _PROVISION_WINDOW_CHARS)
+    for (m_start, m_end) in anchor_spans:
+        s = max(0, m_start - 200)
+        e = min(len(text), m_end + _PROVISION_WINDOW_CHARS)
         if windows and s - windows[-1][1] < 200:
             windows[-1] = (windows[-1][0], max(windows[-1][1], e))
         else:
             windows.append((s, e))
 
-    first_match = matches[0]
-    start_index = max(0, first_match.start() - 200)
-    end_index = min(len(text), first_match.end() + 400)
+    first_start, first_end = anchor_spans[0]
+    start_index = max(0, first_start - 200)
+    end_index = min(len(text), first_end + 400)
     raw_excerpt = excerpt(text, start_index, end_index)
-    section_label = section_label_before(text, first_match.start())
+    section_label = section_label_before(text, first_start)
 
     facts = IPFacts(clause_found=True, raw_excerpt=raw_excerpt, start_index=start_index,
                      end_index=end_index, section_label=section_label)
@@ -514,6 +787,8 @@ def extract_ip_facts(text: str) -> Optional[IPFacts]:
             facts.embedded_background_ip_license_present = True
         if _SOW_CROSSREF_RE.search(window):
             facts.sow_cross_reference = True
+        if _EXTERNAL_DEFINITION_NOT_ATTACHED_RE.search(window):
+            facts.definition_dependency_unresolved = True
 
     facts.exclusivity, facts.exclusivity_conflict = _collect(excl_all)
     facts.royalty, facts.royalty_conflict = _collect(roy_all)
@@ -528,6 +803,129 @@ def extract_ip_facts(text: str) -> Optional[IPFacts]:
     facts.derivative_works_permitted = {"yes": True, "no": False}.get(der_token)
     if len(term_years_values) == 1:
         facts.license_term_years = next(iter(term_years_values))
+
+    # Final trust architecture (Phase 5/6) — see confidentiality_policy_
+    # engine.py's identical composition for the full rationale.
+    import fact_admission as _fa
+    for candidate in admitted_semantic:
+        facts.ai_identified_condition = facts.ai_identified_condition or candidate.condition
+        facts.ai_identified_exception = facts.ai_identified_exception or candidate.exception
+    facts.ai_identified_definition_or_reference = _fa.first_resolved_dependency_note(admitted_semantic)
+
+    # Candidate 3 remediation (Root Cause 1): an admitted AI candidate
+    # exists but no ownership attribution (or any other IP dimension)
+    # could be deterministically structured from it -- this is the exact
+    # mechanism behind the confirmed ip_ownership-099 non-determinism
+    # (the same colloquial "belongs to Customer, lock, stock, and barrel"
+    # input flipping between NOT_APPLICABLE and ACCEPT across identical
+    # real-provider runs). Never let this silently reach ACCEPT ("no
+    # policy gaps found") merely because nothing was established. See
+    # CANONICAL_PRIMARY_FACT_SCHEMA.md.
+    if admitted_semantic and not facts.ownership_attributions:
+        _any_other_established = any(v is not None for v in (
+            facts.exclusivity, facts.royalty, facts.duration, facts.license_term_years, facts.revocability,
+            facts.sublicensable, facts.transferable, facts.territory, facts.purpose_limited,
+            facts.derivative_works_permitted, facts.feedback_treatment, facts.residual_knowledge_rights,
+            facts.open_source_obligations_present, facts.infringement_remedy_referenced,
+            facts.post_termination_survival, facts.embedded_background_ip_license_present,
+        )) or facts.sow_cross_reference
+        if not _any_other_established:
+            facts.absence_state = "PRESENT_BUT_UNRESOLVED"
+
+    # Zero-silent-loss mission follow-up (data_security-139 general failure
+    # class) -- a candidate was discovered but its OWN semantic verification
+    # reported genuine uncertainty (never admitted), and a deterministic
+    # anchor also exists elsewhere in the document, so the block above
+    # (gated on `admitted_semantic`) never fires. Must not be silently
+    # discarded merely because nothing else structured.
+    # Candidate 5.1 remediation: the outer gate previously required
+    # `not facts.ownership_attributions` BEFORE even checking
+    # `note_is_unconditional` -- meaning an unconditional note (an
+    # unresolved definition/cross-reference dependency, which the
+    # comment immediately below already says "must never be suppressed
+    # merely because some other IP dimension was established elsewhere")
+    # was STILL silently dropped whenever ownership happened to also
+    # resolve deterministically elsewhere in the same document. Exposed
+    # by the Candidate 5.1 anchor broadening (ownership-vesting
+    # statements now anchor on their own, so this combination -- an
+    # admitted-but-dependency-unresolved candidate ALONGSIDE a
+    # deterministically-established ownership attribution -- became
+    # reachable for the first time). Fixed by folding
+    # `ownership_attributions` into `_any_other_established` (which
+    # `note_is_unconditional` already overrides) instead of gating the
+    # entire block on it.
+    if not admitted_semantic and unresolved_dependency_note is not None:
+        _any_other_established = any(v is not None for v in (
+            facts.exclusivity, facts.royalty, facts.duration, facts.license_term_years, facts.revocability,
+            facts.sublicensable, facts.transferable, facts.territory, facts.purpose_limited,
+            facts.derivative_works_permitted, facts.feedback_treatment, facts.residual_knowledge_rights,
+            facts.open_source_obligations_present, facts.infringement_remedy_referenced,
+            facts.post_termination_survival, facts.embedded_background_ip_license_present,
+        )) or facts.sow_cross_reference or bool(facts.ownership_attributions)
+        # Candidate 3 final pre-freeze blocker remediation (Blocker 2) -- a
+        # definition/cross-reference dependency or competing-reading note
+        # is always structurally material and must never be suppressed
+        # merely because some other IP dimension was established elsewhere.
+        if note_is_unconditional or not _any_other_established:
+            facts.absence_state = "PRESENT_BUT_UNRESOLVED"
+            facts.ai_identified_definition_or_reference = (
+                facts.ai_identified_definition_or_reference or unresolved_dependency_note
+            )
+
+    # Candidate 4 remediation (independent-validation FALSE_ABSENCE root
+    # cause, general failure class shared with insurance/data_security):
+    # NEITHER an admitted AI candidate NOR an unresolved dependency note
+    # exist -- AI discovery returned nothing (a genuine recall miss) -- yet
+    # a deterministic anchor DID match and IS operative (a real party
+    # obligation, e.g. a less-common ownership-transfer construction like
+    # "Title... shall transfer to Recipient upon...", not descriptive/
+    # recital/negated language), and still no ownership attribution or
+    # other IP dimension could be structured. Requiring operative context
+    # (rather than a bare topical anchor mention) avoids over-escalating a
+    # merely descriptive mention of "intellectual property."
+    if (not admitted_semantic and unresolved_dependency_note is None
+            and facts.absence_state == "CONFIRMED_ABSENT"
+            and any(_core_is_operative_context(text, m.start(), m.end()) for m in matches)):
+        _any_other_established = any(v is not None for v in (
+            facts.exclusivity, facts.royalty, facts.duration, facts.license_term_years, facts.revocability,
+            facts.sublicensable, facts.transferable, facts.territory, facts.purpose_limited,
+            facts.derivative_works_permitted, facts.feedback_treatment, facts.residual_knowledge_rights,
+            facts.open_source_obligations_present, facts.infringement_remedy_referenced,
+            facts.post_termination_survival, facts.embedded_background_ip_license_present,
+        )) or facts.sow_cross_reference
+        if not facts.ownership_attributions and not _any_other_established:
+            facts.absence_state = "PRESENT_BUT_UNRESOLVED"
+
+    # Candidate 5 remediation (UNRESOLVED_DEFINITION_TO_CLEAN general root
+    # cause, confirmed shared with insurance/warranties): e.g. "Recipient
+    # owns all Custom Work Product, as defined in this Agreement" where
+    # "Custom Work Product" is never actually defined anywhere in the
+    # text. Fires regardless of what else was established -- see
+    # insurance_policy_engine.py's identical fix for the full rationale.
+    self_ref_note = _self_referential_definition_unresolved(text)
+    if self_ref_note is not None:
+        facts.absence_state = "PRESENT_BUT_UNRESOLVED"
+        facts.ai_identified_definition_or_reference = facts.ai_identified_definition_or_reference or self_ref_note
+
+    # Candidate 3 zero-silent-loss mission — a document-wide contradiction,
+    # self-declared unreconciled ambiguity, or cross-section carve-out
+    # referencing this clause's own section number must not be silently
+    # dropped merely because ownership otherwise resolved deterministically.
+    if (_document_wide_conflict_detected(text) or _unreconciled_ambiguity_marker_present(text)
+            or _cross_section_carveout_referencing(text, facts.section_label)):
+        facts.document_wide_conflict = True
+
+    # NOTE: a same-clause deterministic condition/exception check (mirroring
+    # liability/insurance/warranties' use of detect_condition_in_text) was
+    # attempted here but reverted -- ip_ownership's extremely common
+    # "To the extent any Deliverables do not qualify as a work made for
+    # hire, Vendor hereby assigns..." assign-or-fallback idiom triggered
+    # detect_condition_in_text's leading-condition detector as a false
+    # positive (it is a COMPLETE resolution, not a genuine unresolved
+    # condition), causing real regressions in benchmarks/ip_ownership_
+    # corpus.py (clean-01, own-04, lic-22, sow-crossref-02). Reported as
+    # an open gap (ip_ownership-085/086 remain unfixed) rather than
+    # shipping a fix that trades one bug for a confirmed regression.
 
     return facts
 
@@ -600,10 +998,66 @@ def evaluate_ip_policy(
             start_index=None, end_index=None,
         )
 
+    if facts.absence_state == "RECOGNITION_UNCERTAIN":
+        return PolicyDecision(
+            **common, state=REQUIRES_REVIEW,
+            contract_language="", extracted_summary="Could not determine whether an IP ownership / licensing clause is present",
+            policy_limit_summary="N/A",
+            required_action="Manual review required — automated recognition was unavailable for this document.",
+            explanation=(
+                "Deterministic pattern matching found no IP ownership / licensing clause, and semantic "
+                f"verification could not confirm its absence ({facts.semantic_discovery_error or 'unavailable'}). "
+                "This is not the same as confirming the contract has no such clause."
+            ),
+            negotiation_ladder=_build_ladder(policy, REQUIRES_REVIEW), category_treatments=[], unresolved_facts=[],
+            start_index=None, end_index=None,
+        )
+
+    # Candidate 4 remediation: the PRESENT_BUT_UNRESOLVED absence-state used
+    # to force an immediate REQUIRES_REVIEW return HERE, before the per-
+    # dimension comparison loop below ever ran -- pre-empting a more
+    # specific, already-correct finding (e.g. "policy requires us to own
+    # work product, but the clause attributes it to Vendor" -> MUST_REDLINE)
+    # with a generic, less-informative REQUIRES_REVIEW. See the equivalent
+    # fallback placed AFTER the notes loop below (near `worst == ACCEPT`),
+    # which fires only when nothing more specific was already found --
+    # mirrors the identical restructuring applied to insurance and
+    # data_security for the same independent-validation root cause.
+
     background_owner, background_unresolved = _resolve_owner(facts, policy.contract_side, "background_ip")
     work_product_owner, work_product_unresolved = _resolve_owner(facts, policy.contract_side, "work_product")
 
     unresolved: List[str] = []
+    # Candidate 3 zero-silent-loss mission — a document-wide contradiction,
+    # unreconciled ambiguity, or cross-section carve-out must block clean.
+    if facts.document_wide_conflict:
+        unresolved.append(
+            "a separate statement elsewhere in the document appears to contradict, negate, or leave unreconciled "
+            "the ownership attribution established in this clause"
+        )
+    if facts.deterministic_condition_established:
+        unresolved.append(
+            f"ownership is stated as conditional (\"{facts.deterministic_condition_excerpt}\") — this "
+            f"evaluation does not determine whether the stated condition is satisfied"
+        )
+    # Final trust architecture (Phase 4 hard gate) — a material condition/
+    # exception the AI/context layer identified and grounded must not be
+    # silently dropped merely because ownership otherwise resolved cleanly.
+    if facts.ai_identified_condition:
+        unresolved.append(
+            f"a material condition was identified by contextual analysis and grounded against the source "
+            f"document (\"{facts.ai_identified_condition}\")"
+        )
+    if facts.ai_identified_exception:
+        unresolved.append(
+            f"a material exception was identified by contextual analysis and grounded against the source "
+            f"document (\"{facts.ai_identified_exception}\")"
+        )
+    if facts.ai_identified_definition_or_reference:
+        unresolved.append(
+            f"a material definition/cross-reference dependency was identified by contextual analysis "
+            f"({facts.ai_identified_definition_or_reference})"
+        )
     if "background_ip" in facts.ownership_conflict_categories:
         unresolved.append("background/pre-existing IP ownership is stated inconsistently (conflicting owner attributions)")
     elif policy.require_we_retain_background_ip and background_unresolved:
@@ -649,6 +1103,9 @@ def evaluate_ip_policy(
     if facts.sow_cross_reference and established_dimension_count == 0:
         unresolved.append("material IP ownership/license terms are delegated to a referenced Statement of "
                            "Work/Schedule/Exhibit not included in this text")
+    if facts.definition_dependency_unresolved:
+        unresolved.append("a defined term used in this clause is itself defined by an external document that "
+                           "is explicitly stated as not attached, so the clause's actual scope cannot be confirmed")
 
     if unresolved:
         explanation = requires_review_explanation("IP ownership / licensing clause", facts.raw_excerpt, unresolved)
@@ -779,9 +1236,20 @@ def evaluate_ip_policy(
         extracted_summary_parts.append(f"Duration: {facts.duration}")
     extracted_summary = "; ".join(extracted_summary_parts) or "IP ownership/licensing clause found; limited structured detail extractable"
 
+    if worst == ACCEPT and facts.absence_state == "PRESENT_BUT_UNRESOLVED" and established_dimension_count == 0:
+        worst = REQUIRES_REVIEW
+        notes.append(
+            "contextual discovery identified and verified IP-ownership-relevant language in this contract, but "
+            "deterministic extraction could not structure it into a specific ownership attribution or licensing "
+            "term — this is not the same as confirming no IP ownership provision exists"
+        )
+
     if worst == ACCEPT and not notes:
         required_action = "None — IP ownership and license terms meet policy"
         explanation = f"Contract language: \"{facts.raw_excerpt}\". No policy gaps found. Result: {ACCEPT}."
+    elif worst == REQUIRES_REVIEW:
+        required_action = "Manual review required — " + "; ".join(notes)
+        explanation = f"Contract language: \"{facts.raw_excerpt}\". {'; '.join(notes)}. Result: {worst}."
     else:
         if worst in (ESCALATE, PROHIBITED):
             required_action = f"Escalate to {policy.escalation_approval_authority or 'Legal Director'} — " + "; ".join(notes)

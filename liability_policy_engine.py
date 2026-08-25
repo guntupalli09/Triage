@@ -76,6 +76,8 @@ from policy_engine_core import (
     detect_condition_in_text as _core_detect_condition_in_text,
     detect_conflicting_backward_conditions as _core_detect_conflicting_backward_conditions,
     is_operative_context as _core_is_operative_context,
+    document_wide_conflict_detected as _document_wide_conflict_detected,
+    unreconciled_ambiguity_marker_present as _unreconciled_ambiguity_marker_present,
 )
 
 RULE_ID = "POLICY_LOL_CAP"
@@ -720,6 +722,24 @@ class LiabilityFacts:
     controlling_provision: Optional[Provision] = None
     reconciliation: str = "single"  # "single" | "amendment_resolved" | "consistent_duplicate" | "unreconciled"
     reconciliation_explanation: str = ""
+    # Fact-admission architecture (see fact_admission.py and
+    # indemnification_policy_engine.py's absence_state, which this mirrors).
+    # Diagnostic by default — evaluate_liability_policy branches on
+    # clause_found/absence_state together (see the NOT_APPLICABLE branch),
+    # never on this string alone, matching indemnification's own discipline.
+    # CONFIRMED_ABSENT: regex found nothing AND semantic discovery ran
+    #   successfully and also found/admitted nothing.
+    # RECOGNITION_UNCERTAIN: regex found nothing AND semantic discovery was
+    #   unavailable/errored — must never collapse into CONFIRMED_ABSENT.
+    absence_state: str = "CONFIRMED_ABSENT"
+    semantic_discovery_error: Optional[str] = None
+    document_wide_conflict: bool = False
+    # Zero-silent-loss follow-up (data_security-139 general failure class)
+    # — a candidate was discovered but rejected by its OWN semantic
+    # verification (uncertain, not a disproven claim), and a deterministic
+    # anchor also exists elsewhere in the document. Previously discarded
+    # once accepted_anchors was non-empty; see extract_liability_facts.
+    ai_identified_unresolved_dependency: Optional[str] = None
 
 
 class PolicyRuleLike(Protocol):
@@ -1600,23 +1620,281 @@ def _discover_anchors(text: str) -> List[Tuple[int, bool]]:
     return accepted
 
 
+# Off by default — mirrors indemnification_policy_engine.HYBRID_DISCOVERY_
+# ENABLED's rollout discipline (a module-level switch a deployer/test flips
+# explicitly, never inferred from whether OPENAI_API_KEY happens to be
+# set). With this off, extract_liability_facts behaves byte-identically to
+# before this integration: regex-only discovery, CONFIRMED_ABSENT ->
+# NOT_APPLICABLE when nothing is found. This keeps the existing 78-case
+# regression suite (see tests/test_liability_policy_engine.py) passing
+# unchanged in any environment without a configured provider, and lets
+# Step 1's single-adapter rollout be enabled independently of whether a
+# provider key exists in a given deployment/test environment.
+LIABILITY_SEMANTIC_DISCOVERY_ENABLED = False  # module-load-time default; immediately overridden below
+import fact_admission as _fact_admission_env_check
+LIABILITY_SEMANTIC_DISCOVERY_ENABLED = _fact_admission_env_check.semantic_discovery_enabled("LIABILITY_SEMANTIC_DISCOVERY_ENABLED")
+del _fact_admission_env_check
+
+_LIABILITY_SEMANTIC_FOCUS = (
+    "one party's exposure to damages, losses, or claims under this agreement being "
+    "limited, capped, excluded, or expressly stated to be unlimited — a limitation-"
+    "of-liability concept — even if the wording is unusual or does not use standard "
+    "terms like 'limitation of liability' or 'cap'"
+)
+_LIABILITY_SEMANTIC_PROPOSITION = (
+    "This sentence or clause is operative language of this agreement that limits, "
+    "caps, excludes, or expressly leaves unlimited a party's liability, damages, or "
+    "losses arising under this agreement."
+)
+
+
+def _run_semantic_discovery(text: str) -> Tuple[List, Optional[str], bool, Optional[str]]:
+    """Additive semantic discovery for liability-cap language the
+    deterministic anchors above did not recognize. Mirrors
+    indemnification_policy_engine._run_semantic_discovery exactly, using
+    the shared fact_admission framework instead of a bespoke
+    implementation. Returns (admitted_candidates, unresolved_dependency_
+    note, note_is_unconditional, error); error is None when discovery ran
+    successfully (even if it found nothing — see absence_state in
+    extract_liability_facts).
+
+    unresolved_dependency_note (final trust architecture, Step B/H) —
+    when a candidate's proposition depended on a cross-reference/
+    definition fact_admission.verify_and_ground could NOT resolve, the
+    candidate is correctly NOT_ADMITTED and never becomes a provision —
+    but that failure is preserved here rather than disappearing, so the
+    caller can force REQUIRES_REVIEW instead of falling back to
+    CONFIRMED_ABSENT.
+
+    note_is_unconditional (Blocker 2, final pre-freeze blocker
+    remediation) — True when unresolved_dependency_note came from a
+    specific, always-material mechanism (definition/cross-reference
+    dependency, competing readings) that the caller's own materiality
+    gate (_any_provision_established, below) must NEVER suppress,
+    regardless of what else was established elsewhere in the document.
+    False means the note is the generic uncertain-verification catch-all
+    (content-uncertain status, or a pure infrastructure failure), the
+    only category the caller may legitimately suppress, and only when it
+    can prove the same material fact was already genuinely established."""
+    if not LIABILITY_SEMANTIC_DISCOVERY_ENABLED:
+        return [], None, False, None
+    import fact_admission as _fa
+    try:
+        raw_candidates = _fa.discover_candidate_spans(text, "limitation_of_liability", _LIABILITY_SEMANTIC_FOCUS)
+    except Exception as exc:  # noqa: BLE001 — provider unavailable, never "confirmed absent"
+        return [], None, False, f"{type(exc).__name__}: {exc}"
+
+    verified_candidates = [
+        _fa.verify_and_ground(candidate, text, _LIABILITY_SEMANTIC_PROPOSITION) for candidate in raw_candidates
+    ]
+    admitted = [c for c in verified_candidates if c.admission_status == _fa.ADMITTED]
+    # Uses the shared helper (not a hand-rolled duplicate) so this adapter
+    # automatically picks up every unresolved-dependency case the shared
+    # framework knows about -- including competing readings, added after
+    # an adapter-level test here first exposed that a hand-rolled
+    # duplicate of this check (the prior version of this function) never
+    # covered that case at all.
+    unresolved_dependency_note = _fa.first_unresolved_dependency_note(verified_candidates)
+    note_is_unconditional = _fa.first_unresolved_dependency_note_is_unconditional(verified_candidates)
+    return admitted, unresolved_dependency_note, note_is_unconditional, None
+
+
 def extract_liability_facts(text: str) -> Optional[LiabilityFacts]:
+    """Thin wrapper over _extract_liability_facts_inner that additionally
+    flags a document-wide contradiction/unreconciled-ambiguity marker
+    (Candidate 3 zero-silent-loss mission, Phase 3) -- kept as a wrapper
+    rather than threading the flag through every one of the inner
+    function's several return points."""
+    facts = _extract_liability_facts_inner(text)
+    if facts is not None and (
+        _document_wide_conflict_detected(text) or _unreconciled_ambiguity_marker_present(text)
+    ):
+        facts.document_wide_conflict = True
+    return facts
+
+
+def _extract_liability_facts_inner(text: str) -> Optional[LiabilityFacts]:
     """Discovers every liability-limitation provision in the full document
     (not just the first) and reconciles them. Returns None only when no such
-    provision exists at all anywhere in the document.
+    provision exists at all anywhere in the document AND semantic discovery
+    (see _run_semantic_discovery) also ran successfully and found nothing —
+    a semantic-discovery provider outage/error never collapses into "no
+    clause," it becomes RECOGNITION_UNCERTAIN instead (see absence_state).
 
     Discovery is two-layered — an explicitly labelled provision, or ordinary
     commercial cap drafting with no heading at all. See _ANCHOR_RE /
-    _SECONDARY_ANCHOR_RE."""
+    _SECONDARY_ANCHOR_RE. A third, additive layer (semantic discovery) runs
+    only when the first two find nothing, proposing candidate spans that
+    must independently pass adversarial semantic verification AND
+    deterministic grounding before they can seed a provision window — see
+    fact_admission.py. A semantically-admitted candidate is treated exactly
+    like any other anchor: it still has to survive the same deterministic
+    _extract_provision structuring any regex-found anchor does, so it can
+    reach PRESENT_AND_VERIFIED-equivalent status but never bypasses
+    structural verification the way a raw LLM classification would."""
     accepted_anchors = _discover_anchors(text)
+    semantic_error: Optional[str] = None
+    semantic_qualifiers_by_start: Dict[int, Any] = {}
+    unresolved_dependency_note: Optional[str] = None
+    # Candidate 3 remediation (Root Cause 2): contextual discovery is no
+    # longer gated behind "deterministic anchor discovery found zero
+    # matches" -- see confidentiality_policy_engine.py's identical fix.
+    # Root Cause 1 does not apply to this adapter: an admitted-but-
+    # unparseable candidate already becomes a Provision with
+    # general_cap=None, which evaluate_liability_policy already routes to
+    # MUST_REDLINE ("clause present but no numeric general cap stated") —
+    # never a silent ACCEPT/NOT_APPLICABLE. See PRE_IMPLEMENTATION_MAP.md.
+    admitted_semantic, unresolved_dependency_note, note_is_unconditional, semantic_error = _run_semantic_discovery(text)
     if not accepted_anchors:
-        return None
+        if admitted_semantic:
+            accepted_anchors = [(c.start_offset, False) for c in admitted_semantic]
+            # Final trust architecture (Phase 5) — keep each admitted
+            # candidate's own grounded condition/exception (see
+            # fact_admission.evaluate_admission's qualifier-grounding gate)
+            # so it can be forced into review below if the deterministic
+            # structuring below doesn't independently already capture it.
+            # A candidate reaching here already passed grounding for any
+            # qualifier it claimed, so .condition/.exception are either
+            # None or a real, grounded quote — never a dropped/fabricated one.
+            semantic_qualifiers_by_start = {c.start_offset: c for c in admitted_semantic}
+        elif semantic_error is not None:
+            return LiabilityFacts(
+                clause_found=True, provisions=[], absence_state="RECOGNITION_UNCERTAIN",
+                semantic_discovery_error=semantic_error,
+                reconciliation="single", reconciliation_explanation="",
+            )
+        elif unresolved_dependency_note is not None:
+            # Final trust architecture (Step B/H, zero-silent-loss) — a
+            # candidate was found and its proposition depended on a
+            # cross-reference/definition that could not be
+            # deterministically resolved. It never became a provision,
+            # but it must not silently collapse into CONFIRMED_ABSENT
+            # either — see evaluate_liability_policy's DEPENDENCY_
+            # UNRESOLVED branch.
+            return LiabilityFacts(
+                clause_found=True, provisions=[], absence_state="DEPENDENCY_UNRESOLVED",
+                semantic_discovery_error=unresolved_dependency_note,
+                reconciliation="single", reconciliation_explanation="",
+            )
+        else:
+            return None
+    # Note: when accepted_anchors is already non-empty (deterministic
+    # anchors exist), any ADDITIONALLY admitted semantic candidate is
+    # currently not merged into the provisions list -- this adapter's
+    # qualifier-composition loop below matches admitted candidates to
+    # provisions strictly by shared anchor offset (accepted_anchors), and
+    # a corroborating-but-not-identical AI candidate's own offset would
+    # not line up with a provision it didn't seed. This is a known,
+    # narrower scope than the other 11 adapters' "always add AI's
+    # qualifiers regardless of which channel found the anchor" behavior;
+    # recorded as a residual risk rather than silently left unstated.
 
     provisions = [_extract_provision(text, start, i) for i, (start, _) in enumerate(accepted_anchors)]
 
+    # Final trust architecture (Phase 5) — the AI/context layer may notice
+    # a material condition or exception that the deterministic regex-based
+    # condition detector (_core_detect_condition_in_span, run inside
+    # _extract_provision above) missed entirely, since it only recognizes
+    # a finite set of conditional-clause patterns. If the AI found and
+    # GROUNDED one, and the deterministic pass found none, this is
+    # EXACTLY the "AI notices what regex misses" case the shared
+    # discovery layer already exists for elsewhere — it must not be
+    # silently dropped merely because it arrived from the semantic path.
+    # Composing it into the SAME provision.condition field
+    # evaluate_liability_policy already reads (see the `if provision.
+    # condition is not None` block there) means no new decision branch is
+    # needed: any non-None condition, regardless of source, already
+    # forces this provision into REQUIRES_REVIEW rather than a clean
+    # decision -- the mission's Phase 4 fail-closed rule for an
+    # unresolved qualifier is satisfied by construction, not by a new
+    # special case.
+    # Matched by POSITION in accepted_anchors, not by provision.start_index
+    # -- _extract_provision may re-anchor start_index to the cap
+    # expression's own offset within the window (see its two branches
+    # above), which can differ from the original anchor offset the
+    # candidate was keyed by. List order is preserved 1:1 by the
+    # comprehension that built `provisions` from `accepted_anchors` above.
+    for provision, (anchor_start, _) in zip(provisions, accepted_anchors):
+        candidate = semantic_qualifiers_by_start.get(anchor_start)
+        if candidate is None:
+            continue
+        # The deterministic detector's "nothing found" sentinel is a real
+        # ConditionEvidence(status="UNCONDITIONAL"), not None — only skip
+        # when the deterministic pass already independently established,
+        # rejected, or flagged a conflicting condition of its own.
+        if provision.condition is not None and provision.condition.status != "UNCONDITIONAL":
+            continue
+        qualifier_text = candidate.condition or candidate.exception
+        dependency_note = None
+        if qualifier_text is None:
+            dr, xr = candidate.definition_resolution, candidate.cross_reference_resolution
+            # Both are guaranteed RESOLVED here — a candidate with an
+            # unresolved definition/cross-reference is NOT_ADMITTED and
+            # so never appears in semantic_qualifiers_by_start at all
+            # (see fact_admission.evaluate_admission's zero-silent-loss
+            # gate); the unresolved case is handled separately above via
+            # unresolved_dependency_note, since there is no provision to
+            # attach it to when accepted_anchors was empty.
+            if dr is not None:
+                dependency_note = f'depends on the defined term "{dr.term}": {dr.definition_evidence}'
+            elif xr is not None:
+                dependency_note = f'depends on the cross-referenced "{xr.label}": {xr.target_evidence}'
+        qualifier_text = qualifier_text or dependency_note
+        if qualifier_text is None:
+            continue
+        provision.condition = ConditionEvidence(
+            status="ESTABLISHED", condition_type="ai_identified",
+            evidence_span=qualifier_text,
+            note="identified by contextual AI analysis and independently grounded against the source document",
+        )
+
+    # Zero-silent-loss mission follow-up, second-order fix -- an
+    # unresolved_dependency_note sourced from a candidate whose OWN
+    # semantic verification was merely uncertain (never a disproven claim)
+    # must only be suppressed when a deterministic anchor already exists
+    # and GENUINELY, POSITIVELY resolved something material for this same
+    # clause (a real numeric cap, an actually-triggered category carve-out,
+    # a real condition) -- never merely because SOME dimension defaulted
+    # to its confident-negative sentinel.
+    #
+    # Candidate 3 final pre-freeze blocker remediation (Blocker 2) -- the
+    # ORIGINAL version of this gate checked `any(t.established for t in
+    # p.category_treatments.values())`, but category_treatments always
+    # contains one CategoryTreatment per CATEGORIES entry, and a category
+    # nobody mentioned in the text still comes back `treatment=
+    # "not_addressed", established=True` (a legitimate, confident
+    # deterministic finding that the category is silent -- just not
+    # evidence that a DIFFERENT, uncertain AI candidate is redundant).
+    # Since every real provision has at least one such "not_addressed"
+    # category, the original gate was ALWAYS true regardless of whether
+    # the cap itself, or anything else material, was ever established --
+    # confirmed by direct reproduction: a bare "This Section addresses
+    # liability matters generally." provision (nothing established at
+    # all) still satisfied the old gate. Fixed by requiring the category
+    # signal to be an actual, positive determination (treatment not in
+    # {"not_addressed", "unresolved"}), not merely "established" in the
+    # confident-negative sense. Re-verified against both the
+    # nothing-established shape (gate now correctly False) and the
+    # limitation_of_liability-006 shape (gate still correctly True, since
+    # that case's gross_negligence/willful_misconduct carve-outs are
+    # genuinely, positively triggered as "uncapped", not merely silent).
+    _any_provision_established = any(
+        p.general_cap_expression.effective_cap()[0] is not None
+        or any(
+            t.established and t.treatment not in ("not_addressed", "unresolved")
+            for t in p.category_treatments.values()
+        )
+        or (p.condition is not None and p.condition.status == "ESTABLISHED")
+        for p in provisions
+    )
+    surfaced_unresolved_dependency_note = (
+        unresolved_dependency_note if (note_is_unconditional or not _any_provision_established) else None
+    )
+
     if len(provisions) == 1:
         return LiabilityFacts(clause_found=True, provisions=provisions, controlling_provision=provisions[0],
-                               reconciliation="single", reconciliation_explanation="Single provision found.")
+                               reconciliation="single", reconciliation_explanation="Single provision found.",
+                               ai_identified_unresolved_dependency=surfaced_unresolved_dependency_note)
 
     # Reconciliation: prefer an explicit amendment/restatement over the
     # provisions it supersedes. If multiple provisions carry an amendment
@@ -1631,7 +1909,8 @@ def extract_liability_facts(text: str) -> Optional[LiabilityFacts]:
             f"and supersedes {', '.join(p.provision_label() for p in others)}."
         )
         return LiabilityFacts(clause_found=True, provisions=provisions, controlling_provision=controlling,
-                               reconciliation="amendment_resolved", reconciliation_explanation=explanation)
+                               reconciliation="amendment_resolved", reconciliation_explanation=explanation,
+                               ai_identified_unresolved_dependency=surfaced_unresolved_dependency_note)
 
     # No amendment signal — if every provision's effective general cap
     # agrees, they're consistent (e.g. a clause quoted or cross-referenced
@@ -1648,7 +1927,8 @@ def extract_liability_facts(text: str) -> Optional[LiabilityFacts]:
     if all_resolved and len(set(effective_values)) == 1:
         explanation = f"{len(provisions)} Limitation of Liability provisions found, all stating the same cap."
         return LiabilityFacts(clause_found=True, provisions=provisions, controlling_provision=provisions[0],
-                               reconciliation="consistent_duplicate", reconciliation_explanation=explanation)
+                               reconciliation="consistent_duplicate", reconciliation_explanation=explanation,
+                               ai_identified_unresolved_dependency=surfaced_unresolved_dependency_note)
 
     explanation = (
         f"{len(provisions)} Limitation of Liability provisions found with no explicit amendment/restatement "
@@ -1657,7 +1937,8 @@ def extract_liability_facts(text: str) -> Optional[LiabilityFacts]:
         + ". Cannot determine which provision controls without attorney review."
     )
     return LiabilityFacts(clause_found=True, provisions=provisions, controlling_provision=None,
-                           reconciliation="unreconciled", reconciliation_explanation=explanation)
+                           reconciliation="unreconciled", reconciliation_explanation=explanation,
+                           ai_identified_unresolved_dependency=surfaced_unresolved_dependency_note)
 
 
 # ---------------------------------------------------------------------------
@@ -1745,6 +2026,47 @@ def evaluate_liability_policy(
     (unreconciled provisions, a compound cap that doesn't reduce to one
     comparable value, an unmappable directional structure, ambiguous
     category carve-out language). No confidence score at any branch."""
+    if facts is not None and not facts.provisions and facts.absence_state == "RECOGNITION_UNCERTAIN":
+        # Fact-admission architecture (Step 5/6): a semantic-discovery
+        # provider outage/error must never be reported as "this contract
+        # does not address liability caps" (NOT_APPLICABLE, which
+        # document_aggregation.py and interaction_engine_core.py both
+        # treat as safely excludable). It must escalate instead — see
+        # fact_admission.py and _run_semantic_discovery above.
+        return PolicyDecision(
+            rule_id=RULE_ID, clause_type="limitation_of_liability", state=REQUIRES_REVIEW,
+            contract_language="", extracted_summary="Could not determine whether a limitation-of-liability clause is present",
+            policy_limit_summary=_fmt_multiplier(policy.preferred_multiplier),
+            required_action="Manual review required — automated recognition was unavailable for this document.",
+            explanation=(
+                "Deterministic pattern matching found no limitation-of-liability clause, and semantic "
+                f"verification could not confirm its absence ({facts.semantic_discovery_error or 'unavailable'}). "
+                "This is not the same as confirming the contract has no such clause."
+            ),
+            negotiation_ladder=_build_ladder(policy, REQUIRES_REVIEW), category_treatments=[], unresolved_facts=[],
+            start_index=None, end_index=None, source=source,
+        )
+
+    if facts is not None and not facts.provisions and facts.absence_state == "DEPENDENCY_UNRESOLVED":
+        # Final trust architecture (Step B/H, zero-silent-loss) — a
+        # candidate liability provision was identified by contextual
+        # analysis, but its meaning depended on a cross-reference or
+        # defined term this document does not deterministically resolve.
+        # Never dropped so the document can fall through to "no clause
+        # found" — forced to review instead.
+        return PolicyDecision(
+            rule_id=RULE_ID, clause_type="limitation_of_liability", state=REQUIRES_REVIEW,
+            contract_language="", extracted_summary="A candidate liability limitation was identified but a material dependency could not be resolved",
+            policy_limit_summary=_fmt_multiplier(policy.preferred_multiplier),
+            required_action="Manual review required — a cross-reference or defined term this provision depends on could not be located in this document.",
+            explanation=(
+                f"Contextual analysis identified language that may limit liability, but {facts.semantic_discovery_error}. "
+                "This evaluation does not determine what the provision actually means without that dependency resolved."
+            ),
+            negotiation_ladder=_build_ladder(policy, REQUIRES_REVIEW), category_treatments=[], unresolved_facts=[],
+            start_index=None, end_index=None, source=source,
+        )
+
     if facts is None or not facts.clause_found:
         return PolicyDecision(
             rule_id=RULE_ID, clause_type="limitation_of_liability", state=NOT_APPLICABLE,
@@ -1777,6 +2099,21 @@ def evaluate_liability_policy(
     }
     required_exceptions = list(policy.required_exceptions_json or [])
     unresolved_facts: List[str] = []
+
+    # Candidate 3 zero-silent-loss mission — a document-wide contradiction
+    # or self-declared unreconciled ambiguity must block clean regardless
+    # of what the local provision otherwise established.
+    if facts.document_wide_conflict:
+        unresolved_facts.append(
+            "a separate statement elsewhere in the document appears to contradict, negate, or leave unreconciled "
+            "the liability cap established in this clause"
+        )
+
+    if facts.ai_identified_unresolved_dependency:
+        unresolved_facts.append(
+            f"a material dependency was identified by contextual analysis but could not be confidently "
+            f"confirmed ({facts.ai_identified_unresolved_dependency})"
+        )
 
     # Step 4A.7.1 remediation (A6-L-52) — only relevant when the policy
     # actually needs to know which named party is "us" (see the
@@ -1879,6 +2216,33 @@ def evaluate_liability_policy(
         if provision.category_treatments.get(cat) is not None
         and provision.category_treatments[cat].treatment not in ("uncapped", "super_cap")
     ]
+    # Candidate 3 final gap-closure fix (Section 9, zero-silent-loss): a
+    # deterministically-established carve-out (uncapped/super_cap
+    # treatment) for a category the CURRENT policy doesn't happen to name
+    # in required_exceptions_json was previously completely invisible in
+    # the final decision -- present in provision.category_treatments
+    # internally, but never surfaced in the explanation/notes, and never
+    # distinguished a plain ACCEPT from an ACCEPT with a carve-out
+    # present. This is exactly the "grounded + preserved internally, but
+    # silently dropped from the decision surface" gap the burned corpus's
+    # YES_BUT_EXCEPTION family exposed (e.g. limitation_of_liability-006,
+    # -015). A carve-out for gross negligence/willful misconduct/
+    # indemnification etc. is not inherently a policy violation (many
+    # playbooks expect exactly such a carve-out), so this does not force
+    # an escalation -- it surfaces as ACCEPT_WITH_NOTE rather than a bare
+    # ACCEPT whenever the cap itself is otherwise compliant, so the fact
+    # remains visible to a reviewer instead of disappearing into an
+    # undifferentiated clean decision.
+    # Only "uncapped" (a genuinely unlimited exposure for that category) is
+    # treated as a silently-lost material fact -- "super_cap" is already a
+    # fully quantified, distinct value that surfaces via category_treatments
+    # in the decision output regardless (see
+    # test_data_breach_super_cap_is_captured_distinctly_from_general_cap),
+    # so nothing is actually lost for that treatment kind.
+    other_established_exceptions = [
+        cat for cat, t in provision.category_treatments.items()
+        if t.established and t.treatment == "uncapped" and cat not in required_exceptions
+    ]
     missing_consequential = (
         policy.require_consequential_damages_exclusion
         and provision.consequential_damages_excluded is not True
@@ -1924,6 +2288,8 @@ def evaluate_liability_policy(
 
         if state in (ACCEPT, ACCEPT_WITH_NOTE) and (missing_exceptions or missing_consequential or missing_consequential_carveouts):
             state = NEGOTIATE
+        elif state == ACCEPT and other_established_exceptions:
+            state = ACCEPT_WITH_NOTE
 
         notes = []
         if missing_exceptions:
@@ -1932,6 +2298,8 @@ def evaluate_liability_policy(
             notes.append("policy requires a consequential-damages exclusion, which was not found")
         if missing_consequential_carveouts:
             notes.append(f"consequential-damages exclusion missing required carve-out(s): {', '.join(missing_consequential_carveouts)}")
+        if other_established_exceptions:
+            notes.append(f"cap does not apply to: {', '.join(other_established_exceptions)}")
 
         if state == ACCEPT:
             required_action = "None — clause meets preferred position"
@@ -1949,7 +2317,7 @@ def evaluate_liability_policy(
             f"negotiable up to: {_fmt_multiplier(policy.negotiate_max_multiplier)}. "
             f"Result: {state}."
         )
-        if notes and state == NEGOTIATE:
+        if notes and state in (NEGOTIATE, ACCEPT_WITH_NOTE):
             explanation += " " + "; ".join(notes).capitalize() + "."
 
     return PolicyDecision(

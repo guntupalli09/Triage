@@ -62,6 +62,8 @@ from policy_engine_core import (
     detect_condition_in_span as _core_detect_condition_in_span,
     detect_conflicting_backward_conditions as _core_detect_conflicting_backward_conditions,
     is_operative_context as _core_is_operative_context,
+    document_wide_conflict_detected as _document_wide_conflict_detected,
+    unreconciled_ambiguity_marker_present as _unreconciled_ambiguity_marker_present,
 )
 
 RULE_ID = "POLICY_PAYMENT_TERMS"
@@ -442,7 +444,7 @@ _SERVICE_CREDIT_RE = re.compile(r"service\s+credits?", re.I)
 
 # --- Schedule / Order Form cross-reference ------------------------------------------------------
 _SCHEDULE_CROSSREF_RE = re.compile(
-    r"as\s+(?:set\s+forth|described|specified)\s+in\s+the\s+(?:applicable\s+)?(?:Order\s+Form|SOW|Statement\s+of\s+Work|Schedule|Exhibit)"
+    r"as\s+(?:set\s+forth|described|specified)\s+in\s+(?:the\s+)?(?:applicable\s+)?(?:[A-Z][a-zA-Z]+\s+)?(?:Order\s+Form|SOW|Statement\s+of\s+Work|Schedule|Exhibit)"
     r"|governed\s+by\s+(?:the\s+)?(?:applicable\s+)?(?:Order\s+Form|SOW|Schedule)", re.I,
 )
 # Step 4A.7.3 (A7-PA-05) — a single-level delegation to ANY named external
@@ -567,6 +569,19 @@ class PaymentFacts:
     # is conditioned (see policy_engine_core.ConditionEvidence).
     condition: Optional[ConditionEvidence] = None
 
+    # Fact-admission architecture — mirrors data_security_policy_engine.
+    # DataSecurityFacts.absence_state. This adapter already decomposed its
+    # engagement gate into multiple concept-specific regexes (Step 4A.3,
+    # see extract_payment_facts's docstring) rather than one monolithic
+    # anchor — the semantic layer is the open-ended complement to that
+    # finite concept list, not a replacement for it.
+    absence_state: str = "CONFIRMED_ABSENT"
+    semantic_discovery_error: Optional[str] = None
+    # Candidate 3 zero-silent-loss mission — a document-wide contradiction
+    # or self-declared unreconciled ambiguity ("without indicating which
+    # governs") must not be silently dropped.
+    document_wide_conflict: bool = False
+
 
 class PaymentPolicyRuleLike(Protocol):
     contract_side: str
@@ -634,6 +649,49 @@ _CONCEPT_ENGAGEMENT_RES = [
 ]
 
 
+# Off by default — same rollout discipline as every other adapter this
+# session integrated.
+PAYMENT_TERMS_SEMANTIC_DISCOVERY_ENABLED = False  # module-load-time default; immediately overridden below
+import fact_admission as _fact_admission_env_check
+PAYMENT_TERMS_SEMANTIC_DISCOVERY_ENABLED = _fact_admission_env_check.semantic_discovery_enabled("PAYMENT_TERMS_SEMANTIC_DISCOVERY_ENABLED")
+del _fact_admission_env_check
+
+_PAYMENT_TERMS_SEMANTIC_FOCUS = (
+    "a payment obligation between the parties -- payment timing, disputed-amount handling, "
+    "set-off/offset rights, tax responsibility, late fees/interest, or a price-increase "
+    "condition -- even if the wording is unusual and does not use standard payment-clause "
+    "terminology"
+)
+_PAYMENT_TERMS_SEMANTIC_PROPOSITION = (
+    "This sentence or clause is operative language of this agreement that establishes a "
+    "payment-related obligation or right between the parties under this agreement."
+)
+
+
+def _run_semantic_discovery(text: str) -> Tuple[List, Optional[str], bool, Optional[str]]:
+    """Mirrors liability_policy_engine._run_semantic_discovery exactly.
+    This is the open-ended complement to _CONCEPT_ENGAGEMENT_RES's finite
+    concept list (Step 4A.3), not a replacement for it — see
+    extract_payment_facts's docstring and the mission's own "no regex
+    whack-a-mole" instruction. Returns (admitted_candidates,
+    unresolved_dependency_note, error)."""
+    if not PAYMENT_TERMS_SEMANTIC_DISCOVERY_ENABLED:
+        return [], None, False, None
+    import fact_admission as _fa
+    try:
+        raw_candidates = _fa.discover_candidate_spans(text, "payment_terms", _PAYMENT_TERMS_SEMANTIC_FOCUS)
+    except Exception as exc:  # noqa: BLE001 — provider unavailable, never "confirmed absent"
+        return [], None, False, f"{type(exc).__name__}: {exc}"
+
+    verified_candidates = [
+        _fa.verify_and_ground(candidate, text, _PAYMENT_TERMS_SEMANTIC_PROPOSITION) for candidate in raw_candidates
+    ]
+    admitted = [c for c in verified_candidates if c.admission_status == _fa.ADMITTED]
+    unresolved_dependency_note = _fa.first_unresolved_dependency_note(verified_candidates)
+    note_is_unconditional = _fa.first_unresolved_dependency_note_is_unconditional(verified_candidates)
+    return admitted, unresolved_dependency_note, note_is_unconditional, None
+
+
 def extract_payment_facts(text: str) -> Optional[PaymentFacts]:
     # Step 4A.3 — Failure Family 2 hardening. Step 4A.2's held-out corpus
     # found that engagement for the ENTIRE adapter depended on one
@@ -664,23 +722,45 @@ def extract_payment_facts(text: str) -> Optional[PaymentFacts]:
         concept_matches.extend(concept_re.finditer(text))
     matches = sorted(list(_ANCHOR_RE.finditer(text)) + concept_matches, key=lambda m: m.start())
     matches = [m for m in matches if not _is_deposit_only_context(text, m.start())]
+    semantic_error: Optional[str] = None
+    admitted_semantic: List = []
+    unresolved_dependency_note: Optional[str] = None
+    # Candidate 3 remediation (Root Cause 2): contextual discovery is no
+    # longer gated behind "deterministic anchor discovery found zero
+    # matches" -- see confidentiality_policy_engine.py's identical fix.
+    admitted_semantic, unresolved_dependency_note, note_is_unconditional, semantic_error = _run_semantic_discovery(text)
     if not matches:
-        return None
+        if semantic_error is not None:
+            return PaymentFacts(clause_found=True, absence_state="RECOGNITION_UNCERTAIN", semantic_discovery_error=semantic_error)
+        if not admitted_semantic and not unresolved_dependency_note:
+            return None
+        if not admitted_semantic:
+            # See liability_policy_engine.py's identical DEPENDENCY_
+            # UNRESOLVED handling: a candidate was found but its
+            # proposition depended on a cross-reference/definition that
+            # could not be resolved -- never a fabricated payment
+            # obligation, but must not collapse into CONFIRMED_ABSENT.
+            return PaymentFacts(clause_found=True, absence_state="DEPENDENCY_UNRESOLVED", semantic_discovery_error=unresolved_dependency_note)
+    elif semantic_error is not None:
+        admitted_semantic = []
 
+    anchor_spans = sorted(
+        [(m.start(), m.end()) for m in matches] + [(c.start_offset, c.end_offset) for c in admitted_semantic]
+    )
     windows: List[Tuple[int, int]] = []
-    for m in matches:
-        s = max(0, m.start() - 200)
-        e = min(len(text), m.end() + _PROVISION_WINDOW_CHARS)
+    for (m_start, m_end) in anchor_spans:
+        s = max(0, m_start - 200)
+        e = min(len(text), m_end + _PROVISION_WINDOW_CHARS)
         if windows and s - windows[-1][1] < 200:
             windows[-1] = (windows[-1][0], max(windows[-1][1], e))
         else:
             windows.append((s, e))
 
-    first_match = matches[0]
-    start_index = max(0, first_match.start() - 200)
-    end_index = min(len(text), first_match.end() + 400)
+    first_start, first_end = anchor_spans[0]
+    start_index = max(0, first_start - 200)
+    end_index = min(len(text), first_end + 400)
     raw_excerpt = excerpt(text, start_index, end_index)
-    section_label = section_label_before(text, first_match.start())
+    section_label = section_label_before(text, first_start)
 
     facts = PaymentFacts(clause_found=True, raw_excerpt=raw_excerpt, start_index=start_index,
                           end_index=end_index, section_label=section_label)
@@ -704,13 +784,39 @@ def extract_payment_facts(text: str) -> Optional[PaymentFacts]:
         r"shall(?:\s+\w+){0,3}\s+pay\b|obligation\s+to\s+pay|payable|remit(?:tance)?|remunerat\w*", re.I,
     )
     payment_verb_match = _payment_obligation_anchor_re.search(text, start_index, end_index)
-    payment_anchor_span = payment_verb_match.span() if payment_verb_match else (first_match.start(), first_match.end())
+    payment_anchor_span = payment_verb_match.span() if payment_verb_match else (first_start, first_end)
     facts.condition = _core_detect_condition_in_span(text, payment_anchor_span[0], payment_anchor_span[1])
     if section_label:
         conflict = _core_detect_conflicting_backward_conditions(text, "Section", section_label)
         if conflict is not None:
             priority = {"CONFLICTING": 3, "ESTABLISHED": 2, "NOT_ESTABLISHED": 1, "UNCONDITIONAL": 0}
             facts.condition = max((facts.condition, conflict), key=lambda e: priority.get(e.status, 0))
+    # Final trust architecture (Phase 5/6) — mirrors liability_policy_
+    # engine's identical wiring: an admitted semantic candidate (only
+    # ever populated when deterministic engagement found nothing at all,
+    # see `if not matches` above) may carry a GROUNDED condition/
+    # exception the deterministic regex vocabulary genuinely missed. It
+    # is never silently dropped; composed onto the SAME facts.condition
+    # field evaluate_payment_policy already reads (see the `if facts.
+    # condition is not None` block there), so no new decision branch is
+    # needed — any non-UNCONDITIONAL condition already forces
+    # REQUIRES_REVIEW regardless of source.
+    if admitted_semantic and facts.condition.status == "UNCONDITIONAL":
+        import fact_admission as _fa
+        for candidate in admitted_semantic:
+            qualifier_text = candidate.condition or candidate.exception
+            if qualifier_text is None:
+                dr, xr = candidate.definition_resolution, candidate.cross_reference_resolution
+                if dr is not None:
+                    qualifier_text = f'depends on the defined term "{dr.term}": {dr.definition_evidence}'
+                elif xr is not None:
+                    qualifier_text = f'depends on the cross-referenced "{xr.label}": {xr.target_evidence}'
+            if qualifier_text is not None:
+                facts.condition = ConditionEvidence(
+                    status="ESTABLISHED", condition_type="ai_identified", evidence_span=qualifier_text,
+                    note="identified by contextual AI analysis and independently grounded against the source document",
+                )
+                break
     facts.self_flagged_unresolved = bool(
         _SELF_FLAGGED_PAYMENT_UNRESOLVED_RE.search(raw_excerpt)
         or _CONFLICTING_PAYMENT_TERM_RE.search(raw_excerpt)
@@ -924,6 +1030,54 @@ def extract_payment_facts(text: str) -> Optional[PaymentFacts]:
         if conflict_reason:
             facts.role_side_conflicts[name] = conflict_reason
 
+    # Candidate 3 remediation (Root Cause 1): an admitted AI candidate
+    # exists but no primary payment-terms dimension could be
+    # deterministically structured from it -- never let this silently
+    # reach a policy-required-but-absent NEGOTIATE/MUST_REDLINE (or a
+    # bare ACCEPT under a permissive policy) merely because nothing was
+    # established. See CANONICAL_PRIMARY_FACT_SCHEMA.md.
+    if admitted_semantic and facts.absence_state == "CONFIRMED_ABSENT":
+        _any_established = any(v is not None for v in (
+            facts.net_days, facts.payment_trigger, facts.prepayment_required, facts.milestone_payment_present,
+            facts.dispute_right_present, facts.dispute_notice_days, facts.undisputed_amounts_still_payable,
+            facts.disputed_amounts_withholdable, facts.late_fee_rate_percent, facts.grace_period_days,
+            facts.setoff_permitted, facts.unilateral_deduction_permitted, facts.pricing_fixed,
+            facts.price_increase_right, facts.price_increase_percent, facts.expenses_reimbursable,
+            facts.withholding_tax_addressed, facts.currency, facts.refund_entitlement_present,
+            facts.service_credit_present,
+        )) or bool(facts.payment_direction_attributions) or bool(facts.tax_responsibility_attributions)
+        if not _any_established:
+            facts.absence_state = "PRESENT_BUT_UNRESOLVED"
+
+    # Zero-silent-loss mission follow-up (data_security-139 general failure
+    # class) -- a candidate was discovered but its OWN semantic verification
+    # reported genuine uncertainty (not a disproven claim), and a
+    # deterministic anchor already exists elsewhere in the document, so this
+    # branch was previously never reached (see the anchors-empty-only
+    # unresolved_dependency_note handling above). Must not be silently
+    # discarded merely because nothing else structured.
+    if (not admitted_semantic and unresolved_dependency_note is not None
+            and facts.absence_state == "CONFIRMED_ABSENT"):
+        _any_established = any(v is not None for v in (
+            facts.net_days, facts.payment_trigger, facts.prepayment_required, facts.milestone_payment_present,
+            facts.dispute_right_present, facts.dispute_notice_days, facts.undisputed_amounts_still_payable,
+            facts.disputed_amounts_withholdable, facts.late_fee_rate_percent, facts.grace_period_days,
+            facts.setoff_permitted, facts.unilateral_deduction_permitted, facts.pricing_fixed,
+            facts.price_increase_right, facts.price_increase_percent, facts.expenses_reimbursable,
+            facts.withholding_tax_addressed, facts.currency, facts.refund_entitlement_present,
+            facts.service_credit_present,
+        )) or bool(facts.payment_direction_attributions) or bool(facts.tax_responsibility_attributions)
+        # Candidate 3 final pre-freeze blocker remediation (Blocker 2) -- a
+        # definition/cross-reference dependency or competing-reading note
+        # is always structurally material and must never be suppressed
+        # merely because some other payment-terms dimension was established.
+        if note_is_unconditional or not _any_established:
+            facts.absence_state = "PRESENT_BUT_UNRESOLVED"
+            facts.semantic_discovery_error = facts.semantic_discovery_error or unresolved_dependency_note
+
+    if _document_wide_conflict_detected(text) or _unreconciled_ambiguity_marker_present(text):
+        facts.document_wide_conflict = True
+
     return facts
 
 
@@ -1011,10 +1165,69 @@ def evaluate_payment_policy(
             interaction_facts={"disputed_amounts_withholdable": None, "service_credit_present": None},
         )
 
+    if facts.absence_state == "RECOGNITION_UNCERTAIN":
+        return PolicyDecision(
+            **common, state=REQUIRES_REVIEW,
+            contract_language="", extracted_summary="Could not determine whether a payment terms clause is present",
+            policy_limit_summary="N/A",
+            required_action="Manual review required — automated recognition was unavailable for this document.",
+            explanation=(
+                "Deterministic pattern matching found no payment terms clause, and semantic verification "
+                f"could not confirm its absence ({facts.semantic_discovery_error or 'unavailable'}). This is "
+                "not the same as confirming the contract has no such clause."
+            ),
+            negotiation_ladder=_build_ladder(policy, REQUIRES_REVIEW), category_treatments=[], unresolved_facts=[],
+            start_index=None, end_index=None,
+            interaction_facts={"disputed_amounts_withholdable": None, "service_credit_present": None},
+        )
+
+    if facts.absence_state == "DEPENDENCY_UNRESOLVED":
+        # See liability_policy_engine.py's identical branch: a candidate
+        # payment obligation was identified by contextual analysis, but
+        # its meaning depended on a cross-reference or defined term this
+        # document does not deterministically resolve. Never dropped so
+        # the document falls through to "no clause found."
+        return PolicyDecision(
+            **common, state=REQUIRES_REVIEW,
+            contract_language="", extracted_summary="A candidate payment obligation was identified but a material dependency could not be resolved",
+            policy_limit_summary="N/A",
+            required_action="Manual review required — a cross-reference or defined term this obligation depends on could not be located in this document.",
+            explanation=(
+                f"Contextual analysis identified language that may establish a payment obligation, but "
+                f"{facts.semantic_discovery_error}. This evaluation does not determine what the obligation "
+                "actually means without that dependency resolved."
+            ),
+            negotiation_ladder=_build_ladder(policy, REQUIRES_REVIEW), category_treatments=[], unresolved_facts=[],
+            start_index=None, end_index=None,
+            interaction_facts={"disputed_amounts_withholdable": None, "service_credit_present": None},
+        )
+
+    if facts.absence_state == "PRESENT_BUT_UNRESOLVED":
+        return PolicyDecision(
+            **common, state=REQUIRES_REVIEW,
+            contract_language="", extracted_summary="A payment-terms-relevant clause was found and verified, but no specific payment dimension could be structured from it",
+            policy_limit_summary="N/A",
+            required_action="Manual review required — a candidate clause was discovered and verified but could not be deterministically structured into a specific payment term.",
+            explanation=(
+                "Contextual discovery identified and verified payment-terms-relevant language in this contract, "
+                "but deterministic extraction could not structure it into a specific payment dimension (net days, "
+                "trigger, late fee, etc.). This is not the same as confirming no payment terms exist, and must "
+                "not be treated as a clean result."
+            ),
+            negotiation_ladder=_build_ladder(policy, REQUIRES_REVIEW), category_treatments=[], unresolved_facts=[],
+            start_index=None, end_index=None,
+            interaction_facts={"disputed_amounts_withholdable": None, "service_credit_present": None},
+        )
+
     payor_side, payor_unresolved = _resolve_payor_side(facts, policy.contract_side)
     tax_side, tax_unresolved = _resolve_tax_responsibility(facts, policy.contract_side)
 
     unresolved: List[str] = []
+    if facts.document_wide_conflict:
+        unresolved.append(
+            "a separate statement elsewhere in the document appears to contradict, negate, or leave unreconciled "
+            "the payment term established in this clause"
+        )
     if facts.self_flagged_unresolved:
         unresolved.append("the document itself explicitly flags a material payment term as not yet finally settled")
     if facts.conditional_unverified_precondition:

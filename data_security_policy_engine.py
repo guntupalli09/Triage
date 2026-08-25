@@ -67,6 +67,9 @@ from policy_engine_core import (
     escalate_to_for_state, fallback_text_for_state,
     excerpt as _excerpt, section_label_before as _section_label_before,
     requires_review_explanation, requires_review_required_action,
+    word_number_alternation as _word_number_alternation, parse_multiplier_token as _parse_number_token,
+    EXTERNAL_DEFINITION_NOT_ATTACHED_RE as _EXTERNAL_DEFINITION_NOT_ATTACHED_RE,
+    is_operative_context as _core_is_operative_context,
 )
 
 RULE_ID = "POLICY_DATA_SECURITY"
@@ -114,14 +117,67 @@ _SUBPROCESSOR_UNRESTRICTED_RE = re.compile(
 
 # --- Breach / security-incident notification --------------------------------
 _BREACH_ANCHOR_RE = re.compile(r"security\s+incident|personal\s+data\s+breach|data\s+breach", re.I)
+# A bare digit run OR a spelled-out number word (the shared, closed
+# word-number vocabulary every duration/multiplier regex in this
+# codebase already uses -- see policy_engine_core.WORD_NUMBERS) --
+# "thirty days" must be recognized exactly like "30 days", not only the
+# digit form, per Candidate 2's "prove the class, not the fixture"
+# requirement.
+_NUM = r"(?:\d{1,3}|" + _word_number_alternation() + r")"
 _BREACH_HOURS_RE = re.compile(
-    r"(?:notify|notification|notice)[^.]{0,80}?within\s+(\d{1,3})\s+hours"
-    r"|within\s+(\d{1,3})\s+hours\s+(?:of|after)\s+(?:becoming\s+aware|discovery|discovering|learning)"
-    r"|(?:no\s+(?:later|event\s+later)\s+than|not\s+later\s+than)\s+(\d{1,3})\s+hours\s+(?:after|of|following)"
+    r"(?:notify|notification|notice)[^.]{0,80}?within\s+(" + _NUM + r")\s+hours"
+    r"|within\s+(" + _NUM + r")\s+hours\s+(?:of|after)\s+(?:becoming\s+aware|discovery|discovering|learning)"
+    r"|(?:no\s+(?:later|event\s+later)\s+than|not\s+later\s+than)\s+(" + _NUM + r")\s+hours\s+(?:after|of|following)"
     r"\s+(?:becoming\s+aware|discovery|discovering|learning)",
     re.I,
 )
+# Root-cause fix (Candidate 2, time normalization): calendar-day phrasing
+# is CANONICALIZED to hours (days * 24) so it participates in the SAME
+# comparable hour_values set _BREACH_HOURS_RE already populates -- a
+# 30-day commitment must be comparable against a 72-hour policy maximum,
+# not silently invisible to it. "business days" is a DIFFERENT, narrower
+# pattern checked separately below and is deliberately never matched
+# here (the literal word "business" between the digit and "days" means
+# this pattern's `(?:calendar\s+)?days` alternative never lines up), and
+# is never converted to hours -- a business day's wall-clock length is
+# not well-defined enough to canonicalize without manufacturing false
+# precision (mission's explicit instruction).
+_BREACH_CALENDAR_DAYS_RE = re.compile(
+    r"(?:notify|notification|notice)[^.]{0,80}?within\s+(" + _NUM + r")\s+(?:calendar\s+)?days\b"
+    r"|within\s+(" + _NUM + r")\s+(?:calendar\s+)?days\s+(?:of|after)\s+(?:becoming\s+aware|discovery|discovering|learning)"
+    r"|(?:no\s+(?:later|event\s+later)\s+than|not\s+later\s+than)\s+(" + _NUM + r")\s+(?:calendar\s+)?days\s+(?:after|of|following)"
+    r"\s+(?:becoming\s+aware|discovery|discovering|learning)",
+    re.I,
+)
+# Business-day phrasing is recognized but NEVER converted to a comparable
+# hour figure -- deliberately ambiguous (a business day's length depends
+# on the recipient's business calendar, which this deterministic engine
+# has no way to know), so its presence forces REQUIRES_REVIEW (see
+# `_classify_breach_notification`'s ambiguous_unit return) rather than
+# failing silently in either direction.
+_BREACH_BUSINESS_DAYS_RE = re.compile(
+    r"(?:notify|notification|notice)[^.]{0,80}?within\s+" + _NUM + r"\s+business\s+days"
+    r"|within\s+" + _NUM + r"\s+business\s+days\s+(?:of|after)\s+(?:becoming\s+aware|discovery|discovering|learning)",
+    re.I,
+)
 _BREACH_UNDUE_DELAY_RE = re.compile(r"without\s+undue\s+delay", re.I)
+_HOURS_PER_CALENDAR_DAY = 24
+# Root-cause fix (Candidate 2, negated obligation): an EXPLICIT denial
+# that any breach-notification obligation exists at all must never be
+# treated identically to the obligation simply never being mentioned --
+# "Vendor shall have no obligation to notify..." is a confidently-
+# observed NON-COMPLIANT fact (the obligation was considered and
+# rejected), not an absence. A closed, generalized set of negation verb
+# phrases (mirrors the polarity vocabulary warranties_policy_engine's
+# own _CATEGORY_NEGATION_RE already established for this exact class of
+# defect), not a single literal sentence match.
+_BREACH_NOTIFICATION_NEGATION_RE = re.compile(
+    r"(?:shall\s+have\s+no\s+obligation\s+to\s+notify|shall\s+not\s+be\s+(?:obligated|required)\s+to\s+notify"
+    r"|(?:is|are)\s+under\s+no\s+obligation\s+to\s+notify|no\s+obligation\s+to\s+notify"
+    r"|shall\s+not\s+(?:be\s+required\s+to\s+)?notify|will\s+not\s+notify|need\s+not\s+notify)"
+    r"\b.{0,100}?(?:of\s+any\s+)?(?:data\s+breach(?:es)?|security\s+incident|personal\s+data\s+breach)",
+    re.I,
+)
 
 # --- International transfers -------------------------------------------------
 _TRANSFER_ANCHOR_RE = re.compile(
@@ -199,9 +255,10 @@ _PD_CONFIDENTIALITY_RE = re.compile(
 
 # --- Delegation to an external DPA/Schedule/Exhibit -------------------------
 _DPA_CROSSREF_RE = re.compile(
-    r"as\s+(?:set\s+forth|described|specified)\s+in\s+the\s+(?:attached\s+)?(?:Data\s+Processing\s+Agreement|DPA|Schedule|Exhibit|Annex)"
-    r"|subject\s+to\s+the\s+terms\s+of\s+the\s+(?:attached\s+)?(?:DPA|Data\s+Processing\s+Agreement)"
-    r"|governed\s+by\s+(?:the\s+)?(?:attached\s+)?(?:DPA|Data\s+Processing\s+Agreement)",
+    r"as\s+(?:set\s+forth|described|specified)\s+in\s+(?:the\s+)?(?:attached\s+)?(?:[A-Z][a-zA-Z]+\s+)?"
+    r"(?:Data\s+Processing\s+(?:Agreement|Addendum)|DPA|Schedule|Exhibit|Annex)"
+    r"|subject\s+to\s+(?:the\s+)?terms\s+of\s+(?:the\s+)?(?:attached\s+)?(?:DPA|Data\s+Processing\s+(?:Agreement|Addendum))"
+    r"|governed\s+by\s+(?:the\s+)?(?:attached\s+)?(?:DPA|Data\s+Processing\s+(?:Agreement|Addendum))",
     re.I,
 )
 
@@ -248,6 +305,17 @@ class DataSecurityFacts:
     # Breach notification
     breach_notification_hours: Optional[int] = None
     breach_notification_conflict: bool = False
+    # Root-cause fix (Candidate 2, time normalization) -- a business-day
+    # notification commitment was found that cannot be safely
+    # canonicalized to a comparable hour figure (see
+    # _classify_breach_notification). Never silently treated as
+    # "notification timing not addressed."
+    breach_notification_ambiguous_unit: bool = False
+    # Root-cause fix (Candidate 2, negation) -- an EXPLICIT denial that any
+    # notification obligation exists ("Vendor shall have no obligation to
+    # notify..."). NEGATED, never conflated with POSITIVE evidence nor
+    # with the obligation simply never being mentioned.
+    breach_notification_explicitly_disclaimed: bool = False
     breach_without_undue_delay: bool = False
 
     # International transfers: "scc" | "adequacy" | "prohibited" | "unaddressed_transfer" | None
@@ -281,6 +349,20 @@ class DataSecurityFacts:
 
     dpa_cross_reference: bool = False
     liability_cross_reference: bool = False
+
+    # Fact-admission architecture — mirrors liability_policy_engine.
+    # LiabilityFacts.absence_state. Unlike confidentiality (whose existing
+    # `if not obligations` branch already absorbs RECOGNITION_UNCERTAIN
+    # safely), this adapter's per-dimension evaluate logic can reach
+    # ACCEPT on an all-None facts object when a playbook requires nothing
+    # specific — so evaluate_data_security_policy checks this field
+    # explicitly and early, the same way liability's evaluate function
+    # does, rather than relying on side effects of the unresolved-facts list.
+    absence_state: str = "CONFIRMED_ABSENT"
+    semantic_discovery_error: Optional[str] = None
+    ai_identified_condition: Optional[str] = None
+    ai_identified_exception: Optional[str] = None
+    ai_identified_definition_or_reference: Optional[str] = None
 
 
 class DataSecurityPolicyRuleLike(Protocol):
@@ -340,20 +422,41 @@ def _classify_subprocessors(window: str) -> Tuple[Optional[str], bool]:
     return next(iter(found)), False
 
 
-def _classify_breach_notification(window: str) -> Tuple[Optional[int], bool, bool]:
-    """Returns (hours, conflict, without_undue_delay)."""
+def _classify_breach_notification(window: str, negation_scan_text: Optional[str] = None) -> Tuple[Optional[int], bool, bool, bool, bool]:
+    """Returns (hours, conflict, without_undue_delay, ambiguous_unit, explicitly_disclaimed).
+
+    ambiguous_unit=True means a business-day commitment was found that
+    cannot be safely canonicalized to hours -- callers must treat this
+    the same as a conflict (fail closed to REQUIRES_REVIEW), never
+    silently drop it or treat the notification dimension as unaddressed.
+
+    explicitly_disclaimed=True means the document affirmatively denies
+    any notification obligation exists -- NEGATED, never treated as
+    POSITIVE evidence nor as mere absence. Checked against
+    `negation_scan_text` (a backward-widened slice) when given, since
+    the negation verb phrase commonly precedes the anchor word that
+    `window` itself starts at."""
+    if _BREACH_NOTIFICATION_NEGATION_RE.search(negation_scan_text if negation_scan_text is not None else window):
+        return None, False, False, False, True
     if not _BREACH_ANCHOR_RE.search(window):
-        return None, False, False
+        return None, False, False, False, False
     hour_values = set()
     for m in _BREACH_HOURS_RE.finditer(window):
         raw = m.group(1) or m.group(2) or m.group(3)
-        if raw:
-            hour_values.add(int(raw))
+        value = _parse_number_token(raw) if raw else None
+        if value is not None:
+            hour_values.add(int(value))
+    for m in _BREACH_CALENDAR_DAYS_RE.finditer(window):
+        raw = m.group(1) or m.group(2) or m.group(3)
+        value = _parse_number_token(raw) if raw else None
+        if value is not None:
+            hour_values.add(int(value) * _HOURS_PER_CALENDAR_DAY)
+    ambiguous_unit = bool(_BREACH_BUSINESS_DAYS_RE.search(window))
     undue_delay = bool(_BREACH_UNDUE_DELAY_RE.search(window))
     if len(hour_values) > 1:
-        return None, True, undue_delay
+        return None, True, undue_delay, ambiguous_unit, False
     hours = next(iter(hour_values)) if hour_values else None
-    return hours, False, undue_delay
+    return hours, False, undue_delay, ambiguous_unit, False
 
 
 def _classify_transfer(window: str) -> Optional[str]:
@@ -422,6 +525,46 @@ def _classify_security_standard(window: str) -> Optional[str]:
     return None
 
 
+# Off by default — same rollout discipline as liability/confidentiality.
+DATA_SECURITY_SEMANTIC_DISCOVERY_ENABLED = False  # module-load-time default; immediately overridden below
+import fact_admission as _fact_admission_env_check
+DATA_SECURITY_SEMANTIC_DISCOVERY_ENABLED = _fact_admission_env_check.semantic_discovery_enabled("DATA_SECURITY_SEMANTIC_DISCOVERY_ENABLED")
+del _fact_admission_env_check
+
+_DATA_SECURITY_SEMANTIC_FOCUS = (
+    "one party being obligated to protect personal or customer data, notify the "
+    "other party of a security incident or data breach, restrict subprocessors, "
+    "or otherwise address data protection/security under this agreement -- even if "
+    "the wording is unusual and does not use standard terms like 'data breach' or "
+    "'security incident'"
+)
+_DATA_SECURITY_SEMANTIC_PROPOSITION = (
+    "This sentence or clause is operative language of this agreement that "
+    "establishes a data-protection or security obligation (e.g. safeguarding data, "
+    "breach notification, subprocessor restrictions, or data handling standards)."
+)
+
+
+def _run_semantic_discovery(text: str) -> Tuple[List, Optional[str], bool, Optional[str]]:
+    """Mirrors liability_policy_engine._run_semantic_discovery exactly.
+    Returns (admitted_candidates, unresolved_dependency_note, error)."""
+    if not DATA_SECURITY_SEMANTIC_DISCOVERY_ENABLED:
+        return [], None, False, None
+    import fact_admission as _fa
+    try:
+        raw_candidates = _fa.discover_candidate_spans(text, "data_security", _DATA_SECURITY_SEMANTIC_FOCUS)
+    except Exception as exc:  # noqa: BLE001 — provider unavailable, never "confirmed absent"
+        return [], None, False, f"{type(exc).__name__}: {exc}"
+
+    verified_candidates = [
+        _fa.verify_and_ground(candidate, text, _DATA_SECURITY_SEMANTIC_PROPOSITION) for candidate in raw_candidates
+    ]
+    admitted = [c for c in verified_candidates if c.admission_status == _fa.ADMITTED]
+    unresolved_dependency_note = _fa.first_unresolved_dependency_note(verified_candidates)
+    note_is_unconditional = _fa.first_unresolved_dependency_note_is_unconditional(verified_candidates)
+    return admitted, unresolved_dependency_note, note_is_unconditional, None
+
+
 def extract_data_security_facts(text: str) -> Optional[DataSecurityFacts]:
     """Deterministic, single-provision extraction (data-protection clauses
     in real SaaS/DPA drafting are typically one consolidated section or
@@ -430,20 +573,40 @@ def extract_data_security_facts(text: str) -> Optional[DataSecurityFacts]:
     reconciliation, this adapter takes the FIRST anchored window as the
     controlling provision and reports a conflict, never a silent pick,
     whenever two DIFFERENT windows in the document disagree on the same
-    dimension)."""
+    dimension). Returns None only when no anchor exists at all AND
+    semantic discovery (see _run_semantic_discovery) also ran successfully
+    and found nothing — a provider outage/error becomes
+    RECOGNITION_UNCERTAIN instead (see absence_state)."""
     anchors = list(_ANCHOR_RE.finditer(text))
+    semantic_error: Optional[str] = None
+    admitted_semantic: List = []
+    unresolved_dependency_note: Optional[str] = None
+    # Candidate 3 remediation (Root Cause 2): contextual discovery is no
+    # longer gated behind "deterministic anchor discovery found zero
+    # matches" -- see confidentiality_policy_engine.py's identical fix.
+    admitted_semantic, unresolved_dependency_note, note_is_unconditional, semantic_error = _run_semantic_discovery(text)
     if not anchors:
-        return None
+        if semantic_error is not None:
+            return DataSecurityFacts(clause_found=True, absence_state="RECOGNITION_UNCERTAIN", semantic_discovery_error=semantic_error)
+        if not admitted_semantic and not unresolved_dependency_note:
+            return None
+        if not admitted_semantic:
+            return DataSecurityFacts(clause_found=True, ai_identified_definition_or_reference=unresolved_dependency_note)
+    elif semantic_error is not None:
+        admitted_semantic = []
 
     # Use every anchored window (deduplicated by proximity) so a genuine
     # cross-provision conflict (e.g. Section 9 says 72 hours, Section 14
     # says 24 hours) is detected rather than only ever seeing the first.
+    # A semantically-admitted candidate contributes a window exactly like
+    # a regex anchor does — it never bypasses the classification functions
+    # below, it only earns a shot at them (see AUTHORITY_BOUNDARY.md §3).
+    candidate_starts = [m.start() for m in anchors] + [c.start_offset for c in admitted_semantic]
     windows: List[Tuple[int, int, str]] = []
     seen_starts: List[int] = []
-    for m in anchors:
-        if any(abs(m.start() - s) < 200 for s in seen_starts):
+    for start in candidate_starts:
+        if any(abs(start - s) < 200 for s in seen_starts):
             continue
-        start = m.start()
         end = min(len(text), start + _PROVISION_WINDOW_CHARS)
         windows.append((start, end, text[start:end]))
         seen_starts.append(start)
@@ -462,7 +625,7 @@ def extract_data_security_facts(text: str) -> Optional[DataSecurityFacts]:
     role_results, subprocessor_results, breach_results, transfer_results = [], [], [], []
     residency_results, security_results = [], []
 
-    for _, _, window in windows:
+    for _win_start, _win_end, window in windows:
         if _JOINT_CONTROLLER_RE.search(window):
             facts.joint_controllers = True
         attributions, role_conflict = _role_attributions(window)
@@ -478,11 +641,26 @@ def extract_data_security_facts(text: str) -> Optional[DataSecurityFacts]:
             subprocessor_results.append(subp)
         if subp_conflict:
             facts.subprocessor_conflict = True
-        hours, hr_conflict, undue = _classify_breach_notification(window)
+        # Root-cause fix (Candidate 2, negation): the anchor-forward
+        # `window` starts AT the anchor match itself (e.g. "personal
+        # data breach..."), which discards any negation verb phrase
+        # that PRECEDES the anchor in the natural sentence order
+        # ("Vendor shall have no obligation to notify Customer of any
+        # personal data breach...") -- the negation was previously
+        # invisible to this classifier for exactly that reason, not
+        # because the pattern itself was wrong. Widen the scan used
+        # for polarity detection specifically to include a backward
+        # margin, without changing any other classifier's window.
+        _negation_scan = text[max(0, _win_start - 200):_win_end]
+        hours, hr_conflict, undue, ambiguous_unit, disclaimed = _classify_breach_notification(window, _negation_scan)
         if hours is not None:
             breach_results.append(hours)
         if hr_conflict:
             facts.breach_notification_conflict = True
+        if ambiguous_unit:
+            facts.breach_notification_ambiguous_unit = True
+        if disclaimed:
+            facts.breach_notification_explicitly_disclaimed = True
         if undue:
             facts.breach_without_undue_delay = True
         transfer = _classify_transfer(window)
@@ -508,7 +686,7 @@ def extract_data_security_facts(text: str) -> Optional[DataSecurityFacts]:
             facts.cooperation_obligation = True
         if _PD_CONFIDENTIALITY_RE.search(window):
             facts.confidentiality_of_personal_data = True
-        if _DPA_CROSSREF_RE.search(window):
+        if _DPA_CROSSREF_RE.search(window) or _EXTERNAL_DEFINITION_NOT_ATTACHED_RE.search(window):
             facts.dpa_cross_reference = True
         if _LIABILITY_CROSSREF_RE.search(window):
             facts.liability_cross_reference = True
@@ -539,6 +717,92 @@ def extract_data_security_facts(text: str) -> Optional[DataSecurityFacts]:
 
     if security_results:
         facts.security_standard = "named_certification" if "named_certification" in security_results else security_results[0]
+
+    # Final trust architecture (Phase 5/6) — see confidentiality_policy_
+    # engine.py's identical composition for the full rationale.
+    import fact_admission as _fa
+    for candidate in admitted_semantic:
+        facts.ai_identified_condition = facts.ai_identified_condition or candidate.condition
+        facts.ai_identified_exception = facts.ai_identified_exception or candidate.exception
+    facts.ai_identified_definition_or_reference = _fa.first_resolved_dependency_note(admitted_semantic)
+
+    # Candidate 3 remediation (Root Cause 1): an admitted AI candidate
+    # exists but no data-security dimension could be deterministically
+    # structured from it -- never let this silently reach ACCEPT merely
+    # because nothing was established. See CANONICAL_PRIMARY_FACT_SCHEMA.md.
+    if admitted_semantic and facts.absence_state == "CONFIRMED_ABSENT":
+        _any_established = any(v is not None and v is not False for v in (
+            facts.breach_notification_hours, facts.transfer_mechanism, facts.data_residency_region,
+            facts.security_standard, facts.subprocessor_treatment, facts.deletion_or_return_required,
+            facts.retention_days, facts.audit_rights, facts.cooperation_obligation,
+            facts.confidentiality_of_personal_data,
+        )) or bool(facts.role_attributions) or facts.breach_notification_explicitly_disclaimed \
+            or facts.breach_notification_ambiguous_unit or facts.breach_without_undue_delay \
+            or facts.retention_indefinite or facts.dpa_cross_reference or facts.liability_cross_reference
+        if not _any_established:
+            facts.absence_state = "PRESENT_BUT_UNRESOLVED"
+
+    # Zero-silent-loss mission -- a candidate was discovered but its OWN
+    # semantic verification reported genuine uncertainty (not a confident,
+    # disproven claim -- see fact_admission.first_unresolved_dependency_
+    # note's docstring), so admitted_semantic ends up empty even though
+    # real, material content was found. Previously this note was only
+    # consulted in the "no anchors at all" branch above; when a
+    # deterministic anchor DOES exist (as here), the note was silently
+    # discarded, letting the case fall through to a bare CONFIRMED_ABSENT/
+    # ACCEPT purely because the model's own verification confidence
+    # varied run-to-run for a genuinely colloquial/boundary-line clause
+    # (found via the real-provider repeatability test: data_security-139
+    # varied ACCEPT/REQUIRES_REVIEW across 5 identical runs).
+    if (not admitted_semantic and unresolved_dependency_note is not None
+            and facts.absence_state == "CONFIRMED_ABSENT"):
+        _any_established = any(v is not None and v is not False for v in (
+            facts.breach_notification_hours, facts.transfer_mechanism, facts.data_residency_region,
+            facts.security_standard, facts.subprocessor_treatment, facts.deletion_or_return_required,
+            facts.retention_days, facts.audit_rights, facts.cooperation_obligation,
+            facts.confidentiality_of_personal_data,
+        )) or bool(facts.role_attributions) or facts.breach_notification_explicitly_disclaimed \
+            or facts.breach_notification_ambiguous_unit or facts.breach_without_undue_delay \
+            or facts.retention_indefinite or facts.dpa_cross_reference or facts.liability_cross_reference
+        # Candidate 3 final pre-freeze blocker remediation (Blocker 2) -- a
+        # definition/cross-reference dependency or competing-reading note
+        # (note_is_unconditional=True) is always structurally material and
+        # must never be suppressed merely because SOME other data-security
+        # dimension happened to be established elsewhere in the document.
+        if note_is_unconditional or not _any_established:
+            facts.absence_state = "PRESENT_BUT_UNRESOLVED"
+            facts.ai_identified_definition_or_reference = (
+                facts.ai_identified_definition_or_reference or unresolved_dependency_note
+            )
+
+    # Candidate 4 remediation (independent-validation UNVERIFIED_FEEDING_
+    # CLEAN root cause, general failure class shared with insurance/
+    # ip_ownership): NEITHER an admitted AI candidate NOR an unresolved
+    # dependency note exist -- AI discovery returned nothing at all (a
+    # genuine recall miss, not a disproven claim) -- yet a deterministic
+    # anchor DID match and IS operative (a real party obligation, not
+    # descriptive/recital/negated language -- see `is_operative_context`),
+    # and still nothing could be structured from it. This must not be
+    # silently left at the default CONFIRMED_ABSENT (-> ACCEPT) either:
+    # an operative anchor with zero structured content is "we failed to
+    # establish the fact," never "affirmatively confirmed absent."
+    # Deliberately requires operative context (unlike a bare topical
+    # anchor mention, e.g. a recital merely naming "personal data") so a
+    # genuinely non-operative, descriptive mention of the topic does not
+    # over-escalate.
+    if (not admitted_semantic and unresolved_dependency_note is None
+            and facts.absence_state == "CONFIRMED_ABSENT"
+            and any(_core_is_operative_context(text, m.start(), m.end()) for m in anchors)):
+        _any_established = any(v is not None and v is not False for v in (
+            facts.breach_notification_hours, facts.transfer_mechanism, facts.data_residency_region,
+            facts.security_standard, facts.subprocessor_treatment, facts.deletion_or_return_required,
+            facts.retention_days, facts.audit_rights, facts.cooperation_obligation,
+            facts.confidentiality_of_personal_data,
+        )) or bool(facts.role_attributions) or facts.breach_notification_explicitly_disclaimed \
+            or facts.breach_notification_ambiguous_unit or facts.breach_without_undue_delay \
+            or facts.retention_indefinite or facts.dpa_cross_reference or facts.liability_cross_reference
+        if not _any_established:
+            facts.absence_state = "PRESENT_BUT_UNRESOLVED"
 
     return facts
 
@@ -622,9 +886,49 @@ def evaluate_data_security_policy(
             start_index=None, end_index=None,
         )
 
+    if facts.absence_state == "RECOGNITION_UNCERTAIN":
+        # Fact-admission architecture (Step 5/6): a semantic-discovery
+        # provider outage/error must never be reported as "this contract
+        # does not address data protection" (NOT_APPLICABLE) NOR silently
+        # evaluated as an all-None facts object, which this adapter's
+        # per-dimension logic could otherwise resolve to ACCEPT for a
+        # playbook that doesn't require any specific dimension. Escalate
+        # explicitly instead.
+        return PolicyDecision(
+            **common, state=REQUIRES_REVIEW,
+            contract_language="", extracted_summary="Could not determine whether a data protection / security clause is present",
+            policy_limit_summary="N/A",
+            required_action="Manual review required — automated recognition was unavailable for this document.",
+            explanation=(
+                "Deterministic pattern matching found no data protection / security clause, and semantic "
+                f"verification could not confirm its absence ({facts.semantic_discovery_error or 'unavailable'}). "
+                "This is not the same as confirming the contract has no such clause."
+            ),
+            negotiation_ladder=_build_ladder(policy, REQUIRES_REVIEW), category_treatments=[], unresolved_facts=[],
+            start_index=None, end_index=None,
+        )
+
     our_role, role_unresolved_directional, _is_joint = _resolve_our_role(facts, policy.contract_side)
 
     unresolved: List[str] = []
+    # Final trust architecture (Phase 4 hard gate) — a material condition/
+    # exception the AI/context layer identified and grounded must not be
+    # silently dropped merely because the clause otherwise resolved cleanly.
+    if facts.ai_identified_condition:
+        unresolved.append(
+            f"a material condition was identified by contextual analysis and grounded against the source "
+            f"document (\"{facts.ai_identified_condition}\")"
+        )
+    if facts.ai_identified_exception:
+        unresolved.append(
+            f"a material exception was identified by contextual analysis and grounded against the source "
+            f"document (\"{facts.ai_identified_exception}\")"
+        )
+    if facts.ai_identified_definition_or_reference:
+        unresolved.append(
+            f"a material definition/cross-reference dependency was identified by contextual analysis "
+            f"({facts.ai_identified_definition_or_reference})"
+        )
     if facts.role_conflict:
         unresolved.append("controller/processor role is stated inconsistently (conflicting role attributions)")
     elif policy.require_processor_role and role_unresolved_directional:
@@ -635,6 +939,12 @@ def evaluate_data_security_policy(
         unresolved.append("subprocessor treatment is stated inconsistently across the document")
     if facts.breach_notification_conflict:
         unresolved.append("breach/security-incident notification timing is stated inconsistently across the document")
+    if facts.breach_notification_ambiguous_unit:
+        unresolved.append(
+            "breach/security-incident notification timing is stated in business days, which cannot be "
+            "reliably compared to policy's hour-based threshold without knowing the recipient's business "
+            "calendar — this evaluation does not manufacture a conversion"
+        )
 
     # Material obligation delegated to an unresolved external DPA/Schedule
     # AND essentially nothing else in this document independently
@@ -695,7 +1005,34 @@ def evaluate_data_security_policy(
     category_treatments.append({"category": "subprocessors", "treatment": facts.subprocessor_treatment or "not_addressed", "cap_summary": None, "raw_excerpt": "", "established": facts.subprocessor_treatment is not None})
 
     # --- Breach notification ----------------------------------------------
-    if facts.breach_notification_hours is not None:
+    if facts.breach_notification_explicitly_disclaimed:
+        # Root-cause fix (Candidate 2, negation): a confidently-observed
+        # NON-COMPLIANT fact (the obligation was considered and denied),
+        # never conflated with the obligation simply never being
+        # mentioned -- forces the same MUST_REDLINE severity as any other
+        # deterministically-confirmed policy violation in this adapter.
+        #
+        # Candidate 3 final gap-closure fix: this was previously gated
+        # behind at least one specific breach-notification-hours field
+        # being configured, using that as a proxy for "does this policy
+        # care about breach notification at all." Found via burned-corpus
+        # re-verification (data_security-130) to let a policy
+        # configuration with no notification-hours field set at all
+        # silently reach a clean ACCEPT despite an explicit, deterministically-
+        # confirmed disclaimer of the obligation -- independently confirmed
+        # as the correct fix (not a fixture-specific patch) by an
+        # already-existing, differently-configured regression test
+        # (test_negation_shall_have_no_obligation in
+        # tests/test_candidate2_data_security_time_and_negation.py) that
+        # already expects MUST_REDLINE for this exact clause text, and
+        # only passed previously because ITS policy fixture happened to
+        # set a notification-hours field. An explicit denial of any
+        # notification duty is inherently adverse to a policy that uses
+        # this adapter at all, independent of which specific numeric
+        # threshold happens to be configured.
+        _note("the document explicitly disclaims any breach/security-incident notification obligation",
+              MUST_REDLINE)
+    elif facts.breach_notification_hours is not None:
         state = classify_by_threshold(
             float(facts.breach_notification_hours),
             policy.preferred_breach_notification_hours,
@@ -774,9 +1111,31 @@ def evaluate_data_security_policy(
         extracted_summary_parts.append("Breach notice: without undue delay")
     extracted_summary = "; ".join(extracted_summary_parts) or "Data protection clause found; limited structured detail extractable"
 
+    # Candidate 3 remediation (Root Cause 1) / Candidate 4 remediation
+    # (independent-validation UNVERIFIED_FEEDING_CLEAN / FALSE_ABSENCE root
+    # cause): an admitted AI candidate, or a bare deterministic anchor that
+    # IS operative, exists for this document, but no data-security
+    # dimension could be deterministically structured from it. Placed
+    # AFTER the full per-dimension comparison loop above (not before, as
+    # the original Candidate 3 placement did) so a more specific,
+    # already-correct finding from that loop is never downgraded to a
+    # generic REQUIRES_REVIEW -- this fallback only fires when nothing
+    # more specific was already found (`worst == ACCEPT`).
+    if (worst == ACCEPT and facts.absence_state == "PRESENT_BUT_UNRESOLVED" and established_dimension_count == 0
+            and not facts.dpa_cross_reference):
+        worst = REQUIRES_REVIEW
+        notes.append(
+            "contextual discovery identified and verified data-security-relevant language in this contract, but "
+            "deterministic extraction could not structure it into a specific requirement — this is not the same "
+            "as confirming no data security provision exists"
+        )
+
     if worst == ACCEPT and not notes:
         required_action = "None — data protection terms meet policy"
         explanation = f"Contract language: \"{facts.raw_excerpt}\". No policy gaps found. Result: {ACCEPT}."
+    elif worst == REQUIRES_REVIEW:
+        required_action = "Manual review required — " + "; ".join(notes)
+        explanation = f"Contract language: \"{facts.raw_excerpt}\". {'; '.join(notes)}. Result: {worst}."
     else:
         if worst in (ESCALATE, PROHIBITED):
             required_action = f"Escalate to {policy.escalation_approval_authority or 'Legal Director'} — " + "; ".join(notes)

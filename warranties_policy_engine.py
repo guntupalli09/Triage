@@ -82,6 +82,8 @@ from policy_engine_core import (
     excerpt as _excerpt, section_label_before as _section_label_before,
     requires_review_explanation, requires_review_required_action,
     PolicyDecision,
+    detect_condition_in_text as _core_detect_condition_in_text,
+    self_referential_definition_unresolved as _self_referential_definition_unresolved,
 )
 
 RULE_ID = "POLICY_WARRANTIES"
@@ -100,12 +102,15 @@ WARRANTY_CATEGORIES: Tuple[str, ...] = (
     "performance",
     "title",
     "third_party_rights",
+    "defect_free",
 )
 
 # --- Clause presence -----------------------------------------------------------------------
 # Deliberately narrow: bare "warrant" root only. No blanket "represents"
 # or "guarantee" anchor -- see module docstring's negative-control note.
 _ANCHOR_RE = re.compile(r"warrant(?:s|y|ies|ed|ing)?\b", re.I)
+
+_WARRANTY_EXCEPT_FOR_RE = re.compile(r"\bexcept\s+for\b", re.I)
 
 # --- Warranting-party attribution -----------------------------------------------------------
 # Case-sensitive name capture nested in an overall re.I compile: the
@@ -116,9 +121,18 @@ _ANCHOR_RE = re.compile(r"warrant(?:s|y|ies|ed|ing)?\b", re.I)
 # confidentiality, assignment, insurance, payment_terms, and, as of this
 # hardening pass, governing_law).
 _WARRANTING_PARTY_RE = re.compile(
+    # Candidate 5.1 remediation (warranties FALSE_ABSENCE general root
+    # cause): "that" was previously REQUIRED after the warranting verb,
+    # missing the equally common object-direct construction ("Operator
+    # warrants the deliverables will be free of material defects" -- no
+    # "that" at all) alongside the that-clause form ("Operator warrants
+    # that the deliverables will be..."). Both are the same grammatical
+    # act of warranting; making "that" optional (rather than adding a
+    # second, near-duplicate pattern) generalizes the existing anchor to
+    # cover both without narrowing what it already correctly matched.
     r"(?-i:([A-Z][A-Za-z]{2,30}))\s+(?:hereby\s+|further\s+|also\s+|additionally\s+)?"
     r"(?:represents\s+and\s+warrants|warrants|represents)\s+"
-    r"(?:to\s+(?:the\s+other\s+party|[A-Za-z]{2,30})\s+)?that\b",
+    r"(?:to\s+(?:the\s+other\s+party|[A-Za-z]{2,30})\s+)?(?:that\b)?",
     re.I,
 )
 _MUTUAL_OPENER_RE = re.compile(
@@ -172,6 +186,19 @@ _CATEGORY_AFFIRMATIVE_RE: Dict[str, "re.Pattern"] = {
     ),
     "malware_free": re.compile(
         r"free\s+(?:of|from)\s+(?:any\s+)?(?:computer\s+)?(?:viruses|malware|malicious\s+code|disabling\s+(?:code|device)s?|trojan)", re.I,
+    ),
+    # Candidate 5.1 remediation (ip_ownership/warranties FALSE_ABSENCE
+    # general root cause): a basic product/deliverable-quality warranty
+    # ("free of material defects", "free from defects in workmanship")
+    # is one of the single most common warranty categories in ordinary
+    # commercial drafting, yet had NO category pattern at all -- a clause
+    # consisting ONLY of this warranty (with no other recognized
+    # category also present) previously matched zero categories, leaving
+    # `found_anything=False` and silently returning None/NOT_APPLICABLE.
+    "defect_free": re.compile(
+        r"free\s+(?:of|from)\s+(?:any\s+|all\s+)?(?:material\s+)?defects?"
+        r"|free\s+(?:of|from)\s+defects?\s+in\s+(?:materials?|workmanship|design)"
+        r"|shall\s+be\s+(?:free\s+of\s+defects|of\s+good\s+quality|merchantable)", re.I,
     ),
     "security": re.compile(
         r"(?:it\s+)?(?:maintains?|has\s+implemented)\s+(?:commercially\s+reasonable\s+)?"
@@ -238,9 +265,16 @@ _REFUND_CREDIT_RE = re.compile(
 # --- Survival / cross-reference -----------------------------------------------------------------
 _SURVIVAL_RE = re.compile(r"warrant(?:y|ies)\s+shall\s+survive|survives?\s+(?:the\s+)?(?:termination|expiration)", re.I)
 _SCHEDULE_CROSSREF_RE = re.compile(
-    r"as\s+(?:set\s+forth|described|specified)\s+in\s+the\s+(?:applicable\s+)?"
+    # Candidate 5 remediation (FALSE_ABSENCE general root cause): allow an
+    # optional single qualifying word between "the"/"applicable" and the
+    # Schedule/Exhibit/SOW noun (e.g. "the Warranty Schedule", "the
+    # Pricing Exhibit") -- confirmed via the burned corpus
+    # (iv-warranties-0501: "as set forth in the Warranty Schedule
+    # attached as Exhibit X") that the un-qualified form alone silently
+    # missed a real, material cross-reference.
+    r"as\s+(?:set\s+forth|described|specified)\s+in\s+(?:the\s+)?(?:applicable\s+)?(?:[A-Z][a-zA-Z]+\s+)?"
     r"(?:Statement\s+of\s+Work|SOW|Schedule|Exhibit)"
-    r"|warrant(?:y|ies)\s+(?:set\s+forth|specified)\s+in\s+(?:the\s+)?(?:applicable\s+)?(?:SOW|Statement\s+of\s+Work|Schedule)",
+    r"|warrant(?:y|ies)\s+(?:set\s+forth|specified)\s+in\s+(?:the\s+)?(?:applicable\s+)?(?:[A-Z][a-zA-Z]+\s+)?(?:SOW|Statement\s+of\s+Work|Schedule)",
     re.I,
 )
 
@@ -309,6 +343,22 @@ class WarrantiesFacts:
 
     warranty_survival_present: Optional[bool] = None
     schedule_cross_reference: bool = False
+
+    # Fact-admission architecture — mirrors data_security_policy_engine.
+    # DataSecurityFacts.absence_state. This adapter's "anchor fired but
+    # nothing structured" gate deliberately returns None/NOT_APPLICABLE
+    # (see the module docstring's negative-control discipline) rather
+    # than REQUIRES_REVIEW the way confidentiality/termination do — so a
+    # provider outage on the NO-anchor path needs its own explicit
+    # RECOGNITION_UNCERTAIN branch in evaluate_warranties_policy, it
+    # cannot rely on falling through to an existing safe branch.
+    absence_state: str = "CONFIRMED_ABSENT"
+    semantic_discovery_error: Optional[str] = None
+    ai_identified_condition: Optional[str] = None
+    ai_identified_exception: Optional[str] = None
+    ai_identified_definition_or_reference: Optional[str] = None
+    deterministic_condition_established: bool = False
+    deterministic_condition_excerpt: Optional[str] = None
 
 
 class WarrantiesPolicyRuleLike(Protocol):
@@ -382,6 +432,53 @@ def _detect_warranty_asymmetry(window: str) -> List[str]:
     )
 
 
+# Off by default — same rollout discipline as every other adapter this
+# session integrated.
+WARRANTIES_SEMANTIC_DISCOVERY_ENABLED = False  # module-load-time default; immediately overridden below
+import fact_admission as _fact_admission_env_check
+WARRANTIES_SEMANTIC_DISCOVERY_ENABLED = _fact_admission_env_check.semantic_discovery_enabled("WARRANTIES_SEMANTIC_DISCOVERY_ENABLED")
+del _fact_admission_env_check
+
+_WARRANTIES_SEMANTIC_FOCUS = (
+    "one party making an express commitment/representation about the quality, performance, "
+    "legality, or non-infringement of goods or services under this agreement -- a warranty "
+    "concept -- even if the wording is unusual and does not use any 'warrant'-root word at all "
+    "(e.g. 'represents and confirms', 'commits that', 'assures')"
+)
+_WARRANTIES_SEMANTIC_PROPOSITION = (
+    "This sentence or clause is operative language of this agreement that establishes an "
+    "express warranty or representation about the quality, performance, legality, or "
+    "non-infringement of goods or services under this agreement."
+)
+
+
+def _run_semantic_discovery(text: str) -> Tuple[List, Optional[str], bool, Optional[str]]:
+    """Mirrors liability_policy_engine._run_semantic_discovery exactly.
+    Returns (admitted_candidates, unresolved_dependency_note, error)."""
+    if not WARRANTIES_SEMANTIC_DISCOVERY_ENABLED:
+        return [], None, False, None
+    import fact_admission as _fa
+    try:
+        raw_candidates = _fa.discover_candidate_spans(text, "warranties", _WARRANTIES_SEMANTIC_FOCUS)
+    except Exception as exc:  # noqa: BLE001 — provider unavailable, never "confirmed absent"
+        return [], None, False, f"{type(exc).__name__}: {exc}"
+
+    verified_candidates = [
+        _fa.verify_and_ground(candidate, text, _WARRANTIES_SEMANTIC_PROPOSITION) for candidate in raw_candidates
+    ]
+    admitted = [c for c in verified_candidates if c.admission_status == _fa.ADMITTED]
+    # Zero-silent-loss (gap-closure pass): this adapter's own negative-
+    # control discipline (found_anything gate, below) is meant to guard
+    # against an anchor firing on stray noise with nothing structured --
+    # it was never meant to also swallow a genuine competing-reading
+    # candidate the AI actually found and grounded. A candidate blocked
+    # ONLY for that reason (or an unresolved definition/cross-reference)
+    # must still surface, not silently collapse into NOT_APPLICABLE.
+    unresolved_dependency_note = _fa.first_unresolved_dependency_note(verified_candidates)
+    note_is_unconditional = _fa.first_unresolved_dependency_note_is_unconditional(verified_candidates)
+    return admitted, unresolved_dependency_note, note_is_unconditional, None
+
+
 def extract_warranties_facts(text: str) -> Optional[WarrantiesFacts]:
     # Unlike other adapters' anchor pre-filters, a "no " lookback is
     # deliberately NOT applied here: "Vendor makes no warranty of X" is
@@ -392,23 +489,50 @@ def extract_warranties_facts(text: str) -> Optional[WarrantiesFacts]:
     # against a bare, meaningless "warrant" mention is still provided
     # downstream by the found_anything gate.
     anchors = list(_ANCHOR_RE.finditer(text))
+    semantic_error: Optional[str] = None
+    admitted_semantic: List = []
+    unresolved_dependency_note: Optional[str] = None
+    # Candidate 3 remediation (Root Cause 2): contextual discovery is no
+    # longer gated behind "deterministic anchor discovery found zero
+    # matches" -- see confidentiality_policy_engine.py's identical fix.
+    admitted_semantic, unresolved_dependency_note, note_is_unconditional, semantic_error = _run_semantic_discovery(text)
     if not anchors:
-        return None
+        if semantic_error is not None:
+            facts = WarrantiesFacts(clause_found=True, absence_state="RECOGNITION_UNCERTAIN", semantic_discovery_error=semantic_error)
+            for cat in WARRANTY_CATEGORIES:
+                facts.categories[cat] = WarrantyCategoryFacts()
+            return facts
+        if not admitted_semantic and not unresolved_dependency_note:
+            return None
+        if not admitted_semantic:
+            # A genuine candidate was found (competing readings, or an
+            # unresolved definition/cross-reference), just never resolved
+            # to something admissible -- never the same as "nothing here
+            # at all" (found_anything's own negative-control case).
+            facts = WarrantiesFacts(clause_found=True, ai_identified_definition_or_reference=unresolved_dependency_note)
+            for cat in WARRANTY_CATEGORIES:
+                facts.categories[cat] = WarrantyCategoryFacts()
+            return facts
+    elif semantic_error is not None:
+        admitted_semantic = []
 
+    anchor_spans = sorted(
+        [(m.start(), m.end()) for m in anchors] + [(c.start_offset, c.end_offset) for c in admitted_semantic]
+    )
     windows: List[Tuple[int, int]] = []
-    for m in anchors:
-        s = max(0, m.start() - 200)
-        e = min(len(text), m.end() + _PROVISION_WINDOW_CHARS)
+    for (m_start, m_end) in anchor_spans:
+        s = max(0, m_start - 200)
+        e = min(len(text), m_end + _PROVISION_WINDOW_CHARS)
         if windows and s - windows[-1][1] < 200:
             windows[-1] = (windows[-1][0], max(windows[-1][1], e))
         else:
             windows.append((s, e))
 
-    first_match = anchors[0]
-    start_index = max(0, first_match.start() - 200)
-    end_index = min(len(text), first_match.end() + 400)
+    first_start, first_end = anchor_spans[0]
+    start_index = max(0, first_start - 200)
+    end_index = min(len(text), first_end + 400)
     raw_excerpt = _excerpt(text, start_index, end_index)
-    section_label = _section_label_before(text, first_match.start())
+    section_label = _section_label_before(text, first_start)
 
     facts = WarrantiesFacts(clause_found=True, raw_excerpt=raw_excerpt, start_index=start_index,
                              end_index=end_index, section_label=section_label)
@@ -416,6 +540,15 @@ def extract_warranties_facts(text: str) -> Optional[WarrantiesFacts]:
         facts.categories[cat] = WarrantyCategoryFacts()
 
     found_anything = False
+    # Candidate 3 remediation (Root Cause 1): track whether a category's
+    # deterministic structure was ACTUALLY found, separate from
+    # found_anything (which, after Root Cause 2's fix, may become True on
+    # an admitted AI candidate's account alone if we broaden it -- but we
+    # deliberately do NOT broaden found_anything itself here, preserving
+    # the negative-control discipline this gate's docstring already
+    # documents; instead an admitted-but-unstructured candidate is
+    # surfaced via the separate PRESENT_BUT_UNRESOLVED absence_state
+    # below, never by lowering the found_anything bar).
     duration_values: Set[float] = set()
     perpetual_found = False
 
@@ -438,6 +571,32 @@ def extract_warranties_facts(text: str) -> Optional[WarrantiesFacts]:
                     _attribute_warranting_party(facts.categories[cat], name)
                     facts.categories[cat].raw_excerpt = facts.categories[cat].raw_excerpt or _excerpt(window, m.start(), min(len(window), m.end() + len(local)))
                     found_anything = True
+                    # Candidate 5.1 remediation (MATERIAL_CONTEXT_
+                    # SILENTLY_LOST general root cause): "except for"
+                    # (distinct from "except when"/"except to the
+                    # extent"/"except that", already covered by the
+                    # shared `detect_condition_in_text` call below) is
+                    # also an extremely common exception connector, but
+                    # broadening it in the SHARED primitive
+                    # (policy_engine_core.py) was found to cause
+                    # widespread over-triggering across unrelated
+                    # adapters (liability, indemnification, termination,
+                    # confidentiality, assignment, governing_law) whose
+                    # own text frequently uses "except for" in ways that
+                    # are NOT a proviso on the fact just matched. Scoped
+                    # instead to the warranting party's OWN sentence,
+                    # mirroring ip_ownership_policy_engine.py's identical,
+                    # already-precedented `_OWNERSHIP_EXCEPT_FOR_RE`
+                    # local check for the same reason.
+                    if not facts.deterministic_condition_established:
+                        sent_start = window.rfind(".", 0, m.start()) + 1
+                        sent_end_dot = window.find(".", m.end())
+                        sent_end = sent_end_dot + 1 if sent_end_dot != -1 else len(window)
+                        sentence = window[sent_start:sent_end]
+                        ex_m = _WARRANTY_EXCEPT_FOR_RE.search(sentence)
+                        if ex_m:
+                            facts.deterministic_condition_established = True
+                            facts.deterministic_condition_excerpt = sentence[ex_m.start():min(len(sentence), ex_m.start() + 120)].strip()
         for m in _MUTUAL_OPENER_RE.finditer(window):
             facts.mutual_opener_present = True
             other_positions = [p for p in all_positions if p != m.start()]
@@ -524,8 +683,61 @@ def extract_warranties_facts(text: str) -> Optional[WarrantiesFacts]:
         # "warranty claims must be submitted within 10 days" inside an
         # unrelated dispute-notice clause. Per the module docstring's
         # negative-control discipline, this is NOT_APPLICABLE (no real
-        # warranties clause), never a low-signal REQUIRES_REVIEW.
+        # warranties clause) UNLESS an admitted AI candidate independently
+        # verified operative warranty-relevant language here -- in that
+        # case, never silently discard the finding as "nothing here at
+        # all" (Candidate 3 remediation, Root Cause 1); force review
+        # instead via PRESENT_BUT_UNRESOLVED.
+        if admitted_semantic or unresolved_dependency_note is not None:
+            facts.absence_state = "PRESENT_BUT_UNRESOLVED"
+            import fact_admission as _fa
+            for candidate in admitted_semantic:
+                facts.ai_identified_condition = facts.ai_identified_condition or candidate.condition
+                facts.ai_identified_exception = facts.ai_identified_exception or candidate.exception
+            # Zero-silent-loss mission follow-up (data_security-139 general
+            # failure class) -- a candidate whose OWN semantic verification
+            # reported genuine uncertainty (never admitted) must not be
+            # silently discarded merely because the anchor's local text
+            # also failed to structure a concrete warranty.
+            facts.ai_identified_definition_or_reference = (
+                _fa.first_resolved_dependency_note(admitted_semantic) or unresolved_dependency_note
+            )
+            return facts
         return None
+
+    # Final trust architecture (Phase 5/6) — reached only when
+    # found_anything is True (the base warranty structure DID resolve
+    # deterministically, so this candidate already passed the negative-
+    # control gate above, not merely an anchor firing on a stray word).
+    # See confidentiality_policy_engine.py's identical composition for
+    # the full rationale.
+    import fact_admission as _fa
+    for candidate in admitted_semantic:
+        facts.ai_identified_condition = facts.ai_identified_condition or candidate.condition
+        facts.ai_identified_exception = facts.ai_identified_exception or candidate.exception
+    facts.ai_identified_definition_or_reference = _fa.first_resolved_dependency_note(admitted_semantic)
+
+    # Candidate 3 zero-silent-loss mission — a deterministically-detected
+    # condition/proviso attached to the local warranty clause, using the
+    # same shared primitive liability/insurance already use.
+    for (ws, we) in windows:
+        cond = _core_detect_condition_in_text(text[ws:we])
+        if cond.status == "ESTABLISHED":
+            facts.deterministic_condition_established = True
+            facts.deterministic_condition_excerpt = cond.evidence_span
+            break
+
+    # Candidate 5 remediation (UNRESOLVED_DEFINITION_TO_CLEAN general root
+    # cause, confirmed shared with insurance/ip_ownership): e.g. "Provider
+    # warrants that the Deliverables, as defined in this Agreement, will
+    # materially conform..." where "Deliverables" is never actually
+    # defined anywhere in the text. Fires regardless of what else was
+    # established -- see insurance_policy_engine.py's identical fix for
+    # the full rationale.
+    self_ref_note = _self_referential_definition_unresolved(text)
+    if self_ref_note is not None:
+        facts.absence_state = "PRESENT_BUT_UNRESOLVED"
+        facts.ai_identified_definition_or_reference = facts.ai_identified_definition_or_reference or self_ref_note
 
     return facts
 
@@ -577,7 +789,72 @@ def evaluate_warranties_policy(
             our_position_label="Our warranties", counterparty_position_label="Counterparty's warranties",
         )
 
+    if facts.absence_state == "RECOGNITION_UNCERTAIN":
+        # Fact-admission architecture (Step 5/6): unlike the "anchor
+        # fired but nothing structured" case (deliberately NOT_APPLICABLE
+        # per this module's negative-control discipline), a provider
+        # outage/error on the NO-anchor path must never be reported as
+        # "this contract does not address warranties" — it must escalate.
+        return PolicyDecision(
+            rule_id=RULE_ID, clause_type="warranties", state=REQUIRES_REVIEW,
+            contract_language="", extracted_summary="Could not determine whether a warranties clause is present",
+            policy_limit_summary="N/A",
+            required_action="Manual review required — automated recognition was unavailable for this document.",
+            explanation=(
+                "Deterministic pattern matching found no warranties clause, and semantic verification could "
+                f"not confirm its absence ({facts.semantic_discovery_error or 'unavailable'}). This is not "
+                "the same as confirming the contract has no such clause."
+            ),
+            negotiation_ladder=_build_ladder(policy, REQUIRES_REVIEW), category_treatments=[], unresolved_facts=[],
+            start_index=None, end_index=None, source=source, summary_label="Warranties treatment",
+            our_position_label="Our warranties", counterparty_position_label="Counterparty's warranties",
+        )
+
+    if facts.absence_state == "PRESENT_BUT_UNRESOLVED":
+        return PolicyDecision(
+            rule_id=RULE_ID, clause_type="warranties", state=REQUIRES_REVIEW,
+            contract_language="", extracted_summary="A warranties-relevant clause was found and verified, but no specific warranty category could be structured from it",
+            policy_limit_summary="N/A",
+            required_action="Manual review required — a candidate clause was discovered and verified but could not be deterministically structured into a specific warranty.",
+            explanation=(
+                "Contextual discovery identified and verified warranties-relevant language in this contract, but "
+                "deterministic extraction could not structure it into a specific warranty category. This is not "
+                "the same as confirming no warranty provision exists, and must not be treated as a clean result."
+            ),
+            negotiation_ladder=_build_ladder(policy, REQUIRES_REVIEW), category_treatments=[], unresolved_facts=[],
+            start_index=None, end_index=None, source=source, summary_label="Warranties treatment",
+            our_position_label="Our warranties", counterparty_position_label="Counterparty's warranties",
+        )
+
     unresolved_facts: List[str] = []
+
+    # Candidate 3 zero-silent-loss mission — a deterministically-detected
+    # condition/proviso attached to the local warranty clause.
+    if facts.deterministic_condition_established:
+        unresolved_facts.append(
+            f"the warranty is stated as conditional (\"{facts.deterministic_condition_excerpt}\") — this "
+            f"evaluation does not determine whether the stated condition is satisfied"
+        )
+
+    # Final trust architecture (Phase 4 hard gate) — a material condition/
+    # exception the AI/context layer identified and grounded must not be
+    # silently dropped merely because a warranty category otherwise
+    # resolved deterministically.
+    if facts.ai_identified_condition:
+        unresolved_facts.append(
+            f"a material condition was identified by contextual analysis and grounded against the source "
+            f"document (\"{facts.ai_identified_condition}\")"
+        )
+    if facts.ai_identified_exception:
+        unresolved_facts.append(
+            f"a material exception was identified by contextual analysis and grounded against the source "
+            f"document (\"{facts.ai_identified_exception}\")"
+        )
+    if facts.ai_identified_definition_or_reference:
+        unresolved_facts.append(
+            f"a material definition/cross-reference dependency was identified by contextual analysis "
+            f"({facts.ai_identified_definition_or_reference})"
+        )
 
     if facts.mutual_opener_present and facts.mutual_asymmetry_reasons:
         unresolved_facts.append(

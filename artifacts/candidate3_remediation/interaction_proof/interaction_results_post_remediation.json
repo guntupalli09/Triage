@@ -1,0 +1,374 @@
+[
+  {
+    "test": "liability_x_indemnification_all_established",
+    "description": "Uncapped indemnification alongside a capped liability clause -- both established",
+    "participant_states": {
+      "limitation_of_liability": "ACCEPT",
+      "indemnification": "MUST_REDLINE"
+    },
+    "interaction_results": [
+      {
+        "interaction_id": "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY",
+        "state": "NOT_TRIGGERED",
+        "missing_clause_types": []
+      },
+      {
+        "interaction_id": "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH",
+        "state": "NOT_TRIGGERED",
+        "missing_clause_types": []
+      },
+      {
+        "interaction_id": "IX_INDEMNITY_WITHIN_GENERAL_CAP",
+        "state": "NOT_TRIGGERED",
+        "missing_clause_types": []
+      },
+      {
+        "interaction_id": "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY",
+        "state": "NOT_TRIGGERED",
+        "missing_clause_types": []
+      },
+      {
+        "interaction_id": "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE",
+        "state": "INSUFFICIENT_FACTS",
+        "missing_clause_types": [
+          "insurance"
+        ]
+      },
+      {
+        "interaction_id": "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+        "state": "INSUFFICIENT_FACTS",
+        "missing_clause_types": [
+          "termination",
+          "payment_terms"
+        ]
+      },
+      {
+        "interaction_id": "IX_SLA_PAYMENT_CREDIT_DEPENDENCY",
+        "state": "INSUFFICIENT_FACTS",
+        "missing_clause_types": [
+          "sla",
+          "payment_terms"
+        ]
+      }
+    ]
+  },
+  {
+    "test": "liability_x_indemnification_one_unresolved",
+    "description": "Liability clause defers to a missing Schedule C (REQUIRES_REVIEW) -- must gate to INSUFFICIENT_FACTS, never silently treat the missing participant as if it were resolved",
+    "participant_states": {
+      "limitation_of_liability": "MUST_REDLINE",
+      "indemnification": "MUST_REDLINE"
+    },
+    "interaction_results": [
+      {
+        "interaction_id": "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY",
+        "state": "NOT_TRIGGERED",
+        "missing_clause_types": []
+      },
+      {
+        "interaction_id": "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH",
+        "state": "NOT_TRIGGERED",
+        "missing_clause_types": []
+      },
+      {
+        "interaction_id": "IX_INDEMNITY_WITHIN_GENERAL_CAP",
+        "state": "NOT_TRIGGERED",
+        "missing_clause_types": []
+      },
+      {
+        "interaction_id": "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY",
+        "state": "NOT_TRIGGERED",
+        "missing_clause_types": []
+      },
+      {
+        "interaction_id": "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE",
+        "state": "INSUFFICIENT_FACTS",
+        "missing_clause_types": [
+          "insurance"
+        ]
+      },
+      {
+        "interaction_id": "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+        "state": "INSUFFICIENT_FACTS",
+        "missing_clause_types": [
+          "termination",
+          "payment_terms"
+        ]
+      },
+      {
+        "interaction_id": "IX_SLA_PAYMENT_CREDIT_DEPENDENCY",
+        "state": "INSUFFICIENT_FACTS",
+        "missing_clause_types": [
+          "sla",
+          "payment_terms"
+        ]
+      }
+    ]
+  },
+  {
+    "test": "liability_x_indemnification_one_absent",
+    "description": "No liability clause present at all (NOT_APPLICABLE) -- must gate to INSUFFICIENT_FACTS",
+    "participant_states": {
+      "limitation_of_liability": "NOT_APPLICABLE",
+      "indemnification": "MUST_REDLINE"
+    },
+    "interaction_results": [
+      {
+        "interaction_id": "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY",
+        "state": "INSUFFICIENT_FACTS",
+        "missing_clause_types": [
+          "limitation_of_liability"
+        ]
+      },
+      {
+        "interaction_id": "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH",
+        "state": "INSUFFICIENT_FACTS",
+        "missing_clause_types": [
+          "limitation_of_liability"
+        ]
+      },
+      {
+        "interaction_id": "IX_INDEMNITY_WITHIN_GENERAL_CAP",
+        "state": "INSUFFICIENT_FACTS",
+        "missing_clause_types": [
+          "limitation_of_liability"
+        ]
+      },
+      {
+        "interaction_id": "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY",
+        "state": "INSUFFICIENT_FACTS",
+        "missing_clause_types": [
+          "limitation_of_liability"
+        ]
+      },
+      {
+        "interaction_id": "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE",
+        "state": "INSUFFICIENT_FACTS",
+        "missing_clause_types": [
+          "limitation_of_liability",
+          "insurance"
+        ]
+      },
+      {
+        "interaction_id": "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+        "state": "INSUFFICIENT_FACTS",
+        "missing_clause_types": [
+          "termination",
+          "payment_terms"
+        ]
+      },
+      {
+        "interaction_id": "IX_SLA_PAYMENT_CREDIT_DEPENDENCY",
+        "state": "INSUFFICIENT_FACTS",
+        "missing_clause_types": [
+          "sla",
+          "payment_terms"
+        ]
+      }
+    ]
+  },
+  {
+    "test": "liability_x_indemnification_provider_failure",
+    "description": "Indemnification's real-AI discovery hits a network failure on colloquial (regex-invisible) language -- must gate to INSUFFICIENT_FACTS, never silently CLEAN",
+    "participant_states": {
+      "limitation_of_liability": "NOT_APPLICABLE",
+      "indemnification": "REQUIRES_REVIEW"
+    },
+    "interaction_results": [
+      {
+        "interaction_id": "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY",
+        "state": "INSUFFICIENT_FACTS",
+        "missing_clause_types": [
+          "limitation_of_liability",
+          "indemnification"
+        ]
+      },
+      {
+        "interaction_id": "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH",
+        "state": "INSUFFICIENT_FACTS",
+        "missing_clause_types": [
+          "limitation_of_liability",
+          "indemnification"
+        ]
+      },
+      {
+        "interaction_id": "IX_INDEMNITY_WITHIN_GENERAL_CAP",
+        "state": "INSUFFICIENT_FACTS",
+        "missing_clause_types": [
+          "limitation_of_liability",
+          "indemnification"
+        ]
+      },
+      {
+        "interaction_id": "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY",
+        "state": "INSUFFICIENT_FACTS",
+        "missing_clause_types": [
+          "limitation_of_liability",
+          "indemnification"
+        ]
+      },
+      {
+        "interaction_id": "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE",
+        "state": "INSUFFICIENT_FACTS",
+        "missing_clause_types": [
+          "limitation_of_liability",
+          "insurance"
+        ]
+      },
+      {
+        "interaction_id": "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+        "state": "INSUFFICIENT_FACTS",
+        "missing_clause_types": [
+          "termination",
+          "payment_terms"
+        ]
+      },
+      {
+        "interaction_id": "IX_SLA_PAYMENT_CREDIT_DEPENDENCY",
+        "state": "INSUFFICIENT_FACTS",
+        "missing_clause_types": [
+          "sla",
+          "payment_terms"
+        ]
+      }
+    ]
+  },
+  {
+    "test": "termination_x_payment",
+    "description": "Immediate non-payment termination alongside a good-faith dispute-withholding right",
+    "participant_states": {
+      "termination": "REQUIRES_REVIEW",
+      "payment_terms": "NEGOTIATE"
+    },
+    "interaction_results": [
+      {
+        "interaction_id": "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY",
+        "state": "INSUFFICIENT_FACTS",
+        "missing_clause_types": [
+          "limitation_of_liability",
+          "indemnification"
+        ]
+      },
+      {
+        "interaction_id": "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH",
+        "state": "INSUFFICIENT_FACTS",
+        "missing_clause_types": [
+          "limitation_of_liability",
+          "indemnification"
+        ]
+      },
+      {
+        "interaction_id": "IX_INDEMNITY_WITHIN_GENERAL_CAP",
+        "state": "INSUFFICIENT_FACTS",
+        "missing_clause_types": [
+          "limitation_of_liability",
+          "indemnification"
+        ]
+      },
+      {
+        "interaction_id": "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY",
+        "state": "INSUFFICIENT_FACTS",
+        "missing_clause_types": [
+          "limitation_of_liability",
+          "indemnification"
+        ]
+      },
+      {
+        "interaction_id": "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE",
+        "state": "INSUFFICIENT_FACTS",
+        "missing_clause_types": [
+          "limitation_of_liability",
+          "insurance"
+        ]
+      },
+      {
+        "interaction_id": "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+        "state": "INSUFFICIENT_FACTS",
+        "missing_clause_types": [
+          "termination"
+        ]
+      },
+      {
+        "interaction_id": "IX_SLA_PAYMENT_CREDIT_DEPENDENCY",
+        "state": "INSUFFICIENT_FACTS",
+        "missing_clause_types": [
+          "sla"
+        ]
+      }
+    ]
+  },
+  {
+    "test": "sla_x_payment",
+    "description": "SLA service credits alongside payment-terms service-credit application",
+    "participant_states": {
+      "sla": "ACCEPT",
+      "payment_terms": "NEGOTIATE"
+    },
+    "interaction_results": [
+      {
+        "interaction_id": "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY",
+        "state": "INSUFFICIENT_FACTS",
+        "missing_clause_types": [
+          "limitation_of_liability",
+          "indemnification"
+        ]
+      },
+      {
+        "interaction_id": "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH",
+        "state": "INSUFFICIENT_FACTS",
+        "missing_clause_types": [
+          "limitation_of_liability",
+          "indemnification"
+        ]
+      },
+      {
+        "interaction_id": "IX_INDEMNITY_WITHIN_GENERAL_CAP",
+        "state": "INSUFFICIENT_FACTS",
+        "missing_clause_types": [
+          "limitation_of_liability",
+          "indemnification"
+        ]
+      },
+      {
+        "interaction_id": "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY",
+        "state": "INSUFFICIENT_FACTS",
+        "missing_clause_types": [
+          "limitation_of_liability",
+          "indemnification"
+        ]
+      },
+      {
+        "interaction_id": "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE",
+        "state": "INSUFFICIENT_FACTS",
+        "missing_clause_types": [
+          "limitation_of_liability",
+          "insurance"
+        ]
+      },
+      {
+        "interaction_id": "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+        "state": "INSUFFICIENT_FACTS",
+        "missing_clause_types": [
+          "termination"
+        ]
+      },
+      {
+        "interaction_id": "IX_SLA_PAYMENT_CREDIT_DEPENDENCY",
+        "state": "REQUIRES_REVIEW",
+        "missing_clause_types": []
+      }
+    ]
+  },
+  {
+    "test": "confidentiality_x_data_security",
+    "description": "Mission asks to test confidentiality x data_security interaction",
+    "n_a": true,
+    "reason": "No interaction_rules.LAUNCH_CATALOG rule currently pairs these two clause types (confirmed by inspecting interaction_rules.py directly)",
+    "currently_configured_pairs": [
+      "('indemnification', 'limitation_of_liability')",
+      "('insurance', 'limitation_of_liability')",
+      "('payment_terms', 'sla')",
+      "('payment_terms', 'termination')"
+    ]
+  }
+]
