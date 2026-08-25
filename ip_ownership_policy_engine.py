@@ -160,6 +160,35 @@ _OWNERSHIP_ACTIVE_RE = re.compile(
     r"shall\s+be\s+deemed\s+the\s+owner\s+of)\b",
     re.I,
 )
+# Candidate 5.1 remediation (semantic class distinction: BACKGROUND-IP
+# RETENTION vs. DEVELOPED-WORK VESTING): a bare "[Party] retains/shall
+# retain..." statement about a party's OWN pre-existing rights is a
+# fundamentally lower-signal, largely non-actionable class than an
+# affirmative "[Party] owns/shall own/shall be owner of" claim over
+# newly created work -- retention of what a party already had is the
+# routine, expected default in nearly every commercial agreement, not a
+# material vesting event. Confirmed via the burned corpus's "negated"
+# family (iv-ip_ownership-0219/0228/0237/0246/0255/0264: "Provider
+# retains all rights in its own pre-existing tools, and this Agreement
+# assigns no ownership interest in such tools to Recipient") that
+# treating a bare retention statement as anchor-worthy on its own
+# produced a real FALSE_SAFE regression once ownership-verb constructions
+# were wired into window-creation (see _OWNERSHIP_VESTING_ANCHOR_RE
+# below) -- the deterministic finding itself (Provider retains its own
+# background IP) is true and grounded, but is not the kind of material,
+# actionable fact this adapter's anchor gate should treat as sufficient
+# to skip escalation review on its own; excluding it from the ANCHOR
+# (window-creation) role, while still allowing `_scan_ownership` to
+# structure it normally once a window exists for some OTHER reason (via
+# `_OWNERSHIP_ACTIVE_RE` itself, unchanged below), preserves the
+# distinction without weakening detection of any genuine developed-work
+# ownership claim.
+_OWNERSHIP_VESTING_ANCHOR_RE = re.compile(
+    r"(?-i:([A-Z][A-Za-z]{2,30}))\s+(?:shall\s+(?:own|be\s+(?:and\s+remain\s+)?the\s+"
+    r"(?:sole\s+and\s+exclusive|sole|exclusive)?\s*owner\s+of)|owns|"
+    r"shall\s+be\s+deemed\s+the\s+owner\s+of)\b",
+    re.I,
+)
 _OWNERSHIP_PASSIVE_RE = re.compile(
     r"shall\s+(?:remain|be)\s+(?:the\s+)?(?:sole\s+and\s+exclusive|sole|exclusive)?\s*property\s+of\s+(?-i:([A-Z][A-Za-z]{2,30}))"
     r"|shall\s+be\s+(?:solely\s+)?owned\s+(?:solely\s+|exclusively\s+)?by\s+(?-i:([A-Z][A-Za-z]{2,30}))",
@@ -665,7 +694,7 @@ def extract_ip_facts(text: str) -> Optional[IPFacts]:
     # previously only ever fire AFTER some other anchor already created a
     # window, never on their own.
     matches = sorted(
-        list(_ANCHOR_RE.finditer(text)) + list(_OWNERSHIP_ACTIVE_RE.finditer(text))
+        list(_ANCHOR_RE.finditer(text)) + list(_OWNERSHIP_VESTING_ANCHOR_RE.finditer(text))
         + list(_OWNERSHIP_PASSIVE_RE.finditer(text)) + list(_OWNERSHIP_TRANSFER_VERB_RE.finditer(text))
         + list(_IP_ASSIGNMENT_RE.finditer(text)),
         key=lambda m: m.start(),
