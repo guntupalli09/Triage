@@ -105,36 +105,64 @@ _GENERIC_WORDS = {"each", "the", "any", "such", "this", "that", "both", "either"
 _OWNERSHIP_EXCEPT_FOR_RE = re.compile(r"\bexcept\s+for\b", re.I)
 
 # --- Anchor -------------------------------------------------------------
-# Candidate 5 remediation (FALSE_ABSENCE general root cause, "no
-# deterministic anchor" failure class): a common title-passage
-# construction ("Title to the deliverables shall transfer/pass/vest to
-# X upon Y") names no IP-specific vocabulary at all -- confirmed via the
-# burned corpus's "conditional" family and Phase 11 repeatability
-# testing to depend ENTIRELY on AI-candidate admission (which is
-# genuinely non-deterministic run-to-run) when this deterministic anchor
-# is absent. Adding it gives real channel redundancy (per this mission's
-# Section 4: deterministic extraction should catch what AI sometimes
-# misses, not the reverse only) without meaningfully widening false-
-# positive risk: it requires "title" co-occurring with an explicit
-# transfer/pass/vest verb, not a bare mention (e.g. a job "title" or
-# section "title" never matches this).
 _ANCHOR_RE = re.compile(
     r"intellectual\s+property|proprietary\s+rights|work\s+product|work\s+made\s+for\s+hire"
-    r"|works?\s+for\s+hire|license\s+(?:grant|to\s+use)|IP\s+(?:ownership|rights|license)"
-    r"|\btitle\b\s*(?:to\s+[^.,;]{0,80})?\s*(?:shall|will)\s+(?:transfer|pass|vest)",
+    r"|works?\s+for\s+hire|license\s+(?:grant|to\s+use)|IP\s+(?:ownership|rights|license)",
+    re.I,
+)
+
+# Candidate 5.1 remediation (FALSE_ABSENCE semantic class: OWNERSHIP_
+# VESTING_STATEMENT): `_ANCHOR_RE` above is topic/noun-based
+# (intellectual property, work product, license grant...) and misses the
+# single MOST common way an ownership clause is actually drafted --  a
+# named party as the grammatical subject of an ownership-vesting verb
+# ("[Party] owns/retains/shall own all X created under this Agreement",
+# "Ownership of X shall transfer/pass/vest to [Party] upon Y") -- with NO
+# IP-specific noun anywhere in the sentence at all. Confirmed via the
+# burned corpus (iv-ip_ownership-0239: "Licensee owns all deliverables
+# created under this engagement..."; iv-ip_ownership-0253: "...Subscriber
+# owns all right, title, and interest in the deliverables...") that this
+# entire semantic class was previously undetectable by any deterministic
+# anchor and depended entirely on AI-candidate admission alone.
+#
+# This is NOT a new, ad hoc pattern: `_OWNERSHIP_ACTIVE_RE`/`_OWNERSHIP_
+# PASSIVE_RE` below already implement exactly this "party + ownership
+# verb" recognition, precisely and with negative-control discipline
+# (requiring a capitalized party name as subject, not a bare "owns"
+# anywhere) -- they were simply never wired into anchor/window-creation
+# at all, only used AFTER a window already existed via some other anchor.
+# `_OWNERSHIP_TRANSFER_VERB_RE` generalizes the transfer-verb anchor
+# (Candidate 5's original fix here only covered "title... shall
+# transfer", missing the equally common "Ownership of X shall transfer/
+# pass/vest" phrasing headed by "Ownership" instead of "Title").
+_OWNERSHIP_TRANSFER_VERB_RE = re.compile(
+    r"\b(?:right,?\s*title,?\s*and\s*interest|title|ownership)\b[^.;]{0,100}?"
+    r"\s+(?:shall|will)\s+(?:transfer|pass|vest)\b",
     re.I,
 )
 
 # --- Ownership statements ------------------------------------------------
+# Candidate 5.1 remediation: the party-name capture group must be
+# case-SENSITIVELY capitalized -- a `re.I`-compiled pattern's `[A-Z]`
+# otherwise also matches lowercase, letting a stray pronoun/wh-word
+# ("who owns...", "it retains...") falsely satisfy the "looks like a
+# named party" heuristic. Confirmed as a live defect via the burned
+# corpus (iv-ip_ownership-0225: "...does not otherwise address who owns
+# any resulting work product" -- a MISSING_CLAUSE case -- matched "who
+# owns" as if "Who" were a capitalized party name) once these patterns
+# were wired into anchor/window-creation (Candidate 5.1's OWNERSHIP_
+# VESTING_STATEMENT fix). The `(?-i:...)` reset is the same established
+# fix already used for the identical hazard in data_security_policy_
+# engine.py's `_ROLE_STATEMENT_RE`.
 _OWNERSHIP_ACTIVE_RE = re.compile(
-    r"([A-Z][A-Za-z]{2,30})\s+(?:shall\s+(?:own|retain|be\s+(?:and\s+remain\s+)?the\s+"
+    r"(?-i:([A-Z][A-Za-z]{2,30}))\s+(?:shall\s+(?:own|retain|be\s+(?:and\s+remain\s+)?the\s+"
     r"(?:sole\s+and\s+exclusive|sole|exclusive)?\s*owner\s+of)|owns|retains|"
     r"shall\s+be\s+deemed\s+the\s+owner\s+of)\b",
     re.I,
 )
 _OWNERSHIP_PASSIVE_RE = re.compile(
-    r"shall\s+(?:remain|be)\s+(?:the\s+)?(?:sole\s+and\s+exclusive|sole|exclusive)?\s*property\s+of\s+([A-Z][A-Za-z]{2,30})"
-    r"|shall\s+be\s+(?:solely\s+)?owned\s+(?:solely\s+|exclusively\s+)?by\s+([A-Z][A-Za-z]{2,30})",
+    r"shall\s+(?:remain|be)\s+(?:the\s+)?(?:sole\s+and\s+exclusive|sole|exclusive)?\s*property\s+of\s+(?-i:([A-Z][A-Za-z]{2,30}))"
+    r"|shall\s+be\s+(?:solely\s+)?owned\s+(?:solely\s+|exclusively\s+)?by\s+(?-i:([A-Z][A-Za-z]{2,30}))",
     re.I,
 )
 # Candidate 3 final gap-closure fix (Root Cause C) -- a subordinate
@@ -151,8 +179,8 @@ _SUBORDINATE_QUALIFIER_SPAN_RE = re.compile(
     re.I,
 )
 _IP_ASSIGNMENT_RE = re.compile(
-    r"([A-Z][A-Za-z]{2,30})\s+(?:hereby\s+)?assigns?,?\s+(?:transfers?,?\s+)?(?:and\s+)?(?:conveys?\s+)?"
-    r"(?:to\s+([A-Z][A-Za-z]{2,30})\s+)?all\s+(?:of\s+its\s+)?right,?\s*title\s*(?:and|,)?\s*interest",
+    r"(?-i:([A-Z][A-Za-z]{2,30}))\s+(?:hereby\s+)?assigns?,?\s+(?:transfers?,?\s+)?(?:and\s+)?(?:conveys?\s+)?"
+    r"(?:to\s+(?-i:([A-Z][A-Za-z]{2,30}))\s+)?all\s+(?:of\s+its\s+)?right,?\s*title\s*(?:and|,)?\s*interest",
     re.I,
 )
 _JOINT_OWNERSHIP_RE = re.compile(r"jointly\s+own|joint\s+ownership", re.I)
@@ -624,7 +652,24 @@ def extract_ip_facts(text: str) -> Optional[IPFacts]:
     Returns None only when no anchor exists at all AND semantic discovery
     also ran successfully and found nothing — a provider outage/error
     becomes RECOGNITION_UNCERTAIN instead (see absence_state)."""
-    matches = list(_ANCHOR_RE.finditer(text))
+    # Candidate 5.1 remediation: anchor/window-creation now also fires on
+    # the OWNERSHIP_VESTING_STATEMENT semantic class -- a named party as
+    # subject of an ownership verb ("owns", "retains", "shall own",
+    # "shall be owner of"), the passive/property-of equivalent, an
+    # explicit "assigns...right, title and interest" grant, or a
+    # title/ownership transfer-verb construction -- not just the
+    # topic/noun-based `_ANCHOR_RE`. These are the SAME precise,
+    # already-tested classifiers `_scan_ownership` uses downstream to
+    # STRUCTURE an ownership finding once a window exists; reusing them
+    # here as anchor sources too closes the gap where they could
+    # previously only ever fire AFTER some other anchor already created a
+    # window, never on their own.
+    matches = sorted(
+        list(_ANCHOR_RE.finditer(text)) + list(_OWNERSHIP_ACTIVE_RE.finditer(text))
+        + list(_OWNERSHIP_PASSIVE_RE.finditer(text)) + list(_OWNERSHIP_TRANSFER_VERB_RE.finditer(text))
+        + list(_IP_ASSIGNMENT_RE.finditer(text)),
+        key=lambda m: m.start(),
+    )
     semantic_error: Optional[str] = None
     admitted_semantic: List = []
     unresolved_dependency_note: Optional[str] = None
@@ -764,15 +809,30 @@ def extract_ip_facts(text: str) -> Optional[IPFacts]:
     # anchor also exists elsewhere in the document, so the block above
     # (gated on `admitted_semantic`) never fires. Must not be silently
     # discarded merely because nothing else structured.
-    if (not admitted_semantic and unresolved_dependency_note is not None
-            and not facts.ownership_attributions):
+    # Candidate 5.1 remediation: the outer gate previously required
+    # `not facts.ownership_attributions` BEFORE even checking
+    # `note_is_unconditional` -- meaning an unconditional note (an
+    # unresolved definition/cross-reference dependency, which the
+    # comment immediately below already says "must never be suppressed
+    # merely because some other IP dimension was established elsewhere")
+    # was STILL silently dropped whenever ownership happened to also
+    # resolve deterministically elsewhere in the same document. Exposed
+    # by the Candidate 5.1 anchor broadening (ownership-vesting
+    # statements now anchor on their own, so this combination -- an
+    # admitted-but-dependency-unresolved candidate ALONGSIDE a
+    # deterministically-established ownership attribution -- became
+    # reachable for the first time). Fixed by folding
+    # `ownership_attributions` into `_any_other_established` (which
+    # `note_is_unconditional` already overrides) instead of gating the
+    # entire block on it.
+    if not admitted_semantic and unresolved_dependency_note is not None:
         _any_other_established = any(v is not None for v in (
             facts.exclusivity, facts.royalty, facts.duration, facts.license_term_years, facts.revocability,
             facts.sublicensable, facts.transferable, facts.territory, facts.purpose_limited,
             facts.derivative_works_permitted, facts.feedback_treatment, facts.residual_knowledge_rights,
             facts.open_source_obligations_present, facts.infringement_remedy_referenced,
             facts.post_termination_survival, facts.embedded_background_ip_license_present,
-        )) or facts.sow_cross_reference
+        )) or facts.sow_cross_reference or bool(facts.ownership_attributions)
         # Candidate 3 final pre-freeze blocker remediation (Blocker 2) -- a
         # definition/cross-reference dependency or competing-reading note
         # is always structurally material and must never be suppressed
