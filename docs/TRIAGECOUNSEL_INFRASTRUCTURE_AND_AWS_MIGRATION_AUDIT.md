@@ -16,8 +16,19 @@ TriageCounsel is a **single-service, monolithic Python web application**
 codebase or SPA). It is packaged as one Docker image (`Dockerfile`) run
 alongside Postgres and Redis via `docker-compose.yml`, explicitly tuned for a
 **Hetzner CX23 VPS (2 vCPU / 4 GB RAM)** per a comment in `gunicorn.conf.py`.
-This is consistent with the user's stated ~$100/month hosting cost — a single
-small VPS running three containers is roughly in that price range.
+The operator-confirmed actual bill for this VPS is **€/$6.49/month**
+(Hetzner Cloud console, instance "Triagecx23", 91.98.128.252 — 2 vCPU, 4 GB
+RAM, 40 GB local disk, 0/20 TB traffic used), plus **under $5/month** in
+OpenAI API usage — **total current infrastructure spend is roughly
+$11–12/month**, not the ~$100/month originally assumed in scoping this
+audit. This is a materially different starting point for the AWS
+cost comparison in Part 11 and the final recommendation in Part 16: any
+AWS architecture with a Load Balancer, RDS, and EC2 will cost several times
+more than the current setup in absolute dollars, even though it remains
+inexpensive by SaaS-infrastructure standards. That trade-off — real
+reliability gains (backups, managed TLS, monitoring) in exchange for a
+~6–10x increase in a very small absolute number — is spelled out plainly
+below rather than glossed over.
 
 The application already has a real security baseline: AES-256-GCM
 application-layer encryption of contract text (`encryption.py`), CSRF
@@ -39,9 +50,17 @@ and automated snapshots, S3 for backups, and Secrets Manager for
 credentials.** This preserves the current deployment model almost exactly
 (same Dockerfile, same Compose file minus Postgres) while fixing the two
 CRITICAL gaps repository evidence confirms: no backups and no managed
-encryption-at-rest guarantee. Estimated AWS cost at current scale:
-**$95–$180/month**, comparable to today's hosting, with backups and TLS
-included that aren't confirmed to exist today.
+encryption-at-rest guarantee. Estimated AWS cost at current scale: **$60–140/month all-in (AWS infra +
+OpenAI)**. Set against the operator-confirmed actual current spend of
+**~$11–12/month** ($6.49 Hetzner + under $5 OpenAI), this is a real
+**~6–10x increase in absolute dollars** — still cheap for a SaaS product
+with paying legal customers, but not "comparable," and not something to
+undertake unless the reliability gains (automated backups, managed TLS,
+monitoring/alerting — none of which are confirmed to exist today) are
+worth that jump. Section 16 discusses a lower-cost alternative for a team
+that isn't ready to spend that increase yet: fixing the CRITICAL backup
+gap directly on the existing Hetzner box first, and treating AWS as a
+later step once customer count or compliance requirements justify it.
 
 ---
 
@@ -566,6 +585,12 @@ This is a modest addition — no new services beyond GitHub Actions + ECR (neede
 All figures are monthly, us-east-1-style pricing, rounded to realistic
 ranges. These are estimates for planning, not a quote.
 
+**Baseline for comparison — confirmed current spend**: $6.49/month Hetzner
+CX23 VPS + under $5/month OpenAI API = **~$11–12/month total**. Every
+scenario below is measured against that, not against a hypothetical
+$100/month baseline. Scenario A alone represents roughly a **5–12x**
+increase over current spend for the AWS infrastructure portion alone.
+
 ### SCENARIO A — Prototype (1–5 customers, low volume)
 
 | Item | Estimate |
@@ -788,21 +813,54 @@ the CRITICAL findings from Part 6 and are largely infrastructure-agnostic:
 
 ## 16. Final Recommendation
 
-Migrate to AWS using **EC2 + Docker Compose for the app/Redis, RDS Postgres
-for the database, and an ALB for TLS** — not ECS/Fargate, not App Runner,
-and certainly not EKS. This is the smallest possible change from what
-already works (same Dockerfile, same Compose mental model) that directly
-closes the two CRITICAL gaps this audit found: **no backups** and
-**unconfirmed/unmanaged TLS and encryption-at-rest guarantees**. Expected
-cost at current scale (~$70–150/month all-in AWS + AI) is comparable to
-the existing ~$100/month VPS bill, while adding real automated backups,
-managed TLS, centralized logging/alerting, and a documented recovery path
-— things the current setup does not evidence today. Treat ECS/Fargate as
-the natural next step if/when real multi-instance scaling is needed, and
-treat everything in the "LATER" column of Part 7.3 (Multi-AZ RDS, WAF,
+The confirmed actual current spend — **$6.49/month Hetzner + under
+$5/month OpenAI, ~$11–12/month total** — changes this recommendation from
+"obviously worth doing now" to "a real trade-off the team should choose
+deliberately." Two honest paths follow, in order of what to consider first:
+
+### 16.1 Lower-cost first step: fix the CRITICAL gap on the existing box
+
+Before spending 6–10x more on AWS, the single highest-value, lowest-cost
+fix is directly addressing Part 6's #1 CRITICAL finding — **no backups** —
+on the current Hetzner VPS itself. Hetzner's own managed backup product
+(visible in the same console screenshot used to confirm pricing, under the
+"Backups"/"Snapshots" tabs) typically costs **~20% of the instance price**
+(roughly **+$1.30/month** on a $6.49 instance) and would close most of the
+CRITICAL/HIGH risk from losing all customer contract data to a disk or
+host failure, for a trivial cost increase — no migration required. Pairing
+that with a scripted nightly `pg_dump` to an off-host destination (e.g., a
+$5/month Backblaze B2 or Hetzner Storage Box) closes the gap even more
+robustly. Combined with the CI pipeline in Part 10 (free — GitHub Actions
+on a small repo is within the free tier) and a documented TLS/reverse-proxy
+setup (Part 13's checklist), a huge fraction of this audit's CRITICAL/HIGH
+findings can be resolved for **well under $20/month total**, with zero
+migration risk and zero downtime.
+
+### 16.2 When AWS becomes the right move
+
+AWS is the right move once one or more of these becomes true, not before:
+- Paying legal customers start asking for a documented DR/backup posture, SOC 2 evidence, or specific cloud-provider commitments (AWS/GCP/Azure) as part of their own vendor-risk process — common in legal and enterprise procurement.
+- Customer count or contract value grows enough that the ~$50–130/month *incremental* cost (Scenario A/B in Part 11, above the current ~$12/month) is trivial relative to revenue.
+- The team wants managed-service operational relief (automated failover, managed patching, IAM-based access control) rather than continuing to hand-operate a single VPS.
+
+When that time comes, the recommendation from the original analysis still
+holds: **EC2 + Docker Compose for the app/Redis, RDS Postgres for the
+database, and an ALB for TLS** — not ECS/Fargate, not App Runner, and
+certainly not EKS. This is the smallest possible change from what already
+works (same Dockerfile, same Compose mental model) that directly closes
+the CRITICAL gaps this audit found: no backups and unconfirmed/unmanaged
+TLS and encryption-at-rest guarantees, while adding centralized
+logging/alerting and a documented recovery path. Treat ECS/Fargate as the
+natural next step if/when real multi-instance scaling is needed, and treat
+everything in the "LATER" column of Part 7.3 (Multi-AZ RDS, WAF,
 GuardDuty, NAT Gateway, autoscaling) as deliberately deferred, not
 forgotten — revisit each one as customer count and contract value justify
 its cost.
+
+**Bottom line**: don't move to AWS today purely to fix the backup gap —
+that can be fixed on the current $6.49/month box for a few dollars more.
+Move to AWS when the business reasons above show up, using the
+architecture in Part 7 as the ready-to-execute plan for that point.
 
 ---
 
