@@ -3754,6 +3754,44 @@ def require_admin(request: Request, db: DBSession) -> User:
     return user
 
 
+@app.post("/admin/users/{target_user_id}/comp-plan")
+async def admin_comp_plan(
+    request: Request,
+    target_user_id: int,
+    db: DBSession = Depends(get_db),
+    plan: str = Form(...),
+    _csrf: None = Depends(csrf_protect),
+):
+    """Admin-only: grant a user a plan tier (e.g. an evaluator's demo
+    access) without a Stripe charge. Only ever writes plan/monthly_limit/
+    subscription_status on the target's own row — no role or auth change,
+    so it can't grant admin rights or touch any other user's data."""
+    admin = require_admin(request, db)
+
+    if plan not in PLAN_LIMITS:
+        raise HTTPException(status_code=400, detail="Invalid plan")
+
+    target = db.query(User).filter(User.id == target_user_id).first()
+    if not target:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    plan_config = PLAN_LIMITS[plan]
+    previous_plan = target.plan
+    target.plan = plan
+    target.monthly_limit = plan_config["monthly_limit"]
+    target.subscription_status = "comped"
+    target.contracts_this_month = 0
+    db.commit()
+
+    audit_log.record_event(
+        db, "admin_comped_plan", request=request, actor_user_id=admin.id,
+        target_type="user", target_id=target.id, success=True,
+        metadata={"previous_plan": previous_plan, "new_plan": plan},
+    )
+
+    return RedirectResponse(url="/admin", status_code=302)
+
+
 @app.get("/admin", response_class=HTMLResponse)
 async def admin_dashboard(request: Request, db: DBSession = Depends(get_db)):
     user = require_admin(request, db)
