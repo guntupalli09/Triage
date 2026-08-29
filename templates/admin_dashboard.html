@@ -152,6 +152,7 @@
             <th class="px-4 py-3 font-medium text-center">Playbooks</th>
             <th class="px-4 py-3 font-medium text-center">Last Job</th>
             <th class="px-4 py-3 font-medium text-center">Joined</th>
+            <th class="px-4 py-3 font-medium text-center">Comp Plan</th>
           </tr>
         </thead>
         <tbody id="usersTbody">
@@ -167,6 +168,8 @@
               <span class="text-xs px-2 py-0.5 rounded-full font-medium badge-{{ u.plan }}">{{ u.plan }}</span>
               {% if u.sub_status == 'active' %}
               <span class="ml-1 text-xs text-green-400">●</span>
+              {% elif u.sub_status == 'comped' %}
+              <span class="ml-1 text-xs text-amber-400">◆</span>
               {% endif %}
             </td>
             <td class="px-4 py-3 text-center font-bold {% if u.jobs > 10 %}text-indigo-300{% else %}text-slate-300{% endif %}">{{ u.jobs }}</td>
@@ -175,9 +178,22 @@
             <td class="px-4 py-3 text-center text-slate-400">{{ u.playbooks }}</td>
             <td class="px-4 py-3 text-center text-xs {% if u.last_job == 'never' %}text-slate-600{% else %}text-slate-400{% endif %}">{{ u.last_job }}</td>
             <td class="px-4 py-3 text-center text-xs text-slate-500">{{ u.created_at }}</td>
+            <td class="px-4 py-3 text-center">
+              <form method="post" action="/admin/users/{{ u.id }}/comp-plan" class="flex items-center gap-1 justify-center"
+                    onsubmit="return confirm('Grant {{ u.email }} this plan tier for free (no Stripe charge)?');">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
+                <select name="plan" class="text-xs bg-[#1e2235] border border-[#2d3148] rounded px-1 py-0.5 text-slate-300">
+                  <option value="starter">starter</option>
+                  <option value="professional">professional</option>
+                  <option value="team">team</option>
+                  <option value="unlimited" selected>unlimited</option>
+                </select>
+                <button type="submit" class="text-xs px-2 py-0.5 rounded bg-indigo-600 hover:bg-indigo-500 text-white">Grant</button>
+              </form>
+            </td>
           </tr>
           {% else %}
-          <tr><td colspan="9" class="px-4 py-8 text-center text-slate-600">No users yet.</td></tr>
+          <tr><td colspan="10" class="px-4 py-8 text-center text-slate-600">No users yet.</td></tr>
           {% endfor %}
         </tbody>
       </table>
