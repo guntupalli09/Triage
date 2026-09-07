@@ -1,7 +1,7 @@
 {
-  "name": "Triage Counsel — Deterministic Legal Reasoning Engine",
+  "name": "TriageCounsel — Connected Contract Review",
   "short_name": "TriageCounsel",
-  "description": "Deterministic contract analysis: 40 rules decide, AI explains. Upload any contract and get an auditable risk report in seconds.",
+  "description": "Clear the repeatable, surface the exceptions. Deterministic policy enforcement for legal teams — AI explains, never decides.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

@@ -412,6 +412,7 @@ async def position_review_page(request: Request, playbook_id: int, clause_type: 
     ctx["summary_lines"] = pa.summarize_position(position)
     ctx["missing_required"] = missing_required
     ctx["history"] = history
+    ctx["enforcement"] = policy_enforcement.enforcement_disclosure()
     return templates.TemplateResponse("playbook_position_review.html", ctx)
 
 
@@ -438,6 +439,7 @@ async def position_approve(
             .order_by(PolicyPositionApproval.created_at.desc()).all()
         )
         ctx["error"] = "This position isn't ready to approve yet — see the unanswered questions below."
+        ctx["enforcement"] = policy_enforcement.enforcement_disclosure()
         return templates.TemplateResponse("playbook_position_review.html", ctx, status_code=400)
     except pa.PositionLifecycleError as exc:
         db.rollback()
@@ -476,6 +478,7 @@ async def position_activate(
             .order_by(PolicyPositionApproval.created_at.desc()).all()
         )
         ctx["error"] = "This position isn't ready to activate yet — see the unanswered questions below."
+        ctx["enforcement"] = policy_enforcement.enforcement_disclosure()
         return templates.TemplateResponse("playbook_position_review.html", ctx, status_code=400)
     except pa.PositionLifecycleError as exc:
         db.rollback()
