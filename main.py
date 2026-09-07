@@ -757,6 +757,12 @@ async def register_submit(
         db, "account_created", request=request, actor_user_id=user.id,
         target_type="user", target_id=user.id, success=True,
     )
+    audit_log.record_event(
+        db, "terms_accepted", request=request, actor_user_id=user.id,
+        target_type="user", target_id=user.id, success=True,
+        detail="Accepted via email sign-up",
+        metadata={"method": "email_register"},
+    )
 
     response = RedirectResponse(url="/dashboard", status_code=302)
     create_session(user.id, response)
@@ -3562,6 +3568,14 @@ async def security_page(request: Request, db: DBSession = Depends(get_db)):
     })
 
 
+@app.get("/security/subprocessors", response_class=HTMLResponse)
+async def subprocessors_page(request: Request, db: DBSession = Depends(get_db)):
+    user = get_current_user(request, db)
+    return templates.TemplateResponse("subprocessors.html", {
+        "request": request, "user": user, "current_year": datetime.now().year,
+    })
+
+
 @app.get("/faq", response_class=HTMLResponse)
 async def faq_page(request: Request, db: DBSession = Depends(get_db)):
     user = get_current_user(request, db)
@@ -4176,6 +4190,7 @@ async def sitemap_xml(request: Request):
         ("/pricing",  "0.9",  "monthly"),
         ("/research", "0.8",  "monthly"),
         ("/security", "0.8",  "monthly"),
+        ("/security/subprocessors", "0.7", "monthly"),
         ("/faq",      "0.8",  "monthly"),
         ("/about",    "0.8",  "monthly"),
         ("/contact",  "0.7",  "monthly"),
