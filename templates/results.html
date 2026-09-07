@@ -491,9 +491,9 @@
     {% endif %}
 
     {% if payment_terms and (payment_terms.due_days or payment_terms.currency or payment_terms.billing_frequency or payment_terms.invoice_trigger) %}
-    <!-- Verified Commercial Terms -->
+    <!-- Extracted Commercial Terms -->
     <div class="report-card p-6 mb-6 fade-in">
-        <h2 class="text-lg font-bold text-[#0F172A] mb-4">Verified Commercial Terms</h2>
+        <h2 class="text-lg font-bold text-[#0F172A] mb-4">Extracted Commercial Terms</h2>
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
             <div>
                 <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Payment Due</div>
@@ -660,8 +660,8 @@
 
                         <div class="flex gap-4 pt-2 border-t border-slate-100">
                             <div>
-                                <span class="text-xs text-[#64748B]">Verification</span>
-                                <span class="text-xs font-semibold status-pass ml-1">Verified</span>
+                                <span class="text-xs text-[#64748B]">Evidence</span>
+                                <span class="text-xs font-semibold status-pass ml-1">Located</span>
                             </div>
                             <div>
                                 <span class="text-xs text-[#64748B]">Attorney Action</span>
@@ -793,7 +793,7 @@
             </div>
             <div class="p-3 bg-slate-50 rounded-md">
                 <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Execution Integrity</div>
-                <div class="text-sm font-bold status-pass">Verified</div>
+                <div class="text-sm font-bold status-pass">Complete</div>
             </div>
             <div class="p-3 bg-slate-50 rounded-md">
                 <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Deterministic Execution</div>
