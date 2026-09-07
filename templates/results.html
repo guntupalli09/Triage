@@ -123,7 +123,7 @@
             </div>
             <div>
                 <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Status</div>
-                <div class="text-sm font-semibold status-pass">Verification Completed</div>
+                <div class="text-sm font-semibold status-pass">Analysis Complete</div>
             </div>
             {% if metadata and metadata.contract_type %}
             <div>
@@ -153,7 +153,7 @@
     </div>
 
     {% set readiness_display = {
-        "ready_to_send": {"label": "READY TO SEND", "text_class": "text-green-700", "bg_class": "severity-low", "note": "No blocking findings — this contract can move to signature."},
+        "ready_to_send": {"label": "NO BLOCKING FINDINGS", "text_class": "text-green-700", "bg_class": "severity-low", "note": "Automated triage found no blocking issues — qualified counsel should still review before signature."},
         "commercial_review_recommended": {"label": "COMMERCIAL REVIEW RECOMMENDED", "text_class": "text-amber-700", "bg_class": "severity-medium", "note": "Non-blocking findings present — worth a business review before sending."},
         "legal_review_required": {"label": "LEGAL REVIEW REQUIRED", "text_class": "text-red-700", "bg_class": "severity-high", "note": "One or more findings require legal counsel review before signature."},
         "blocked_by_policy": {"label": "BLOCKED BY POLICY", "text_class": "text-red-900", "bg_class": "severity-high", "note": "This contract contains terms that require executive/legal sign-off before it can proceed."},
@@ -162,7 +162,7 @@
 
     <!-- Signature Readiness (workflow decision layer) -->
     <div class="report-card p-6 mb-6 fade-in {{ readiness.bg_class if readiness else '' }}" style="border-left-width: 4px;">
-        <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-2">Signature Readiness</div>
+        <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-2">Triage Routing</div>
         {% if readiness %}
             <div class="text-3xl font-extrabold {{ readiness.text_class }} mb-1">{{ readiness.label }}</div>
             <div class="text-sm text-[#475569]">{{ readiness.note }}</div>
@@ -190,11 +190,11 @@
                 </div>
             </div>
             <div class="grid grid-cols-2 gap-x-8 gap-y-2 text-sm">
-                <div class="text-[#475569]">Engine Integrity</div>
-                <div class="font-semibold status-pass">Verified</div>
+                <div class="text-[#475569]">Pipeline Run</div>
+                <div class="font-semibold status-pass">Complete</div>
                 <div class="text-[#475569]">Evidence Collection</div>
-                <div class="font-semibold status-pass">Completed</div>
-                <div class="text-[#475569]">Consistency Validation</div>
+                <div class="font-semibold status-pass">Complete</div>
+                <div class="text-[#475569]">Internal Checks</div>
                 <div class="font-semibold status-pass">Passed</div>
                 <div class="text-[#475569]">Attorney Review</div>
                 <div class="font-semibold text-[#334155]">

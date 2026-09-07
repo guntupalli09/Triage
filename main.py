@@ -82,6 +82,7 @@ import analytics
 import audit_log
 import upload_security
 import rbac
+import legal_config
 import retention
 import playbook_workbench
 import playbook_authoring as pa
@@ -198,6 +199,7 @@ PLAN_LIMITS = {
 templates = Jinja2Templates(directory="templates")
 templates.env.globals["google_signin_enabled"] = google_oauth.is_configured()
 templates.env.globals["csrf_token"] = get_csrf_token
+templates.env.globals["legal"] = legal_config.legal_context
 app = FastAPI(title="TriageCounsel", version="2.0.0")
 app.mount("/static", StaticFiles(directory="static"), name="static")
 CORS_ORIGINS = os.getenv("CORS_ORIGINS", BASE_URL).split(",")
@@ -693,6 +695,7 @@ async def register_submit(
     confirm_password: str = Form(...),
     name: str = Form(""),
     company: str = Form(""),
+    accept_terms: str = Form(""),
     db: DBSession = Depends(get_db),
     _rl: None = Depends(rate_limit("register", limit=5, window_seconds=60)),
     _csrf: None = Depends(csrf_protect),
@@ -708,6 +711,8 @@ async def register_submit(
         return error("Passwords do not match.")
     if len(password) < 8:
         return error("Password must be at least 8 characters.")
+    if accept_terms != "on":
+        return error("You must agree to the Terms of Service and Privacy Policy.")
     existing = db.query(User).filter(User.email == email).first()
     if existing and not (claiming and existing.id == current.id):
         return error("An account with this email already exists.")

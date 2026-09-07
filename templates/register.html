@@ -172,6 +172,16 @@
                         placeholder="Confirm your password">
                 </div>
 
+                <label class="flex items-start gap-3 cursor-pointer">
+                    <input type="checkbox" name="accept_terms" value="on" required
+                        class="mt-1 rounded border-gray-300 text-[#0F172A] focus:ring-[#0F172A]">
+                    <span class="text-xs text-gray-500 leading-relaxed">
+                        I agree to the <a href="/terms" class="text-[#0F172A] font-medium hover:underline" target="_blank" rel="noopener">Terms of Service</a>
+                        and <a href="/privacy" class="text-[#0F172A] font-medium hover:underline" target="_blank" rel="noopener">Privacy Policy</a>.
+                        I understand TriageCounsel provides automated triage, not legal advice.
+                    </span>
+                </label>
+
                 <button type="submit" class="btn-primary w-full py-3 px-6 rounded-lg font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0F172A]">
                     {% if claiming %}Save & Create Account{% else %}Create Account{% endif %}
                 </button>
