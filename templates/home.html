@@ -1,7 +1,7 @@
 {% extends "base_marketing.html" %}
 
-{% block title %}Triage Counsel — The Deterministic Legal Reasoning Engine{% endblock %}
-{% block meta_description %}Deterministic contract risk triage built for small and mid-sized law firms — auditable rules decide, AI only explains, in seconds.{% endblock %}
+{% block title %}TriageCounsel — Connected Contract Review{% endblock %}
+{% block meta_description %}Turn approved legal positions into repeatable contract review decisions. Clear what matches policy, surface exceptions and cross-clause risks — built for legal teams.{% endblock %}
 {% block canonical_url %}https://triagecounsel.com/{% endblock %}
 
 {% block json_ld %}
@@ -13,7 +13,7 @@
   "applicationCategory": "BusinessApplication",
   "operatingSystem": "Web",
   "url": "https://triagecounsel.com",
-  "description": "Deterministic legal reasoning engine for contract analysis, built for small and mid-sized law firms. 40 rules decide, AI explains. Upload any contract and get an auditable risk report in seconds.",
+  "description": "Connected contract review for legal teams. Turn approved legal positions into repeatable review decisions, surface cross-clause risks, and keep judgment with lawyers when policy cannot resolve the question.",
   "offers": {
     "@type": "AggregateOffer",
     "lowPrice": "0",
@@ -40,11 +40,11 @@
         </span>
     </div>
     <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#0F172A] leading-[1.1] mb-6">
-        Deterministic Rules Decide.<br>
-        <span class="text-gray-400">AI Explains.</span>
+        Clear the Repeatable.<br>
+        <span class="text-gray-400">Surface the Exceptions.</span>
     </h1>
     <p class="text-lg sm:text-xl text-gray-500 max-w-2xl mx-auto mb-10 leading-relaxed">
-        Built for small and mid-sized law firms. Upload any client contract and get an auditable risk report in seconds — deterministic rules catch what matters, AI only explains why.
+        Turn your approved legal positions into repeatable review decisions — then surface when provisions must be considered together. Built for legal teams who want less unnecessary lawyer work, not more findings.
     </p>
     <div class="flex items-center justify-center gap-4 flex-wrap">
         <a href="/upload-page" class="btn-primary py-3 px-8 rounded-lg text-base">{% if user and user.plan in ('professional', 'team') %}Start Review{% else %}Start Free Review{% endif %}</a>
@@ -69,7 +69,11 @@
             </div>
             <div class="flex items-center gap-2">
                 <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                Deterministic Rules
+                Approved Positions Govern
+            </div>
+            <div class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                Connected Review
             </div>
             <div class="flex items-center gap-2">
                 <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
@@ -83,20 +87,20 @@
 <section id="how-it-works" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
     <div class="text-center mb-14">
         <p class="section-label mb-3">How It Works</p>
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-[#0F172A] tracking-tight">Three steps to auditable risk analysis</h2>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-[#0F172A] tracking-tight">Configure, evaluate, decide</h2>
     </div>
     <div class="grid md:grid-cols-3 gap-8">
         <div class="card p-8 text-center">
-            <h3 class="text-lg font-bold text-[#0F172A] mb-2">Upload Your Contract</h3>
-            <p class="text-sm text-gray-500 leading-relaxed">Upload a PDF or DOCX. TriageCounsel extracts text using deterministic parsing — no AI involved in extraction.</p>
+            <h3 class="text-lg font-bold text-[#0F172A] mb-2">Configure Approved Positions</h3>
+            <p class="text-sm text-gray-500 leading-relaxed">Set preferred terms, acceptable boundaries, fallbacks, and hard stops for each clause type. Positions stay in draft until a lawyer approves them.</p>
         </div>
         <div class="card p-8 text-center">
-            <h3 class="text-lg font-bold text-[#0F172A] mb-2">Rules Engine Analyzes</h3>
-            <p class="text-sm text-gray-500 leading-relaxed">A growing library of deterministic rules scans for risk patterns. Every finding is traceable to a specific rule and clause.</p>
+            <h3 class="text-lg font-bold text-[#0F172A] mb-2">Evaluate the Agreement</h3>
+            <p class="text-sm text-gray-500 leading-relaxed">Upload a contract. TriageCounsel evaluates it against your active playbook — with evidence-backed fact admission and deterministic policy engines.</p>
         </div>
         <div class="card p-8 text-center">
-            <h3 class="text-lg font-bold text-[#0F172A] mb-2">AI Explains Findings</h3>
-            <p class="text-sm text-gray-500 leading-relaxed">An LLM generates plain-language explanations for each finding. It explains — it never decides.</p>
+            <h3 class="text-lg font-bold text-[#0F172A] mb-2">Clear, Escalate, or Review</h3>
+            <p class="text-sm text-gray-500 leading-relaxed">Language that matches policy clears automatically. Negotiation issues and unresolved judgment calls — including cross-clause risks — rise to the top.</p>
         </div>
     </div>
 </section>
@@ -106,40 +110,40 @@
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-14">
             <p class="section-label mb-3">Why TriageCounsel Is Different</p>
-            <h2 class="text-3xl sm:text-4xl font-extrabold text-[#0F172A] tracking-tight">Deterministic, not probabilistic</h2>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-[#0F172A] tracking-tight">A clause can be acceptable alone — and risky in combination</h2>
         </div>
         <div class="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
             <div>
-                <h3 class="text-lg font-bold text-[#0F172A] mb-4">Other AI Contract Tools</h3>
+                <h3 class="text-lg font-bold text-[#0F172A] mb-4">Other Contract Review Tools</h3>
                 <ul class="space-y-3">
                     <li class="flex items-start gap-3 text-sm text-gray-500">
                         <svg class="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-                        AI makes the decisions — black box
+                        Review provisions in isolation
                     </li>
                     <li class="flex items-start gap-3 text-sm text-gray-500">
                         <svg class="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-                        Results change between runs
+                        Generic risk flags, not your approved positions
                     </li>
                     <li class="flex items-start gap-3 text-sm text-gray-500">
                         <svg class="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-                        No audit trail for findings
+                        AI decides what matters — black box
                     </li>
                 </ul>
             </div>
             <div>
-                <h3 class="text-lg font-bold text-[#0F172A] mb-4">Triage Counsel</h3>
+                <h3 class="text-lg font-bold text-[#0F172A] mb-4">TriageCounsel</h3>
                 <ul class="space-y-3">
                     <li class="check-item text-sm text-gray-600">
                         <span class="check-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></span>
-                        Deterministic rules decide — fully auditable
+                        Connected contract review across clause types
                     </li>
                     <li class="check-item text-sm text-gray-600">
                         <span class="check-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></span>
-                        Same input always produces the same output
+                        Your approved positions govern the outcome
                     </li>
                     <li class="check-item text-sm text-gray-600">
                         <span class="check-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></span>
-                        Every finding links to rule ID and clause
+                        Every decision traceable to contract language and policy
                     </li>
                 </ul>
             </div>
@@ -281,8 +285,8 @@
 <!-- CTA -->
 <section class="bg-[#0F172A] py-20">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-4">Start reviewing contracts today</h2>
-        <p class="text-gray-400 text-lg mb-8">{% if user %}Upload your next contract in seconds.{% else %}Upload your first contract free. No credit card required.{% endif %}</p>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-4">Prove value on one real workflow</h2>
+        <p class="text-gray-400 text-lg mb-8">Configure your approved positions, review representative agreements, and measure what clears, what needs action, and what still requires legal judgment.</p>
         <a href="/upload-page" class="bg-white text-[#0F172A] font-bold py-3 px-8 rounded-lg text-base inline-block hover:bg-gray-100 transition-colors">{% if user and user.plan in ('professional', 'team') %}Start Review{% else %}Start Free Review{% endif %}</a>
     </div>
 </section>

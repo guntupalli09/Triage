@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token(request) }}">
-    <title>{% block title %}Triage Counsel — The Deterministic Legal Reasoning Engine{% endblock %}</title>
-    <meta name="description" content="{% block meta_description %}Review legal documents using deterministic rules, auditable evidence, and AI-powered explanations — not AI decisions.{% endblock %}">
+    <title>{% block title %}TriageCounsel — Connected Contract Review{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}Turn approved legal positions into repeatable contract review decisions. Clear what matches policy, surface exceptions and cross-clause risks — built for legal teams.{% endblock %}">
 
     <!-- Canonical -->
     <link rel="canonical" href="{% block canonical_url %}https://triagecounsel.com{{ request.url.path if request.url.path != '/' else '' }}/{% endblock %}">
@@ -18,8 +18,8 @@
     <meta property="og:type" content="{% block og_type %}website{% endblock %}">
     <meta property="og:site_name" content="Triage Counsel">
     <meta property="og:locale" content="en_US">
-    <meta property="og:title" content="{% block og_title %}Triage Counsel — The Deterministic Legal Reasoning Engine{% endblock %}">
-    <meta property="og:description" content="{% block og_description %}Review legal documents using deterministic rules, auditable evidence, and AI-powered explanations — not AI decisions.{% endblock %}">
+    <meta property="og:title" content="{% block og_title %}TriageCounsel — Connected Contract Review{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Turn approved legal positions into repeatable review decisions. Clear the repeatable, surface the exceptions, keep judgment with legal.{% endblock %}">
     <meta property="og:url" content="{% block og_url %}https://triagecounsel.com{{ request.url.path if request.url.path != '/' else '' }}/{% endblock %}">
     <meta property="og:image" content="{% block og_image %}https://triagecounsel.com/static/branding/triagecounsel-icon-dark-512.png{% endblock %}">
     <meta property="og:image:width" content="512">
@@ -28,8 +28,8 @@
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{% block twitter_title %}Triage Counsel — The Deterministic Legal Reasoning Engine{% endblock %}">
-    <meta name="twitter:description" content="{% block twitter_description %}Review legal documents using deterministic rules, auditable evidence, and AI-powered explanations — not AI decisions.{% endblock %}">
+    <meta name="twitter:title" content="{% block twitter_title %}TriageCounsel — Connected Contract Review{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}Turn approved legal positions into repeatable review decisions. Clear the repeatable, surface the exceptions, keep judgment with legal.{% endblock %}">
     <meta name="twitter:image" content="{% block twitter_image %}https://triagecounsel.com/static/branding/triagecounsel-icon-dark-512.png{% endblock %}">
 
     <!-- App Metadata -->
@@ -398,7 +398,7 @@
                 </div>
                 <div>
                     <a href="/" class="text-lg font-extrabold tracking-tight text-[#0F172A]">TRIAGE</a>
-                    <p class="text-xs text-gray-400 mt-2 leading-relaxed">Deterministic rules decide.<br>AI explains.</p>
+                    <p class="text-xs text-gray-400 mt-2 leading-relaxed">Approved positions.<br>Connected review.</p>
                 </div>
             </div>
 
@@ -420,8 +420,8 @@
 
             <!-- Copyright -->
             <div class="text-center text-gray-400 text-sm space-y-1 pt-8 border-t border-gray-100">
-                <p class="font-medium">&copy; {{ current_year }} Triage Counsel — The Deterministic Legal Reasoning Engine</p>
-                <p class="text-xs">Deterministic rules decide. AI explains.</p>
+                <p class="font-medium">&copy; {{ current_year }} TriageCounsel — Connected Contract Review</p>
+                <p class="text-xs">Clear the repeatable. Surface the exceptions.</p>
             </div>
         </div>
     </footer>
