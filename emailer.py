@@ -9,7 +9,7 @@ Supports two providers, checked in order:
   1. Resend HTTP API  — set RESEND_API_KEY (recommended on Vercel)
   2. Any SMTP server  — set SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASSWORD
 
-EMAIL_FROM sets the sender address for both (e.g. "Triage Counsel <no-reply@yourdomain.com>").
+EMAIL_FROM sets the sender address for both (e.g. "TriageCounsel <no-reply@yourdomain.com>").
 Standard library only — no extra dependencies.
 """
 from __future__ import annotations
@@ -26,7 +26,7 @@ from email.mime.text import MIMEText
 logger = logging.getLogger(__name__)
 
 RESEND_ENDPOINT = "https://api.resend.com/emails"
-DEFAULT_FROM = "Triage Counsel <onboarding@resend.dev>"
+DEFAULT_FROM = "TriageCounsel <onboarding@resend.dev>"
 
 
 def is_configured() -> bool:

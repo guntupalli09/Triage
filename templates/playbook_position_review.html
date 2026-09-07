@@ -80,9 +80,11 @@
             <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
             <button type="submit" class="py-2.5 px-6 rounded-lg font-semibold text-sm text-gray-600 border border-gray-200 hover:bg-gray-50">Return to draft</button>
         </form>
-        <p class="text-xs text-gray-400 self-center">Approving and activating are separate steps — approving records that this position is correct; activating makes it govern live contract review.</p>
+        <p class="text-xs text-gray-400 self-center">Approving and activating are separate steps — approving records that this position is correct; activating makes it eligible to govern live contract review{% if not enforcement.authoritative %} once policy enforcement is turned on{% endif %}.</p>
         {% elif position.status == 'ACTIVE' %}
-        <p class="text-sm text-green-700 font-medium">This position is Active and governs contract review for this clause type.</p>
+        <p class="text-sm font-medium {% if enforcement.authoritative %}text-green-700{% else %}text-amber-800{% endif %}">
+            This position is Active{% if enforcement.authoritative %} and governs contract review for this clause type{% else %} — policy enforcement is not yet deciding reviews on this deployment (see Workbench){% endif %}.
+        </p>
         {% endif %}
         <a href="/playbooks/{{ playbook.id }}/positions/{{ clause_type }}/edit" class="text-sm font-medium text-gray-500 hover:text-[#0F172A] hover:underline self-center">Edit fields</a>
     </div>
