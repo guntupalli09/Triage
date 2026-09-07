@@ -1,5 +1,5 @@
 """
-Deterministic Rule Engine for Contract Risk TriageCounsel
+Deterministic Rule Engine for TriageCounsel
 
 - Purely deterministic: regex + proximity logic only.
 - Designed for Commercial NDAs / MSAs triage (not legal advice).

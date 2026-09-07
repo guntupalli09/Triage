@@ -1,5 +1,5 @@
 """
-LLM Evaluator for Contract Risk TriageCounsel Tool
+LLM Evaluator for TriageCounsel
 
 Neural-Symbolic Architecture with Deterministic Control Plane:
 - Receives ONLY deterministic findings (never full contract text)

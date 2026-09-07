@@ -1,5 +1,5 @@
 """
-FastAPI app for Contract Risk TriageCounsel Tool
+FastAPI app for TriageCounsel — Connected Contract Review
 
 Phase 1: User accounts, subscription billing, contract history, batch upload
 Phase 2: Playbook comparison, dashboard, report sharing
@@ -198,7 +198,7 @@ PLAN_LIMITS = {
 templates = Jinja2Templates(directory="templates")
 templates.env.globals["google_signin_enabled"] = google_oauth.is_configured()
 templates.env.globals["csrf_token"] = get_csrf_token
-app = FastAPI(title="Contract Risk TriageCounsel Tool", version="2.0.0")
+app = FastAPI(title="TriageCounsel", version="2.0.0")
 app.mount("/static", StaticFiles(directory="static"), name="static")
 CORS_ORIGINS = os.getenv("CORS_ORIGINS", BASE_URL).split(",")
 app.add_middleware(
@@ -252,7 +252,7 @@ def on_startup():
 
     db_type = "PostgreSQL" if "postgresql" in DATABASE_URL else "SQLite"
     redis_url = os.getenv("REDIS_URL")
-    logger.info(f"Triage Counsel worker ready | mode={'DEMO' if DEV_MODE else 'PROD'} | db={db_type} | redis={'yes' if redis_url else 'no'} | pid={os.getpid()}")
+    logger.info(f"TriageCounsel worker ready | mode={'DEMO' if DEV_MODE else 'PROD'} | db={db_type} | redis={'yes' if redis_url else 'no'} | pid={os.getpid()}")
     if not DEV_MODE and "sqlite" in DATABASE_URL:
         logger.warning("Running production mode with SQLite — use PostgreSQL for reliability")
 
@@ -270,7 +270,7 @@ def on_startup():
 
 @app.on_event("shutdown")
 def on_shutdown():
-    logger.info(f"Triage Counsel worker shutting down | pid={os.getpid()}")
+    logger.info(f"TriageCounsel worker shutting down | pid={os.getpid()}")
 
 
 # --- Helpers ---
@@ -1981,7 +1981,7 @@ def _build_pdf_bytes(filename: str, overall_risk: str, rule_counts: dict, rule_e
     pdf.add_page()
 
     pdf.set_font("Helvetica", "B", 18)
-    pdf.cell(0, 12, "TriageCounsel - Contract Risk Report", new_x="LMARGIN", new_y="NEXT")
+    pdf.cell(0, 12, "TriageCounsel — Contract Review Report", new_x="LMARGIN", new_y="NEXT")
     pdf.set_font("Helvetica", "", 10)
     pdf.cell(0, 6, f"File: {_pdf_safe(filename)}", new_x="LMARGIN", new_y="NEXT")
     pdf.cell(0, 6, f"Date: {datetime.utcnow().strftime('%B %d, %Y')}", new_x="LMARGIN", new_y="NEXT")
