@@ -66,7 +66,7 @@
                 </div>
                 <div>
                     <h3 class="text-lg font-bold text-[#0F172A] mb-1">Strict Access Control</h3>
-                    <p class="text-sm text-gray-500 leading-relaxed">Every contract and playbook lookup is scoped to your account — there is no code path where one customer's login can reach another customer's documents. Administrative access is role-based and individually granted, never a shared password, and every admin action is logged.</p>
+                    <p class="text-sm text-gray-500 leading-relaxed">Every contract and playbook lookup is scoped to your account in application code. Cross-customer document access is blocked by design and covered by automated tests in our release suite (contracts, playbooks, review actions, and imports). Administrative access is role-based and individually granted, never a shared password, and every admin action is logged.</p>
                 </div>
             </div>
         </div>
@@ -78,7 +78,7 @@
                 </div>
                 <div>
                     <h3 class="text-lg font-bold text-[#0F172A] mb-1">A Controlled Boundary Around AI</h3>
-                    <p class="text-sm text-gray-500 leading-relaxed">Deterministic policy engines decide governed outcomes — the AI layer assists with evidence discovery and explains findings the engines already made. By default, only bounded excerpts are sent to OpenAI for explanation, and those are screened before transmission. Optional features you enable (such as AI-assisted playbook import or configured semantic discovery) may send document excerpts you explicitly choose to process. The AI cannot create authoritative policy outcomes or change your risk score. See our <a href="/privacy" class="text-[#0F172A] font-medium hover:underline">Privacy Policy</a> for subprocessors and data flows.</p>
+                    <p class="text-sm text-gray-500 leading-relaxed">Deterministic policy engines decide governed outcomes. OpenAI may receive contract content and analysis context as required by the features enabled for your account &mdash; which can range from short excerpts to broader passages or full document text depending on configuration and use. The AI assists with evidence discovery and plain-language explanation but cannot create authoritative policy outcomes or change your risk score. Your documents are not used to train models. See our <a href="/security/subprocessors" class="text-[#0F172A] font-medium hover:underline">Subprocessors</a> page and <a href="/privacy" class="text-[#0F172A] font-medium hover:underline">Privacy Policy</a> for data flows and transfer details.</p>
                 </div>
             </div>
         </div>
@@ -90,7 +90,7 @@
                 </div>
                 <div>
                     <h3 class="text-lg font-bold text-[#0F172A] mb-1">Deterministic, Traceable Findings</h3>
-                    <p class="text-sm text-gray-500 leading-relaxed">Every finding is produced by a rule with a traceable ID, a matched excerpt, and a rationale — recorded exactly as computed, alongside the rule-engine version used. The same contract always produces the same findings. No probabilistic variance in what counts as a risk.</p>
+                    <p class="text-sm text-gray-500 leading-relaxed">Each deterministic finding includes a traceable rule ID, matched excerpt, and rationale &mdash; recorded alongside the rule-engine version used. Given the same inputs, the deterministic layer produces the same results; it does not probabilistically invent or drop findings. Coverage is limited to the rules and policies configured for your account, not an open-ended claim to catch every possible issue.</p>
                 </div>
             </div>
         </div>
