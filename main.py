@@ -917,7 +917,7 @@ def forgot_password_submit(
         try:
             emailer.send_email(
                 to=user.email,
-                subject="Reset your Triage Counsel password",
+                subject="Reset your TriageCounsel password",
                 html=(
                     f'<div style="font-family:sans-serif;max-width:480px;margin:0 auto">'
                     f'<h2 style="color:#0F172A">Reset your password</h2>'
@@ -1981,7 +1981,7 @@ def _build_pdf_bytes(filename: str, overall_risk: str, rule_counts: dict, rule_e
     pdf.add_page()
 
     pdf.set_font("Helvetica", "B", 18)
-    pdf.cell(0, 12, "Triage Counsel - Contract Risk Report", new_x="LMARGIN", new_y="NEXT")
+    pdf.cell(0, 12, "TriageCounsel - Contract Risk Report", new_x="LMARGIN", new_y="NEXT")
     pdf.set_font("Helvetica", "", 10)
     pdf.cell(0, 6, f"File: {_pdf_safe(filename)}", new_x="LMARGIN", new_y="NEXT")
     pdf.cell(0, 6, f"Date: {datetime.utcnow().strftime('%B %d, %Y')}", new_x="LMARGIN", new_y="NEXT")
@@ -2132,7 +2132,7 @@ def _build_pdf_bytes(filename: str, overall_risk: str, rule_counts: dict, rule_e
 
     pdf.ln(6)
     pdf.set_font("Helvetica", "I", 8)
-    pdf.cell(0, 5, f"(c) {datetime.now().year} Triage Counsel - Contract Risk Intelligence. Not legal advice.", new_x="LMARGIN", new_y="NEXT")
+    pdf.cell(0, 5, f"(c) {datetime.now().year} TriageCounsel - Connected Contract Review. Not legal advice.", new_x="LMARGIN", new_y="NEXT")
 
     return bytes(pdf.output())
 
@@ -3245,7 +3245,7 @@ async def subscribe(
         line_item = {
             "price_data": {
                 "currency": "usd",
-                "product_data": {"name": f"Triage Counsel — {plan.title()} Plan"},
+                "product_data": {"name": f"TriageCounsel — {plan.title()} Plan"},
                 "unit_amount": unit_amount,
                 "recurring": {"interval": interval},
             },
