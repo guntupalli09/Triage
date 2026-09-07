@@ -8,9 +8,19 @@
 {% block content %}
 <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16 fade-in">
     <h1 class="text-3xl sm:text-4xl font-extrabold text-[#0F172A] tracking-tight mb-8">Privacy Policy</h1>
-    <p class="text-sm text-gray-400 mb-10">Last updated: August 2026 &mdash; see our <a href="/security" class="text-[#0F172A] hover:underline">Security page</a> for the technical controls behind these commitments.</p>
+    <p class="text-sm text-gray-400 mb-10">Last updated: September 2026 &mdash; see our <a href="/security" class="text-[#0F172A] hover:underline">Security page</a> for the technical controls behind these commitments.</p>
 
     <div class="prose-sm space-y-8 text-gray-600 leading-relaxed">
+        <div>
+            <h2 class="text-lg font-bold text-[#0F172A] mb-2">Who We Are</h2>
+            {% set legal = legal() %}
+            {% if legal.is_incorporated %}
+            <p class="text-sm"><strong>{{ legal.trade_name }}</strong> is operated by {{ legal.entity_display }}{% if legal.entity_address %} with a principal place of business at {{ legal.entity_address }}{% endif %}. In this policy, "{{ legal.trade_name }}," "we," "us," and "our" refer to {{ legal.entity_display }}.</p>
+            {% else %}
+            <p class="text-sm"><strong>{{ legal.trade_name }}</strong> is the trade name for our connected contract review platform. We are completing formation of our operating company; this policy will be updated with the legal entity name and address once registration is finalized. In the meantime, "{{ legal.trade_name }}," "we," "us," and "our" refer to the operator of triagecounsel.com.</p>
+            {% endif %}
+        </div>
+
         <div>
             <h2 class="text-lg font-bold text-[#0F172A] mb-2">1. Information We Collect</h2>
             <p class="text-sm">We collect information you provide when creating an account (name, email, password) and the contract data you submit for analysis &mdash; the extracted text of each document, plus the findings, risk scores, and AI explanations generated from it. We also automatically collect basic usage and acquisition data (IP address, user agent, referrer, and UTM parameters) so we can secure the service and understand how it's used. We do not collect payment card details &mdash; those go directly to Stripe.</p>
@@ -28,7 +38,7 @@
 
         <div>
             <h2 class="text-lg font-bold text-[#0F172A] mb-2">4. AI and Data Training</h2>
-            <p class="text-sm">Your documents and analysis results are never used to train AI models &mdash; by us or, per OpenAI's standard API terms, by OpenAI. The LLM never receives your full contract text: this is enforced in code, not just policy. It receives only short excerpts needed for evidence discovery and plain-language explanation of findings deterministic policy engines already made. The AI cannot create policy outcomes or change your risk score &mdash; those are computed entirely outside the AI.</p>
+            <p class="text-sm">Your documents and analysis results are never used to train AI models &mdash; by us or, per OpenAI's standard API terms, by OpenAI. By default, the LLM receives only bounded excerpts needed for evidence discovery and plain-language explanation of findings that deterministic policy engines already made. Optional features you enable (such as AI-assisted playbook import) may send document excerpts you explicitly choose to upload to OpenAI for that one-time extraction. The AI cannot create authoritative policy outcomes or change your risk score &mdash; those are computed outside the AI.</p>
         </div>
 
         <div>
@@ -38,21 +48,40 @@
 
         <div>
             <h2 class="text-lg font-bold text-[#0F172A] mb-2">6. Data Retention and Deletion</h2>
-            <p class="text-sm">Your contracts are retained while your account is active, unless you delete them sooner. You can permanently delete an individual contract &mdash; its text, findings, and share link &mdash; from your history page at any time; this is a hard deletion, not a soft flag. Deleting your account permanently deletes all of your contracts and playbooks along with it. Every deletion is recorded in our audit log, though the audit record itself (that a deletion happened, by whom, and when) is retained even after the underlying contract data is gone.</p>
+            <p class="text-sm">Your contracts are retained while your account is active, unless you delete them sooner. You can permanently delete an individual contract &mdash; its text, findings, and share link &mdash; from your history page at any time; this is a hard deletion, not a soft flag. Deleting your account permanently deletes all of your contracts and playbooks along with it. Every deletion is recorded in our audit log (who deleted what, and when). Audit and security records may be retained after underlying contract data is deleted. Database backups, if any, are maintained by our hosting provider and may retain deleted data for a limited backup window &mdash; contact us if you need details for a specific deletion request.</p>
         </div>
 
         <div>
-            <h2 class="text-lg font-bold text-[#0F172A] mb-2">7. Third-Party Services</h2>
-            <p class="text-sm">We use Stripe for payment processing (Stripe receives only what's needed to process your subscription; we never see or store your card details), OpenAI for the AI explanation layer (bounded excerpts only, as described in section 4), and Google for optional sign-in. We do not sell your data or share your document content or analysis results with any other third party.</p>
+            <h2 class="text-lg font-bold text-[#0F172A] mb-2">7. Subprocessors and Third-Party Services</h2>
+            <p class="text-sm mb-3">We use the following service providers to operate TriageCounsel. Each receives only the data necessary for its function:</p>
+            <ul class="text-sm list-disc pl-5 space-y-2">
+                <li><strong>Stripe</strong> &mdash; payment processing (billing contact and subscription metadata; we never see or store card numbers)</li>
+                <li><strong>OpenAI</strong> &mdash; bounded contract excerpts and finding context for explanations; optional playbook-import excerpts when you use that feature (API data not used for model training per OpenAI's API terms)</li>
+                <li><strong>Google</strong> &mdash; optional OAuth sign-in (email, name, account identifier)</li>
+                <li><strong>Resend or your configured SMTP provider</strong> &mdash; transactional email (password reset, account notifications)</li>
+                <li><strong>Hosting infrastructure</strong> &mdash; application and database hosting (encrypted contract data at rest in our database)</li>
+                <li><strong>ip-api.com</strong> &mdash; optional IP geolocation for product analytics (IP address only; can be disabled by the operator)</li>
+            </ul>
+            <p class="text-sm mt-3">We do not sell your personal information. We do not share your document content or analysis results with third parties except as listed above to provide the service.</p>
         </div>
 
         <div>
-            <h2 class="text-lg font-bold text-[#0F172A] mb-2">8. Your Rights</h2>
-            <p class="text-sm">You can access, export, and delete your contract data at any time from your account. Deleting a contract or your account is a real, permanent deletion, and is available to you directly &mdash; you don't need to file a request and wait for us to act on it.</p>
+            <h2 class="text-lg font-bold text-[#0F172A] mb-2">8. Cookies and Analytics</h2>
+            <p class="text-sm">We use essential cookies for authentication and CSRF protection. We collect usage and acquisition metadata (referrer, UTM parameters, session identifiers, IP address, user agent) to secure the platform and understand product usage. We do not use third-party advertising cookies.</p>
         </div>
 
         <div>
-            <h2 class="text-lg font-bold text-[#0F172A] mb-2">9. Contact</h2>
+            <h2 class="text-lg font-bold text-[#0F172A] mb-2">9. Security Incidents</h2>
+            <p class="text-sm">If we become aware of a security breach that affects your personal information or stored contract data, we will investigate promptly and notify affected users and relevant authorities as required by applicable law.</p>
+        </div>
+
+        <div>
+            <h2 class="text-lg font-bold text-[#0F172A] mb-2">10. Your Rights</h2>
+            <p class="text-sm">You can access, export, and delete your contract data at any time from your account. Deleting a contract or your account is a real, permanent deletion of primary contract content, and is available to you directly &mdash; you don't need to file a request and wait for us to act on it. For other privacy requests, contact us using the information below.</p>
+        </div>
+
+        <div>
+            <h2 class="text-lg font-bold text-[#0F172A] mb-2">11. Contact</h2>
             <p class="text-sm">For privacy-related questions, contact us at <a href="/contact" class="text-[#0F172A] font-medium hover:underline">our contact page</a>.</p>
         </div>
     </div>

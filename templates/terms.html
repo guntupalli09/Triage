@@ -8,46 +8,77 @@
 {% block content %}
 <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16 fade-in">
     <h1 class="text-3xl sm:text-4xl font-extrabold text-[#0F172A] tracking-tight mb-8">Terms of Service</h1>
-    <p class="text-sm text-gray-400 mb-10">Last updated: January 2026</p>
+    <p class="text-sm text-gray-400 mb-10">Last updated: September 2026</p>
 
     <div class="prose-sm space-y-8 text-gray-600 leading-relaxed">
+        {% set legal = legal() %}
         <div>
-            <h2 class="text-lg font-bold text-[#0F172A] mb-2">1. Acceptance of Terms</h2>
-            <p class="text-sm">By accessing or using TriageCounsel, you agree to be bound by these Terms of Service. If you do not agree, do not use the service.</p>
+            <h2 class="text-lg font-bold text-[#0F172A] mb-2">1. Agreement</h2>
+            <p class="text-sm">By accessing or using {{ legal.trade_name }}, you agree to these Terms of Service and our <a href="/privacy" class="text-[#0F172A] font-medium hover:underline">Privacy Policy</a>, which is incorporated by reference. If you do not agree, do not use the service.</p>
+            {% if legal.is_incorporated %}
+            <p class="text-sm mt-2">The service is provided by {{ legal.entity_display }}{% if legal.entity_address %} ({{ legal.entity_address }}){% endif %}.</p>
+            {% else %}
+            <p class="text-sm mt-2">The service is provided under the {{ legal.trade_name }} trade name while our operating company completes registration; these terms will be updated with the legal entity name once finalized.</p>
+            {% endif %}
         </div>
 
         <div>
             <h2 class="text-lg font-bold text-[#0F172A] mb-2">2. Service Description</h2>
-            <p class="text-sm">TriageCounsel provides automated contract risk analysis using deterministic rules and AI-generated explanations. The service is informational only and does not constitute legal advice. You should consult a qualified attorney for legal guidance.</p>
+            <p class="text-sm">{{ legal.trade_name }} provides automated contract risk triage using deterministic rules, policy engines, and AI-generated explanations. The service is informational only and <strong>does not constitute legal advice</strong>. Outputs do not determine legality, enforceability, or whether a contract is safe to sign. You must consult qualified legal counsel before relying on any analysis or taking action on a contract.</p>
         </div>
 
         <div>
-            <h2 class="text-lg font-bold text-[#0F172A] mb-2">3. Account Responsibilities</h2>
-            <p class="text-sm">You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account. You must provide accurate information when creating your account.</p>
+            <h2 class="text-lg font-bold text-[#0F172A] mb-2">3. Eligibility and Account Responsibilities</h2>
+            <p class="text-sm">You must be at least 18 years old and able to form a binding contract. You are responsible for maintaining the confidentiality of your account credentials and for all activities under your account. You must provide accurate information when creating your account.</p>
         </div>
 
         <div>
             <h2 class="text-lg font-bold text-[#0F172A] mb-2">4. Acceptable Use</h2>
-            <p class="text-sm">You agree to use TriageCounsel only for lawful purposes and in accordance with these terms. You may not attempt to reverse-engineer the service, interfere with its operation, or use it to process documents you do not have the right to analyze.</p>
+            <p class="text-sm">You agree to use {{ legal.trade_name }} only for lawful purposes. You may not attempt to reverse-engineer the service, interfere with its operation, or upload documents you do not have the legal right to analyze. You represent that you have obtained any consents required to upload and process contract content through the service.</p>
         </div>
 
         <div>
-            <h2 class="text-lg font-bold text-[#0F172A] mb-2">5. Subscription and Billing</h2>
-            <p class="text-sm">Paid plans are billed monthly through Stripe. You may cancel at any time; access continues through the end of your billing period. Refunds are handled on a case-by-case basis.</p>
+            <h2 class="text-lg font-bold text-[#0F172A] mb-2">5. Your Content and Intellectual Property</h2>
+            <p class="text-sm">You retain ownership of documents and content you upload. You grant us a limited license to process that content solely to provide the service (analysis, storage of extracted text and results, and features you enable). We retain ownership of the {{ legal.trade_name }} platform, software, rules engines, and documentation. Analysis outputs are provided for your use; we do not claim ownership of your contracts or your playbook configurations.</p>
         </div>
 
         <div>
-            <h2 class="text-lg font-bold text-[#0F172A] mb-2">6. Limitation of Liability</h2>
-            <p class="text-sm">TriageCounsel is provided "as is" without warranties of any kind. We are not liable for any damages arising from your use of the service, including reliance on analysis results. Contract analysis is informational only — not legal advice.</p>
+            <h2 class="text-lg font-bold text-[#0F172A] mb-2">6. Subscription and Billing</h2>
+            <p class="text-sm">Paid plans are billed through Stripe. You may cancel at any time; access continues through the end of your billing period unless otherwise stated. Refunds are handled on a case-by-case basis.</p>
         </div>
 
         <div>
-            <h2 class="text-lg font-bold text-[#0F172A] mb-2">7. Modifications</h2>
-            <p class="text-sm">We may update these terms from time to time. Continued use of the service after changes constitutes acceptance of the updated terms.</p>
+            <h2 class="text-lg font-bold text-[#0F172A] mb-2">7. Disclaimer of Warranties</h2>
+            <p class="text-sm">{{ legal.trade_name }} is provided "as is" and "as available" without warranties of any kind, express or implied, including merchantability, fitness for a particular purpose, or non-infringement. We do not warrant that analysis will be complete, accurate, or error-free, or that all risks in a contract will be detected.</p>
         </div>
 
         <div>
-            <h2 class="text-lg font-bold text-[#0F172A] mb-2">8. Contact</h2>
+            <h2 class="text-lg font-bold text-[#0F172A] mb-2">8. Limitation of Liability</h2>
+            <p class="text-sm">To the maximum extent permitted by law, we are not liable for any indirect, incidental, special, consequential, or punitive damages, or for any damages arising from your use of or reliance on analysis results, including decisions to sign, negotiate, or reject a contract. Our total liability for any claim relating to the service is limited to the amount you paid us in the twelve months before the claim, or one hundred U.S. dollars if you have not paid for the service.</p>
+        </div>
+
+        <div>
+            <h2 class="text-lg font-bold text-[#0F172A] mb-2">9. Indemnification</h2>
+            <p class="text-sm">You agree to indemnify and hold harmless {{ legal.entity_display }} and its operators from claims arising out of your use of the service, your uploaded content, or your violation of these terms.</p>
+        </div>
+
+        <div>
+            <h2 class="text-lg font-bold text-[#0F172A] mb-2">10. Termination</h2>
+            <p class="text-sm">You may stop using the service and delete your account at any time. We may suspend or terminate access if you violate these terms or if required for security or legal compliance.</p>
+        </div>
+
+        <div>
+            <h2 class="text-lg font-bold text-[#0F172A] mb-2">11. Governing Law</h2>
+            <p class="text-sm">These terms are governed by the laws of the State of {{ legal.governing_law_state }}, without regard to conflict-of-law principles, except where prohibited by applicable law.</p>
+        </div>
+
+        <div>
+            <h2 class="text-lg font-bold text-[#0F172A] mb-2">12. Modifications</h2>
+            <p class="text-sm">We may update these terms from time to time. We will post the updated terms on this page with a revised date. Continued use after changes constitutes acceptance of the updated terms.</p>
+        </div>
+
+        <div>
+            <h2 class="text-lg font-bold text-[#0F172A] mb-2">13. Contact</h2>
             <p class="text-sm">Questions about these terms? Reach out at <a href="/contact" class="text-[#0F172A] font-medium hover:underline">our contact page</a>.</p>
         </div>
     </div>
