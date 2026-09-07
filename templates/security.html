@@ -14,8 +14,9 @@
         <p class="section-label mb-3">Security</p>
         <h1 class="text-4xl sm:text-5xl font-extrabold text-[#0F172A] tracking-tight mb-4">Built for firms that can't take chances with client data</h1>
         <p class="text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed">
-            Every control on this page is implemented and tested in our codebase — not a claim on a slide.
-            See <a href="/faq" class="text-[#0F172A] font-semibold hover:underline">our FAQ</a> for
+            The controls below reflect our production architecture. See our
+            <a href="/privacy" class="text-[#0F172A] font-semibold hover:underline">Privacy Policy</a> and
+            <a href="/faq" class="text-[#0F172A] font-semibold hover:underline">FAQ</a> for
             plain-language answers to the questions your security team will ask.
         </p>
     </div>
@@ -75,8 +76,8 @@
                     <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg>
                 </div>
                 <div>
-                    <h3 class="text-lg font-bold text-[#0F172A] mb-1">A Hard Boundary Around AI</h3>
-                    <p class="text-sm text-gray-500 leading-relaxed">Deterministic policy engines detect every governed risk — the AI layer assists with evidence discovery and explains findings the engines already made. It is architecturally incapable of receiving your full contract text: the function that talks to the AI provider will raise an error if anyone ever tries to pass it the whole document. Only short, pre-identified excerpts are sent, and those are screened for manipulation attempts before they go out.</p>
+                    <h3 class="text-lg font-bold text-[#0F172A] mb-1">A Controlled Boundary Around AI</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">Deterministic policy engines decide governed outcomes — the AI layer assists with evidence discovery and explains findings the engines already made. By default, only bounded excerpts are sent to OpenAI for explanation, and those are screened before transmission. Optional features you enable (such as AI-assisted playbook import or configured semantic discovery) may send document excerpts you explicitly choose to process. The AI cannot create authoritative policy outcomes or change your risk score. See our <a href="/privacy" class="text-[#0F172A] font-medium hover:underline">Privacy Policy</a> for subprocessors and data flows.</p>
                 </div>
             </div>
         </div>
@@ -100,7 +101,7 @@
                 </div>
                 <div>
                     <h3 class="text-lg font-bold text-[#0F172A] mb-1">Hardened Uploads</h3>
-                    <p class="text-sm text-gray-500 leading-relaxed">Every upload is validated against its claimed file type at the byte level (not just the filename), checked for zip- and PDF-bomb characteristics, and sanitized before storage — regardless of what a browser or a malicious upload claims about itself.</p>
+                    <p class="text-sm text-gray-500 leading-relaxed">Every upload is validated against its claimed file type at the byte level (not just the filename), checked for zip- and PDF-bomb characteristics, and sanitized before extracted text is persisted — regardless of what a browser or a malicious upload claims about itself. Original file bytes are not written to disk.</p>
                 </div>
             </div>
         </div>

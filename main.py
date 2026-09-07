@@ -783,14 +783,10 @@ async def logout_route(request: Request, db: DBSession = Depends(get_db)):
 # ============================================================
 
 GOOGLE_STATE_COOKIE = "g_oauth_state"
+GOOGLE_TERMS_COOKIE = "g_oauth_terms"
 
 
-@app.get("/auth/google")
-def google_signin_start(request: Request):
-    if not google_oauth.is_configured():
-        return templates.TemplateResponse("login.html", {
-            "request": request, "error": "Google sign-in is not configured.",
-        })
+def _google_oauth_start_response(request: Request) -> RedirectResponse:
     state = secrets.token_urlsafe(24)
     redirect_uri = f"{get_base_url(request)}/auth/google/callback"
     response = RedirectResponse(url=google_oauth.build_auth_url(redirect_uri, state), status_code=302)
@@ -799,12 +795,57 @@ def google_signin_start(request: Request):
         max_age=600, httponly=True, samesite="lax",
         secure=os.getenv("SECURE_COOKIES", "false").lower() == "true",
     )
-    # Acquisition context (referrer/UTM/landing page/session id) is already
-    # captured by AnalyticsMiddleware's first-touch cookie before we ever
-    # get here, and that cookie rides along through the Google redirect
-    # round-trip since it's scoped to this domain — no extra stash needed.
     analytics.record_event(request, "google_oauth_redirect")
     return response
+
+
+@app.post("/auth/google")
+def google_signin_start(
+    request: Request,
+    accept_terms: str = Form(""),
+    source: str = Form("login"),
+    _csrf: None = Depends(csrf_protect),
+):
+    if not google_oauth.is_configured():
+        template = "register.html" if source == "register" else "login.html"
+        ctx = {"request": request, "error": "Google sign-in is not configured."}
+        if template == "register.html":
+            ctx["claiming"] = False
+        return templates.TemplateResponse(template, ctx)
+
+    if accept_terms != "on":
+        template = "register.html" if source == "register" else "login.html"
+        ctx = {
+            "request": request,
+            "error": "You must agree to the Terms of Service and Privacy Policy to continue with Google.",
+        }
+        if template == "register.html":
+            ctx.update({"claiming": False, "error": ctx["error"]})
+        else:
+            ctx["notice"] = None
+        return templates.TemplateResponse(template, ctx)
+
+    response = _google_oauth_start_response(request)
+    response.set_cookie(
+        GOOGLE_TERMS_COOKIE, "1",
+        max_age=600, httponly=True, samesite="lax",
+        secure=os.getenv("SECURE_COOKIES", "false").lower() == "true",
+    )
+    return response
+
+
+@app.get("/auth/google")
+def google_signin_start_legacy(request: Request):
+    """Legacy direct link — require terms acceptance via POST form instead."""
+    if not google_oauth.is_configured():
+        return templates.TemplateResponse("login.html", {
+            "request": request, "error": "Google sign-in is not configured.", "notice": None,
+        })
+    return templates.TemplateResponse("login.html", {
+        "request": request,
+        "error": None,
+        "notice": "Please accept the Terms and Privacy Policy below before continuing with Google.",
+    })
 
 
 @app.get("/auth/google/callback")
@@ -834,17 +875,20 @@ def google_signin_callback(request: Request, code: str = "", state: str = "", er
     if not email or not google_sub:
         return fail("Google did not return the required account details.")
 
-    user = db.query(User).filter(User.google_sub == google_sub).first()
-    is_new_user = False
+    existing_by_sub = db.query(User).filter(User.google_sub == google_sub).first()
+    existing_by_email = db.query(User).filter(User.email == email).first()
+    is_new_user = not existing_by_sub and not existing_by_email
+    if is_new_user and not request.cookies.get(GOOGLE_TERMS_COOKIE):
+        return fail("Terms acceptance is required for new accounts. Please try Google sign-in again from the login or register page.")
+
+    user = existing_by_sub
     if not user:
-        user = db.query(User).filter(User.email == email).first()
+        user = existing_by_email
         if user:
-            # Existing email/password account — link it (Google verified the email)
             user.google_sub = google_sub
             if not user.name and claims.get("name"):
                 user.name = claims["name"]
         else:
-            is_new_user = True
             user = User(
                 email=email,
                 password_hash=None,
@@ -858,6 +902,13 @@ def google_signin_callback(request: Request, code: str = "", state: str = "", er
         db.refresh(user)
 
     analytics.record_event(request, "google_oauth_callback", user=user)
+    if is_new_user:
+        audit_log.record_event(
+            db, "terms_accepted", request=request, actor_user_id=user.id,
+            target_type="user", target_id=user.id, success=True,
+            detail="Accepted via Google sign-up",
+            metadata={"method": "google_oauth"},
+        )
     # Never lose acquisition info to the OAuth redirect: this persists once,
     # immutably, using the first-touch cookie captured before Google ever
     # saw this browser (see google_signin_start above).
@@ -869,6 +920,7 @@ def google_signin_callback(request: Request, code: str = "", state: str = "", er
 
     response = RedirectResponse(url="/dashboard", status_code=302)
     response.delete_cookie(GOOGLE_STATE_COOKIE)
+    response.delete_cookie(GOOGLE_TERMS_COOKIE)
     create_session(user.id, response)
     return response
 
