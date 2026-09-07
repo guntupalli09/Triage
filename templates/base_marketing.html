@@ -122,10 +122,166 @@
             position: sticky;
             top: 2px;
             z-index: 50;
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border);
+        }
+
+        .nav-wordmark-triage {
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: var(--navy);
+        }
+
+        .nav-wordmark-counsel {
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            color: #64748B;
+        }
+
+        .nav-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #64748B;
+            white-space: nowrap;
+            transition: color 0.15s ease, background 0.15s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link[aria-expanded="true"] {
+            color: var(--navy);
+            background: rgba(15, 23, 42, 0.04);
+        }
+
+        .nav-link svg {
+            width: 14px;
+            height: 14px;
+            opacity: 0.55;
+            transition: transform 0.15s ease, opacity 0.15s ease;
+        }
+
+        .nav-dropdown:focus-within .nav-link svg,
+        .nav-dropdown:hover .nav-link svg {
+            opacity: 0.85;
+            transform: rotate(180deg);
+        }
+
+        .nav-dropdown {
+            position: relative;
+        }
+
+        .nav-dropdown-panel {
+            position: absolute;
+            top: calc(100% + 6px);
+            left: 50%;
+            transform: translateX(-50%) translateY(4px);
+            min-width: 220px;
+            padding: 8px;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08), 0 2px 6px rgba(15, 23, 42, 0.04);
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s ease;
+        }
+
+        .nav-dropdown:hover .nav-dropdown-panel,
+        .nav-dropdown:focus-within .nav-dropdown-panel {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .nav-dropdown-item {
+            display: block;
+            padding: 10px 12px;
+            border-radius: 8px;
+            transition: background 0.15s ease;
+        }
+
+        .nav-dropdown-item:hover {
+            background: #F8FAFC;
+        }
+
+        .nav-dropdown-item-title {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--navy);
+            line-height: 1.3;
+        }
+
+        .nav-dropdown-item-desc {
+            display: block;
+            margin-top: 2px;
+            font-size: 0.75rem;
+            color: #94A3B8;
+            line-height: 1.4;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-dashboard-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--navy);
+            background: #F8FAFC;
+            border: 1px solid var(--border);
+            transition: all 0.15s ease;
+        }
+
+        .nav-dashboard-btn:hover {
+            background: #F1F5F9;
+            border-color: #CBD5E1;
+        }
+
+        .nav-user-menu .nav-dropdown-panel {
+            right: 0;
+            left: auto;
+            transform: translateY(4px);
+            min-width: 200px;
+        }
+
+        .nav-user-menu:hover .nav-dropdown-panel,
+        .nav-user-menu:focus-within .nav-dropdown-panel {
+            transform: translateY(0);
+        }
+
+        .nav-user-trigger {
+            max-width: 160px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .nav-signin {
+            padding: 8px 12px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #64748B;
+            border-radius: 8px;
+            transition: color 0.15s ease, background 0.15s ease;
+        }
+
+        .nav-signin:hover {
+            color: var(--navy);
+            background: rgba(15, 23, 42, 0.04);
         }
 
         .card {
@@ -230,25 +386,62 @@
             background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 24px;
+            overflow-y: auto;
+            padding: 88px 24px 32px;
         }
 
         .mobile-overlay.active {
-            display: flex;
+            display: block;
         }
 
-        .mobile-overlay a {
-            font-size: 1.25rem;
+        .mobile-nav-section {
+            margin-bottom: 28px;
+        }
+
+        .mobile-nav-label {
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #94A3B8;
+            margin-bottom: 12px;
+        }
+
+        .mobile-nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .mobile-nav-links a {
+            display: block;
+            padding: 12px 0;
+            font-size: 1.125rem;
             font-weight: 600;
             color: var(--navy);
+            border-bottom: 1px solid #F1F5F9;
             transition: color 0.15s;
         }
 
-        .mobile-overlay a:hover {
+        .mobile-nav-links a:hover {
             color: #334155;
+        }
+
+        .mobile-nav-links a span {
+            display: block;
+            font-size: 0.8125rem;
+            font-weight: 400;
+            color: #94A3B8;
+            margin-top: 2px;
+        }
+
+        .mobile-nav-auth {
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
 
         .hamburger-btn {
@@ -296,35 +489,95 @@
     <div class="top-bar"></div>
 
     <!-- Navigation -->
-    <nav class="site-nav">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-14">
-            <a href="/" class="text-xl font-extrabold tracking-tight text-[#0F172A]">
-                TriageCounsel
+    <nav class="site-nav" aria-label="Main">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16 gap-6">
+            <a href="/" class="shrink-0 text-lg leading-none" aria-label="TriageCounsel home">
+                <span class="nav-wordmark-triage">Triage</span><span class="nav-wordmark-counsel">Counsel</span>
             </a>
 
-            <!-- Desktop nav -->
-            <div class="desktop-nav flex items-center gap-6 text-sm">
-                <a href="/" class="text-gray-500 hover:text-gray-900 font-medium">Home</a>
-                <a href="/#how-it-works" class="text-gray-500 hover:text-gray-900 font-medium">How It Works</a>
-                <a href="/research" class="text-gray-500 hover:text-gray-900 font-medium">Research</a>
-                <a href="/benchmark" class="text-gray-500 hover:text-gray-900 font-medium">Benchmark</a>
-                <a href="/security" class="text-gray-500 hover:text-gray-900 font-medium">Security</a>
-                <a href="/pricing" class="text-gray-500 hover:text-gray-900 font-medium">Early Access</a>
-                <a href="/partners" class="text-gray-500 hover:text-gray-900 font-medium">Partners</a>
-                <a href="/faq" class="text-gray-500 hover:text-gray-900 font-medium">FAQ</a>
-                <a href="/about" class="text-gray-500 hover:text-gray-900 font-medium">About</a>
-                <a href="/contact" class="text-gray-500 hover:text-gray-900 font-medium">Contact</a>
-
-                <div class="flex items-center gap-3 ml-2 pl-4 border-l border-gray-200">
-                    {% if user %}
-                    <span class="text-gray-500 text-sm">{{ user.name or user.email }}</span>
-                    <a href="/dashboard" class="text-[#0F172A] font-semibold">Dashboard</a>
-                    <a href="/logout" class="text-gray-400 hover:text-gray-600">Logout</a>
-                    {% else %}
-                    <a href="/login" class="text-gray-500 hover:text-gray-900 font-medium">Sign In</a>
-                    <a href="/upload-page" class="btn-primary py-2 px-4 rounded-lg text-sm">Start Free Review</a>
-                    {% endif %}
+            <!-- Desktop nav — grouped to keep every destination one click away -->
+            <div class="desktop-nav flex-1 flex items-center justify-center gap-1">
+                <div class="nav-dropdown">
+                    <button type="button" class="nav-link" aria-haspopup="true" aria-expanded="false">
+                        Product
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <div class="nav-dropdown-panel" role="menu">
+                        <a href="/#how-it-works" class="nav-dropdown-item" role="menuitem">
+                            <span class="nav-dropdown-item-title">How It Works</span>
+                            <span class="nav-dropdown-item-desc">Playbooks, policy adapters, connected review</span>
+                        </a>
+                        <a href="/security" class="nav-dropdown-item" role="menuitem">
+                            <span class="nav-dropdown-item-title">Security</span>
+                            <span class="nav-dropdown-item-desc">Encryption, access controls, and AI boundaries</span>
+                        </a>
+                        <a href="/pricing" class="nav-dropdown-item" role="menuitem">
+                            <span class="nav-dropdown-item-title">Early Access</span>
+                            <span class="nav-dropdown-item-desc">Plans and pilot onboarding</span>
+                        </a>
+                    </div>
                 </div>
+
+                <a href="/research" class="nav-link">Research</a>
+                <a href="/benchmark" class="nav-link">Benchmark</a>
+
+                <div class="nav-dropdown">
+                    <button type="button" class="nav-link" aria-haspopup="true" aria-expanded="false">
+                        Company
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <div class="nav-dropdown-panel" role="menu">
+                        <a href="/about" class="nav-dropdown-item" role="menuitem">
+                            <span class="nav-dropdown-item-title">About</span>
+                            <span class="nav-dropdown-item-desc">Mission and architecture</span>
+                        </a>
+                        <a href="/partners" class="nav-dropdown-item" role="menuitem">
+                            <span class="nav-dropdown-item-title">Partners</span>
+                            <span class="nav-dropdown-item-desc">Referral program for legal advisors</span>
+                        </a>
+                        <a href="/faq" class="nav-dropdown-item" role="menuitem">
+                            <span class="nav-dropdown-item-title">FAQ</span>
+                            <span class="nav-dropdown-item-desc">Common questions answered</span>
+                        </a>
+                        <a href="/contact" class="nav-dropdown-item" role="menuitem">
+                            <span class="nav-dropdown-item-title">Contact</span>
+                            <span class="nav-dropdown-item-desc">Talk to the team</span>
+                        </a>
+                        <a href="/privacy" class="nav-dropdown-item" role="menuitem">
+                            <span class="nav-dropdown-item-title">Privacy</span>
+                            <span class="nav-dropdown-item-desc">Data handling, retention, and your rights</span>
+                        </a>
+                        <a href="/terms" class="nav-dropdown-item" role="menuitem">
+                            <span class="nav-dropdown-item-title">Terms</span>
+                            <span class="nav-dropdown-item-desc">Terms of service</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Desktop auth -->
+            <div class="desktop-nav nav-actions shrink-0">
+                {% if user %}
+                <a href="/dashboard" class="nav-dashboard-btn">Dashboard</a>
+                <div class="nav-dropdown nav-user-menu">
+                    <button type="button" class="nav-link nav-user-trigger" aria-haspopup="true" aria-expanded="false" title="{{ user.name or user.email }}">
+                        {{ user.name or user.email.split('@')[0] }}
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <div class="nav-dropdown-panel" role="menu">
+                        <div class="px-3 py-2 mb-1 border-b border-gray-100">
+                            <p class="text-xs font-semibold text-gray-400 uppercase tracking-wide">Signed in</p>
+                            <p class="text-sm font-medium text-[#0F172A] truncate">{{ user.name or user.email }}</p>
+                        </div>
+                        <a href="/logout" class="nav-dropdown-item" role="menuitem">
+                            <span class="nav-dropdown-item-title">Log out</span>
+                        </a>
+                    </div>
+                </div>
+                {% else %}
+                <a href="/login" class="nav-signin">Sign In</a>
+                <a href="/upload-page" class="btn-primary py-2 px-4 rounded-lg text-sm whitespace-nowrap">Start Free Review</a>
+                {% endif %}
             </div>
 
             <!-- Mobile hamburger -->
@@ -335,29 +588,52 @@
     </nav>
 
     <!-- Mobile overlay menu -->
-    <div id="mobileMenu" class="mobile-overlay">
+    <div id="mobileMenu" class="mobile-overlay" aria-hidden="true">
         <button class="close-btn" onclick="document.getElementById('mobileMenu').classList.remove('active')" aria-label="Close menu">
             <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
         </button>
-        <a href="/" onclick="document.getElementById('mobileMenu').classList.remove('active')">Home</a>
-        <a href="/#how-it-works" onclick="document.getElementById('mobileMenu').classList.remove('active')">How It Works</a>
-        <a href="/research" onclick="document.getElementById('mobileMenu').classList.remove('active')">Research</a>
-        <a href="/benchmark" onclick="document.getElementById('mobileMenu').classList.remove('active')">Benchmark</a>
-        <a href="/security" onclick="document.getElementById('mobileMenu').classList.remove('active')">Security</a>
-        <a href="/pricing" onclick="document.getElementById('mobileMenu').classList.remove('active')">Early Access</a>
-        <a href="/partners" onclick="document.getElementById('mobileMenu').classList.remove('active')">Partners</a>
-        <a href="/faq" onclick="document.getElementById('mobileMenu').classList.remove('active')">FAQ</a>
-        <a href="/about" onclick="document.getElementById('mobileMenu').classList.remove('active')">About</a>
-        <a href="/contact" onclick="document.getElementById('mobileMenu').classList.remove('active')">Contact</a>
-        <div class="h-px w-16 bg-gray-200 my-2"></div>
-        {% if user %}
-        <span class="text-gray-500 text-sm">{{ user.name or user.email }}</span>
-        <a href="/dashboard">Dashboard</a>
-        <a href="/logout" class="text-gray-400">Logout</a>
-        {% else %}
-        <a href="/login">Sign In</a>
-        <a href="/upload-page" class="btn-primary py-3 px-8 rounded-lg text-base mt-2">Start Free Review</a>
-        {% endif %}
+
+        <div class="max-w-sm mx-auto">
+            <div class="mobile-nav-section">
+                <p class="mobile-nav-label">Product</p>
+                <div class="mobile-nav-links">
+                    <a href="/#how-it-works" onclick="document.getElementById('mobileMenu').classList.remove('active')">How It Works<span>Playbooks, policy adapters, connected review</span></a>
+                    <a href="/security" onclick="document.getElementById('mobileMenu').classList.remove('active')">Security<span>Encryption, access controls, and AI boundaries</span></a>
+                    <a href="/pricing" onclick="document.getElementById('mobileMenu').classList.remove('active')">Early Access<span>Plans and pilot onboarding</span></a>
+                </div>
+            </div>
+
+            <div class="mobile-nav-section">
+                <p class="mobile-nav-label">Trust &amp; Proof</p>
+                <div class="mobile-nav-links">
+                    <a href="/research" onclick="document.getElementById('mobileMenu').classList.remove('active')">Research<span>Peer-reviewed at ICCS 2026</span></a>
+                    <a href="/benchmark" onclick="document.getElementById('mobileMenu').classList.remove('active')">Benchmark<span>Engine validation results</span></a>
+                </div>
+            </div>
+
+            <div class="mobile-nav-section">
+                <p class="mobile-nav-label">Company</p>
+                <div class="mobile-nav-links">
+                    <a href="/about" onclick="document.getElementById('mobileMenu').classList.remove('active')">About<span>Mission and architecture</span></a>
+                    <a href="/partners" onclick="document.getElementById('mobileMenu').classList.remove('active')">Partners<span>Referral program</span></a>
+                    <a href="/faq" onclick="document.getElementById('mobileMenu').classList.remove('active')">FAQ<span>Common questions</span></a>
+                    <a href="/contact" onclick="document.getElementById('mobileMenu').classList.remove('active')">Contact<span>Talk to the team</span></a>
+                    <a href="/privacy" onclick="document.getElementById('mobileMenu').classList.remove('active')">Privacy<span>Data handling, retention, and your rights</span></a>
+                    <a href="/terms" onclick="document.getElementById('mobileMenu').classList.remove('active')">Terms<span>Terms of service</span></a>
+                </div>
+            </div>
+
+            <div class="mobile-nav-auth">
+                {% if user %}
+                <p class="text-sm text-gray-500">{{ user.name or user.email }}</p>
+                <a href="/dashboard" class="btn-primary py-3 px-6 rounded-lg text-base text-center">Dashboard</a>
+                <a href="/logout" class="text-center text-sm text-gray-400 py-2">Log out</a>
+                {% else %}
+                <a href="/login" class="text-center text-base font-semibold text-[#0F172A] py-2">Sign In</a>
+                <a href="/upload-page" class="btn-primary py-3 px-8 rounded-lg text-base text-center">Start Free Review</a>
+                {% endif %}
+            </div>
+        </div>
     </div>
 
     <!-- Page content -->
@@ -397,7 +673,9 @@
                     </ul>
                 </div>
                 <div>
-                    <a href="/" class="text-lg font-extrabold tracking-tight text-[#0F172A]">TriageCounsel</a>
+                    <a href="/" class="text-lg leading-none" aria-label="TriageCounsel home">
+                        <span class="nav-wordmark-triage">Triage</span><span class="nav-wordmark-counsel">Counsel</span>
+                    </a>
                     <p class="text-xs text-gray-400 mt-2 leading-relaxed">Deterministic enforcement.<br>AI explains, never decides.</p>
                 </div>
             </div>
@@ -427,5 +705,25 @@
     </footer>
 
     {% block scripts %}{% endblock %}
+    <script>
+        document.querySelectorAll('.nav-dropdown').forEach(function (dropdown) {
+            var trigger = dropdown.querySelector('[aria-haspopup]');
+            if (!trigger) return;
+            function open() { trigger.setAttribute('aria-expanded', 'true'); }
+            function close() { trigger.setAttribute('aria-expanded', 'false'); }
+            dropdown.addEventListener('mouseenter', open);
+            dropdown.addEventListener('mouseleave', close);
+            dropdown.addEventListener('focusin', open);
+            dropdown.addEventListener('focusout', function (e) {
+                if (!dropdown.contains(e.relatedTarget)) close();
+            });
+        });
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                var menu = document.getElementById('mobileMenu');
+                if (menu) menu.classList.remove('active');
+            }
+        });
+    </script>
 </body>
 </html>
