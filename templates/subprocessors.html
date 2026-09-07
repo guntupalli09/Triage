@@ -1,0 +1,100 @@
+{% extends "base_marketing.html" %}
+
+{% block title %}Subprocessors — TriageCounsel{% endblock %}
+{% block meta_description %}TriageCounsel subprocessor list: third-party service providers that process customer data on our behalf, for privacy and vendor diligence reviews.{% endblock %}
+{% block canonical_url %}https://triagecounsel.com/security/subprocessors{% endblock %}
+{% block robots %}index, follow{% endblock %}
+{% block og_title %}Subprocessors — TriageCounsel{% endblock %}
+{% block og_description %}Third-party service providers used to operate TriageCounsel and the categories of data they process.{% endblock %}
+{% block twitter_title %}Subprocessors — TriageCounsel{% endblock %}
+{% block twitter_description %}Third-party service providers used to operate TriageCounsel and the categories of data they process.{% endblock %}
+
+{% block content %}
+<section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16 fade-in">
+    <div class="mb-10">
+        <p class="section-label mb-3">Trust &amp; Privacy</p>
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-[#0F172A] tracking-tight mb-4">TriageCounsel Subprocessors</h1>
+        <p class="text-sm text-gray-500 leading-relaxed max-w-3xl">
+            TriageCounsel uses selected third-party service providers to host the platform, deliver core functionality, and support account operations. These providers may process customer data on our behalf only as needed to provide the service. This page lists subprocessors in active use for our production environment.
+        </p>
+        <p class="text-sm text-gray-400 mt-4">Last updated: September 2026</p>
+    </div>
+
+    <div class="card overflow-hidden mb-10">
+        <div class="overflow-x-auto">
+            <table class="w-full text-sm text-left">
+                <thead>
+                    <tr class="border-b border-gray-200 bg-gray-50">
+                        <th scope="col" class="px-5 py-3 font-semibold text-[#0F172A] whitespace-nowrap">Subprocessor</th>
+                        <th scope="col" class="px-5 py-3 font-semibold text-[#0F172A]">Purpose</th>
+                        <th scope="col" class="px-5 py-3 font-semibold text-[#0F172A] whitespace-nowrap">Processing location</th>
+                        <th scope="col" class="px-5 py-3 font-semibold text-[#0F172A]">Data categories (high level)</th>
+                    </tr>
+                </thead>
+                <tbody class="text-gray-600 divide-y divide-gray-100">
+                    <tr>
+                        <td class="px-5 py-4 font-medium text-[#0F172A] align-top">Hetzner Online GmbH</td>
+                        <td class="px-5 py-4 align-top">Infrastructure hosting for the production application and stored customer data</td>
+                        <td class="px-5 py-4 align-top whitespace-nowrap">Germany (European Union)</td>
+                        <td class="px-5 py-4 align-top">Account information; extracted contract text; analysis results and related customer content stored to provide the service</td>
+                    </tr>
+                    <tr>
+                        <td class="px-5 py-4 font-medium text-[#0F172A] align-top">OpenAI, L.L.C.</td>
+                        <td class="px-5 py-4 align-top">AI-assisted contract analysis, including plain-language explanations and, where enabled, evidence discovery or playbook-related extraction requested by the customer</td>
+                        <td class="px-5 py-4 align-top">United States and other locations used by OpenAI for API processing (see OpenAI documentation)</td>
+                        <td class="px-5 py-4 align-top">Contract content and analysis context as required by the features enabled for the account or action — which may range from short excerpts to broader passages or full document text depending on configuration and use</td>
+                    </tr>
+                    <tr>
+                        <td class="px-5 py-4 font-medium text-[#0F172A] align-top">Stripe, Inc.</td>
+                        <td class="px-5 py-4 align-top">Payment processing and subscription management</td>
+                        <td class="px-5 py-4 align-top">United States and other locations used by Stripe (see Stripe documentation)</td>
+                        <td class="px-5 py-4 align-top">Billing contact details and subscription metadata. Payment card details are collected directly by Stripe; TriageCounsel does not store card numbers</td>
+                    </tr>
+                    <tr>
+                        <td class="px-5 py-4 font-medium text-[#0F172A] align-top">Google LLC</td>
+                        <td class="px-5 py-4 align-top">Optional user authentication (Google sign-in), when enabled</td>
+                        <td class="px-5 py-4 align-top">United States and other locations used by Google (see Google documentation)</td>
+                        <td class="px-5 py-4 align-top">Name, email address, and authentication identifiers. No contract content</td>
+                    </tr>
+                    <tr>
+                        <td class="px-5 py-4 font-medium text-[#0F172A] align-top">Resend, Inc.</td>
+                        <td class="px-5 py-4 align-top">Transactional email delivery (e.g. password reset and account notifications)</td>
+                        <td class="px-5 py-4 align-top">United States</td>
+                        <td class="px-5 py-4 align-top">Recipient email address and content required to deliver the notification. No contract content</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="space-y-6 text-sm text-gray-600 leading-relaxed max-w-3xl">
+        <div>
+            <h2 class="text-base font-bold text-[#0F172A] mb-2">Original uploads</h2>
+            <p>Original uploaded files (such as PDF or DOCX bytes) are processed transiently to extract text and are not retained as uploaded files. Stored contract-related content consists of extracted text and derived analysis maintained to provide review history and related features, as described in our <a href="/privacy" class="text-[#0F172A] font-medium hover:underline">Privacy Policy</a>.</p>
+        </div>
+
+        <div>
+            <h2 class="text-base font-bold text-[#0F172A] mb-2">International transfers</h2>
+            <p>Primary production hosting and storage of customer content described above is located in Germany. Some subprocessors listed above may process data outside the customer&rsquo;s country, including in the United States. Where required, transfers are addressed in customer agreements and applicable data protection terms.</p>
+        </div>
+
+        <div>
+            <h2 class="text-base font-bold text-[#0F172A] mb-2">Changes to this list</h2>
+            <p>We may update this page when subprocessors change. Customers will be notified of material subprocessor changes in accordance with the applicable data processing agreement or other contract terms.</p>
+        </div>
+
+        <div>
+            <h2 class="text-base font-bold text-[#0F172A] mb-2">Related documents</h2>
+            <ul class="list-disc pl-5 space-y-1">
+                <li><a href="/privacy" class="text-[#0F172A] font-medium hover:underline">Privacy Policy</a></li>
+                <li><a href="/security" class="text-[#0F172A] font-medium hover:underline">Security</a></li>
+                <li><a href="/terms" class="text-[#0F172A] font-medium hover:underline">Terms of Service</a></li>
+            </ul>
+        </div>
+
+        <p class="text-xs text-gray-400 pt-4 border-t border-gray-100">
+            This page provides vendor-transparency information for diligence reviews. Detailed data flows, retention, security controls, and customer-specific configuration are provided under separate agreement where applicable.
+        </p>
+    </div>
+</section>
+{% endblock %}

@@ -38,7 +38,7 @@
 
         <div>
             <h2 class="text-lg font-bold text-[#0F172A] mb-2">4. AI and Data Training</h2>
-            <p class="text-sm">Your documents and analysis results are never used to train AI models &mdash; by us or, per OpenAI's standard API terms, by OpenAI. By default, the LLM receives only bounded excerpts needed for evidence discovery and plain-language explanation of findings that deterministic policy engines already made. Optional features you enable (such as AI-assisted playbook import) may send document excerpts you explicitly choose to upload to OpenAI for that one-time extraction. The AI cannot create authoritative policy outcomes or change your risk score &mdash; those are computed outside the AI.</p>
+            <p class="text-sm">Your documents and analysis results are never used to train AI models &mdash; by us or, per OpenAI's standard API terms, by OpenAI. OpenAI may receive contract content and analysis context as required by the features you use, which can range from short excerpts to broader passages depending on configuration. Optional features you enable (such as AI-assisted playbook import) may send additional document content you choose to upload. The AI cannot create authoritative policy outcomes or change your risk score &mdash; those are computed outside the AI. See our <a href="/security/subprocessors" class="text-[#0F172A] font-medium hover:underline">Subprocessors page</a> for details.</p>
         </div>
 
         <div>
@@ -53,16 +53,8 @@
 
         <div>
             <h2 class="text-lg font-bold text-[#0F172A] mb-2">7. Subprocessors and Third-Party Services</h2>
-            <p class="text-sm mb-3">We use the following service providers to operate TriageCounsel. Each receives only the data necessary for its function:</p>
-            <ul class="text-sm list-disc pl-5 space-y-2">
-                <li><strong>Stripe</strong> &mdash; payment processing (billing contact and subscription metadata; we never see or store card numbers)</li>
-                <li><strong>OpenAI</strong> &mdash; bounded contract excerpts and finding context for explanations; optional playbook-import excerpts when you use that feature (API data not used for model training per OpenAI's API terms)</li>
-                <li><strong>Google</strong> &mdash; optional OAuth sign-in (email, name, account identifier)</li>
-                <li><strong>Resend or your configured SMTP provider</strong> &mdash; transactional email (password reset, account notifications)</li>
-                <li><strong>Hosting infrastructure</strong> &mdash; application and database hosting (encrypted contract data at rest in our database)</li>
-                <li><strong>ip-api.com</strong> &mdash; optional IP geolocation for product analytics (IP address only; can be disabled by the operator)</li>
-            </ul>
-            <p class="text-sm mt-3">We do not sell your personal information. We do not share your document content or analysis results with third parties except as listed above to provide the service.</p>
+            <p class="text-sm mb-3">We use service providers to operate TriageCounsel. Production hosting and storage of customer content is located in Germany. A current list of subprocessors, processing locations, and high-level data categories is maintained on our <a href="/security/subprocessors" class="text-[#0F172A] font-medium hover:underline">Subprocessors page</a>.</p>
+            <p class="text-sm">In summary: <strong>Hetzner Online GmbH</strong> (Germany) hosts the application and stored customer data; <strong>OpenAI</strong> processes contract content and analysis context as required by enabled features; <strong>Stripe</strong> processes billing metadata; <strong>Google</strong> supports optional sign-in; and <strong>Resend</strong> delivers transactional email. We do not sell personal information.</p>
         </div>
 
         <div>
