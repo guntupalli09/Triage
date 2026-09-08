@@ -94,13 +94,9 @@
 <h3 class="text-sm font-semibold text-[#0F172A] mb-3">Hard stop — minimum acceptable</h3>
 <div class="mb-4 p-4 border border-red-50 rounded-lg space-y-3">
     <label class="flex items-center gap-2 text-sm"><input type="checkbox" name="v2_hard_stop_enabled" value="yes" {% if v2.hard_stop_enabled %}checked{% endif %}> Enable hard stop</label>
-    {% set hs = v2.hard_stop.operand %}
-    <input type="hidden" name="v2_hard_stop_operator" value="SIMPLE">
-    <input type="hidden" name="v2_hard_stop_op1_type" value="fee_period">
-    <label class="block text-xs text-gray-600">Do not accept below (months of fees)</label>
-    <input type="number" name="v2_hard_stop_op1_months" value="{{ hs.months }}" class="w-32 px-3 py-2 border border-gray-200 rounded-lg text-sm">
-    <input type="hidden" name="v2_hard_stop_op1_basis" value="{{ hs.basis }}">
-    <input type="hidden" name="v2_hard_stop_op1_scope" value="{{ hs.scope }}">
+    hs = v2.hard_stop.operand if v2.hard_stop_enabled and v2.hard_stop.get('operand') else none %}
+    {% if v2.hard_stop_enabled %}
+    {% if hs and hs.type == 'fee_period' %}
 </div>
 
 <h3 class="text-sm font-semibold text-[#0F172A] mb-3">Carve-outs</h3>
