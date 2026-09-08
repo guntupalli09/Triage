@@ -1,7 +1,7 @@
 # TriageCounsel — Customer DPO Annex
 
 **Document:** Data Protection Officer / Privacy Team Annex  
-**Version:** 1.0  
+**Version:** 1.1  
 **Last updated:** September 2026  
 **Service:** TriageCounsel (triagecounsel.com)
 
@@ -31,12 +31,12 @@ Production subprocessors as of the date above:
 | **OpenAI, L.L.C.** | AI-assisted analysis features (see §5) | United States and other OpenAI API regions | Yes — scope varies by feature |
 | **Stripe, Inc.** | Payment processing and subscriptions | United States and other Stripe regions | No — billing metadata only |
 | **Google LLC** | Optional sign-in (OAuth: openid, email, profile) | United States and other Google regions | No |
-| **Resend, Inc.** | Transactional email (e.g. password reset) | United States | No |
+| **SMTP email provider** | Transactional email (password reset, account notifications) — **production uses SMTP** | United States and other locations used by the configured SMTP host | No |
 
 **Notes:**
 
 - PostgreSQL and Redis run on Hetzner-hosted infrastructure — not separate third-party database SaaS.
-- If Resend is not used, a generic **SMTP** provider may deliver transactional email instead (confirm during diligence).
+- **Automated server backups** are enabled on Hetzner Cloud (see §8).
 - Original uploaded file bytes (PDF/DOCX) are **not** persisted to object storage or any file-hosting subprocessor.
 
 **Public register:** https://triagecounsel.com/security/subprocessors
@@ -87,9 +87,9 @@ Billing contact details and subscription status via Stripe. Payment card data is
             │  When AI features enabled (TLS)
             ▼
 ┌───────────────────────────┐   ┌─────────────┐   ┌────────────┐   ┌─────────┐
-│ OpenAI API (US)           │   │ Stripe (US) │   │ Google     │   │ Resend  │
-│ Contract content /        │   │ Billing     │   │ OAuth      │   │ (US)    │
-│ context as required       │   │ metadata    │   │ (optional) │   │ Email   │
+│ OpenAI API (US)           │   │ Stripe (US) │   │ Google     │   │ SMTP    │
+│ Contract content /        │   │ Billing     │   │ OAuth      │   │ email   │
+│ context as required       │   │ metadata    │   │ (optional) │   │ (prod.) │
 └───────────────────────────┘   └─────────────┘   └────────────┘   └─────────┘
 
 Flow summary:
@@ -106,7 +106,7 @@ OpenAI is the **only** subprocessor that receives contract content. Policy outco
 | Feature path | What may be sent to OpenAI | AI authority |
 |--------------|----------------------------|--------------|
 | **Plain-language explanation** | Deterministic findings (rule IDs, severities, matched excerpts, rationale) | Explains only; cannot change scores or policy outcomes |
-| **Fact admission / semantic discovery** | Document passages and surrounding context for evidence verification | Proposes/verifies evidence only; fail-closed on errors; outcomes decided by policy engines |
+| **Fact admission / semantic discovery** | Document text required for evidence verification; depending on configuration, this may include substantial portions or the full contract | Proposes/verifies evidence only; fail-closed on errors; outcomes decided by policy engines |
 | **AI-assisted playbook import** | Full document text the customer chooses to upload (operator opt-in + user action) | Produces draft proposals only; active policy requires human approval |
 
 **Scope varies by configuration:** OpenAI may receive content ranging from **short excerpts to full document text**, depending on enabled features and production settings (e.g. fact-admission mode).
@@ -122,7 +122,7 @@ OpenAI is the **only** subprocessor that receives contract content. Policy outco
 | Customer content (extracted text, analysis, playbooks) | **Germany (EU)** — Hetzner Online GmbH |
 | Account, audit, and analytics data | **Germany (EU)** — same production environment |
 | OpenAI processing | **United States** (and other OpenAI API regions per OpenAI) |
-| Stripe / Google / Resend data | Per respective provider regions (primarily US) |
+| Stripe / Google / SMTP email data | Per respective provider regions (primarily US) |
 
 There is no separate third-party object store for customer documents.
 
@@ -155,7 +155,7 @@ Further detail: https://triagecounsel.com/security
 | Account data | Until account deletion | Hard delete removes contracts and playbooks |
 | Optional auto-retention | Off by default | Operator may configure maximum contract age for automated deletion |
 | Audit and analytics | May persist after content deletion | Security/operational records retained for investigation and compliance |
-| Infrastructure backups | Provider backup window | Deleted content may exist in backups until rotation — contact us for erasure timelines |
+| **Hetzner automated backups** | **Up to 7 days** | Enabled on production server; **7-slot rotation** — when all slots are full, the oldest backup is replaced by the next automated backup. Deleted application data may therefore persist in backups for up to approximately seven days |
 | Stripe records | Per Stripe retention | Not automatically deleted on account deletion — cancel subscription separately |
 
 Users may permanently delete individual contracts or their entire account from account settings.
@@ -170,10 +170,10 @@ Users may permanently delete individual contracts or their entire account from a
 
 | Recipient | Typical transfer | Mechanism |
 |-----------|------------------|-----------|
-| OpenAI | Contract content for AI features | Addressed in DPA; OpenAI DPA/SCCs; UK IDTA where applicable |
+| OpenAI | Contract content for AI features | OpenAI DPA, including SCCs as amended by the UK Addendum for UK Data, as applicable |
 | Stripe | Billing data | Stripe DPA / SCCs |
 | Google | Authentication (if enabled) | Google terms / SCCs |
-| Resend | Transactional email | Resend DPA / SCCs |
+| SMTP email provider | Transactional email | Per configured SMTP provider terms / SCCs where applicable |
 
 Transfer necessity, safeguards, and sub-subprocessor treatment should be documented in the customer DPA and transfer impact assessment.
 
@@ -185,7 +185,6 @@ Transfer necessity, safeguards, and sub-subprocessor treatment should be documen
 2. **Material changes** (new subprocessors or material change in processing purpose/location) updated on the public page.
 3. **Enterprise customers** with executed DPAs receive advance notice per contract terms (typically **30 days** before a new subprocessor processes customer personal data, unless otherwise agreed).
 4. **Objection rights** as set out in the customer DPA apply where applicable.
-5. **Confirmation** of active email provider (Resend vs SMTP) available on request during diligence.
 
 ---
 
