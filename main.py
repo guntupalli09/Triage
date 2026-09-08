@@ -83,6 +83,7 @@ import audit_log
 import upload_security
 import rbac
 import legal_config
+import plan_utils
 import subprocessors_config
 import retention
 import playbook_workbench
@@ -201,6 +202,9 @@ templates = Jinja2Templates(directory="templates")
 templates.env.globals["google_signin_enabled"] = google_oauth.is_configured()
 templates.env.globals["csrf_token"] = get_csrf_token
 templates.env.globals["legal"] = legal_config.legal_context
+templates.env.globals["show_upgrade_nudge"] = plan_utils.show_upgrade_nudge
+templates.env.globals["plan_display_name"] = plan_utils.plan_display_name
+templates.env.globals["is_unlimited_usage"] = plan_utils.is_unlimited_usage
 app = FastAPI(title="TriageCounsel", version="2.0.0")
 app.mount("/static", StaticFiles(directory="static"), name="static")
 CORS_ORIGINS = os.getenv("CORS_ORIGINS", BASE_URL).split(",")
