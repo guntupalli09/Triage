@@ -1,6 +1,6 @@
 """
 End-to-end upload hardening tests (P5) through the real /upload and
-/playbooks/new routes.
+/playbooks/new (optional template) routes.
 """
 import io
 import os
@@ -37,7 +37,7 @@ def _register(client, email):
     token = r.cookies.get("csrf_token")
     client.post("/register", data={
         "email": email, "password": "Str0ngP@ssw0rd!", "confirm_password": "Str0ngP@ssw0rd!",
-        "name": "Firm", "company": "", "csrf_token": token,
+        "name": "Firm", "company": "", "accept_terms": "on", "csrf_token": token,
     })
     return token
 

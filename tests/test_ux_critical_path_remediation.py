@@ -67,7 +67,7 @@ def _register(client, email) -> str:
     token = r.cookies.get("csrf_token")
     client.post("/register", data={
         "email": email, "password": "Str0ngP@ssw0rd!", "confirm_password": "Str0ngP@ssw0rd!",
-        "name": "Firm", "company": "", "csrf_token": token,
+        "name": "Firm", "company": "", "accept_terms": "on", "csrf_token": token,
     })
     db = SessionLocal()
     try:
@@ -87,10 +87,9 @@ def _register_db(db, email) -> int:
 
 
 def _create_playbook_via_http(client, token, name="UX Test Playbook") -> int:
-    files = {"file": ("t.txt", io.BytesIO(b"cover page"), "text/plain")}
     r = client.post("/playbooks/new", data={
-        "name": name, "contract_type": "", "description": "", "csrf_token": token,
-    }, files=files, follow_redirects=False)
+        "name": name, "contract_type": "MSA", "description": "Test playbook", "csrf_token": token,
+    }, follow_redirects=False)
     assert r.status_code == 302
     return r
 
@@ -152,6 +151,23 @@ class TestUnifiedPlaybookCreation:
         r = _create_playbook_via_http(client, token, "PB A")
         assert r.headers["location"].endswith("/setup")
 
+    def test_create_playbook_without_template_redirects_to_setup(self, client):
+        token = _register(client, "create-no-template@example.com")
+        r = client.post("/playbooks/new", data={
+            "name": "Metadata Only PB", "contract_type": "NDA", "description": "Pilot playbook",
+            "csrf_token": token,
+        }, follow_redirects=False)
+        assert r.status_code == 302
+        assert r.headers["location"].endswith("/setup")
+        db = SessionLocal()
+        try:
+            pb = db.query(Playbook).filter(Playbook.name == "Metadata Only PB").first()
+            assert pb is not None
+            assert pb.template_text == ""
+            assert pb.template_findings_json is None
+        finally:
+            db.close()
+
     def test_setup_chooser_offers_all_three_paths(self, client):
         token = _register(client, "create-unify-b@example.com")
         r = _create_playbook_via_http(client, token, "PB B")
@@ -170,7 +186,7 @@ class TestUnifiedPlaybookCreation:
         token = r.cookies.get("csrf_token")
         client.post("/register", data={
             "email": "create-unify-c@example.com", "password": "Str0ngP@ssw0rd!",
-            "confirm_password": "Str0ngP@ssw0rd!", "name": "Firm", "company": "", "csrf_token": token,
+            "confirm_password": "Str0ngP@ssw0rd!", "name": "Firm", "company": "", "accept_terms": "on", "csrf_token": token,
         })
         db = SessionLocal()
         try:
@@ -184,6 +200,8 @@ class TestUnifiedPlaybookCreation:
         assert page.status_code == 200
         assert 'name="lol_enabled"' not in page.text
         assert "Enforce a Limitation of Liability policy" not in page.text
+        assert 'name="file"' not in page.text
+        assert "Upload Standard Template" not in page.text
 
     def test_edit_mode_still_exposes_legacy_rule_for_rollback_compatibility(self, client):
         """Existing playbooks with a legacy PolicyRule must remain
@@ -191,12 +209,11 @@ class TestUnifiedPlaybookCreation:
         only, never deleted (Phase 4.1 constraint: preserve rollback
         capability, don't delete PolicyRule storage/routes)."""
         token = _register(client, "create-unify-d@example.com")
-        files = {"file": ("t.txt", io.BytesIO(b"x"), "text/plain")}
         r = client.post("/playbooks/new", data={
             "name": "Legacy Compat PB", "contract_type": "", "description": "",
             "lol_enabled": "on", "lol_preferred": "1.0", "lol_prohibit_unlimited": "on",
             "csrf_token": token,
-        }, files=files, follow_redirects=False)
+        }, follow_redirects=False)
         assert r.status_code == 302
 
         db = SessionLocal()
