@@ -4,7 +4,7 @@
 
 **Public companion:** [Subprocessors page](https://triagecounsel.com/security/subprocessors) | [Privacy Policy](https://triagecounsel.com/privacy) | [Security page](https://triagecounsel.com/security)
 
-**Version:** 1.0  
+**Version:** 1.1  
 **Last updated:** September 2026  
 **Prepared by:** TriageCounsel (operating entity details per customer agreement; see §2)
 
@@ -54,9 +54,9 @@ This document **supplements** (does not replace) the public Subprocessors page, 
 | 2 | **OpenAI, L.L.C.** | United States | US and other OpenAI API regions (see OpenAI documentation) | AI-assisted features (see §6) | **Yes** — scope varies by feature (excerpts to full document text) |
 | 3 | **Stripe, Inc.** | United States | US and other Stripe regions (see Stripe documentation) | Payment processing, subscription lifecycle | **No** — billing metadata only |
 | 4 | **Google LLC** | United States | US and other Google regions (see Google documentation) | Optional OAuth sign-in (`openid email profile`) | **No** |
-| 5 | **Resend, Inc.** | United States | United States | Transactional email (password reset, notifications) | **No** — recipient address + message body only |
+| 5 | **SMTP email provider** | Per configured host | Per configured SMTP host (production) | Transactional email (password reset, notifications) | **No** — recipient address + message body only |
 
-**Alternative email path:** If `RESEND_API_KEY` is not configured, the operator may use a generic **SMTP** provider instead. That provider becomes a subprocessor for transactional email only. Confirm active provider during diligence.
+**Production email:** Transactional email is delivered via **SMTP** in production (not Resend).
 
 **Not subprocessors (clarification):**
 
@@ -71,7 +71,7 @@ This document **supplements** (does not replace) the public Subprocessors page, 
 
 | Data element | Stored by TriageCounsel | Encrypted at rest | Shared with subprocessors |
 |--------------|-------------------------|-------------------|---------------------------|
-| Email address | Yes | No (indexed for login) | Google (OAuth only, if used); Resend/SMTP (delivery); Stripe (billing contact) |
+| Email address | Yes | No (indexed for login) | Google (OAuth only, if used); SMTP (delivery); Stripe (billing contact) |
 | Name, company | Yes | No | Google (OAuth profile, if used) |
 | Password hash | Yes (PBKDF2-HMAC-SHA256) | No | None |
 | Google subject ID (`google_sub`) | Yes (OAuth accounts) | No | Google (authentication flow) |
@@ -123,7 +123,7 @@ flowchart TB
         OAI[OpenAI API]
         STR[Stripe]
         GGL[Google OAuth]
-        RSD[Resend email]
+        SMTP[SMTP email]
     end
 
     U -->|TLS| APP
@@ -132,7 +132,7 @@ flowchart TB
     APP -->|TLS — feature-dependent| OAI
     APP -->|TLS — billing only| STR
     APP -->|TLS — optional sign-in| GGL
-    APP -->|TLS — transactional| RSD
+    APP -->|TLS — transactional| SMTP
 ```
 
 ### 5.2 Contract upload and analysis flow
@@ -170,7 +170,7 @@ flowchart TB
 |--------|---------------------|-------|
 | Email + password | None for auth itself | Password verified locally; hash never leaves platform |
 | Google OAuth | `openid email profile` scopes | ID token verified via Google JWKS; no contract content |
-| Password reset email | Recipient email + reset link | Via Resend or SMTP |
+| Password reset email | Recipient email + reset link | Via SMTP (production) |
 
 **Terms/Privacy acceptance:** New registrations (email and Google OAuth for new users) require acceptance recorded in audit log (`terms_accepted` event).
 
@@ -207,11 +207,10 @@ OpenAI is the **only** subprocessor that receives contract content. There are **
 | Attribute | Detail |
 |-----------|--------|
 | **Trigger** | Policy adapters with semantic discovery enabled (per-adapter env flags, e.g. `INDEMNIFICATION_SEMANTIC_DISCOVERY_ENABLED`) |
-| **Input to OpenAI** | Document text wrapped in `<document>` tags with prompt-injection defenses; candidate propositions |
+| **Input to OpenAI** | Document text required for evidence verification; depending on configuration, this may include substantial portions or the full contract. Text is wrapped in `<document>` tags with prompt-injection defenses; candidate propositions are verified adversarially |
 | **Pipeline** | discover → adversarial verify → mechanical ground (exact substring match in source) → admit/not admit |
 | **Authority** | Module outputs **ADMITTED / NOT_ADMITTED** only — never ACCEPT/PROHIBITED policy states |
 | **Failure mode** | Provider errors → NOT_ADMITTED (fail closed) |
-| **Typical data volume** | Passages and surrounding context — can include substantial portions of contract text |
 
 **Production configuration note:** `POLICY_ENFORCEMENT_MODE=cutover` and `FACT_ADMISSION_MODE=enforced` indicate policy outcomes are authoritative in production; AI assists evidence discovery, not final legal conclusions.
 
@@ -286,10 +285,10 @@ This supports UK GDPR / EU GDPR customers who prefer EU primary hosting.
 
 | Subprocessor | Destination | Typical transfer mechanism |
 |--------------|-------------|----------------------------|
-| OpenAI | United States | Customer DPA should reference OpenAI DPA/SCCs; UK IDTA or EU SCCs as applicable |
+| OpenAI | United States | OpenAI DPA, including SCCs as amended by the UK Addendum for UK Data, as applicable |
 | Stripe | United States | Stripe DPA / SCCs |
 | Google | United States | Google Cloud/OAuth terms; SCCs where applicable |
-| Resend | United States | Resend DPA / SCCs |
+| SMTP email provider | Per configured host | Per configured SMTP provider terms / SCCs where applicable |
 
 **TriageCounsel position:** Transfers to US-based subprocessors are limited to what is necessary for the feature (OpenAI only for AI features; others for account/billing/email). Primary contract storage remains in Germany.
 
@@ -329,7 +328,7 @@ This supports UK GDPR / EU GDPR customers who prefer EU primary hosting.
 | UserAcquisition / UserEvent analytics | **Partial** | Linked via user_id FK with CASCADE on user delete — acquisition row deleted with user; **orphaned session/event rows may retain IP/timestamps** where not user-linked |
 | ContractEvent SHA-256 / filename | **Deleted** with contract (CASCADE) |
 | Stripe billing records | **Yes** | Retained per Stripe policies and legal obligations |
-| Database backups | **Possibly** | Hetzner backup window may retain deleted data until backup rotation — contact TriageCounsel for backup retention period |
+| Database backups | **Yes — up to ~7 days** | Hetzner Cloud automated backups **enabled** on production; **7-slot rotation** — when all slots are occupied, the oldest backup is replaced by the next automated backup |
 | OpenAI | **Per OpenAI API retention policy** | Typically no training; confirm current OpenAI enterprise/API retention settings |
 
 ### 9.4 Data subject requests
@@ -348,6 +347,7 @@ Customers should direct erasure/access requests through their Controller (employ
 | **Location** | Germany (EU) |
 | **Data processed** | All persisted customer content (encrypted), account data, audit/analytics |
 | **Access** | TriageCounsel operator access only; no Hetzner personnel access to application-layer encryption keys |
+| **Backups** | Automated server backups **enabled**; **7-slot rotation** on Hetzner Cloud — deleted data may persist in backups for up to approximately **seven days** |
 | **Diligence** | Hetzner GDPR documentation, EU data processing terms |
 
 ### 10.2 OpenAI, L.L.C.
@@ -381,14 +381,14 @@ Customers should direct erasure/access requests through their Controller (employ
 | **Contract content** | None |
 | **When active** | Only if `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` configured |
 
-### 10.5 Resend, Inc.
+### 10.5 SMTP email provider
 
 | Field | Detail |
 |-------|--------|
-| **Role** | Transactional email API |
+| **Role** | Transactional email delivery (**production uses SMTP**) |
 | **Data processed** | Recipient email, subject, HTML/text body (password reset links, notifications) |
 | **Contract content** | None |
-| **Alternative** | SMTP provider if Resend not configured |
+| **Location** | Per configured SMTP host |
 
 ---
 
@@ -396,7 +396,7 @@ Customers should direct erasure/access requests through their Controller (employ
 
 | Control | Implementation |
 |---------|----------------|
-| **Secrets management** | API keys (OpenAI, Stripe, Resend, Google, encryption keys) in environment variables — not in source code or database |
+| **Secrets management** | API keys (OpenAI, Stripe, Google, encryption keys) and SMTP credentials in environment variables — not in source code or database |
 | **Webhook integrity** | Stripe webhook signature verification |
 | **Upload hardening** | File type and size validation; content extraction in memory |
 | **Audit trail** | Append-only `audit_logs` — login, upload, delete, export, share, admin, MFA, terms acceptance |
@@ -431,7 +431,7 @@ Each entry may include: actor_user_id, target_type, target_id, IP address, user 
 
 - **Public notice:** Material subprocessor changes will be reflected on https://triagecounsel.com/security/subprocessors
 - **Customer notice:** Enterprise customers with DPAs should receive advance notice per contract terms (typically 30 days for new subprocessors)
-- **Current production list:** Hetzner, OpenAI, Stripe, Google (if OAuth enabled), Resend or SMTP (whichever is active)
+- **Current production list:** Hetzner, OpenAI, Stripe, Google (if OAuth enabled), SMTP email provider (production)
 
 ---
 
@@ -439,13 +439,13 @@ Each entry may include: actor_user_id, target_type, target_id, IP address, user 
 
 Use this checklist when evaluating TriageCounsel for enterprise pilot or production use:
 
-- [ ] Confirm executed DPA and transfer mechanism (UK IDTA / EU SCCs) covering OpenAI as sub-subprocessor
+- [ ] Confirm executed DPA and transfer mechanism covering OpenAI as sub-subprocessor (OpenAI DPA, including SCCs as amended by the UK Addendum for UK Data, as applicable)
 - [ ] Review which AI paths will be used (explanation only vs. fact admission vs. playbook import)
 - [ ] Confirm EU primary hosting meets data residency expectations
 - [ ] Document residual audit/analytics data after deletion (§9.3)
 - [ ] Confirm Stripe billing data handling if procurement requires separate vendor review
 - [ ] Verify OpenAI API terms (no training, retention period) against your policy
-- [ ] Request backup retention period from TriageCounsel operator if erasure SLA required
+- [ ] Note Hetzner backup retention: up to **7 days** (7-slot rotation) for erasure planning
 - [ ] Confirm MFA availability for privileged users
 - [ ] Review share-link usage policy for your organization
 - [ ] Pilot with non-production contracts before full rollout
@@ -460,9 +460,8 @@ These items are disclosed proactively for trust — not as legal admissions:
 2. **AI scope varies** — OpenAI may receive more than short excerpts when fact admission or playbook import is enabled.
 3. **Account delete vs. Stripe** — Deleting an account does not automatically cancel an active Stripe subscription; cancel billing separately.
 4. **Audit/analytics survival** — Security audit logs and some analytics metadata may persist after content deletion.
-5. **Backup window** — Deleted data may exist in infrastructure backups until rotated.
+5. **Backup window** — Hetzner automated backups use a 7-slot rotation; deleted data may persist in backups for up to approximately **seven days**.
 6. **Entity formation** — Legal entity name on public policies updates when LLC formation env vars are configured.
-7. **Email provider** — Confirm whether production uses Resend or SMTP during diligence.
 
 ---
 
@@ -470,6 +469,7 @@ These items are disclosed proactively for trust — not as legal admissions:
 
 | Version | Date | Changes |
 |---------|------|---------|
+| 1.1 | September 2026 | SMTP production email; Hetzner 7-day backup retention; OpenAI UK Addendum wording; fact-admission scope clarity |
 | 1.0 | September 2026 | Initial internal annex aligned with production architecture (Hetzner EU hosting, EncryptedJSON storage, four AI paths, public subprocessors page) |
 
 ---

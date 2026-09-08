@@ -48,13 +48,13 @@
 
         <div>
             <h2 class="text-lg font-bold text-[#0F172A] mb-2">6. Data Retention and Deletion</h2>
-            <p class="text-sm">Your contracts are retained while your account is active, unless you delete them sooner. You can permanently delete an individual contract &mdash; its text, findings, and share link &mdash; from your history page at any time; this is a hard deletion, not a soft flag. Deleting your account permanently deletes all of your contracts and playbooks along with it. Every deletion is recorded in our audit log (who deleted what, and when). Audit and security records may be retained after underlying contract data is deleted. Database backups, if any, are maintained by our hosting provider and may retain deleted data for a limited backup window &mdash; contact us if you need details for a specific deletion request.</p>
+            <p class="text-sm">Your contracts are retained while your account is active, unless you delete them sooner. You can permanently delete an individual contract &mdash; its text, findings, and share link &mdash; from your history page at any time; this is a hard deletion, not a soft flag. Deleting your account permanently deletes all of your contracts and playbooks along with it. Every deletion is recorded in our audit log (who deleted what, and when). Audit and security records may be retained after underlying contract data is deleted. Automated server backups on our hosting provider (Hetzner Cloud) use a <strong>7-slot rotation</strong>; deleted data may persist in backups for up to approximately <strong>seven days</strong> before the oldest backup is replaced.</p>
         </div>
 
         <div>
             <h2 class="text-lg font-bold text-[#0F172A] mb-2">7. Subprocessors and Third-Party Services</h2>
             <p class="text-sm mb-3">We use service providers to operate TriageCounsel. Production hosting and storage of customer content is located in Germany. A current list of subprocessors, processing locations, and high-level data categories is maintained on our <a href="/security/subprocessors" class="text-[#0F172A] font-medium hover:underline">Subprocessors page</a>.</p>
-            <p class="text-sm">In summary: <strong>Hetzner Online GmbH</strong> (Germany) hosts the application and stored customer data; <strong>OpenAI</strong> processes contract content and analysis context as required by enabled features; <strong>Stripe</strong> processes billing metadata; <strong>Google</strong> supports optional sign-in; and <strong>Resend</strong> delivers transactional email. We do not sell personal information.</p>
+            <p class="text-sm">In summary: <strong>Hetzner Online GmbH</strong> (Germany) hosts the application and stored customer data; <strong>OpenAI</strong> processes contract content and analysis context as required by enabled features; <strong>Stripe</strong> processes billing metadata; <strong>Google</strong> supports optional sign-in; and an <strong>SMTP email provider</strong> delivers transactional email in production. We do not sell personal information.</p>
         </div>
 
         <div>
