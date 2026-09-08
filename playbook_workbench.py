@@ -32,7 +32,9 @@ from sqlalchemy.orm import Session as DBSession
 
 import audit_log
 import google_oauth
+import legal_config
 import override_learning
+import plan_utils
 import playbook_ai_extraction as pai
 import playbook_authoring as pa
 import playbook_extraction as pex
@@ -56,6 +58,10 @@ router = APIRouter()
 templates = Jinja2Templates(directory="templates")
 templates.env.globals["google_signin_enabled"] = google_oauth.is_configured()
 templates.env.globals["csrf_token"] = get_csrf_token
+templates.env.globals["legal"] = legal_config.legal_context
+templates.env.globals["show_upgrade_nudge"] = plan_utils.show_upgrade_nudge
+templates.env.globals["plan_display_name"] = plan_utils.plan_display_name
+templates.env.globals["is_unlimited_usage"] = plan_utils.is_unlimited_usage
 
 
 def _require_user(request: Request, db: DBSession):
