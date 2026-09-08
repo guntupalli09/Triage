@@ -12,6 +12,7 @@ from policy_grammar.money import MoneyAmount
 from policy_grammar.roles import NormalizedRole, TransactionOrientation
 from policy_grammar.serialization import cap_expression_from_dict, cap_expression_to_dict, money_from_dict, money_to_dict
 from policy_grammar.super_cap import SuperCapSpec
+from policy_grammar.cap_operands import ReferenceCap
 from policy_grammar.validation import ValidationError, validate_cap_expression
 
 
@@ -48,6 +49,14 @@ class LiabilityPolicyV2:
                     errors.append(ValidationError(f"bands[{i}].conditions[{j}]", msg))
         for i, sc in enumerate(self.super_caps):
             errors.extend(validate_cap_expression(sc.expression, f"super_caps[{i}].expression"))
+            refs = [op for op in sc.expression.operands if isinstance(op, ReferenceCap)]
+            if sc.expression.operator.value == "SIMPLE" and len(refs) != 1:
+                errors.append(ValidationError(f"super_caps[{i}]", "super-cap requires exactly one ReferenceCap operand"))
+            for ref in refs:
+                if ref.multiplier <= 0:
+                    errors.append(ValidationError(f"super_caps[{i}]", "super-cap multiplier must be positive"))
+        from liability_policy_v2_consistency import validate_policy_consistency
+        errors.extend(validate_policy_consistency(self))
         return errors
 
 

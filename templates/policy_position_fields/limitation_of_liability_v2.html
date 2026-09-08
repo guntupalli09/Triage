@@ -1,0 +1,154 @@
+{% extends "playbook_position_edit_base.html" %}
+{# Lawyer-facing v2 LoL editor — never exposes rules_v2_json #}
+
+{% block clause_fields %}
+<input type="hidden" name="v2_editor" value="1">
+
+<div class="mb-6 p-4 bg-indigo-50 border border-indigo-100 rounded-xl">
+    <p class="text-sm text-indigo-900 font-medium">Structured liability policy (v2)</p>
+    <p class="text-xs text-indigo-700 mt-1">These controls map to the typed policy grammar. Imported values retain provenance below; edits require review and re-activation.</p>
+</div>
+
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">Party orientation</h3>
+<div class="mb-6">
+    <label class="block text-sm font-semibold text-[#0F172A] mb-1.5">Transaction orientation</label>
+    <select name="v2_orientation" class="w-full sm:w-96 px-3 py-2 border border-gray-200 rounded-lg text-sm bg-white">
+        {% for o in v2.orientations %}
+        <option value="{{ o }}" {% if v2.orientation == o %}selected{% endif %}>{{ o.replace('_', ' ')|title }}</option>
+        {% endfor %}
+    </select>
+</div>
+
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">General cap — preferred position</h3>
+<div class="mb-4 p-4 border border-gray-100 rounded-lg space-y-3">
+    <div>
+        <label class="block text-xs font-semibold text-gray-600 mb-1">Cap structure</label>
+        <select name="v2_preferred_operator" class="w-full sm:w-64 px-3 py-2 border border-gray-200 rounded-lg text-sm">
+            {% for op in v2.cap_operators %}
+            <option value="{{ op }}" {% if v2.preferred.operator == op %}selected{% endif %}>{{ op.replace('_', ' ') }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    {% set p1 = v2.preferred.operand if v2.preferred.operator == 'SIMPLE' else v2.preferred.operand_a %}
+    {% set p2 = v2.preferred.operand_b if v2.preferred.operator != 'SIMPLE' else none %}
+    {% for prefix, op, label in [('v2_preferred_op1', p1, 'First component'), ('v2_preferred_op2', p2, 'Second component')] %}
+    {% if prefix == 'v2_preferred_op1' or v2.preferred.operator != 'SIMPLE' %}
+    <div class="pl-3 border-l-2 border-gray-200">
+        <p class="text-xs font-semibold text-gray-500 mb-2">{{ label }}</p>
+        <select name="{{ prefix }}_type" class="mb-2 w-full sm:w-64 px-3 py-2 border border-gray-200 rounded-lg text-sm operand-type-select">
+            {% for t in v2.operand_types %}
+            <option value="{{ t }}" {% if op and op.type == t %}selected{% endif %}>{{ t.replace('_', ' ') }}</option>
+            {% endfor %}
+        </select>
+        {% if op and op.type == 'fee_period' %}
+        <div class="grid sm:grid-cols-3 gap-2">
+            <input type="number" step="0.5" name="{{ prefix }}_months" value="{{ op.months }}" placeholder="Months" class="px-3 py-2 border border-gray-200 rounded-lg text-sm">
+            <select name="{{ prefix }}_basis" class="px-3 py-2 border border-gray-200 rounded-lg text-sm">
+                {% for b in v2.fee_bases %}<option value="{{ b }}" {% if op.basis == b %}selected{% endif %}>{{ b.replace('_', ' ') }}</option>{% endfor %}
+            </select>
+            <select name="{{ prefix }}_scope" class="px-3 py-2 border border-gray-200 rounded-lg text-sm">
+                {% for s in v2.fee_scopes %}<option value="{{ s }}" {% if op.scope == s %}selected{% endif %}>{{ s.replace('_', ' ') }}</option>{% endfor %}
+            </select>
+        </div>
+        {% elif op and op.type == 'annual_fee_multiple' %}
+        <input type="number" step="0.1" name="{{ prefix }}_multiple" value="{{ op.multiple }}" class="w-32 px-3 py-2 border border-gray-200 rounded-lg text-sm" placeholder="× annual fees">
+        {% elif op and op.type == 'fixed_amount' %}
+        <div class="flex gap-2">
+            <input type="text" name="{{ prefix }}_amount" value="{{ op.amount }}" class="w-40 px-3 py-2 border border-gray-200 rounded-lg text-sm" placeholder="Amount">
+            <input type="text" name="{{ prefix }}_currency" value="{{ op.currency }}" class="w-20 px-3 py-2 border border-gray-200 rounded-lg text-sm" placeholder="USD">
+        </div>
+        {% else %}
+        <div class="grid sm:grid-cols-3 gap-2">
+            <input type="number" step="0.5" name="{{ prefix }}_months" value="12" class="px-3 py-2 border border-gray-200 rounded-lg text-sm">
+            <select name="{{ prefix }}_basis" class="px-3 py-2 border border-gray-200 rounded-lg text-sm">{% for b in v2.fee_bases %}<option value="{{ b }}">{{ b.replace('_', ' ') }}</option>{% endfor %}</select>
+            <select name="{{ prefix }}_scope" class="px-3 py-2 border border-gray-200 rounded-lg text-sm">{% for s in v2.fee_scopes %}<option value="{{ s }}">{{ s.replace('_', ' ') }}</option>{% endfor %}</select>
+        </div>
+        {% endif %}
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">Acceptable fallback</h3>
+<div class="mb-4 p-4 border border-gray-100 rounded-lg space-y-3">
+    <label class="flex items-center gap-2 text-sm"><input type="checkbox" name="v2_fallback_enabled" value="yes" {% if v2.fallback_enabled %}checked{% endif %}> Enable fallback band</label>
+    {% set fb = v2.fallback.operand %}
+    <select name="v2_fallback_operator" class="hidden"><option value="SIMPLE" selected>SIMPLE</option></select>
+    <select name="v2_fallback_op1_type" class="w-full sm:w-64 px-3 py-2 border border-gray-200 rounded-lg text-sm">
+        {% for t in v2.operand_types %}<option value="{{ t }}" {% if fb.type == t %}selected{% endif %}>{{ t.replace('_', ' ') }}</option>{% endfor %}
+    </select>
+    {% if fb.type == 'fee_period' %}
+    <input type="number" name="v2_fallback_op1_months" value="{{ fb.months }}" class="w-32 px-3 py-2 border border-gray-200 rounded-lg text-sm">
+    <input type="hidden" name="v2_fallback_op1_basis" value="{{ fb.basis }}">
+    <input type="hidden" name="v2_fallback_op1_scope" value="{{ fb.scope }}">
+    {% elif fb.type == 'annual_fee_multiple' %}
+    <input type="number" name="v2_fallback_op1_multiple" value="{{ fb.multiple }}" class="w-32 px-3 py-2 border border-gray-200 rounded-lg text-sm">
+    {% endif %}
+    <div>
+        <label class="block text-xs text-gray-600 mb-1">Condition: annual contract value less than</label>
+        <input type="text" name="v2_fallback_acv_lt" value="{{ v2.fallback_acv_lt }}" class="w-40 px-3 py-2 border border-gray-200 rounded-lg text-sm" placeholder="250000">
+        <span class="text-xs text-gray-400 ml-1">USD</span>
+    </div>
+</div>
+
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">Hard stop — minimum acceptable</h3>
+<div class="mb-4 p-4 border border-red-50 rounded-lg space-y-3">
+    <label class="flex items-center gap-2 text-sm"><input type="checkbox" name="v2_hard_stop_enabled" value="yes" {% if v2.hard_stop_enabled %}checked{% endif %}> Enable hard stop</label>
+    {% set hs = v2.hard_stop.operand %}
+    <input type="hidden" name="v2_hard_stop_operator" value="SIMPLE">
+    <input type="hidden" name="v2_hard_stop_op1_type" value="fee_period">
+    <label class="block text-xs text-gray-600">Do not accept below (months of fees)</label>
+    <input type="number" name="v2_hard_stop_op1_months" value="{{ hs.months }}" class="w-32 px-3 py-2 border border-gray-200 rounded-lg text-sm">
+    <input type="hidden" name="v2_hard_stop_op1_basis" value="{{ hs.basis }}">
+    <input type="hidden" name="v2_hard_stop_op1_scope" value="{{ hs.scope }}">
+</div>
+
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">Carve-outs</h3>
+<div class="mb-4 p-4 border border-gray-100 rounded-lg">
+    <p class="text-xs text-gray-500 mb-2">Categories treated outside the general cap</p>
+    {% set selected_cats = v2.carve_outs|map(attribute='category')|list %}
+    <div class="grid sm:grid-cols-2 gap-2">
+        {% for cat in v2.carveout_categories %}
+        <label class="flex items-center gap-2 text-sm">
+            <input type="checkbox" name="v2_carveout_category" value="{{ cat }}" {% if cat in selected_cats %}checked{% endif %}>
+            {{ cat.replace('_', ' ') }}
+        </label>
+        {% endfor %}
+    </div>
+</div>
+
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">Super-cap</h3>
+<div class="mb-4 p-4 border border-gray-100 rounded-lg space-y-3">
+    <label class="flex items-center gap-2 text-sm"><input type="checkbox" name="v2_super_cap_enabled" value="yes" {% if v2.super_cap_enabled %}checked{% endif %}> Enable super-cap (reference to general cap)</label>
+    <div class="flex items-center gap-2">
+        <input type="number" step="0.1" name="v2_super_cap_multiplier" value="{{ v2.super_cap_multiplier }}" class="w-24 px-3 py-2 border border-gray-200 rounded-lg text-sm">
+        <span class="text-sm text-gray-600">× General Cap</span>
+    </div>
+    <div class="grid sm:grid-cols-2 gap-2">
+        {% for cat in ['confidentiality', 'data_security', 'privacy', 'data_protection'] %}
+        <label class="flex items-center gap-2 text-sm">
+            <input type="checkbox" name="v2_super_cap_category" value="{{ cat }}" {% if cat in v2.super_cap_categories %}checked{% endif %}>
+            {{ cat.replace('_', ' ') }}
+        </label>
+        {% endfor %}
+    </div>
+</div>
+
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">Escalation</h3>
+<div class="mb-4 p-4 border border-gray-100 rounded-lg space-y-3">
+    <label class="flex items-center gap-2 text-sm"><input type="checkbox" name="v2_escalation_enabled" value="yes" {% if v2.escalation_enabled %}checked{% endif %}> Enable escalation rule</label>
+    <div class="text-sm text-gray-700">When ACV ≥ <input type="text" name="v2_escalation_acv_gte" value="{{ v2.escalation_acv_gte }}" class="w-32 px-2 py-1 border border-gray-200 rounded inline"> USD
+    and liability cap &lt; <input type="number" name="v2_escalation_cap_lt_months" value="{{ v2.escalation_cap_lt_months }}" class="w-20 px-2 py-1 border border-gray-200 rounded inline"> months of fees</div>
+    <select name="v2_escalation_approver" class="w-full sm:w-64 px-3 py-2 border border-gray-200 rounded-lg text-sm">
+        <option value="supervising_partner" {% if v2.escalation_approver == 'supervising_partner' %}selected{% endif %}>Supervising Partner</option>
+        <option value="general_counsel" {% if v2.escalation_approver == 'general_counsel' %}selected{% endif %}>General Counsel</option>
+        <option value="legal_director" {% if v2.escalation_approver == 'legal_director' %}selected{% endif %}>Legal Director</option>
+    </select>
+</div>
+
+<div class="mb-4">
+    <label class="flex items-center gap-2 text-sm font-semibold text-[#0F172A]">
+        <input type="checkbox" name="v2_prohibit_unlimited" value="yes" {% if v2.prohibit_unlimited %}checked{% endif %}> Prohibit unlimited liability
+    </label>
+</div>
+{% endblock %}

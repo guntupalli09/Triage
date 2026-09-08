@@ -173,12 +173,17 @@ def evaluate_liability_policy_v2(
         if resolved.outcome == ComparisonOutcome.COMPARED:
             general_cap_money = resolved.money
 
-    # Minimum / hard stop
+    # Step 3 — Hard stops (see docs/architecture/liability_policy_v2_precedence.md)
     for band in policy.bands:
         if band.kind != PolicyBandKind.MINIMUM_ACCEPTABLE:
             continue
-        if not _band_conditions_match(band, ctx, contract_cap):
+        cond = _band_conditions_eval(band, ctx, contract_cap)
+        if cond is False:
             continue
+        if cond is None:
+            return _review_decision(
+                source, "hard-stop band conditions could not be evaluated — missing deal context", contract_cap, policy,
+            )
         cmp = compare_cap_expressions(
             contract_cap.expression, band.expression, ctx,
             resolved_general_cap=general_cap_money,
@@ -191,7 +196,7 @@ def evaluate_liability_policy_v2(
                     source, "contract cap below policy minimum acceptable threshold", contract_cap, policy,
                 )
 
-    # Escalation rules
+    # Step 4 — Escalation rules
     for rule in policy.escalation_rules:
         ok, reason = evaluate_condition_group(
             rule.when, ctx,
@@ -207,8 +212,13 @@ def evaluate_liability_policy_v2(
                 escalate_to=approver,
             )
 
-    # Preferred band
-    if preferred and _band_conditions_match(preferred, ctx, contract_cap):
+    # Step 5 — Preferred band
+    pref_cond = _band_conditions_eval(preferred, ctx, contract_cap) if preferred else False
+    if preferred and pref_cond is None:
+        return _review_decision(
+            source, "preferred band conditions could not be evaluated — missing deal context", contract_cap, policy,
+        )
+    if preferred and pref_cond is True:
         cmp = compare_cap_expressions(
             contract_cap.expression, preferred.expression, ctx,
             resolved_general_cap=general_cap_money,
@@ -225,7 +235,7 @@ def evaluate_liability_policy_v2(
                 return fb_state
             return _review_decision(source, cmp.reason or "cannot compare against preferred band", contract_cap, policy)
 
-    # Fallback bands (when preferred absent or conditions not met)
+    # Step 6 — Fallback bands (when preferred absent or conditions not met)
     fb_state = _evaluate_fallbacks(policy, contract_cap, ctx, general_cap_money)
     if fb_state:
         return fb_state
@@ -240,26 +250,44 @@ def _band(policy: LiabilityPolicyV2, kind: PolicyBandKind):
     return None
 
 
-def _band_conditions_match(band, ctx, contract_cap) -> bool:
+def _band_conditions_eval(band, ctx, contract_cap) -> Optional[bool]:
+    """Tri-state band condition evaluation: True, False, or None (UNRESOLVED)."""
     if not band.conditions:
         return True
+    unresolved = False
     for cond in band.conditions:
         ok, _ = evaluate_condition(
             cond, ctx,
             contract_cap=contract_cap.expression,
             contract_fee_period_months=contract_cap.fee_period_months,
         )
-        if ok is None or not ok:
+        if ok is None:
+            unresolved = True
+        elif not ok:
             return False
+    if unresolved:
+        return None
     return True
+
+
+def _band_conditions_match(band, ctx, contract_cap) -> bool:
+    result = _band_conditions_eval(band, ctx, contract_cap)
+    return result is True
 
 
 def _evaluate_fallbacks(policy, contract_cap, ctx, general_cap_money):
     for band in policy.bands:
         if band.kind != PolicyBandKind.ACCEPTABLE_FALLBACK:
             continue
-        if not _band_conditions_match(band, ctx, contract_cap):
+        cond = _band_conditions_eval(band, ctx, contract_cap)
+        if cond is False:
             continue
+        if cond is None:
+            return _review_decision(
+                "policy_v2",
+                "fallback band conditions could not be evaluated — missing deal context",
+                contract_cap, policy,
+            )
         cmp = compare_cap_expressions(
             contract_cap.expression, band.expression, ctx,
             resolved_general_cap=general_cap_money,
