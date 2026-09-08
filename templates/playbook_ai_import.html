@@ -16,7 +16,7 @@
 <div class="mb-6 fade-in">
     <h1 class="text-2xl sm:text-3xl font-extrabold text-[#0F172A] tracking-tight">AI-assisted playbook import</h1>
     <div class="mt-2 inline-flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200">
-        DIFFERENT FROM DETERMINISTIC IMPORT — this path sends document excerpts to an AI provider
+        AI-assisted import · Document excerpts may be processed by an external AI provider
     </div>
 </div>
 
@@ -34,14 +34,19 @@
 </div>
 {% endif %}
 
-<div class="premium-card p-6 sm:p-8 fade-in mb-6 border-amber-200" style="transform:none;">
-    <h2 class="text-sm font-semibold text-[#0F172A] mb-3">Before you upload — what happens to this document</h2>
-    <ul class="text-sm text-gray-700 space-y-2 list-disc list-inside">
-        <li>This is for <strong>prose legal playbooks or guidelines</strong> (an internal memo describing your negotiating positions) — not a contract. Use "Import a template" instead for an actual contract.</li>
-        <li>Relevant excerpts of this document — not the whole file when it can be avoided — will be sent to the configured external AI provider for analysis.</li>
-        <li>The AI's output is never enforced automatically. Every proposal lands as an unconfirmed draft you must review, confirm, and separately approve and activate before it affects any contract review.</li>
-        <li>Values the AI states are directly written in your document are marked "Directly established." Values that require judgment are marked "Proposed interpretation" and are never treated as a fact your document states.</li>
+<div class="premium-card p-6 sm:p-8 fade-in mb-6" style="transform:none;">
+    <h2 class="text-sm font-semibold text-[#0F172A] mb-2">Before you upload</h2>
+    <p class="text-sm text-gray-700 mb-3">Upload a written legal playbook, negotiation guide, or policy memo — not a contract.</p>
+    <ul class="text-sm text-gray-700 space-y-1.5 list-disc list-inside">
+        <li>Relevant excerpts may be sent to our external AI provider for analysis.</li>
+        <li>TriageCounsel proposes draft policy positions from your document.</li>
+        <li>Every proposed position must be reviewed and confirmed by you.</li>
+        <li>Nothing is enforced until the position is separately approved and activated.</li>
     </ul>
+    <p class="text-xs text-gray-500 mt-4 leading-relaxed">
+        <strong class="text-gray-600">Directly established</strong> — explicitly stated in your document.
+        <strong class="text-gray-600">Proposed interpretation</strong> — requires your judgment before it can become policy.
+    </p>
 </div>
 
 <div class="premium-card p-6 sm:p-8 fade-in" style="transform:none;">
@@ -49,19 +54,19 @@
         <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
 
         <div class="mb-6">
-            <label for="file" class="block text-sm font-semibold text-[#0F172A] mb-1.5">Playbook / guidelines document</label>
+            <label for="file" class="block text-sm font-semibold text-[#0F172A] mb-1.5">Upload legal playbook or guidelines</label>
             <input type="file" id="file" name="file" accept=".txt,.pdf,.docx" required class="w-full text-sm border border-gray-200 rounded-lg px-3 py-2.5">
-            <p class="text-xs text-gray-500 mt-1">.txt, .pdf, or .docx.</p>
+            <p class="text-xs text-gray-500 mt-1">PDF, DOCX, or TXT</p>
         </div>
 
         <label class="flex items-start gap-2 mb-6 p-4 border border-amber-200 bg-amber-50 rounded-xl cursor-pointer">
             <input type="checkbox" name="consent" required class="rounded border-gray-300 mt-0.5">
             <span class="text-sm text-amber-900">
-                I understand that this document's content will be processed by an external AI provider for the purpose of proposing policy positions, and that nothing becomes an active policy without my explicit review and approval.
+                I understand that document content will be processed by an external AI provider to propose draft policy positions. Nothing becomes active until I review and approve it.
             </span>
         </label>
 
-        <button type="submit" class="btn-primary py-2.5 px-6 rounded-lg font-semibold text-sm">Upload &amp; analyze</button>
+        <button type="submit" class="btn-primary py-2.5 px-6 rounded-lg font-semibold text-sm">Import draft positions</button>
     </form>
 </div>
 {% endif %}
