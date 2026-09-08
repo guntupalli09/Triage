@@ -344,6 +344,12 @@ def _run_migrations():
             if "segment_deal_value_max" not in policy_position_cols:
                 conn.execute(text("ALTER TABLE policy_positions ADD COLUMN segment_deal_value_max FLOAT"))
                 logger.info("Migration applied: policy_positions.segment_deal_value_max column")
+            if "rules_v2_json" not in policy_position_cols:
+                conn.execute(text("ALTER TABLE policy_positions ADD COLUMN rules_v2_json JSON"))
+                logger.info("Migration applied: policy_positions.rules_v2_json column")
+            if "policy_schema_version" not in policy_position_cols:
+                conn.execute(text("ALTER TABLE policy_positions ADD COLUMN policy_schema_version INTEGER DEFAULT 1"))
+                logger.info("Migration applied: policy_positions.policy_schema_version column")
 
 
 def init_db():

@@ -416,6 +416,8 @@ class PolicyPosition(Base):
     escalation_approval_authority = Column(String(255), nullable=True)
     fallback_text = Column(EncryptedText, nullable=True)
     config_json = Column(EncryptedJSON, nullable=True)
+    rules_v2_json = Column(EncryptedJSON, nullable=True)
+    policy_schema_version = Column(Integer, nullable=False, default=1)
 
     # Segment conditionality (deal size / business unit / customer type) —
     # additive to the base clause_type family, never a replacement. A

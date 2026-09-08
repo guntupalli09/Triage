@@ -534,9 +534,16 @@ def validate_position_for_activation(position: PolicyPosition) -> None:
     ESTABLISHED; callers (the future activation route, main.py's eventual
     call site) should surface position.clause_type +
     error.missing_fields directly rather than a generic failure."""
-    required = ACTIVATION_REQUIRED_FIELDS.get(position.clause_type, [])
     statuses = _current_field_statuses(position)
-    missing = [name for name in required if statuses.get(name) != "ESTABLISHED"] if required else []
+    missing: List[str] = []
+
+    is_lol_v2 = (
+        position.clause_type == "limitation_of_liability"
+        and (getattr(position, "policy_schema_version", 1) or 1) == 2
+    )
+    if not is_lol_v2:
+        required = ACTIVATION_REQUIRED_FIELDS.get(position.clause_type, [])
+        missing = [name for name in required if statuses.get(name) != "ESTABLISHED"] if required else []
 
     extra_validator = _ADAPTER_ACTIVATION_VALIDATORS.get(position.clause_type)
     if extra_validator:
@@ -597,6 +604,37 @@ def _sla_activation_validator(position: PolicyPosition, statuses: Dict[str, str]
 
 
 _ADAPTER_ACTIVATION_VALIDATORS["sla"] = _sla_activation_validator
+
+
+def _lol_v2_activation_validator(position: PolicyPosition, statuses: Dict[str, str]) -> List[str]:
+    """v2 LoL positions validate rules_v2_json instead of v1 config_json fields."""
+    if (getattr(position, "policy_schema_version", 1) or 1) != 2:
+        return []
+    extra: List[str] = []
+    rules = position.rules_v2_json
+    if not rules:
+        extra.append("rules_v2_json is required for policy_schema_version=2")
+        return extra
+    try:
+        from liability_policy_v2 import liability_policy_v2_from_dict
+        from policy_grammar.bands import PolicyBandKind
+
+        policy = liability_policy_v2_from_dict(rules)
+        validation_errors = policy.validate()
+        if validation_errors:
+            extra.append(
+                "rules_v2_json failed validation: "
+                + "; ".join(f"{e.path}: {e.message}" for e in validation_errors)
+            )
+        has_preferred = any(b.kind == PolicyBandKind.PREFERRED for b in policy.bands)
+        if not has_preferred:
+            extra.append("rules_v2_json must include at least one PREFERRED band")
+    except Exception as exc:  # noqa: BLE001 — surface parse errors at activation
+        extra.append(f"rules_v2_json could not be parsed: {type(exc).__name__}")
+    return extra
+
+
+_ADAPTER_ACTIVATION_VALIDATORS["limitation_of_liability"] = _lol_v2_activation_validator
 
 
 class PolicyEnforcementGuardError(ValueError):
