@@ -40,11 +40,16 @@
                 <div class="stat-label">Needs Attention</div>
             </div>
             <div class="premium-card p-5 stat-card">
+                {% if is_unlimited_usage(user.plan, user.monthly_limit) %}
+                <div class="stat-value text-lg gradient-text">Unlimited</div>
+                <div class="stat-label">This Month</div>
+                {% else %}
                 <div class="stat-value">{{ stats.contracts_this_month }}<span class="text-base font-medium text-gray-400">/{{ user.monthly_limit }}</span></div>
                 <div class="stat-label">This Month</div>
+                {% endif %}
             </div>
             <div class="premium-card p-5 stat-card">
-                <div class="stat-value text-lg gradient-text">{{ user.plan|title }}</div>
+                <div class="stat-value text-lg gradient-text">{{ plan_display_name(user.plan) }}</div>
                 <div class="stat-label">Current Plan</div>
             </div>
         </div>
