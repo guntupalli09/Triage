@@ -914,6 +914,13 @@ def import_ai_playbook(
             "fallback_text": _infer_fallback_text(section_texts),
         }
         _apply_position_metadata(db, position, metadata, source_document, user)
+        if clause_type == "limitation_of_liability":
+            from liability_policy_v2_import import propose_liability_rules_v2_from_sections
+            v2_rules = propose_liability_rules_v2_from_sections(section_texts)
+            if v2_rules:
+                position.policy_schema_version = 2
+                position.rules_v2_json = v2_rules
+                db.flush()
         results[clause_type] = position
 
     return results, report

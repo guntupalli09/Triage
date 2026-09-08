@@ -386,6 +386,8 @@ def config_hash_for_position(position: PolicyPosition) -> str:
             "escalation_approval_authority": position.escalation_approval_authority,
             "fallback_text": position.fallback_text,
             "config_json": position.config_json or {},
+            "policy_schema_version": getattr(position, "policy_schema_version", 1) or 1,
+            "rules_v2_json": getattr(position, "rules_v2_json", None) or {},
         },
         sort_keys=True,
         default=str,
@@ -415,12 +417,122 @@ class ClauseEvaluationOutcome:
     error: Optional[str] = None
 
 
+def _is_lol_v2_position(position: PolicyPosition) -> bool:
+    return (
+        position.clause_type == "limitation_of_liability"
+        and (getattr(position, "policy_schema_version", 1) or 1) == 2
+    )
+
+
+def _evaluate_lol_v2_position(
+    position: PolicyPosition,
+    contract_text: str,
+    playbook: Playbook,
+    *,
+    context: Optional[Dict[str, Any]] = None,
+) -> Any:
+    """Evaluate an ACTIVE v2 LoL PolicyPosition deterministically."""
+    from liability_evaluator_v2 import contract_cap_from_legacy, evaluate_liability_policy_v2
+    from liability_policy_v2 import liability_policy_v2_from_dict
+    from policy_grammar.evaluation_context import evaluation_context_from_review_context
+
+    label = pa.CLAUSE_TYPE_LABELS["limitation_of_liability"]
+    source = f"{playbook.name} — {label} (policy position #{position.id}, v2)"
+    rules = position.rules_v2_json or {}
+    policy = liability_policy_v2_from_dict(rules)
+    facts = liability_policy_engine.extract_liability_facts(contract_text)
+    eval_ctx = evaluation_context_from_review_context(context)
+
+    if facts is not None and not facts.provisions and facts.absence_state == "RECOGNITION_UNCERTAIN":
+        return liability_policy_engine.PolicyDecision(
+            rule_id="LOL-V2-REVIEW", clause_type="limitation_of_liability",
+            state=liability_policy_engine.REQUIRES_REVIEW,
+            contract_language="", extracted_summary="Could not determine whether a limitation-of-liability clause is present",
+            policy_limit_summary="v2 structured policy",
+            required_action="Manual review required — automated recognition was unavailable for this document.",
+            explanation=(
+                "Deterministic pattern matching found no limitation-of-liability clause, and semantic "
+                f"verification could not confirm its absence ({facts.semantic_discovery_error or 'unavailable'})."
+            ),
+            negotiation_ladder=[], category_treatments=[], unresolved_facts=[],
+            start_index=None, end_index=None, source=source,
+        )
+
+    if facts is None or not facts.clause_found:
+        return liability_policy_engine.PolicyDecision(
+            rule_id="LOL-V2-N/A", clause_type="limitation_of_liability",
+            state=liability_policy_engine.NOT_APPLICABLE,
+            contract_language="", extracted_summary="No limitation-of-liability clause found",
+            policy_limit_summary="v2 structured policy",
+            required_action="None — this contract does not address liability caps",
+            explanation="No limitation-of-liability clause was found in this contract.",
+            negotiation_ladder=[], category_treatments=[], unresolved_facts=[],
+            start_index=None, end_index=None, source=source,
+        )
+
+    if facts.reconciliation == "unreconciled":
+        return liability_policy_engine.PolicyDecision(
+            rule_id="LOL-V2-REVIEW", clause_type="limitation_of_liability",
+            state=liability_policy_engine.REQUIRES_REVIEW,
+            contract_language=facts.reconciliation_explanation,
+            extracted_summary="Multiple unreconciled provisions",
+            policy_limit_summary="v2 structured policy",
+            required_action="Manual review required — " + facts.reconciliation_explanation,
+            explanation=facts.reconciliation_explanation,
+            negotiation_ladder=[], category_treatments=[],
+            unresolved_facts=["controlling provision could not be determined among multiple candidates"],
+            start_index=facts.provisions[0].start_index, end_index=facts.provisions[0].end_index,
+            source=source,
+        )
+
+    contract_cap = contract_cap_from_legacy(facts)
+    if contract_cap is None:
+        provision = facts.controlling_provision
+        return liability_policy_engine.PolicyDecision(
+            rule_id="LOL-V2-REVIEW", clause_type="limitation_of_liability",
+            state=liability_policy_engine.REQUIRES_REVIEW,
+            contract_language=provision.raw_excerpt if provision else "",
+            extracted_summary="Contract cap could not be normalized for v2 comparison",
+            policy_limit_summary="v2 structured policy",
+            required_action="Manual review required — contract cap structure is unresolved",
+            explanation="The contract liability cap could not be mapped to a comparable v2 expression.",
+            negotiation_ladder=[], category_treatments=[], unresolved_facts=["cap expression unresolved"],
+            start_index=provision.start_index if provision else None,
+            end_index=provision.end_index if provision else None,
+            source=source,
+        )
+
+    decision = evaluate_liability_policy_v2(policy, contract_cap, eval_ctx, source=source)
+    provision = facts.controlling_provision
+    if provision:
+        decision = liability_policy_engine.PolicyDecision(
+            rule_id=decision.rule_id,
+            clause_type=decision.clause_type,
+            state=decision.state,
+            contract_language=provision.raw_excerpt,
+            extracted_summary=decision.extracted_summary,
+            policy_limit_summary=decision.policy_limit_summary,
+            required_action=decision.required_action,
+            explanation=decision.explanation,
+            negotiation_ladder=decision.negotiation_ladder,
+            category_treatments=decision.category_treatments,
+            unresolved_facts=decision.unresolved_facts,
+            start_index=provision.start_index,
+            end_index=provision.end_index,
+            escalate_to=decision.escalate_to,
+            fallback_text=decision.fallback_text or position.fallback_text,
+            source=decision.source,
+        )
+    return decision
+
+
 def evaluate_active_policies(
     db: DBSession,
     playbook: Playbook,
     contract_text: str,
     *,
     active_positions: Optional[Dict[str, PolicyPosition]] = None,
+    context: Optional[Dict[str, Any]] = None,
 ) -> List[ClauseEvaluationOutcome]:
     """Evaluates every clause type that currently has an ACTIVE
     PolicyPosition against contract_text, in pa.CLAUSE_TYPES' fixed order
@@ -451,13 +563,18 @@ def evaluate_active_policies(
             continue
         revision_metadata = _revision_metadata_for(position)
         try:
-            rule = pa.build_policy_rule_for_enforcement(position)
-            extract_fn, evaluate_fn = pa._ENGINE_FUNCS[clause_type]
-            facts = extract_fn(contract_text)
-            label = pa.CLAUSE_TYPE_LABELS[clause_type]
-            decision = evaluate_fn(
-                facts, rule, source=f"{playbook.name} — {label} (policy position #{position.id})",
-            )
+            if _is_lol_v2_position(position):
+                decision = _evaluate_lol_v2_position(
+                    position, contract_text, playbook, context=context,
+                )
+            else:
+                rule = pa.build_policy_rule_for_enforcement(position)
+                extract_fn, evaluate_fn = pa._ENGINE_FUNCS[clause_type]
+                facts = extract_fn(contract_text)
+                label = pa.CLAUSE_TYPE_LABELS[clause_type]
+                decision = evaluate_fn(
+                    facts, rule, source=f"{playbook.name} — {label} (policy position #{position.id})",
+                )
             outcomes.append(ClauseEvaluationOutcome(
                 clause_type=clause_type, decision=decision, revision_metadata=revision_metadata,
             ))
@@ -558,6 +675,7 @@ def apply_active_policies(
     *,
     active_positions: Optional[Dict[str, PolicyPosition]] = None,
     outcomes_out: Optional[List["ClauseEvaluationOutcome"]] = None,
+    context: Optional[Dict[str, Any]] = None,
 ) -> Optional[Dict[str, Any]]:
     """Cutover-mode equivalent of apply_liability_policy, generalized to
     all six clause types. Appends a synthetic finding per clause type that
@@ -579,7 +697,9 @@ def apply_active_policies(
     omits it sees no change in behavior."""
     if not playbook:
         return None
-    outcomes = evaluate_active_policies(db, playbook, contract_text, active_positions=active_positions)
+    outcomes = evaluate_active_policies(
+        db, playbook, contract_text, active_positions=active_positions, context=context,
+    )
     if outcomes_out is not None:
         outcomes_out.extend(outcomes)
     if not outcomes:
@@ -779,7 +899,8 @@ def apply_policies_for_review(
         snapshot = snapshot_active_positions(db, playbook.id, context=context)
         outcomes: List["ClauseEvaluationOutcome"] = []
         result = apply_active_policies(
-            db, playbook, contract_text, findings_dict, active_positions=snapshot, outcomes_out=outcomes,
+            db, playbook, contract_text, findings_dict,
+            active_positions=snapshot, outcomes_out=outcomes, context=context,
         )
         if result is None:
             return {"policy_decisions": None, "policy_revision_metadata": None, "interaction_decisions": None}
@@ -886,6 +1007,21 @@ def verify_policy_finding(db: DBSession, contract: Contract, finding: Dict[str, 
                 "policy_verification": True, "verified": False,
                 "replayed_state": None, "original_state": original_state,
                 "reason": "The pinned policy revision's content does not match what was recorded at review time.",
+            }
+        if _is_lol_v2_position(position):
+            replay_decision = _evaluate_lol_v2_position(
+                position, contract.contract_text, contract.playbook,
+                context={
+                    "deal_value": contract.review_deal_value,
+                    "customer_type": contract.review_customer_type,
+                    "business_unit": contract.review_business_unit,
+                },
+            )
+            verified = replay_decision.state == original_state
+            return {
+                "policy_verification": True, "verified": verified,
+                "replayed_state": replay_decision.state, "original_state": original_state,
+                "reason": None if verified else "Re-evaluating this policy against the contract produced a different result.",
             }
         rule = pa.BUILDERS[clause_type](position)
         source_label = f"Verify replay — pinned revision #{position.id}"
