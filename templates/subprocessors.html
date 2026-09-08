@@ -32,36 +32,14 @@
                     </tr>
                 </thead>
                 <tbody class="text-gray-600 divide-y divide-gray-100">
+                    {% for sp in subprocessors %}
                     <tr>
-                        <td class="px-5 py-4 font-medium text-[#0F172A] align-top">Hetzner Online GmbH</td>
-                        <td class="px-5 py-4 align-top">Infrastructure hosting for the production application and stored customer data</td>
-                        <td class="px-5 py-4 align-top whitespace-nowrap">Germany (European Union)</td>
-                        <td class="px-5 py-4 align-top">Account information; extracted contract text; analysis results and related customer content stored to provide the service</td>
+                        <td class="px-5 py-4 font-medium text-[#0F172A] align-top">{{ sp.name }}</td>
+                        <td class="px-5 py-4 align-top">{{ sp.purpose }}</td>
+                        <td class="px-5 py-4 align-top whitespace-nowrap">{{ sp.location }}</td>
+                        <td class="px-5 py-4 align-top">{{ sp.data_categories }}</td>
                     </tr>
-                    <tr>
-                        <td class="px-5 py-4 font-medium text-[#0F172A] align-top">OpenAI, L.L.C.</td>
-                        <td class="px-5 py-4 align-top">AI-assisted contract analysis, including plain-language explanations and, where enabled, evidence discovery or playbook-related extraction requested by the customer</td>
-                        <td class="px-5 py-4 align-top">United States and other locations used by OpenAI for API processing (see OpenAI documentation)</td>
-                        <td class="px-5 py-4 align-top">Contract content and analysis context as required by the features enabled for the account or action — which may range from short excerpts to broader passages or full document text depending on configuration and use</td>
-                    </tr>
-                    <tr>
-                        <td class="px-5 py-4 font-medium text-[#0F172A] align-top">Stripe, Inc.</td>
-                        <td class="px-5 py-4 align-top">Payment processing and subscription management</td>
-                        <td class="px-5 py-4 align-top">United States and other locations used by Stripe (see Stripe documentation)</td>
-                        <td class="px-5 py-4 align-top">Billing contact details and subscription metadata. Payment card details are collected directly by Stripe; TriageCounsel does not store card numbers</td>
-                    </tr>
-                    <tr>
-                        <td class="px-5 py-4 font-medium text-[#0F172A] align-top">Google LLC</td>
-                        <td class="px-5 py-4 align-top">Optional user authentication (Google sign-in), when enabled</td>
-                        <td class="px-5 py-4 align-top">United States and other locations used by Google (see Google documentation)</td>
-                        <td class="px-5 py-4 align-top">Name, email address, and authentication identifiers. No contract content</td>
-                    </tr>
-                    <tr>
-                        <td class="px-5 py-4 font-medium text-[#0F172A] align-top">SMTP email provider</td>
-                        <td class="px-5 py-4 align-top">Transactional email delivery via SMTP (password reset and account notifications)</td>
-                        <td class="px-5 py-4 align-top">United States and other locations used by the configured SMTP host</td>
-                        <td class="px-5 py-4 align-top">Recipient email address and content required to deliver the notification. No contract content</td>
-                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>

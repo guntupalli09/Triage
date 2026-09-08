@@ -83,6 +83,7 @@ import audit_log
 import upload_security
 import rbac
 import legal_config
+import subprocessors_config
 import retention
 import playbook_workbench
 import playbook_authoring as pa
@@ -3573,6 +3574,7 @@ async def subprocessors_page(request: Request, db: DBSession = Depends(get_db)):
     user = get_current_user(request, db)
     return templates.TemplateResponse("subprocessors.html", {
         "request": request, "user": user, "current_year": datetime.now().year,
+        "subprocessors": subprocessors_config.SUBPROCESSORS,
     })
 
 
