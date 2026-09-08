@@ -21,10 +21,10 @@ from __future__ import annotations
 import io
 import os
 from datetime import datetime
-from typing import Any, Dict, Optional
+from typing import Any, Dict, List, Optional
 
 from docx import Document
-from fastapi import APIRouter, Depends, File, Form, HTTPException, Request, UploadFile
+from fastapi import APIRouter, Depends, File, Form, HTTPException, Query, Request, UploadFile
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from PyPDF2 import PdfReader
@@ -175,15 +175,108 @@ def _extract_text_from_file(file_bytes: bytes, filename: str) -> str:
     raise ValueError("Unsupported file type")
 
 
+def _display_value(value: Any) -> str:
+    if value is True:
+        return "Yes"
+    if value is False:
+        return "No"
+    if isinstance(value, list):
+        return ", ".join(str(v).replace("_", " ") for v in value) if value else "None"
+    if value is None:
+        return ""
+    return str(value)
+
+
+def _import_summary_for_clause(
+    position: Optional[PolicyPosition], source_document: PlaybookSourceDocument, clause_type: str,
+) -> Optional[Dict[str, Any]]:
+    """Structured import buckets for one clause type from a source document —
+    shared by the Workbench (post-import landing) and the legacy import
+    review page."""
+    if position is None:
+        return None
+    current_fields = {f.field_name: f for f in position.fields if f.superseded_by_field_id is None}
+    from_this_doc = {
+        name: f for name, f in current_fields.items()
+        if f.evidence_document_id == source_document.id
+    }
+    missing_labels = []
+    try:
+        pa.validate_position_for_activation(position)
+    except pa.PolicyActivationError as exc:
+        missing_labels = pa.missing_field_labels(clause_type, exc.missing_fields)
+    if not from_this_doc and not missing_labels:
+        return None
+
+    field_labels = pa.FIELD_LABELS.get(clause_type, {})
+    return {
+        "clause_type": clause_type,
+        "label": pa.CLAUSE_TYPE_LABELS[clause_type],
+        "position": position,
+        "established": [
+            {"field_name": name, "label": field_labels.get(name, name),
+             "value": _display_value(f.value_json), "excerpt": f.evidence_excerpt}
+            for name, f in from_this_doc.items() if f.status == "ESTABLISHED"
+        ],
+        "proposed_interpretation": [
+            {"field_name": name, "label": field_labels.get(name, name), "excerpt": f.evidence_excerpt}
+            for name, f in from_this_doc.items() if f.status == "REQUIRES_LAWYER_INTERPRETATION"
+        ],
+        "not_established": [
+            {"field_name": name, "label": field_labels.get(name, name), "excerpt": f.evidence_excerpt}
+            for name, f in from_this_doc.items() if f.status == "NOT_ESTABLISHED"
+        ],
+        "conflicting": [
+            {"field_name": name, "label": field_labels.get(name, name), "excerpt": f.evidence_excerpt}
+            for name, f in from_this_doc.items() if f.status == "CONFLICTING"
+        ],
+        "needs_input": missing_labels,
+    }
+
+
+def _import_summaries_for_document(
+    db: DBSession, playbook: Playbook, source_document: PlaybookSourceDocument,
+) -> List[Dict[str, Any]]:
+    clauses = []
+    for clause_type in pa.CLAUSE_TYPES:
+        position = pa.get_position_for_display(db, playbook.id, clause_type)
+        summary = _import_summary_for_clause(position, source_document, clause_type)
+        if summary:
+            clauses.append(summary)
+    return clauses
+
+
+def _get_owned_source_document(db: DBSession, playbook: Playbook, document_id: int) -> PlaybookSourceDocument:
+    doc = db.query(PlaybookSourceDocument).filter(
+        PlaybookSourceDocument.id == document_id, PlaybookSourceDocument.playbook_id == playbook.id,
+    ).first()
+    if not doc:
+        raise HTTPException(status_code=404, detail="Source document not found")
+    return doc
+
+
 # ---------------------------------------------------------------------------
 # Workbench
 # ---------------------------------------------------------------------------
 
 @router.get("/playbooks/{playbook_id}/workbench", response_class=HTMLResponse)
-async def playbook_workbench(request: Request, playbook_id: int, db: DBSession = Depends(get_db)):
+async def playbook_workbench(
+    request: Request, playbook_id: int,
+    imported: Optional[int] = Query(None),
+    db: DBSession = Depends(get_db),
+):
     user = _require_user(request, db)
     playbook = _get_owned_playbook(db, user, playbook_id)
     coverage = pa.compute_coverage(db, playbook)
+
+    import_notice = None
+    import_by_clause: Dict[str, Dict[str, Any]] = {}
+    if imported is not None:
+        source_document = _get_owned_source_document(db, playbook, imported)
+        import_notice = {"document_id": source_document.id, "filename": source_document.original_filename}
+        for summary in _import_summaries_for_document(db, playbook, source_document):
+            import_by_clause[summary["clause_type"]] = summary
+
     cards = []
     for c in coverage.clauses:
         missing = []
@@ -196,6 +289,7 @@ async def playbook_workbench(request: Request, playbook_id: int, db: DBSession =
             "clause_type": c.clause_type, "label": c.label, "status_bucket": c.status_bucket,
             "position": c.position, "headline": pa.card_headline(c.position),
             "missing_required": missing,
+            "import_summary": import_by_clause.get(c.clause_type),
         })
     # Override-pattern suggestions (see override_learning.py) — recurring
     # departures from a governance recommendation across this playbook's
@@ -210,6 +304,7 @@ async def playbook_workbench(request: Request, playbook_id: int, db: DBSession =
     return templates.TemplateResponse("playbook_workbench.html", {
         "request": request, "user": user, "playbook": playbook,
         "coverage": coverage, "cards": cards, "current_year": datetime.now().year,
+        "import_notice": import_notice,
         # Lifecycle status ("Active") is not production authority — see
         # policy_enforcement.is_policy_authoritative (P0-2).
         "enforcement": policy_enforcement.enforcement_disclosure(),
@@ -641,75 +736,12 @@ async def playbook_import_submit(
     return RedirectResponse(url=f"/playbooks/{playbook.id}/workbench", status_code=302)
 
 
-def _display_value(value: Any) -> str:
-    if value is True:
-        return "Yes"
-    if value is False:
-        return "No"
-    if isinstance(value, list):
-        return ", ".join(str(v).replace("_", " ") for v in value) if value else "None"
-    if value is None:
-        return ""
-    return str(value)
-
-
-def _get_owned_source_document(db: DBSession, playbook: Playbook, document_id: int) -> PlaybookSourceDocument:
-    doc = db.query(PlaybookSourceDocument).filter(
-        PlaybookSourceDocument.id == document_id, PlaybookSourceDocument.playbook_id == playbook.id,
-    ).first()
-    if not doc:
-        raise HTTPException(status_code=404, detail="Source document not found")
-    return doc
-
-
 @router.get("/playbooks/{playbook_id}/import/{document_id}/review", response_class=HTMLResponse)
 async def playbook_import_review(request: Request, playbook_id: int, document_id: int, db: DBSession = Depends(get_db)):
     user = _require_user(request, db)
     playbook = _get_owned_playbook(db, user, playbook_id)
     source_document = _get_owned_source_document(db, playbook, document_id)
-
-    clauses = []
-    for clause_type in pa.CLAUSE_TYPES:
-        position = pa.get_position_for_display(db, playbook.id, clause_type)
-        if position is None:
-            continue
-        current_fields = {f.field_name: f for f in position.fields if f.superseded_by_field_id is None}
-        from_this_doc = {
-            name: f for name, f in current_fields.items()
-            if f.evidence_document_id == source_document.id
-        }
-        if not from_this_doc:
-            continue  # nothing from this document landed on this clause type
-
-        established = [
-            {"field_name": name, "label": pa.FIELD_LABELS[clause_type].get(name, name),
-             "value": _display_value(f.value_json), "excerpt": f.evidence_excerpt, "source": f.source}
-            for name, f in from_this_doc.items() if f.status == "ESTABLISHED"
-        ]
-        # AI-only bucket: real evidence exists, but it's qualitative or an
-        # unverified quantitative claim — never silently folded into
-        # "established," always a distinct, visually separate section
-        # (Phase 3 task item 9).
-        proposed_interpretation = [
-            {"field_name": name, "label": pa.FIELD_LABELS[clause_type].get(name, name), "excerpt": f.evidence_excerpt}
-            for name, f in from_this_doc.items() if f.status == "REQUIRES_LAWYER_INTERPRETATION"
-        ]
-        conflicting = [
-            {"field_name": name, "label": pa.FIELD_LABELS[clause_type].get(name, name), "excerpt": f.evidence_excerpt}
-            for name, f in from_this_doc.items() if f.status == "CONFLICTING"
-        ]
-        missing_labels = []
-        try:
-            pa.validate_position_for_activation(position)
-        except pa.PolicyActivationError as exc:
-            missing_labels = pa.missing_field_labels(clause_type, exc.missing_fields)
-
-        clauses.append({
-            "clause_type": clause_type, "label": pa.CLAUSE_TYPE_LABELS[clause_type],
-            "position": position, "established": established,
-            "proposed_interpretation": proposed_interpretation,
-            "conflicting": conflicting, "needs_input": missing_labels,
-        })
+    clauses = _import_summaries_for_document(db, playbook, source_document)
 
     return templates.TemplateResponse("playbook_import_review.html", {
         "request": request, "user": user, "playbook": playbook, "source_document": source_document,
@@ -792,4 +824,7 @@ async def playbook_ai_import_submit(
     )
     db.commit()
 
-    return RedirectResponse(url=f"/playbooks/{playbook.id}/import/{source_document.id}/review", status_code=302)
+    return RedirectResponse(
+        url=f"/playbooks/{playbook.id}/workbench?imported={source_document.id}",
+        status_code=302,
+    )

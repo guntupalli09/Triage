@@ -29,6 +29,13 @@
     <p class="text-xs text-gray-600 mt-1">{{ enforcement.detail }}</p>
 </div>
 
+{% if import_notice %}
+<div class="premium-card p-4 mb-4 fade-in border-indigo-200 bg-indigo-50" style="transform:none;">
+    <p class="text-sm font-semibold text-[#0F172A]">Draft positions imported from {{ import_notice.filename }}</p>
+    <p class="text-xs text-gray-600 mt-1">Review each clause below. Confirm proposed values, fill any gaps, then approve and activate — nothing is enforced until then.</p>
+</div>
+{% endif %}
+
 <div class="premium-card p-6 mb-8 fade-in" style="transform:none;">
     <div class="flex items-center justify-between mb-2">
         <h2 class="text-sm font-semibold text-[#0F172A]">Policy coverage</h2>
@@ -94,12 +101,66 @@
             </span>
         </div>
         <p class="text-sm text-gray-600 mb-3 flex-1">{{ card.headline }}</p>
-        {% if card.missing_required %}
+        {% if card.import_summary %}
+        <div class="mb-3 pt-3 border-t border-gray-100 text-xs space-y-2.5">
+            {% if card.import_summary.established %}
+            <div>
+                <p class="font-semibold text-green-700 mb-1">Directly established</p>
+                <ul class="space-y-1 text-gray-600">
+                    {% for item in card.import_summary.established %}
+                    <li>
+                        <span class="font-medium text-gray-700">{{ item.label }}</span>{% if item.value %}: {{ item.value }}{% endif %}
+                        {% if item.excerpt %}
+                        <p class="text-gray-400 mt-0.5 line-clamp-2">“{{ item.excerpt[:160] }}{% if item.excerpt|length > 160 %}…{% endif %}”</p>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            {% if card.import_summary.proposed_interpretation %}
+            <div>
+                <p class="font-semibold text-indigo-700 mb-1">Proposed interpretation</p>
+                <ul class="space-y-1 text-indigo-900/80">
+                    {% for item in card.import_summary.proposed_interpretation %}
+                    <li>
+                        <span class="font-medium">{{ item.label }}</span>
+                        {% if item.excerpt %}
+                        <p class="text-indigo-700/70 mt-0.5 line-clamp-2">“{{ item.excerpt[:160] }}{% if item.excerpt|length > 160 %}…{% endif %}”</p>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            {% if card.import_summary.not_established %}
+            <div>
+                <p class="font-semibold text-gray-500 mb-1">Not established</p>
+                <ul class="space-y-1 text-gray-500">
+                    {% for item in card.import_summary.not_established %}
+                    <li>{{ item.label }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            {% if card.import_summary.needs_input %}
+            <div>
+                <p class="font-semibold text-amber-700 mb-1">Needs your input</p>
+                <ul class="space-y-0.5 text-amber-800">
+                    {% for label in card.import_summary.needs_input %}
+                    <li>○ {{ label }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+        {% if card.missing_required and not card.import_summary %}
         <p class="text-xs text-amber-700 mb-3">{{ card.missing_required|length }} question(s) still need an answer.</p>
         {% endif %}
         <div class="flex items-center gap-4">
             <a href="/playbooks/{{ playbook.id }}/positions/{{ card.clause_type }}/edit" class="text-sm font-semibold text-[#0F172A] hover:underline">
-                {% if card.position %}Open →{% else %}Configure →{% endif %}
+                {% if card.import_summary %}Review / Confirm →{% elif card.position %}Open →{% else %}Configure →{% endif %}
             </a>
             {% if card.position %}
             <a href="/playbooks/{{ playbook.id }}/positions/{{ card.clause_type }}/preview" class="text-sm font-medium text-gray-500 hover:text-[#0F172A] hover:underline">

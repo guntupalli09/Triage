@@ -64,7 +64,7 @@ def _register(client, email) -> str:
     token = r.cookies.get("csrf_token")
     client.post("/register", data={
         "email": email, "password": "Str0ngP@ssw0rd!", "confirm_password": "Str0ngP@ssw0rd!",
-        "name": "Firm", "company": "", "csrf_token": token,
+        "name": "Firm", "company": "", "accept_terms": "on", "csrf_token": token,
     })
     db = SessionLocal()
     try:
@@ -77,10 +77,9 @@ def _register(client, email) -> str:
 
 
 def _create_playbook(client, token, name="Test Playbook") -> int:
-    files = {"file": ("t.txt", io.BytesIO(b"cover page"), "text/plain")}
     r = client.post("/playbooks/new", data={
         "name": name, "contract_type": "", "description": "", "lol_enabled": "", "csrf_token": token,
-    }, files=files, follow_redirects=False)
+    }, follow_redirects=False)
     assert r.status_code == 302
     db = SessionLocal()
     try:
@@ -114,11 +113,13 @@ class TestConsentAndDisableSwitch:
         finally:
             db.close()
 
-    def test_import_with_consent_succeeds(self, client):
+    def test_import_with_consent_redirects_to_workbench(self, client):
         token = _register(client, "ai-with-consent@example.com")
         pb_id = _create_playbook(client, token)
         r = _ai_import(client, token, pb_id)
         assert r.status_code == 302
+        assert "/workbench" in r.headers["location"]
+        assert "imported=" in r.headers["location"]
 
     def test_disabled_server_rejects_even_with_consent(self, client, monkeypatch):
         monkeypatch.delenv("AI_ASSISTED_IMPORT_ENABLED", raising=False)
@@ -200,7 +201,7 @@ class TestTrustBoundary:
         finally:
             db.close()
 
-    def test_review_page_shows_proposed_interpretation_bucket(self, client, monkeypatch):
+    def test_workbench_shows_proposed_interpretation_after_import(self, client, monkeypatch):
         class QualitativeClient:
             model_name = "qualitative-test-model"
             def complete(self, system_prompt, user_prompt):
@@ -216,9 +217,11 @@ class TestTrustBoundary:
         r = _ai_import(client, token, pb_id, content=(
             b"Limitation of Liability. We generally push hard on liability and try to keep exposure low."
         ))
-        review = client.get(r.headers["location"])
-        assert "Proposed interpretation" in review.text
-        assert "requires your confirmation" in review.text.lower()
+        workbench = client.get(r.headers["location"])
+        assert workbench.status_code == 200
+        assert "Proposed interpretation" in workbench.text
+        assert "Draft positions imported from" in workbench.text
+        assert "Review / Confirm" in workbench.text
 
 
 # ---------------------------------------------------------------------------
