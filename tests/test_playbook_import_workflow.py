@@ -47,7 +47,7 @@ def _register(client, email) -> str:
     token = r.cookies.get("csrf_token")
     client.post("/register", data={
         "email": email, "password": "Str0ngP@ssw0rd!", "confirm_password": "Str0ngP@ssw0rd!",
-        "name": "Firm", "company": "", "csrf_token": token,
+        "name": "Firm", "company": "", "accept_terms": "on", "csrf_token": token,
     })
     db = SessionLocal()
     try:
@@ -60,10 +60,9 @@ def _register(client, email) -> str:
 
 
 def _create_playbook(client, token, name="Test Playbook") -> int:
-    files = {"file": ("t.txt", io.BytesIO(b"cover page"), "text/plain")}
     r = client.post("/playbooks/new", data={
         "name": name, "contract_type": "", "description": "", "lol_enabled": "", "csrf_token": token,
-    }, files=files, follow_redirects=False)
+    }, follow_redirects=False)
     assert r.status_code == 302
     db = SessionLocal()
     try:
@@ -97,7 +96,7 @@ class TestSingleUploadWorkflow:
         db = SessionLocal()
         try:
             pb = db.query(Playbook).filter(Playbook.id == pb_id).first()
-            assert pb.template_text == "cover page"  # unchanged from playbook creation
+            assert pb.template_text == ""  # no deviation baseline until import sets one
         finally:
             db.close()
 

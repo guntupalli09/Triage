@@ -2960,7 +2960,7 @@ async def playbook_new_submit(
     name: str = Form(...),
     contract_type: str = Form(""),
     description: str = Form(""),
-    file: UploadFile = File(...),
+    file: Optional[UploadFile] = File(None),
     lol_enabled: str = Form(""),
     lol_side: str = Form("mutual"),
     lol_preferred: str = Form(""),
@@ -2977,47 +2977,46 @@ async def playbook_new_submit(
 ):
     user = require_user(request, db)
 
-    if not file.filename:
-        return templates.TemplateResponse("playbook_form.html", {
-            "request": request, "user": user, "playbook": None,
-            "error": "Please upload a template file.", "current_year": datetime.now().year,
-        })
+    template_text = ""
+    template_findings = None
+    template_risk = None
 
-    playbook_filename = upload_security.sanitize_filename(file.filename)
-    ext = os.path.splitext(playbook_filename.lower())[1]
-    if ext not in ALLOWED_EXTENSIONS:
-        return templates.TemplateResponse("playbook_form.html", {
-            "request": request, "user": user, "playbook": None,
-            "error": "Only PDF, DOCX, or TXT files.", "current_year": datetime.now().year,
-        })
+    if file and file.filename:
+        playbook_filename = upload_security.sanitize_filename(file.filename)
+        ext = os.path.splitext(playbook_filename.lower())[1]
+        if ext not in ALLOWED_EXTENSIONS:
+            return templates.TemplateResponse("playbook_form.html", {
+                "request": request, "user": user, "playbook": None,
+                "error": "Only PDF, DOCX, or TXT files.", "current_year": datetime.now().year,
+            })
 
-    file_bytes = await file.read()
-    try:
-        template_text = extract_text_from_file(file_bytes, playbook_filename)
-    except upload_security.UploadRejected as e:
-        return templates.TemplateResponse("playbook_form.html", {
-            "request": request, "user": user, "playbook": None,
-            "error": str(e), "current_year": datetime.now().year,
-        })
-    except Exception:
-        return templates.TemplateResponse("playbook_form.html", {
-            "request": request, "user": user, "playbook": None,
-            "error": "Failed to parse template file.", "current_year": datetime.now().year,
-        })
+        file_bytes = await file.read()
+        try:
+            template_text = extract_text_from_file(file_bytes, playbook_filename)
+        except upload_security.UploadRejected as e:
+            return templates.TemplateResponse("playbook_form.html", {
+                "request": request, "user": user, "playbook": None,
+                "error": str(e), "current_year": datetime.now().year,
+            })
+        except Exception:
+            return templates.TemplateResponse("playbook_form.html", {
+                "request": request, "user": user, "playbook": None,
+                "error": "Failed to parse template file.", "current_year": datetime.now().year,
+            })
 
-    # Pre-analyze the template
-    analysis = rule_engine.analyze(template_text)
-    template_findings = [
-        {"rule_id": f.rule_id, "rule_name": f.rule_name, "title": f.title,
-         "severity": f.severity.value, "rationale": f.rationale,
-         "matched_excerpt": f.matched_excerpt}
-        for f in analysis["findings"]
-    ]
+        analysis = rule_engine.analyze(template_text)
+        template_findings = [
+            {"rule_id": f.rule_id, "rule_name": f.rule_name, "title": f.title,
+             "severity": f.severity.value, "rationale": f.rationale,
+             "matched_excerpt": f.matched_excerpt}
+            for f in analysis["findings"]
+        ]
+        template_risk = analysis["overall_risk"]
 
     playbook = Playbook(
         user_id=user.id, name=name.strip(), contract_type=contract_type.strip() or None,
         description=description.strip() or None, template_text=template_text,
-        template_findings_json=template_findings, template_risk=analysis["overall_risk"],
+        template_findings_json=template_findings, template_risk=template_risk,
     )
     db.add(playbook)
     db.flush()  # assigns playbook.id without ending the transaction
