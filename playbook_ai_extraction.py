@@ -66,7 +66,7 @@ from models import Playbook, PlaybookSourceDocument, PolicyPosition
 
 logger = logging.getLogger(__name__)
 
-AI_EXTRACTION_VERSION = "phase3-ai-assisted-v1"
+AI_EXTRACTION_VERSION = "phase3-ai-assisted-v2"
 
 # Server-level disable switch (task item 2). Off by default -- an
 # organization/operator must explicitly opt in by setting this env var,
@@ -242,9 +242,20 @@ _SYSTEM_PROMPT = (
     "value — do not paraphrase or summarize the quote), and basis, which must be exactly "
     "\"EXTRACTED\" if the excerpt directly and explicitly states this as the position, or "
     "\"INFERRED\" if the excerpt only suggests or implies it and requires human judgment to "
-    "confirm. Never invent a numeric value that is not written in your quote. If a field is "
-    "not addressed at all, omit it entirely -- do not guess. Output ONLY a JSON object with a "
-    "single key \"candidates\" containing a list of these objects, nothing else."
+    "confirm. Never invent a numeric value that is not written in your quote. "
+    "For multiplier fields labeled as multiples of annual contract fees: when the source states "
+    "a cap as 'N months of fees' or 'N months' worth of fees' (not 'N times annual fees'), "
+    "output the literal month count from the quote as the numeric value — downstream "
+    "normalization will convert months to annual-fee multiples. When the source states an "
+    "explicit multiplier such as '2x fees' or 'two times annual fees', output that multiplier. "
+    "Never map a super-cap (e.g. '2× the general liability cap' for confidentiality claims) "
+    "into preferred_multiplier, acceptable_max_multiplier, or negotiate_max_multiplier. "
+    "Map preferred_multiplier only from preferred-position language; acceptable_max_multiplier "
+    "from acceptable-fallback / auto-accept language; negotiate_max_multiplier from maximum "
+    "negotiable-before-escalation language. Do not infer consequential-damages policy unless "
+    "explicitly stated. If a field is not addressed at all, omit it entirely — do not guess. "
+    "Output ONLY a JSON object with a single key \"candidates\" containing a list of these "
+    "objects, nothing else."
 )
 
 
@@ -392,6 +403,234 @@ _WORD_NUMBERS = {
     "fifteen": 15, "twenty": 20, "thirty": 30, "sixty": 60, "ninety": 90,
 }
 
+# Config fields whose values are multiples of annual contract fees (or
+# equivalent fee-period caps expressed as months/years of fees).
+_FEE_MULTIPLIER_FIELDS = frozenset({
+    "preferred_multiplier", "acceptable_max_multiplier", "negotiate_max_multiplier",
+    "exposure_preferred_multiplier", "exposure_acceptable_max_multiplier", "exposure_negotiate_max_multiplier",
+    "fee_preferred_multiplier", "fee_acceptable_max_multiplier", "fee_negotiate_max_multiplier",
+})
+
+_WORD_NUM_ALT = "|".join(_WORD_NUMBERS)
+
+_EXPLICIT_FEE_MULTIPLIER_RE = re.compile(
+    rf"\b(\d+(?:\.\d+)?|{_WORD_NUM_ALT})\s*(?:\(\d+\))?\s*(?:x|times|×)\s*(?:the\s+)?"
+    r"(?:total\s+|aggregate\s+)?(?:annual\s+)?(?:[\w-]+\s+){{0,2}}fees?\b",
+    re.I,
+)
+
+_DURATION_FEES_RE = re.compile(
+    rf"\b(\d+(?:\.\d+)?|{_WORD_NUM_ALT})\s*(?:\(\d+\))?\s*[-\s']*(years?|months?)'?\s*"
+    r"(?:of\s+)?(?:worth\s+of\s+)?fees?\b",
+    re.I,
+)
+
+_TRAILING_MONTHS_FEES_RE = re.compile(
+    rf"(?:fees?\s+(?:paid|payable).{{0,100}}?(\d+(?:\.\d+)?|{_WORD_NUM_ALT}|twelve|six)\s*(?:\(\d+\))?\s*months?|"
+    rf"(?:twelve|12|\d+)\s*(?:\(\d+\))?\s*months?\s+(?:preceding|prior|before).{{0,40}}?fees?)",
+    re.I,
+)
+
+_SUPER_CAP_QUOTE_RE = re.compile(r"\bsuper[-\s]?cap\b|\b2\s*(?:x|times|×)\s*(?:the\s+)?general\s+liability\s+cap\b", re.I)
+
+_GREATER_OF_FIXED_RE = re.compile(
+    r"\bgreater\s+of\b.{0,200}?\$\s*[\d,]+|\bgreater\s+of\b.{0,200}?\b\d[\d,]*\s*(?:million|m\b)",
+    re.I | re.S,
+)
+
+_FIXED_DOLLAR_IN_QUOTE_RE = re.compile(r"\$\s*[\d,]+|\b\d[\d,]*\s*(?:million|m\b)", re.I)
+
+_ACV_CONDITION_RE = re.compile(
+    r"\b(?:annual contract value|ACV|contract value)\b.{0,40}\$\s*[\d,]+|\b(?:below|above|under|over)\s+\$\s*[\d,]+",
+    re.I,
+)
+
+_CAP_FORMULA_DOLLAR_RE = re.compile(
+    r"\bor\s+\$\s*[\d,]+|\bgreater\s+of\b|\bcapped\s+at\s+\$|\bnot\s+exceed\s+\$",
+    re.I,
+)
+
+
+def _cap_formula_fixed_dollar(quote_text: str) -> bool:
+    """True when a dollar amount appears to be part of the cap formula itself
+    (e.g. 'or $1,000,000'), not a deal-size condition (e.g. 'ACV below $250k')."""
+    if not _FIXED_DOLLAR_IN_QUOTE_RE.search(quote_text):
+        return False
+    if _ACV_CONDITION_RE.search(quote_text):
+        return False
+    return bool(_CAP_FORMULA_DOLLAR_RE.search(quote_text))
+
+_FALLBACK_CUE_RE = re.compile(
+    r"\b(?:acceptable\s+fallback|may\s+be\s+accepted\s+without\s+escalation|fallback\s+position)\b", re.I,
+)
+_PREFERRED_CUE_RE = re.compile(r"\b(?:preferred\s+position|preferred\s+cap)\b", re.I)
+_HARD_STOP_CUE_RE = re.compile(r"\b(?:hard\s+stop|do\s+not\s+accept)\b", re.I)
+
+_VENDOR_LIABILITY_RE = re.compile(r"\bvendor(?:'s)?\s+liability\b", re.I)
+_MUTUAL_LIABILITY_RE = re.compile(r"\b(?:each party|both parties|mutual(?:ly)?)\b.{0,40}\bliabilit", re.I)
+
+_PARTNER_ESCALATION_RE = re.compile(
+    r"\b(?:requires?\s+)?(?:supervising\s+)?partner\s+approval\b|\bescalate\b.{0,80}?\bpartner\b", re.I,
+)
+
+
+def _parse_num_token(token: str) -> Optional[float]:
+    token = token.strip().lower()
+    if token in _WORD_NUMBERS:
+        return float(_WORD_NUMBERS[token])
+    try:
+        return float(token)
+    except ValueError:
+        return None
+
+
+def _ladder_prefix(field_name: str) -> str:
+    if field_name.startswith("exposure_"):
+        return "exposure_"
+    if field_name.startswith("fee_"):
+        return "fee_"
+    return ""
+
+
+def _ladder_field(prefix: str, base: str) -> str:
+    return f"{prefix}{base}" if prefix else base
+
+
+def _reassign_ladder_field(candidate: RawCandidate) -> RawCandidate:
+    """When the model assigns a quote to the wrong rung of the negotiation
+    ladder, reassign before verification — e.g. an 'Acceptable Fallback'
+    excerpt mapped to preferred_multiplier."""
+    if candidate.field_name not in _FEE_MULTIPLIER_FIELDS:
+        return candidate
+    prefix = _ladder_prefix(candidate.field_name)
+    quote = candidate.quote
+    if _FALLBACK_CUE_RE.search(quote) and candidate.field_name == _ladder_field(prefix, "preferred_multiplier"):
+        return RawCandidate(
+            _ladder_field(prefix, "acceptable_max_multiplier"),
+            candidate.value, candidate.quote, candidate.basis,
+        )
+    if _PREFERRED_CUE_RE.search(quote) and candidate.field_name == _ladder_field(prefix, "acceptable_max_multiplier"):
+        return RawCandidate(
+            _ladder_field(prefix, "preferred_multiplier"),
+            candidate.value, candidate.quote, candidate.basis,
+        )
+    return candidate
+
+
+def _duration_months_in_quote(quote_text: str) -> Optional[float]:
+    """Extract a fee-period duration in months when the quote expresses a
+    cap as 'N months of fees' (or years), not as an explicit 'Nx fees'
+    multiplier."""
+    m = _DURATION_FEES_RE.search(quote_text)
+    if m:
+        n = _parse_num_token(m.group(1))
+        if n is not None:
+            unit = m.group(2).lower().rstrip("s")
+            return n * 12 if unit == "year" else n
+    m2 = _TRAILING_MONTHS_FEES_RE.search(quote_text)
+    if m2:
+        token = m2.group(1) if m2.lastindex else None
+        if token:
+            n = _parse_num_token(token)
+            if n is not None:
+                return n
+        if re.search(r"\b(?:twelve|12)\b", quote_text, re.I):
+            return 12.0
+    return None
+
+
+def _normalize_fee_multiplier_value(raw_value: float, quote_text: str) -> Tuple[Optional[float], Optional[str]]:
+    """Convert fee-period language ('12 months of fees') into annual-fee
+    multiples when the destination field uses that semantics. Returns
+    (normalized_value, downgrade_reason). downgrade_reason set => do not
+    establish."""
+    if _SUPER_CAP_QUOTE_RE.search(quote_text):
+        return None, "super-cap language must not map to a general liability cap multiplier"
+
+    if _HARD_STOP_CUE_RE.search(quote_text) and re.search(r"\b(?:less\s+than|below|minimum)\b", quote_text, re.I):
+        months = _duration_months_in_quote(quote_text)
+        if months is not None:
+            # Schema has no minimum-cap field; preserve evidence but do not
+            # silently write a misleading preferred/acceptable value.
+            return None, (
+                f"hard-stop minimum of {months:g} months' fees cannot be represented as a "
+                "preferred/acceptable/negotiate multiplier — requires lawyer interpretation"
+            )
+
+    if _GREATER_OF_FIXED_RE.search(quote_text):
+        months = _duration_months_in_quote(quote_text)
+        if months is not None and not _EXPLICIT_FEE_MULTIPLIER_RE.search(quote_text):
+            return None, (
+                "greater-of cap combining a fee period with a fixed dollar floor cannot be "
+                "represented as a single annual-fee multiplier"
+            )
+
+    if _FIXED_DOLLAR_IN_QUOTE_RE.search(quote_text):
+        months = _duration_months_in_quote(quote_text)
+        if months is not None and not _EXPLICIT_FEE_MULTIPLIER_RE.search(quote_text):
+            if _cap_formula_fixed_dollar(quote_text):
+                return None, (
+                    "cap combining a fee period with a fixed dollar floor cannot be "
+                    "represented as a single annual-fee multiplier"
+                )
+
+    explicit = _EXPLICIT_FEE_MULTIPLIER_RE.search(quote_text)
+    if explicit:
+        exp_val = _parse_num_token(explicit.group(1))
+        if exp_val is not None:
+            return float(exp_val), None
+
+    months = _duration_months_in_quote(quote_text)
+    if months is not None:
+        return months / 12.0, None
+
+    return float(raw_value), None
+
+
+def _infer_contract_side(section_texts: List[str], document_text: str) -> Optional[str]:
+    """Infer buy_side vs mutual from asymmetric vendor-liability guidance.
+    Never infer mutual when the source is explicitly customer-side."""
+    combined = "\n".join(section_texts)
+    if _MUTUAL_LIABILITY_RE.search(combined):
+        return None
+    vendor_liability = len(_VENDOR_LIABILITY_RE.findall(combined))
+    customer_refs = len(re.findall(r"\bcustomer\b", combined, re.I))
+    vendor_refs = len(re.findall(r"\bvendor\b", combined, re.I))
+    if vendor_liability >= 1 and vendor_refs >= customer_refs:
+        return "buy_side"
+    # Document-level cue: SaaS customer-side playbook framing
+    if re.search(r"\bcustomer[-\s]side\b|\bSaaS\b.{0,80}?\bcustomer\b", document_text, re.I):
+        if vendor_refs > 0:
+            return "buy_side"
+    return None
+
+
+def _infer_escalation_authority(section_texts: List[str]) -> Optional[str]:
+    combined = "\n".join(section_texts)
+    if _PARTNER_ESCALATION_RE.search(combined):
+        return "Supervising partner"
+    return None
+
+
+def _infer_fallback_text(section_texts: List[str]) -> Optional[str]:
+    combined = "\n".join(section_texts)
+    m = re.search(r"Acceptable Fallback\b.{0,800}", combined, re.I | re.S)
+    if m:
+        return _normalize_ws(m.group(0))[:2000]
+    return None
+
+
+def _apply_position_metadata(db, position: PolicyPosition, metadata: Dict[str, Any], source_document, user) -> None:
+    """Write position-level fields inferred from section context when the
+    model did not propose them explicitly."""
+    if metadata.get("contract_side") and position.contract_side == "mutual":
+        position.contract_side = metadata["contract_side"]
+    if metadata.get("escalation_approval_authority") and not position.escalation_approval_authority:
+        position.escalation_approval_authority = metadata["escalation_approval_authority"]
+    if metadata.get("fallback_text") and not position.fallback_text:
+        position.fallback_text = metadata["fallback_text"]
+    db.flush()
+
 
 def _normalize_ws(text: str) -> str:
     return re.sub(r"\s+", " ", text).strip()
@@ -510,8 +749,20 @@ def verify_and_classify_candidate(
             source="INFERRED",
         )
 
+    established_value = candidate.value
+    if is_numeric and candidate.field_name in _FEE_MULTIPLIER_FIELDS:
+        normalized, downgrade_reason = _normalize_fee_multiplier_value(float(candidate.value), canonical_excerpt)
+        if downgrade_reason:
+            return pex.ProposedField(
+                status="REQUIRES_LAWYER_INTERPRETATION", value=None,
+                evidence_excerpt=canonical_excerpt, evidence_start_index=abs_start, evidence_end_index=abs_end,
+                reason=downgrade_reason,
+                source="INFERRED" if candidate.basis == "INFERRED" else "EXTRACTED",
+            )
+        established_value = normalized
+
     return pex.ProposedField(
-        status="ESTABLISHED", value=candidate.value,
+        status="ESTABLISHED", value=established_value,
         evidence_excerpt=canonical_excerpt, evidence_start_index=abs_start, evidence_end_index=abs_end,
         source="EXTRACTED",
     )
@@ -647,6 +898,7 @@ def import_ai_playbook(
             candidates, parse_errors = parse_llm_response(clause_type, call_result.raw_text)
             report.parse_errors.extend(parse_errors)
             for raw in candidates:
+                raw = _reassign_ladder_field(raw)
                 classified.append((raw, verify_and_classify_candidate(clause_type, raw, section)))
 
         proposed = merge_candidates_for_clause(clause_type, classified)
@@ -655,6 +907,13 @@ def import_ai_playbook(
 
         position, _is_new = pa.get_or_build_editable_position(db, playbook, clause_type)
         pex._apply_proposal(db, position, proposed, source_document, user, extraction_version=AI_EXTRACTION_VERSION)
+        section_texts = [s.text for s in sections if s.text]
+        metadata = {
+            "contract_side": _infer_contract_side(section_texts, source_document.extracted_text),
+            "escalation_approval_authority": _infer_escalation_authority(section_texts),
+            "fallback_text": _infer_fallback_text(section_texts),
+        }
+        _apply_position_metadata(db, position, metadata, source_document, user)
         results[clause_type] = position
 
     return results, report
