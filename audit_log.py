@@ -12,6 +12,10 @@ Deliberately does not raise: a failure to write an audit record must never
 break the user-facing action it's describing (e.g. a contract share
 succeeding is the important thing; if the audit insert itself fails, that's
 logged and swallowed, not surfaced as a 500 to the user).
+
+Audit writes always use a private DB session (same pattern as
+analytics.record_event) so a failed audit insert can never db.rollback()
+an in-flight business transaction such as an AI import.
 """
 from __future__ import annotations
 
@@ -21,6 +25,7 @@ from typing import Optional
 from sqlalchemy.orm import Session
 
 from analytics import extract_ip
+from database import SessionLocal
 from models import AuditLog
 
 logger = logging.getLogger(__name__)
@@ -38,6 +43,11 @@ def record_event(
     detail: Optional[str] = None,
     metadata: Optional[dict] = None,
 ) -> None:
+    """Write one audit row. The ``db`` parameter is retained for call-site
+    compatibility but is never used — audit persistence is isolated so it
+    cannot commit or roll back a caller's open transaction."""
+    _ = db
+    session = SessionLocal()
     try:
         entry = AuditLog(
             event_type=event_type,
@@ -50,8 +60,10 @@ def record_event(
             detail=detail,
             metadata_json=metadata,
         )
-        db.add(entry)
-        db.commit()
+        session.add(entry)
+        session.commit()
     except Exception:
         logger.exception(f"Failed to record audit event: {event_type}")
-        db.rollback()
+        session.rollback()
+    finally:
+        session.close()

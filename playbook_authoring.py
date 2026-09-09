@@ -49,6 +49,7 @@ import payment_terms_policy_engine
 import sla_policy_engine
 import termination_policy_engine
 import warranties_policy_engine
+import playbook_import_persistence as pip
 from models import (
     POLICY_POSITION_SEGMENT_FIELDS, Playbook, PolicyPosition, PolicyPositionApproval,
     PolicyPositionField, PolicyRule,
@@ -1087,13 +1088,15 @@ def get_or_build_editable_position(
         for old_field in current.fields:
             if old_field.superseded_by_field_id is not None:
                 continue
-            db.add(PolicyPositionField(
+            copied = PolicyPositionField(
                 policy_position_id=new_position.id, field_name=old_field.field_name,
                 value_json=old_field.value_json, source=old_field.source, status=old_field.status,
                 confirmed_by_user_id=old_field.confirmed_by_user_id, confirmed_at=old_field.confirmed_at,
-                evidence_document_id=old_field.evidence_document_id, evidence_excerpt=old_field.evidence_excerpt,
+                evidence_excerpt=old_field.evidence_excerpt,
                 evidence_start_index=old_field.evidence_start_index, evidence_end_index=old_field.evidence_end_index,
-            ))
+            )
+            pip.copy_field_evidence_from_revision(db, copied, old_field)
+            db.add(copied)
         db.flush()
 
     return new_position, True
@@ -1146,13 +1149,15 @@ def create_segment_position(
         for old_field in base.fields:
             if old_field.superseded_by_field_id is not None:
                 continue
-            db.add(PolicyPositionField(
+            copied = PolicyPositionField(
                 policy_position_id=new_position.id, field_name=old_field.field_name,
                 value_json=old_field.value_json, source=old_field.source, status=old_field.status,
                 confirmed_by_user_id=old_field.confirmed_by_user_id, confirmed_at=old_field.confirmed_at,
-                evidence_document_id=old_field.evidence_document_id, evidence_excerpt=old_field.evidence_excerpt,
+                evidence_excerpt=old_field.evidence_excerpt,
                 evidence_start_index=old_field.evidence_start_index, evidence_end_index=old_field.evidence_end_index,
-            ))
+            )
+            pip.copy_field_evidence_from_revision(db, copied, old_field)
+            db.add(copied)
         db.flush()
 
     return new_position

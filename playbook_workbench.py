@@ -824,7 +824,6 @@ async def playbook_ai_import_submit(
         use_as_deviation_baseline=False, use_for_policy_extraction=True,
     )
     db.add(source_document)
-    db.flush()
 
     try:
         positions, cost_report = pai.import_ai_playbook(db, playbook, source_document, user, consent=True)

@@ -58,6 +58,7 @@ import liability_policy_engine as lpe
 import payment_terms_policy_engine as pte
 import playbook_authoring as pa
 import playbook_extraction as pex
+import playbook_import_persistence as pip
 import prompt_security
 import sla_policy_engine as sle
 import termination_policy_engine as tpe
@@ -629,6 +630,7 @@ def _apply_position_metadata(db, position: PolicyPosition, metadata: Dict[str, A
         position.escalation_approval_authority = metadata["escalation_approval_authority"]
     if metadata.get("fallback_text") and not position.fallback_text:
         position.fallback_text = metadata["fallback_text"]
+    pip.ensure_source_document_persisted(db, source_document)
     db.flush()
 
 
@@ -863,6 +865,8 @@ def import_ai_playbook(
     if not consent:
         raise AIImportConsentRequiredError("Explicit per-import consent is required")
 
+    pip.ensure_source_document_persisted(db, source_document)
+
     llm_client = client or OpenAIExtractionClient()
     report = AIImportCostReport(model=getattr(llm_client, "model_name", None))
 
@@ -920,6 +924,7 @@ def import_ai_playbook(
             if v2_rules:
                 position.policy_schema_version = 2
                 position.rules_v2_json = v2_rules
+                pip.ensure_source_document_persisted(db, source_document)
                 db.flush()
         results[clause_type] = position
 
