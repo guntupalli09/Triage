@@ -399,6 +399,15 @@ def render_redline(finding: Any, metadata: Optional[Dict[str, Any]] = None) -> O
     if template is None:
         return None
 
+    # Fact-aware gate: do not emit a one-sided consequential redline when
+    # party-direction (or a reconciled Mutual title) already establishes mutuality.
+    if rule_id == "H_CONSEQUENTIAL_01":
+        pd = _get("party_direction") or {}
+        mutuality = pd.get("mutuality_status") if isinstance(pd, dict) else None
+        title = str(_get("title") or "")
+        if mutuality == "mutual" or title.lower().startswith("mutual"):
+            return None
+
     severity = _get("severity")
     severity_value = severity.value if hasattr(severity, "value") else str(severity)
     current_language = _get("exact_snippet") or _get("matched_excerpt") or ""

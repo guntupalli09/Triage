@@ -764,6 +764,12 @@ class Provision:
     # Step 4A.11 Phase 2 — whether this provision's own applicability is
     # conditioned (see policy_engine_core.ConditionEvidence).
     condition: Optional[ConditionEvidence] = None
+    # Full provision window text used for mutuality / framing facts. Distinct
+    # from raw_excerpt, which may be narrowed to the cap-value token (e.g. a
+    # fee-period span) for condition anchoring — mutual openers like
+    # "EACH PARTY'S TOTAL AGGREGATE LIABILITY" live in the window, not the
+    # value excerpt.
+    operative_window_excerpt: str = ""
 
     def provision_label(self) -> str:
         if self.section_label:
@@ -1645,6 +1651,7 @@ def _extract_provision(text: str, anchor_start: int, index: int) -> Provision:
         party_positions=party_positions, consequential_damages_excluded=consequential_excluded,
         consequential_damages_established=consequential_established, consequential_damages_carveouts=carveouts,
         cross_reference=cross_reference_info, condition=condition,
+        operative_window_excerpt=(window[:800] if window else ""),
     )
 
 

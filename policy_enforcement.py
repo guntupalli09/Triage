@@ -531,6 +531,15 @@ def _evaluate_lol_v2_position(
 
     decision = evaluate_liability_policy_v2(policy, contract_cap, eval_ctx, source=source)
     provision = facts.controlling_provision
+    # Policy carve-outs OUTSIDE_GENERAL_CAP vs contract category treatments —
+    # recorded as interaction_facts for the Interaction Engine (single source:
+    # extracted treatments + policy carve_outs; no re-parse).
+    required_outside = _policy_requires_outside_categories(policy, category_treatments)
+    interaction_facts = {}
+    if required_outside:
+        interaction_facts["policy_requires_outside_general_cap"] = required_outside
+    if eval_ctx.acv_source:
+        interaction_facts["acv_source"] = eval_ctx.acv_source.value
     if provision:
         decision = liability_policy_engine.PolicyDecision(
             rule_id=decision.rule_id,
@@ -549,8 +558,43 @@ def _evaluate_lol_v2_position(
             escalate_to=decision.escalate_to,
             fallback_text=decision.fallback_text or position.fallback_text,
             source=decision.source,
+            interaction_facts=interaction_facts,
         )
     return decision
+
+
+_CARVEOUT_CATEGORY_TO_TREATMENT = {
+    "confidentiality": "confidentiality",
+    "intellectual_property": "ip_infringement",
+    "indemnification": "indemnification",
+    "fraud": "fraud",
+    "gross_negligence": "gross_negligence",
+    "willful_misconduct": "willful_misconduct",
+    "data_protection": "data_breach",
+    "data_security": "data_breach",
+    "privacy": "data_breach",
+    "bodily_injury": "bodily_injury_property_damage",
+}
+
+
+def _policy_requires_outside_categories(policy, category_treatments: List[Dict[str, Any]]) -> List[str]:
+    """Categories where policy demands OUTSIDE_GENERAL_CAP but contract puts them inside (or omits carve-out)."""
+    from policy_grammar.carve_outs import CarveOutTreatment
+
+    by_cat = {t.get("category"): t for t in (category_treatments or []) if t.get("category")}
+    missing: List[str] = []
+    for carve in getattr(policy, "carve_outs", []) or []:
+        if getattr(carve, "treatment", None) != CarveOutTreatment.OUTSIDE_GENERAL_CAP:
+            continue
+        cat_key = getattr(carve.category, "value", str(carve.category))
+        treatment_key = _CARVEOUT_CATEGORY_TO_TREATMENT.get(cat_key, cat_key)
+        contract = by_cat.get(treatment_key) or by_cat.get(cat_key)
+        contract_treatment = (contract or {}).get("treatment")
+        # Conflict when the contract affirmatively applies the general cap
+        # to the category (within_general_cap) — the golden §6.3 case.
+        if contract_treatment == "within_general_cap":
+            missing.append(treatment_key)
+    return missing
 
 
 def evaluate_active_policies(
@@ -926,11 +970,23 @@ def apply_policies_for_review(
     if mode == "cutover":
         if not playbook:
             return {"policy_decisions": None, "policy_revision_metadata": None, "interaction_decisions": None}
-        snapshot = snapshot_active_positions(db, playbook.id, context=context)
+        # Single commercial extract → ACV provenance (CONTRACT_ANNUAL_FEES).
+        # Never invents annual_contract_value; resolve_annual_contract_value
+        # applies reviewer deal_value ≻ contract annual fees.
+        enriched_context = dict(context) if context else {}
+        try:
+            from contract_facts.commercial_extract import extract_commercial_facts
+            commercial = extract_commercial_facts(contract_text)
+            if commercial.annual_fees.is_known and commercial.annual_fees.value is not None:
+                enriched_context.setdefault("contract_annual_fees", commercial.annual_fees.value)
+            enriched_context["_commercial_facts"] = commercial
+        except Exception:  # noqa: BLE001 — commercial extract must not abort review
+            commercial = None
+        snapshot = snapshot_active_positions(db, playbook.id, context=enriched_context or None)
         outcomes: List["ClauseEvaluationOutcome"] = []
         result = apply_active_policies(
             db, playbook, contract_text, findings_dict,
-            active_positions=snapshot, outcomes_out=outcomes, context=context,
+            active_positions=snapshot, outcomes_out=outcomes, context=enriched_context or None,
         )
         if result is None:
             return {"policy_decisions": None, "policy_revision_metadata": None, "interaction_decisions": None}
@@ -941,7 +997,17 @@ def apply_policies_for_review(
         # the outcomes this same apply_active_policies() call already
         # computed — no second evaluation pass, no raw-text access.
         import interaction_enforcement
-        result["interaction_decisions"] = interaction_enforcement.apply_interaction_rules(outcomes, findings_dict)
+        result["interaction_decisions"] = interaction_enforcement.apply_interaction_rules(
+            outcomes, findings_dict,
+            commercial_facts=enriched_context.get("_commercial_facts"),
+        )
+        # Surface commercial due_days for consumers that still read payment_terms_json
+        # via analysis — policy path does not overwrite analysis payment terms here.
+        result["commercial_facts"] = (
+            enriched_context.get("_commercial_facts").as_dict()
+            if enriched_context.get("_commercial_facts") is not None
+            else None
+        )
         return result
 
     # legacy and shadow both use the legacy path for the user-visible result.

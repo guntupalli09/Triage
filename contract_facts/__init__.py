@@ -54,6 +54,7 @@ from contract_facts.document_assembly import (
     assemble_document_facts,
     assemble_document_facts_from_legacy,
 )
+from contract_facts.commercial_extract import extract_commercial_facts
 from contract_facts.interaction_hydration import hydrate_decisions_from_document_facts
 from contract_facts.liability_bridge import (
     canonical_liability_from_legacy,
@@ -114,6 +115,7 @@ __all__ = [
     "canonical_liability_from_legacy",
     "category_treatments_for_decision",
     "contract_cap_from_canonical",
+    "extract_commercial_facts",
     "hydrate_decisions_from_document_facts",
     "legacy_cap_expression_to_policy",
     "legacy_cap_value_to_operand",
