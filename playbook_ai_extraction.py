@@ -63,7 +63,7 @@ import prompt_security
 import sla_policy_engine as sle
 import termination_policy_engine as tpe
 import warranties_policy_engine as we
-from models import Playbook, PlaybookSourceDocument, PolicyPosition
+from models import Playbook, PlaybookSourceDocument, PolicyPosition, PolicyPositionField
 
 logger = logging.getLogger(__name__)
 
@@ -488,35 +488,67 @@ _PARTNER_ESCALATION_RE = re.compile(
 # Fallback" text for indemnification positions.
 _FALLBACK_HEADING_RES: Dict[str, re.Pattern] = {
     "limitation_of_liability": re.compile(
-        r"(?:Acceptable\s+Fallback|Fallback\s+Position|May\s+be\s+accepted\s+without\s+escalation)\b.{0,800}",
-        re.I | re.S,
+        r"(?:Acceptable\s+Fallback|Fallback\s+Position|May\s+be\s+accepted\s+without\s+escalation)\b",
+        re.I,
     ),
     "indemnification": re.compile(
-        r"(?:Acceptable\s+(?:Fallback|Indemnification(?:\s+Fallback)?|Redline)|"
+        r"(?:Acceptable\s+Indemnification(?:\s+Fallback)?|"
         r"Fallback\s+(?:Indemnification|Language|Position|Redline)|"
         r"Indemnification\s+(?:Fallback|Redline)|"
-        r"Redline\s+(?:Language|Position).{0,40}Indemnif)\b.{0,800}",
-        re.I | re.S,
+        r"Redline\s+(?:Language|Position).{0,40}Indemnif)\b",
+        re.I,
     ),
     "termination": re.compile(
-        r"(?:Acceptable\s+(?:Fallback|Termination(?:\s+Fallback)?)|Termination\s+Fallback)\b.{0,800}",
-        re.I | re.S,
+        r"(?:Acceptable\s+Termination(?:\s+Fallback)?|Termination\s+Fallback)\b",
+        re.I,
+    ),
+    "confidentiality": re.compile(
+        r"(?:Acceptable\s+Confidentiality(?:\s+Fallback)?|Confidentiality\s+Fallback)\b",
+        re.I,
+    ),
+    "data_security": re.compile(
+        r"(?:Acceptable\s+(?:Data(?:\s+Security)?|Security)(?:\s+Fallback)?|"
+        r"Data(?:\s+Security)?\s+Fallback)\b",
+        re.I,
+    ),
+    "payment_terms": re.compile(
+        r"(?:Acceptable\s+Payment(?:\s+Terms)?(?:\s+Fallback)?|Payment\s+(?:Terms\s+)?Fallback)\b",
+        re.I,
     ),
 }
 _FALLBACK_HEADING_GENERIC_RE = re.compile(
-    r"(?:Acceptable\s+Fallback|Fallback\s+Position|Redline\s+Language)\b.{0,800}",
-    re.I | re.S,
+    r"(?:Fallback\s+Position|Redline\s+Language)\b",
+    re.I,
 )
 
-# LoL-specific language that must not populate indemnification fallback_text.
-_LIABILITY_FALLBACK_BLEED_RE = re.compile(
+# Numbered playbook section headers used to trim padded discovery windows
+# back to one clause's span (e.g. "2. Limitation of Liability").
+_CLAUSE_SECTION_HEADER_RES: Dict[str, re.Pattern] = {
+    "limitation_of_liability": re.compile(r"^\s*\d+\.\s+Limitation\s+of\s+Liability\b", re.I | re.M),
+    "indemnification": re.compile(r"^\s*\d+\.\s+Indemnif\w*", re.I | re.M),
+    "termination": re.compile(r"^\s*\d+\.\s+Terminat\w*", re.I | re.M),
+    "confidentiality": re.compile(r"^\s*\d+\.\s+Confidential\w*", re.I | re.M),
+    "assignment": re.compile(r"^\s*\d+\.\s+Assign\w*", re.I | re.M),
+    "governing_law": re.compile(r"^\s*\d+\.\s+(?:Governing\s+Law|Choice\s+of\s+Law)\b", re.I | re.M),
+    "data_security": re.compile(r"^\s*\d+\.\s+(?:Data\s+Security|Data\s+Protection|Security)\b", re.I | re.M),
+    "ip_ownership": re.compile(r"^\s*\d+\.\s+(?:IP|Intellectual\s+Property)\b", re.I | re.M),
+    "insurance": re.compile(r"^\s*\d+\.\s+Insurance\b", re.I | re.M),
+    "payment_terms": re.compile(r"^\s*\d+\.\s+Payment\b", re.I | re.M),
+    "warranties": re.compile(r"^\s*\d+\.\s+Warrant\w*", re.I | re.M),
+    "sla": re.compile(r"^\s*\d+\.\s+(?:SLA|Service\s+Level)\b", re.I | re.M),
+}
+_ANY_NUMBERED_SECTION_HEADER_RE = re.compile(r"^\s*(\d+)\.\s+([^\n]+)", re.I | re.M)
+
+# Liability-cap fallback signatures that must never attach to non-LoL positions.
+_LIABILITY_FALLBACK_SIGNATURE_RE = re.compile(
     r"\b(?:general\s+liability\s+cap|limitation\s+of\s+liability|liability\s+cap|"
-    r"consequential\s+(?:damages|loss)|indirect\s+(?:damages|loss)|super[-\s]?cap|"
-    r"annual\s+contract\s+value|\bACV\b)\b",
+    r"\d+\s*months?\s+of\s+fees|annual\s+contract\s+value|\bACV\b|"
+    r"exclusions?\s+from\s+the\s+general\s+cap|super[\s-]?cap|"
+    r"consequential\s+(?:damages|loss)|indirect\s+(?:damages|loss))\b",
     re.I,
 )
 _INDEMNIFICATION_FALLBACK_CUE_RE = re.compile(
-    r"\bindemnif|\bhold\s+harmless\b|\bdefend\b|\bthird[-\s]party\s+claims?\b",
+    r"\b(?:shall|must|will)\s+indemnif|\bhold\s+harmless\b|\bdefend\b.{0,40}\bclaims?\b",
     re.I,
 )
 
@@ -659,11 +691,64 @@ def _infer_escalation_authority(section_texts: List[str]) -> Optional[str]:
     return None
 
 
+def _clause_type_for_numbered_header(header_line: str) -> Optional[str]:
+    """Map a numbered section title to a clause type, if recognized."""
+    for clause_type, header_re in _CLAUSE_SECTION_HEADER_RES.items():
+        if header_re.search(header_line):
+            return clause_type
+    return None
+
+
+def _localize_section_for_clause(section_text: str, clause_type: str) -> str:
+    """Trim a padded discovery window to the span belonging to one clause.
+
+    Section discovery pads ±1200 chars around anchor hits, which routinely
+    pulls adjacent playbook sections (e.g. LoL 'Acceptable Fallback') into
+    an indemnification window. Metadata inference must never run on that
+    cross-clause padding — only on this clause's own section span."""
+    if not section_text.strip():
+        return section_text
+    own_header = _CLAUSE_SECTION_HEADER_RES.get(clause_type)
+    start = 0
+    if own_header:
+        own_match = own_header.search(section_text)
+        if own_match:
+            start = own_match.start()
+    else:
+        anchor_re = _ANCHOR_RES.get(clause_type)
+        if anchor_re:
+            anchor_match = anchor_re.search(section_text)
+            if anchor_match:
+                start = anchor_match.start()
+
+    end = len(section_text)
+    for header_match in _ANY_NUMBERED_SECTION_HEADER_RE.finditer(section_text, start + 1):
+        other_type = _clause_type_for_numbered_header(header_match.group(0))
+        if other_type and other_type != clause_type:
+            end = header_match.start()
+            break
+    return section_text[start:end]
+
+
+def _clause_scoped_section_texts(section_texts: List[str], clause_type: str) -> List[str]:
+    scoped = [_localize_section_for_clause(text, clause_type) for text in section_texts if text]
+    return [text for text in scoped if text.strip()]
+
+
+def _extract_fallback_snippet(combined: str, heading_match: re.Match) -> str:
+    """Capture fallback/redline language for one paragraph — never bleed into
+    the next playbook section via an oversized trailing window."""
+    rest = combined[heading_match.start():]
+    boundary = re.search(r"\n\s*\n|\n\s*\d+\.\s+[A-Z]", rest)
+    snippet = rest[: boundary.start()] if boundary else rest
+    return _normalize_ws(snippet)[:2000]
+
+
 def _fallback_matches_clause(text: str, clause_type: str) -> bool:
     """Reject fallback snippets whose subject matter belongs to a different clause."""
+    if clause_type != "limitation_of_liability" and _LIABILITY_FALLBACK_SIGNATURE_RE.search(text):
+        return False
     if clause_type == "indemnification":
-        if _LIABILITY_FALLBACK_BLEED_RE.search(text) and not _INDEMNIFICATION_FALLBACK_CUE_RE.search(text):
-            return False
         if not _INDEMNIFICATION_FALLBACK_CUE_RE.search(text):
             return False
     if clause_type == "limitation_of_liability":
@@ -674,27 +759,56 @@ def _fallback_matches_clause(text: str, clause_type: str) -> bool:
     return True
 
 
-def _infer_fallback_text(section_texts: List[str], clause_type: str) -> Optional[str]:
-    combined = "\n".join(section_texts)
+def _infer_fallback_text(
+    section_texts: List[str], clause_type: str,
+) -> Tuple[Optional[str], Optional[str]]:
+    """Return (fallback_text, evidence_excerpt) scoped to this clause only."""
+    scoped_texts = _clause_scoped_section_texts(section_texts, clause_type)
+    if not scoped_texts:
+        return None, None
+    combined = "\n".join(scoped_texts)
     pattern = _FALLBACK_HEADING_RES.get(clause_type, _FALLBACK_HEADING_GENERIC_RE)
     m = pattern.search(combined)
     if not m:
-        return None
-    candidate = _normalize_ws(m.group(0))[:2000]
-    if not _fallback_matches_clause(candidate, clause_type):
-        return None
-    return candidate
+        return None, None
+    candidate = _extract_fallback_snippet(combined, m)
+    if not candidate or not _fallback_matches_clause(candidate, clause_type):
+        return None, None
+    return candidate, candidate
 
 
-def _apply_position_metadata(db, position: PolicyPosition, metadata: Dict[str, Any], source_document, user) -> None:
-    """Write position-level fields inferred from section context when the
-    model did not propose them explicitly."""
+def _apply_position_metadata(
+    db, position: PolicyPosition, metadata: Dict[str, Any], source_document, user, *,
+    clause_type: str, section_texts: List[str],
+    extraction_version: str = AI_EXTRACTION_VERSION,
+) -> None:
+    """Write position-level fields inferred from clause-scoped section context.
+
+    Fallback/redline language is always re-derived from this clause's own
+    localized section span — metadata from another clause cannot attach."""
     if metadata.get("contract_side") and position.contract_side == "mutual":
         position.contract_side = metadata["contract_side"]
     if metadata.get("escalation_approval_authority") and not position.escalation_approval_authority:
         position.escalation_approval_authority = metadata["escalation_approval_authority"]
-    if metadata.get("fallback_text") and not position.fallback_text:
-        position.fallback_text = metadata["fallback_text"]
+
+    fallback, fallback_evidence = _infer_fallback_text(section_texts, clause_type)
+    if fallback and not position.fallback_text:
+        position.fallback_text = fallback
+        existing_fields = {
+            f.field_name: f for f in position.fields if f.superseded_by_field_id is None
+        }
+        row = existing_fields.get("fallback_text")
+        if row is None:
+            row = PolicyPositionField(policy_position_id=position.id, field_name="fallback_text")
+            db.add(row)
+        row.value_json = fallback
+        row.source = "EXTRACTED"
+        row.status = "ESTABLISHED"
+        pip.assign_field_evidence(row, source_document)
+        row.evidence_excerpt = fallback_evidence or fallback
+        row.extraction_version = extraction_version
+        row.confirmed_by_user_id = None
+        row.confirmed_at = None
     pip.ensure_source_document_persisted(db, source_document)
     db.flush()
 
@@ -977,12 +1091,15 @@ def import_ai_playbook(
         position, _is_new = pa.get_or_build_editable_position(db, playbook, clause_type)
         pex._apply_proposal(db, position, proposed, source_document, user, extraction_version=AI_EXTRACTION_VERSION)
         section_texts = [s.text for s in sections if s.text]
+        scoped_texts = _clause_scoped_section_texts(section_texts, clause_type)
         metadata = {
-            "contract_side": _infer_contract_side(section_texts, source_document.extracted_text),
-            "escalation_approval_authority": _infer_escalation_authority(section_texts),
-            "fallback_text": _infer_fallback_text(section_texts, clause_type),
+            "contract_side": _infer_contract_side(scoped_texts, source_document.extracted_text),
+            "escalation_approval_authority": _infer_escalation_authority(scoped_texts),
         }
-        _apply_position_metadata(db, position, metadata, source_document, user)
+        _apply_position_metadata(
+            db, position, metadata, source_document, user,
+            clause_type=clause_type, section_texts=section_texts,
+        )
         if clause_type == "limitation_of_liability":
             from liability_policy_v2_import import propose_liability_rules_v2_from_sections
             v2_rules = propose_liability_rules_v2_from_sections(section_texts)
