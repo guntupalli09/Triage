@@ -1,10 +1,12 @@
-# Canonical Contract Facts (Phase 1 schema + Phase 2 liability + Phase 3 indemnity)
+# Canonical Contract Facts (Phases 1–4)
 
 Status: **Phase 1 schema package `contract_facts/` is implemented.
 Phase 2 wires Limitation of Liability extraction → canonical facts →
 LoL v2. Phase 3 assembles the Indemnification clause family
 (directional obligations, shared procedure, contextual roles, §6.3
-cross-clause linkage separate from monetary).**
+cross-clause linkage separate from monetary). Phase 4 feeds structured
+`ContractDocumentFacts` into the Interaction Engine and implements the
+vendor-indemnity-inside-general-cap interaction.**
 
 This document defines the authoritative **contract-side** representations
 that TriageCounsel will use after the post-E2E forensic audit. It is the
@@ -125,15 +127,15 @@ indemnification, and cross_clause under `schema_version = 1`.
 
 ---
 
-## 6. Explicit non-goals (Phase 1–3)
+## 6. Explicit non-goals (Phase 1–4)
 
 1. Do **not** migrate the 189 generic rules onto these types.
 2. Do **not** delete legacy `CapValue` / `IndemnityObligation` dataclasses yet —
    dual-running continues; bridges map legacy → canonical.
 3. Do **not** convert fee-period months into money or `months/12` multipliers
    when symbolic comparison is possible.
-4. Phase 3 does **not** yet drive interaction_rules solely from the
-   cross-clause graph (graph is populated; interaction cutover is later).
+4. Phase 4 does **not** re-parse raw text inside interaction predicates —
+   assembly happens upstream from outcome-carried extracts.
 
 ---
 
@@ -166,11 +168,26 @@ indemnification, and cross_clause under `schema_version = 1`.
 5. **`contract_facts.indemnification_bridge`** — legacy →
    `ContractIndemnificationFacts` + `DocumentRoleModel` + `CrossClauseGraph`.
 
+## 7c. Phase 4 delivered (cross-policy interactions)
+
+1. **`document_assembly`** — `assemble_document_facts_from_legacy` builds
+   `ContractDocumentFacts` from liability + indemnification adapter extracts
+   already computed during `evaluate_active_policies` (`ClauseEvaluationOutcome.legacy_facts`).
+2. **`interaction_hydration`** — before gating, empty/lossy
+   `PolicyDecision.category_treatments` are merged from canonical facts,
+   including synthesizing liability `indemnification` → `within_general_cap`
+   from controlling carve-outs or §6.3 `LIABILITY_APPLIES_TO_INDEMNIFICATION`.
+3. **Rule 3 `IX_INDEMNITY_WITHIN_GENERAL_CAP`** — family-level path: graph /
+   liability `indemnification` treatment plus any covered indemnity exposure
+   (explicit per-category uncapped/super_cap still owned by Rules 1–2).
+4. **Wiring** — `interaction_enforcement.apply_interaction_rules` passes
+   `document_facts` into `interaction_engine_core.evaluate`; cutover path
+   unchanged except for outcome-carried extracts.
+
 ### Remaining phases (reference only)
 
 1. Populate commercial extractors into `ContractDocumentFacts`.
-2. Cross-clause graph drives Liability×Indemnification interactions end-to-end.
-3. Align inspectors / selective rules; migrate remaining generics deliberately.
+2. Align inspectors / selective rules; migrate remaining generics deliberately.
 
 ---
 

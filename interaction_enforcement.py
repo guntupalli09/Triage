@@ -10,6 +10,11 @@ run_shadow_comparison already applies to liability alone). This module adds
 no second evaluation path: it consumes the exact List[ClauseEvaluationOutcome]
 evaluate_active_policies() already produced for this review, never re-reads
 contract text, never calls an extractor, never calls evaluate_*_policy again.
+
+Phase 4: assembles ContractDocumentFacts from outcome-carried legacy extracts
+(when present) and passes them into interaction_engine_core.evaluate so
+predicates can use structured cross-clause / carve-out facts instead of
+relying only on lossy PolicyDecision.category_treatments.
 """
 from __future__ import annotations
 
@@ -40,6 +45,31 @@ def decisions_from_outcomes(outcomes: List[ClauseEvaluationOutcome]) -> Dict[str
     decision whose state is NOT_APPLICABLE/REQUIRES_REVIEW/EVALUATION_ERROR
     from being read by a predicate."""
     return {o.clause_type: o.decision for o in outcomes if o.decision is not None}
+
+
+def document_facts_from_outcomes(outcomes: List[ClauseEvaluationOutcome]):
+    """Assemble ContractDocumentFacts from extracts already attached to outcomes.
+
+    Returns None when neither liability nor indemnification extracts are
+    available — evaluate() then behaves as before Phase 4.
+    """
+    liability_facts = None
+    indemnification_facts = None
+    for outcome in outcomes:
+        if outcome.legacy_facts is None:
+            continue
+        if outcome.clause_type == "limitation_of_liability" and liability_facts is None:
+            liability_facts = outcome.legacy_facts
+        elif outcome.clause_type == "indemnification" and indemnification_facts is None:
+            indemnification_facts = outcome.legacy_facts
+    if liability_facts is None and indemnification_facts is None:
+        return None
+    from contract_facts.document_assembly import assemble_document_facts_from_legacy
+
+    return assemble_document_facts_from_legacy(
+        liability_facts=liability_facts,
+        indemnification_facts=indemnification_facts,
+    )
 
 
 def _finding_from_interaction_decision(decision: "ixc.InteractionDecision") -> Optional[Dict[str, Any]]:
@@ -79,7 +109,10 @@ def _finding_from_interaction_decision(decision: "ixc.InteractionDecision") -> O
 
 
 def apply_interaction_rules(
-    outcomes: List[ClauseEvaluationOutcome], findings_dict: List[Dict[str, Any]],
+    outcomes: List[ClauseEvaluationOutcome],
+    findings_dict: List[Dict[str, Any]],
+    *,
+    document_facts=None,
 ) -> Dict[str, Any]:
     """Evaluates the full seven-rule launch catalog against this review's
     already-computed PolicyDecisions, appends a synthetic finding per
@@ -90,9 +123,17 @@ def apply_interaction_rules(
     interaction_decisions_json. Never raises — a rule-level exception is
     already isolated inside interaction_engine_core.evaluate() (see its
     EVALUATION_ERROR handling); this function has nothing further to
-    catch, by construction."""
+    catch, by construction.
+
+    Phase 4: `document_facts` (optional) are structured ContractDocumentFacts.
+    When omitted, they are assembled from outcome.legacy_facts when present.
+    """
     decisions = decisions_from_outcomes(outcomes)
-    interaction_decisions = ixc.evaluate(decisions, ixr.LAUNCH_CATALOG)
+    if document_facts is None:
+        document_facts = document_facts_from_outcomes(outcomes)
+    interaction_decisions = ixc.evaluate(
+        decisions, ixr.LAUNCH_CATALOG, document_facts=document_facts,
+    )
 
     result: Dict[str, Any] = {}
     for decision in interaction_decisions:
@@ -101,7 +142,6 @@ def apply_interaction_rules(
         if finding is not None:
             findings_dict.append(finding)
     return result
-
 
 def mark_dependent_interactions_stale(contract: Contract, changed_clause_type: str, changed_label: str) -> List[str]:
     """The conservative "mark, don't recompute" half of redline
