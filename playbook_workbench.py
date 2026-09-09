@@ -112,7 +112,7 @@ def _field_evidence_summary(position: Optional[PolicyPosition]) -> Dict[str, Dic
 
 
 def _base_context(request: Request, user, playbook: Playbook, clause_type: str, position: Optional[PolicyPosition]) -> dict:
-    return {
+    ctx = {
         "request": request, "user": user, "playbook": playbook,
         "clause_type": clause_type, "clause_label": pa.CLAUSE_TYPE_LABELS[clause_type],
         "position": position, "cfg": (position.config_json or {}) if position else {},
@@ -131,6 +131,12 @@ def _base_context(request: Request, user, playbook: Playbook, clause_type: str, 
         "form_escalation_approval_authority": (position.escalation_approval_authority if position else None) or "",
         "form_fallback_text": (position.fallback_text if position else None) or "",
     }
+    if clause_type == "indemnification":
+        import indemnification_policy_engine as ipe
+        ctx["trigger_option_labels"] = ipe.TRIGGER_LABELS
+    else:
+        ctx["trigger_option_labels"] = {}
+    return ctx
 
 
 def _apply_submitted_values(ctx: dict, clause_type: str, form) -> None:

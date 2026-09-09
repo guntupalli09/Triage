@@ -453,8 +453,11 @@ class TestSixAdapterRegressionSuitesUnaffected:
     def test_indemnification_engine_constants_unchanged(self):
         assert set(ipe.TRIGGERS) == {
             "ip_infringement", "data_breach", "confidentiality",
-            "negligence", "gross_negligence", "willful_misconduct",
+            "negligence", "gross_negligence", "willful_misconduct", "fraud",
+            "law_violations", "bodily_injury_property_damage", "vendor_security_incidents",
+            "customer_materials", "unlawful_use",
         }
+        assert ipe.TRIGGER_LABELS["bodily_injury_property_damage"] == "Bodily injury / property damage"
 
     def test_termination_engine_constants_unchanged(self):
         assert set(tpe.SURVIVAL_TOPICS) == {

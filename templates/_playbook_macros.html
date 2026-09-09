@@ -62,7 +62,7 @@
 </div>
 {% endmacro %}
 
-{% macro checklist(name, selected, options, label, help='') %}
+{% macro checklist(name, selected, options, label, help='', option_labels={}) %}
 <div class="mb-4">
     <label class="block text-sm font-semibold text-[#0F172A] mb-1.5">{{ label }}</label>
     {% if help %}<p class="text-xs text-gray-500 mb-2">{{ help }}</p>{% endif %}
@@ -70,7 +70,7 @@
         {% for opt in options %}
         <label class="flex items-center gap-1.5 text-sm text-gray-700 cursor-pointer">
             <input type="checkbox" name="{{ name }}" value="{{ opt }}" {% if selected and opt in selected %}checked{% endif %} class="rounded border-gray-300">
-            {{ opt|replace('_', ' ')|title }}
+            {{ option_labels.get(opt, opt|replace('_', ' ')|title) }}
         </label>
         {% endfor %}
     </div>

@@ -266,10 +266,19 @@ def build_prompt(clause_type: str, section: DiscoveredSection) -> str:
                             .replace(prompt_security.EXCERPT_END, "[marker removed]") \
                             .replace("```", "'''")
     wrapped = prompt_security.wrap_excerpt(sanitized)
+    extra = ""
+    if clause_type == "indemnification":
+        extra = (
+            "\n\nFor required_protection_triggers_json and prohibited_exposure_triggers_json: "
+            "only use trigger tokens from the schema's allowed_values list. Map playbook "
+            "language to the closest listed trigger (e.g. bodily injury or property damage → "
+            "bodily_injury_property_damage; law/statute/regulation violations → law_violations; "
+            "vendor-caused security incidents → vendor_security_incidents)."
+        )
     return (
         f"Clause type: {clause_type}\n\n"
         f"Candidate fields (JSON schema, output field_name values from this list only):\n{schema_json}\n\n"
-        f"Document excerpt:\n{wrapped}"
+        f"Document excerpt:\n{wrapped}{extra}"
     )
 
 
@@ -473,6 +482,43 @@ _PARTNER_ESCALATION_RE = re.compile(
     r"\b(?:requires?\s+)?(?:supervising\s+)?partner\s+approval\b|\bescalate\b.{0,80}?\bpartner\b", re.I,
 )
 
+# Clause-specific fallback heading patterns — each clause type may label its
+# redline language differently in playbooks; never reuse LoL "Acceptable
+# Fallback" text for indemnification positions.
+_FALLBACK_HEADING_RES: Dict[str, re.Pattern] = {
+    "limitation_of_liability": re.compile(
+        r"(?:Acceptable\s+Fallback|Fallback\s+Position|May\s+be\s+accepted\s+without\s+escalation)\b.{0,800}",
+        re.I | re.S,
+    ),
+    "indemnification": re.compile(
+        r"(?:Acceptable\s+(?:Fallback|Indemnification(?:\s+Fallback)?|Redline)|"
+        r"Fallback\s+(?:Indemnification|Language|Position|Redline)|"
+        r"Indemnification\s+(?:Fallback|Redline)|"
+        r"Redline\s+(?:Language|Position).{0,40}Indemnif)\b.{0,800}",
+        re.I | re.S,
+    ),
+    "termination": re.compile(
+        r"(?:Acceptable\s+(?:Fallback|Termination(?:\s+Fallback)?)|Termination\s+Fallback)\b.{0,800}",
+        re.I | re.S,
+    ),
+}
+_FALLBACK_HEADING_GENERIC_RE = re.compile(
+    r"(?:Acceptable\s+Fallback|Fallback\s+Position|Redline\s+Language)\b.{0,800}",
+    re.I | re.S,
+)
+
+# LoL-specific language that must not populate indemnification fallback_text.
+_LIABILITY_FALLBACK_BLEED_RE = re.compile(
+    r"\b(?:general\s+liability\s+cap|limitation\s+of\s+liability|liability\s+cap|"
+    r"consequential\s+(?:damages|loss)|indirect\s+(?:damages|loss)|super[-\s]?cap|"
+    r"annual\s+contract\s+value|\bACV\b)\b",
+    re.I,
+)
+_INDEMNIFICATION_FALLBACK_CUE_RE = re.compile(
+    r"\bindemnif|\bhold\s+harmless\b|\bdefend\b|\bthird[-\s]party\s+claims?\b",
+    re.I,
+)
+
 
 def _parse_num_token(token: str) -> Optional[float]:
     token = token.strip().lower()
@@ -612,12 +658,31 @@ def _infer_escalation_authority(section_texts: List[str]) -> Optional[str]:
     return None
 
 
-def _infer_fallback_text(section_texts: List[str]) -> Optional[str]:
+def _fallback_matches_clause(text: str, clause_type: str) -> bool:
+    """Reject fallback snippets whose subject matter belongs to a different clause."""
+    if clause_type == "indemnification":
+        if _LIABILITY_FALLBACK_BLEED_RE.search(text) and not _INDEMNIFICATION_FALLBACK_CUE_RE.search(text):
+            return False
+        if not _INDEMNIFICATION_FALLBACK_CUE_RE.search(text):
+            return False
+    if clause_type == "limitation_of_liability":
+        if _INDEMNIFICATION_FALLBACK_CUE_RE.search(text) and not re.search(
+            r"\b(?:liability\s+cap|limitation\s+of\s+liability|general\s+cap)\b", text, re.I,
+        ):
+            return False
+    return True
+
+
+def _infer_fallback_text(section_texts: List[str], clause_type: str) -> Optional[str]:
     combined = "\n".join(section_texts)
-    m = re.search(r"Acceptable Fallback\b.{0,800}", combined, re.I | re.S)
-    if m:
-        return _normalize_ws(m.group(0))[:2000]
-    return None
+    pattern = _FALLBACK_HEADING_RES.get(clause_type, _FALLBACK_HEADING_GENERIC_RE)
+    m = pattern.search(combined)
+    if not m:
+        return None
+    candidate = _normalize_ws(m.group(0))[:2000]
+    if not _fallback_matches_clause(candidate, clause_type):
+        return None
+    return candidate
 
 
 def _apply_position_metadata(db, position: PolicyPosition, metadata: Dict[str, Any], source_document, user) -> None:
@@ -911,7 +976,7 @@ def import_ai_playbook(
         metadata = {
             "contract_side": _infer_contract_side(section_texts, source_document.extracted_text),
             "escalation_approval_authority": _infer_escalation_authority(section_texts),
-            "fallback_text": _infer_fallback_text(section_texts),
+            "fallback_text": _infer_fallback_text(section_texts, clause_type),
         }
         _apply_position_metadata(db, position, metadata, source_document, user)
         results[clause_type] = position
