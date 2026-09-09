@@ -170,6 +170,11 @@ def _get(form, key: str, default: str = "") -> str:
     return str(val).strip()
 
 
+def _checkbox_on(form, key: str) -> bool:
+    """HTML checkboxes omit the field when unchecked — never default to on."""
+    return _get(form, key, "") in ("yes", "true", "1", "on")
+
+
 def _parse_operand(form, prefix: str) -> Dict[str, Any]:
     op_type = _get(form, f"{prefix}_type", "fee_period")
     if op_type == "fee_period":
@@ -212,7 +217,7 @@ def parse_v2_form(form) -> Dict[str, Any]:
 
     bands.append({"kind": "PREFERRED", "expression": _build_expression(form, "v2_preferred"), "conditions": []})
 
-    if _get(form, "v2_fallback_enabled", "yes") in ("yes", "true", "1", "on"):
+    if _checkbox_on(form, "v2_fallback_enabled"):
         fb: Dict[str, Any] = {
             "kind": "ACCEPTABLE_FALLBACK",
             "expression": _build_expression(form, "v2_fallback"),
@@ -227,7 +232,7 @@ def parse_v2_form(form) -> Dict[str, Any]:
             }]
         bands.append(fb)
 
-    if _get(form, "v2_hard_stop_enabled", "yes") in ("yes", "true", "1", "on"):
+    if _checkbox_on(form, "v2_hard_stop_enabled"):
         bands.append({
             "kind": "MINIMUM_ACCEPTABLE",
             "expression": _build_expression(form, "v2_hard_stop"),
@@ -247,7 +252,7 @@ def parse_v2_form(form) -> Dict[str, Any]:
         carve_outs.append(entry)
 
     super_caps: List[Dict[str, Any]] = []
-    if _get(form, "v2_super_cap_enabled", "yes") in ("yes", "true", "1", "on"):
+    if _checkbox_on(form, "v2_super_cap_enabled"):
         cats = form.getlist("v2_super_cap_category") if hasattr(form, "getlist") else []
         if not cats:
             cats = ["confidentiality", "data_security"]
@@ -261,7 +266,7 @@ def parse_v2_form(form) -> Dict[str, Any]:
         })
 
     escalation_rules: List[Dict[str, Any]] = []
-    if _get(form, "v2_escalation_enabled", "yes") in ("yes", "true", "1", "on"):
+    if _checkbox_on(form, "v2_escalation_enabled"):
         acv_gte = _get(form, "v2_escalation_acv_gte", "250000")
         cap_months = float(_get(form, "v2_escalation_cap_lt_months", "12") or "12")
         escalation_rules.append({
@@ -288,7 +293,7 @@ def parse_v2_form(form) -> Dict[str, Any]:
         })
 
     orientation = _get(form, "v2_orientation", "buy_side")
-    prohibit = _get(form, "v2_prohibit_unlimited", "yes") in ("yes", "true", "1", "on")
+    prohibit = _checkbox_on(form, "v2_prohibit_unlimited")
 
     rules = {
         "schema_version": LIABILITY_POLICY_SCHEMA_VERSION,
