@@ -145,6 +145,7 @@ _BOUNDED_VOCABULARIES: Dict[str, Dict[str, tuple]] = {
     },
     "indemnification": {
         "required_protection_triggers_json": tuple(indemnification_policy_engine.TRIGGERS),
+        "permitted_exposure_triggers_json": tuple(indemnification_policy_engine.TRIGGERS),
         "prohibited_exposure_triggers_json": tuple(indemnification_policy_engine.TRIGGERS),
     },
     "termination": {
@@ -1514,6 +1515,7 @@ def _summarize_indemnification(cfg: Dict[str, Any]) -> List[str]:
     trigger_labels = indemnification_policy_engine.TRIGGER_LABELS
     return [
         f"They must indemnify us for → {_fmt_list(cfg.get('required_protection_triggers_json'), labels=trigger_labels)}",
+        f"We will only indemnify for → {_fmt_list(cfg.get('permitted_exposure_triggers_json'), labels=trigger_labels)}",
         f"We will never indemnify for → {_fmt_list(cfg.get('prohibited_exposure_triggers_json'), labels=trigger_labels)}",
         f"Our indemnity limited to third-party claims only → {_fmt_bool(cfg.get('require_exposure_third_party_only'), 'Required', 'Not required')}",
         f"We must control our own defense → {_fmt_bool(cfg.get('require_defense_control_for_exposure'), 'Required', 'Not required')}",
@@ -1854,6 +1856,7 @@ FIELD_LABELS: Dict[str, Dict[str, str]] = {
     },
     "indemnification": {
         "required_protection_triggers_json": "They must indemnify us for",
+        "permitted_exposure_triggers_json": "We will only indemnify for",
         "prohibited_exposure_triggers_json": "We will never indemnify for",
         "require_exposure_third_party_only": "Our indemnity only covers third-party claims",
         "require_defense_control_for_exposure": "We must control our own defense",

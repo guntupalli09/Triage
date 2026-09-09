@@ -270,11 +270,13 @@ def build_prompt(clause_type: str, section: DiscoveredSection) -> str:
     extra = ""
     if clause_type == "indemnification":
         extra = (
-            "\n\nFor required_protection_triggers_json and prohibited_exposure_triggers_json: "
-            "only use trigger tokens from the schema's allowed_values list. Map playbook "
-            "language to the closest listed trigger (e.g. bodily injury or property damage → "
-            "bodily_injury_property_damage; law/statute/regulation violations → law_violations; "
-            "vendor-caused security incidents → vendor_security_incidents)."
+            "\n\nFor required_protection_triggers_json: conduct the counterparty must indemnify us for. "
+            "For permitted_exposure_triggers_json: the ONLY conduct we will agree to indemnify the "
+            "counterparty for (narrow allowed list — e.g. 'only for customer materials'). "
+            "For prohibited_exposure_triggers_json: conduct we will NEVER agree to indemnify the "
+            "counterparty for (explicit carve-outs/exclusions). Do not map a permitted-only list "
+            "into prohibited_exposure_triggers_json. Only use trigger tokens from each "
+            "field's allowed_values list."
         )
     return (
         f"Clause type: {clause_type}\n\n"

@@ -27,6 +27,7 @@ DEFAULT_POLICY = {
     "escalation_approval_authority": "Legal Director",
     "fallback_text": "Approved fallback: indemnification exposure capped at 1x annual fees, third-party claims only.",
     "required_protection_triggers_json": [],
+    "permitted_exposure_triggers_json": [],
     "prohibited_exposure_triggers_json": [],
     "require_exposure_third_party_only": True,
     "require_defense_control_for_exposure": False,

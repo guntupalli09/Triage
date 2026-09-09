@@ -1971,6 +1971,7 @@ class IndemnificationPolicyRuleLike(Protocol):
     escalation_approval_authority: Optional[str]
     fallback_text: Optional[str]
     required_protection_triggers_json: Optional[List[str]]
+    permitted_exposure_triggers_json: Optional[List[str]]
     prohibited_exposure_triggers_json: Optional[List[str]]
     require_exposure_third_party_only: bool
     require_defense_control_for_exposure: bool
@@ -3548,6 +3549,7 @@ def evaluate_indemnification_policy(
     unresolved_facts = list(resolution_reasons)
 
     required_protection = list(policy.required_protection_triggers_json or [])
+    permitted_exposure = list(policy.permitted_exposure_triggers_json or [])
     prohibited_exposure = list(policy.prohibited_exposure_triggers_json or [])
 
     # --- Protection-side unresolved facts ---
@@ -3614,6 +3616,10 @@ def evaluate_indemnification_policy(
     # --- Exposure-side unresolved facts ---
     exposure_monetary_value = None
     if exposure is not None:
+        for trig in permitted_exposure:
+            t = exposure.trigger_treatments.get(trig)
+            if t is not None and t.treatment == "unresolved":
+                unresolved_facts.append(f"exposure coverage for {trig} (ambiguous carve-out language)")
         for trig in prohibited_exposure:
             t = exposure.trigger_treatments.get(trig)
             if t is not None and t.treatment == "unresolved":
@@ -3706,6 +3712,25 @@ def evaluate_indemnification_policy(
                 worst_state = _worse(worst_state, NEGOTIATE)
 
     if exposure is not None:
+        if permitted_exposure:
+            missing_permitted = [
+                t for t in permitted_exposure
+                if exposure.trigger_treatments.get(t) is None
+                or exposure.trigger_treatments[t].treatment != "covered"
+            ]
+            if missing_permitted:
+                notes.append(f"exposure does not cover permitted-only trigger(s): {', '.join(missing_permitted)}")
+                worst_state = _worse(worst_state, NEGOTIATE)
+            extra_permitted = [
+                t for t, tt in exposure.trigger_treatments.items()
+                if tt.established and tt.treatment == "covered" and t not in permitted_exposure
+            ]
+            if extra_permitted:
+                notes.append(
+                    f"exposure covers trigger(s) outside the permitted-only list: {', '.join(extra_permitted)}"
+                )
+                worst_state = _worse(worst_state, NEGOTIATE)
+
         prohibited_hit = [
             t for t in prohibited_exposure
             if exposure.trigger_treatments.get(t) is not None
