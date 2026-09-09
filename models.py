@@ -502,6 +502,11 @@ class PolicyPositionField(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
 
     policy_position = relationship("PolicyPosition", back_populates="fields")
+    evidence_document = relationship(
+        "PlaybookSourceDocument",
+        foreign_keys=[evidence_document_id],
+        back_populates="provenance_fields",
+    )
 
 
 class PlaybookSourceDocument(Base):
@@ -529,6 +534,11 @@ class PlaybookSourceDocument(Base):
     uploaded_at = Column(DateTime, default=datetime.utcnow)
 
     playbook = relationship("Playbook", back_populates="source_documents")
+    provenance_fields = relationship(
+        "PolicyPositionField",
+        back_populates="evidence_document",
+        foreign_keys="PolicyPositionField.evidence_document_id",
+    )
 
 
 class PolicyPositionApproval(Base):

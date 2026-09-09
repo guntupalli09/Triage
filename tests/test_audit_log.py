@@ -28,12 +28,23 @@ def db_session(tmp_path):
 
 
 def test_record_event_writes_expected_fields(db_session):
+    from database import SessionLocal
+    verify = SessionLocal()
+    try:
+        verify.query(AuditLog).filter(AuditLog.event_type == "share_link_created").delete()
+        verify.commit()
+    finally:
+        verify.close()
     audit_log.record_event(
         db_session, "share_link_created",
         actor_user_id=1, target_type="contract", target_id=42,
         success=True, detail=None, metadata={"has_password": True},
     )
-    row = db_session.query(AuditLog).one()
+    verify = SessionLocal()
+    try:
+        row = verify.query(AuditLog).filter(AuditLog.target_id == 42).one()
+    finally:
+        verify.close()
     assert row.event_type == "share_link_created"
     assert row.actor_user_id == 1
     assert row.target_type == "contract"
@@ -49,13 +60,25 @@ def test_record_event_survives_db_failure(db_session, monkeypatch):
     def _boom():
         raise RuntimeError("db exploded")
 
+    monkeypatch.setattr("audit_log.SessionLocal", lambda: db_session)
     monkeypatch.setattr(db_session, "commit", _boom)
     audit_log.record_event(db_session, "share_link_revoked", target_type="contract", target_id=1)
     # No exception propagated — that's the whole point of this test.
 
 
 def test_record_event_without_request_has_no_ip_or_user_agent(db_session):
+    from database import SessionLocal
+    verify = SessionLocal()
+    try:
+        verify.query(AuditLog).filter(AuditLog.target_id == 1, AuditLog.event_type == "share_link_created").delete()
+        verify.commit()
+    finally:
+        verify.close()
     audit_log.record_event(db_session, "share_link_created", target_type="contract", target_id=1)
-    row = db_session.query(AuditLog).one()
+    verify = SessionLocal()
+    try:
+        row = verify.query(AuditLog).filter(AuditLog.target_id == 1, AuditLog.event_type == "share_link_created").one()
+    finally:
+        verify.close()
     assert row.ip_address is None
     assert row.user_agent is None
