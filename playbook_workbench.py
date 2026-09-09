@@ -103,6 +103,18 @@ def _lol_template(clause_type: str, position: Optional[PolicyPosition]) -> str:
     return f"policy_position_fields/{clause_type}.html"
 
 
+def _activation_required_fields_for_edit(
+    clause_type: str, position: Optional[PolicyPosition]
+) -> frozenset[str]:
+    """Fields that must be explicitly answered (Yes or No) before approval.
+
+    LoL v2 positions skip the mechanical require_* gate at activation, so
+    the edit form does not mark those legacy booleans as mandatory."""
+    if clause_type == "limitation_of_liability" and lv2.is_lol_v2_position(position):
+        return frozenset()
+    return frozenset(pa.ACTIVATION_REQUIRED_FIELDS.get(clause_type, []))
+
+
 def _base_context(request: Request, user, playbook: Playbook, clause_type: str, position: Optional[PolicyPosition]) -> dict:
     ctx = {
         "request": request, "user": user, "playbook": playbook,
@@ -112,6 +124,7 @@ def _base_context(request: Request, user, playbook: Playbook, clause_type: str, 
         "field_evidence": _field_evidence_summary(position),
         "field_labels": pa.FIELD_LABELS[clause_type],
         "shared_field_labels": pa.SHARED_FIELD_LABELS,
+        "activation_required_fields": _activation_required_fields_for_edit(clause_type, position),
         "vocab": {f: pa.vocabulary_for(clause_type, f) for f in pa.CLAUSE_TYPE_CONFIG_FIELDS[clause_type]},
         "is_new_revision": False,
         "current_year": datetime.now().year,
