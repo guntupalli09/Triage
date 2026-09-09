@@ -37,6 +37,10 @@ from contract_facts.indemnification import (
     TriggerCoverage,
     TriggerTreatmentFact,
 )
+from contract_facts.indemnification_bridge import (
+    assemble_indemnification_family,
+    canonical_indemnification_from_legacy,
+)
 from contract_facts.liability import (
     LIABILITY_CATEGORIES,
     CategoryTreatmentFact,
@@ -98,6 +102,8 @@ __all__ = [
     "TriggerTreatmentFact",
     "LiabilityProvisionFacts",
     "presence_from_optional_bool",
+    "assemble_indemnification_family",
+    "canonical_indemnification_from_legacy",
     "canonical_liability_from_legacy",
     "category_treatments_for_decision",
     "contract_cap_from_canonical",

@@ -1,14 +1,15 @@
-# Canonical Contract Facts (Phase 1 schema + Phase 2 liability wiring)
+# Canonical Contract Facts (Phase 1 schema + Phase 2 liability + Phase 3 indemnity)
 
 Status: **Phase 1 schema package `contract_facts/` is implemented.
 Phase 2 wires Limitation of Liability extraction → canonical facts →
-LoL v2 evaluation (fee-period first-class; truncated-excerpt bridge
-removed from the decision path; ACV provenance explicit).**
+LoL v2. Phase 3 assembles the Indemnification clause family
+(directional obligations, shared procedure, contextual roles, §6.3
+cross-clause linkage separate from monetary).**
 
 This document defines the authoritative **contract-side** representations
 that TriageCounsel will use after the post-E2E forensic audit. It is the
 companion to `policy_grammar/` (policy-side) and deliberately does **not**
-migrate generic rules in Phase 1–2.
+migrate generic rules in Phase 1–3.
 
 ---
 
@@ -124,14 +125,15 @@ indemnification, and cross_clause under `schema_version = 1`.
 
 ---
 
-## 6. Explicit non-goals (Phase 1–2)
+## 6. Explicit non-goals (Phase 1–3)
 
 1. Do **not** migrate the 189 generic rules onto these types.
-2. Do **not** change indemnity extraction / evaluation in Phase 2 (liability only).
-3. Do **not** delete legacy `CapValue` / `IndemnityObligation` dataclasses yet —
-   dual-running continues; `contract_facts.liability_bridge` maps legacy → canonical.
-4. Do **not** convert fee-period months into money or `months/12` multipliers
+2. Do **not** delete legacy `CapValue` / `IndemnityObligation` dataclasses yet —
+   dual-running continues; bridges map legacy → canonical.
+3. Do **not** convert fee-period months into money or `months/12` multipliers
    when symbolic comparison is possible.
+4. Phase 3 does **not** yet drive interaction_rules solely from the
+   cross-clause graph (graph is populated; interaction cutover is later).
 
 ---
 
@@ -149,17 +151,32 @@ indemnification, and cross_clause under `schema_version = 1`.
 4. **LoL v2 consumer** — `policy_enforcement._evaluate_lol_v2_position` prefers
    canonical caps and forwards category treatments from the bridge.
 
+## 7b. Phase 3 delivered (indemnification clause-family)
+
+1. **Bounded attribute windows** — directional obligations clip at the next
+   numbered subsection so §5.1 triggers do not bleed into §5.2.
+2. **Shared procedure** — §5.3 discovered once (`SharedProcedureRecord`) and
+   attached via `procedure_id` to both Provider→Customer and Customer→Provider
+   obligations; `will` control-defense / cooperate recognized.
+3. **IP enumeration** — patent/copyright/trademark infringement maps to
+   `ip_infringement`.
+4. **§6.3 separated from monetary** — "limitations apply to Section 5" becomes
+   `liability_applies_links` / `CrossClauseKind.LIABILITY_APPLIES_TO_INDEMNIFICATION`;
+   "subject to this Section 5" procedure scope is not `monetary.cross_reference`.
+5. **`contract_facts.indemnification_bridge`** — legacy →
+   `ContractIndemnificationFacts` + `DocumentRoleModel` + `CrossClauseGraph`.
+
 ### Remaining phases (reference only)
 
-1. Populate indemnity + commercial extractors into `ContractDocumentFacts`.
-2. Cross-clause graph drives Liability×Indemnification interactions.
+1. Populate commercial extractors into `ContractDocumentFacts`.
+2. Cross-clause graph drives Liability×Indemnification interactions end-to-end.
 3. Align inspectors / selective rules; migrate remaining generics deliberately.
 
 ---
 
 ## 8. Golden example (schema-level)
 
-For the controlled SaaS test contract, Phase 2 liability population produces
+For the controlled SaaS test contract, Phase 2–3 population produces
 (conceptually):
 
 ```text
@@ -167,6 +184,10 @@ For the controlled SaaS test contract, Phase 2 liability population produces
 annual_contract_value         = $600,000  source=reviewer_deal_value | contract_annual_fees
 # Liability (ContractLiabilityFacts)
 liability.general_cap         = PRESENT FeeRelativeCap(months=6, PAID_OR_PAYABLE, AGREEMENT)
+# Indemnification (ContractIndemnificationFacts)
+indemnification.obligations   = [Provider→Customer IP..., Customer→Provider ...]
+indemnification.procedures    = [§5.3 defense=indemnifying_party, notice=true, coop=true]
+cross_clause                  = LIABILITY_APPLIES_TO_INDEMNIFICATION (§6.3 → §5)
 ```
 
 Full document golden (later phases):
