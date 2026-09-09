@@ -50,6 +50,7 @@ class Policy:
     escalation_approval_authority: Optional[str]
     fallback_text: Optional[str]
     required_protection_triggers_json: Optional[List[str]]
+    permitted_exposure_triggers_json: Optional[List[str]]
     prohibited_exposure_triggers_json: Optional[List[str]]
     require_exposure_third_party_only: bool
     require_defense_control_for_exposure: bool

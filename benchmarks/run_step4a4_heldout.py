@@ -44,6 +44,7 @@ class IndemPolicy:
     escalation_approval_authority: Optional[str] = "Legal Director"
     fallback_text: Optional[str] = "fallback"
     required_protection_triggers_json: Optional[List[str]] = None
+    permitted_exposure_triggers_json: Optional[List[str]] = None
     prohibited_exposure_triggers_json: Optional[List[str]] = None
     require_exposure_third_party_only: bool = False
     require_defense_control_for_exposure: bool = False

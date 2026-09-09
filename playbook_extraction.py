@@ -24,6 +24,8 @@ benchmarks/run_phase2_extraction_benchmark.py.
 """
 from __future__ import annotations
 
+import re
+
 from dataclasses import dataclass
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Tuple
@@ -159,6 +161,11 @@ def _propose_liability_fields(facts: "lpe.LiabilityFacts", contract_side: str) -
 # 2. Indemnification
 # ---------------------------------------------------------------------------
 
+_NARROW_EXPOSURE_SCOPE_RE = re.compile(
+    r"\b(?:only|solely|limited|restricted|confined)\s+(?:for|to)\b", re.I,
+)
+
+
 def _propose_indemnification_fields(facts: "ipe.IndemnificationFacts", contract_side: str) -> Dict[str, ProposedField]:
     out: Dict[str, ProposedField] = {name: _not_established("clause not found or dimension not addressed")
                                       for name in pa.CLAUSE_TYPE_CONFIG_FIELDS["indemnification"]}
@@ -184,6 +191,13 @@ def _propose_indemnification_fields(facts: "ipe.IndemnificationFacts", contract_
         excluded = [t for t, tt in exposure.trigger_treatments.items() if tt.established and tt.treatment == "excluded"]
         if excluded:
             out["prohibited_exposure_triggers_json"] = _established(excluded, exposure.raw_excerpt)
+
+        covered_exposure = [
+            t for t, tt in exposure.trigger_treatments.items() if tt.established and tt.treatment == "covered"
+        ]
+        exposure_text = exposure.raw_excerpt or ""
+        if covered_exposure and _NARROW_EXPOSURE_SCOPE_RE.search(exposure_text):
+            out["permitted_exposure_triggers_json"] = _established(covered_exposure, exposure_text)
 
         if exposure.scope == "third_party_only":
             out["require_exposure_third_party_only"] = _established(True, exposure.raw_excerpt)

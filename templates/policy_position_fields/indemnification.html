@@ -9,6 +9,10 @@
     trigger_option_labels) }}
 
 <h3 class="text-sm font-semibold text-[#0F172A] mb-3 pt-4 mt-2 border-t border-gray-100">What we're willing to owe them</h3>
+{{ checklist('permitted_exposure_triggers_json', cfg.get('permitted_exposure_triggers_json'), vocab.permitted_exposure_triggers_json,
+    field_labels.permitted_exposure_triggers_json,
+    'The only conduct we will agree to indemnify the counterparty for (leave blank if not limited to a narrow list).',
+    trigger_option_labels) }}
 {{ checklist('prohibited_exposure_triggers_json', cfg.get('prohibited_exposure_triggers_json'), vocab.prohibited_exposure_triggers_json,
     field_labels.prohibited_exposure_triggers_json,
     'Conduct we will never agree to indemnify the counterparty for.',

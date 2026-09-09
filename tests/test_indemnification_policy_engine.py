@@ -19,6 +19,7 @@ class FakePolicy:
     escalation_approval_authority: Optional[str] = "Legal Director"
     fallback_text: Optional[str] = "Approved fallback indemnification language."
     required_protection_triggers_json: Optional[List[str]] = None
+    permitted_exposure_triggers_json: Optional[List[str]] = None
     prohibited_exposure_triggers_json: Optional[List[str]] = None
     require_exposure_third_party_only: bool = False
     require_defense_control_for_exposure: bool = False
@@ -398,6 +399,34 @@ class TestTriggerCoverageAndScope:
         )
         d = evaluate(text, prohibited_exposure_triggers_json=["negligence"])
         assert d.state == core.NEGOTIATE
+
+    def test_permitted_only_exposure_negotiates_when_contract_is_broader(self):
+        text = (
+            "12. Indemnification. Customer shall indemnify, defend, and hold harmless Vendor from "
+            "and against any third-party claims arising from Customer's negligence or misuse of "
+            "customer materials. Customer's indemnification obligations shall not exceed 1 times "
+            "the total annual fees paid."
+        )
+        d = evaluate(
+            text,
+            contract_side="buy_side",
+            permitted_exposure_triggers_json=["customer_materials", "unlawful_use"],
+        )
+        assert d.state == core.NEGOTIATE
+        assert "outside the permitted-only list" in (d.explanation or "")
+
+    def test_permitted_only_exposure_accepts_matching_scope(self):
+        text = (
+            "12. Indemnification. Customer shall indemnify Vendor for third-party claims arising "
+            "from customer materials or unlawful use of Vendor services. Customer's indemnification "
+            "obligations shall not exceed 1 times the total annual fees paid."
+        )
+        d = evaluate(
+            text,
+            contract_side="buy_side",
+            permitted_exposure_triggers_json=["customer_materials", "unlawful_use"],
+        )
+        assert d.state == core.ACCEPT
 
     def test_first_party_scope_negotiates_when_third_party_only_required(self):
         text = (
