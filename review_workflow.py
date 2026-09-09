@@ -148,11 +148,20 @@ class ReviewProgress:
 def compute_progress(findings: List[Any], decisions: Dict[str, Dict[str, Any]]) -> ReviewProgress:
     """findings: list of dicts (or Finding-like objects) with a `.rule_id` /
     `["rule_id"]`. Reads only `action`, never re-derives one from severity or
-    redline presence — that's the whole point of a decision record."""
+    redline presence — that's the whole point of a decision record.
+
+    Phase 7: supplemental_generic findings (overlapping LoL/Indem generics
+    when Active policy already covers that family) are excluded from
+    `total` / completion — they remain on the finding list for transparency
+    but do not block review finalization counts.
+    """
+    from contract_facts.finding_authority import actionable_findings
+
     decisions = decisions or {}
+    countable = actionable_findings(findings)
     counts = {"accepted": 0, "edited": 0, "rejected": 0, "flagged": 0, "dismissed": 0}
     first_unresolved = None
-    for key, _f in keyed_findings(findings):
+    for key, _f in keyed_findings(countable):
         d = decisions.get(key)
         if d and d.get("action") in RESOLVING_ACTIONS:
             counts[d["action"]] += 1
@@ -161,14 +170,14 @@ def compute_progress(findings: List[Any], decisions: Dict[str, Dict[str, Any]]) 
 
     resolved = sum(counts.values())
     return ReviewProgress(
-        total=len(findings),
+        total=len(countable),
         resolved=resolved,
         accepted=counts["accepted"],
         edited=counts["edited"],
         rejected=counts["rejected"],
         flagged=counts["flagged"],
         dismissed=counts["dismissed"],
-        is_complete=resolved == len(findings) and len(findings) > 0,
+        is_complete=resolved == len(countable) and len(countable) > 0,
         first_unresolved_key=first_unresolved,
     )
 

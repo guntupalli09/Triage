@@ -237,22 +237,23 @@ _LIABILITY_TOPIC_RE = re.compile(
 )
 
 _CAP_PRESENT_RE = re.compile(
-    r'\bshall\s+not\s+exceed\b|\blimited\s+to\b.{0,60}?\b(?:fees|amounts?|damages?)\b|'
-    r'\bin\s+no\s+event\s+shall\b.{0,80}?\bexceed\b',
+    r'\b(?:shall|will)\s+not\s+exceed\b|\blimited\s+to\b.{0,60}?\b(?:fees|amounts?|damages?)\b|'
+    r'\bin\s+no\s+event\s+(?:shall|will)\b.{0,80}?\bexceed\b',
     re.IGNORECASE | re.DOTALL,
 )
 
 _MUTUAL_APPLICATION_RE = re.compile(
     r"\beither\s+party'?s?\s+(?:aggregate\s+)?liability\b|\bboth\s+parties'?\s+liability\b|"
-    r"\beach\s+party'?s\s+(?:aggregate\s+)?liability\b|\bneither\s+party\s+shall\s+be\s+liable\b",
+    r"\beach\s+party'?s?\s+(?:aggregate\s+)?liability\b|"
+    r"\bneither\s+party\s+(?:shall|will)\s+be\s+liable\b",
     re.IGNORECASE,
 )
 
 _CONSEQUENTIAL_EXCLUDED_RE = re.compile(
     r'\b(?:consequential|indirect|special|incidental|punitive)\s+damages?\b.{0,100}?'
-    r'\b(?:waive[sd]?|exclude[sd]?|shall\s+not\s+be\s+liable|no\s+liability|not\s+be\s+responsible)\b|'
-    r'\b(?:waive[sd]?|exclude[sd]?|neither\s+party\s+shall\s+be\s+liable|'
-    r'in\s+no\s+event\s+shall\b.{0,40}?\bbe\s+liable)\b.{0,100}?'
+    r'\b(?:waive[sd]?|exclude[sd]?|(?:shall|will)\s+not\s+be\s+liable|no\s+liability|not\s+be\s+responsible)\b|'
+    r'\b(?:waive[sd]?|exclude[sd]?|neither\s+party\s+(?:shall|will)\s+be\s+liable|'
+    r'in\s+no\s+event\s+(?:shall|will)\b.{0,40}?\bbe\s+liable)\b.{0,100}?'
     r'\b(?:consequential|indirect|special|incidental|punitive)\s+damages?\b',
     re.IGNORECASE | re.DOTALL,
 )
@@ -318,11 +319,14 @@ class LiabilityQualityReport:
         }
 
 
-def analyze_liability_clause(text: str) -> LiabilityQualityReport:
+def analyze_liability_clause(text: str, document_facts=None) -> LiabilityQualityReport:
     """Pure function: normalized contract text -> LiabilityQualityReport.
 
     Callers should pass already-normalized text, same convention as
     analyze_arbitration_clause / structure_checker.analyze_structure.
+
+    Phase 5: optional `document_facts` overlays established canonical
+    liability dimensions (UNKNOWN never coerced to False).
     """
     if not _LIABILITY_TOPIC_RE.search(text):
         return LiabilityQualityReport(applicable=False, score=None, elements=[])
@@ -375,7 +379,11 @@ def analyze_liability_clause(text: str) -> LiabilityQualityReport:
     ))
 
     score = sum(e.weight for e in elements if e.present)
-    return LiabilityQualityReport(applicable=True, score=score, elements=elements)
+    report = LiabilityQualityReport(applicable=True, score=score, elements=elements)
+    if document_facts is not None:
+        from contract_facts.inspector_adapters import refine_liability_quality
+        report = refine_liability_quality(report, document_facts)
+    return report
 
 
 # ---------------------------------------------------------------------------
@@ -557,8 +565,8 @@ _INDEM_MUTUAL_RE = re.compile(
 )
 
 _INDEM_IP_RE = re.compile(
-    r'\bindemnif\w+\b.{0,150}?\b(?:infring\w+|intellectual\s+property)\b|'
-    r'\b(?:infring\w+|intellectual\s+property)\b.{0,150}?\bindemnif\w+\b',
+    r'\bindemnif\w+\b.{0,200}?\b(?:infring\w+|intellectual\s+property|patent|copyright|trademark)\b|'
+    r'\b(?:infring\w+|intellectual\s+property|patent|copyright|trademark)\b.{0,200}?\bindemnif\w+\b',
     re.IGNORECASE | re.DOTALL,
 )
 
@@ -569,7 +577,7 @@ _INDEM_THIRD_PARTY_SCOPE_RE = re.compile(
 )
 
 _INDEM_DEFENSE_OBLIGATION_RE = re.compile(
-    r'\bshall\s+defend\b|\bdefend,?\s+indemnify\b|\bindemnify,?\s+defend\b|\bduty\s+to\s+defend\b',
+    r'\b(?:shall|will)\s+defend\b|\bdefend,?\s+indemnify\b|\bindemnify,?\s+defend\b|\bduty\s+to\s+defend\b',
     re.IGNORECASE,
 )
 
@@ -580,8 +588,11 @@ _INDEM_NOTIFICATION_RE = re.compile(
 )
 
 _INDEM_LIMITATIONS_PROCEDURE_RE = re.compile(
-    r'\bsole\s+control\s+of\s+(?:the\s+)?defense\b|\bcontrol\s+(?:of\s+)?the\s+defense\b|'
-    r'\breasonable\s+cooperation\b|\bsettle\b.{0,60}?\bwithout\s+(?:the\s+)?(?:prior\s+)?(?:written\s+)?consent\b',
+    r'\bsole\s+control\s+of\s+(?:the\s+)?defense\b|'
+    r'\b(?:shall|will)\s+control\s+(?:of\s+)?the\s+defense\b|'
+    r'\bcontrol\s+(?:of\s+)?the\s+defense\b|'
+    r'\breasonable\s+cooperation\b|\bcooperate\s+fully\b|'
+    r'\bsettle\b.{0,60}?\bwithout\s+(?:the\s+)?(?:prior\s+)?(?:written\s+)?consent\b',
     re.IGNORECASE | re.DOTALL,
 )
 
@@ -625,8 +636,12 @@ class IndemnificationQualityReport:
         }
 
 
-def analyze_indemnification_clause(text: str) -> IndemnificationQualityReport:
-    """Pure function: normalized contract text -> IndemnificationQualityReport."""
+def analyze_indemnification_clause(text: str, document_facts=None) -> IndemnificationQualityReport:
+    """Pure function: normalized contract text -> IndemnificationQualityReport.
+
+    Phase 5: optional `document_facts` overlays established canonical
+    indemnification dimensions (UNKNOWN never coerced to False).
+    """
     if not _INDEMNIFICATION_TOPIC_RE.search(text):
         return IndemnificationQualityReport(applicable=False, score=None, elements=[])
 
@@ -668,7 +683,11 @@ def analyze_indemnification_clause(text: str) -> IndemnificationQualityReport:
         ))
 
     score = sum(e.weight for e in elements if e.present)
-    return IndemnificationQualityReport(applicable=True, score=score, elements=elements)
+    report = IndemnificationQualityReport(applicable=True, score=score, elements=elements)
+    if document_facts is not None:
+        from contract_facts.inspector_adapters import refine_indemnification_quality
+        report = refine_indemnification_quality(report, document_facts)
+    return report
 
 
 # ---------------------------------------------------------------------------

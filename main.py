@@ -1578,6 +1578,20 @@ async def upload_contract(
         db, playbook, contract_text, analysis["findings_dict"], context=review_context,
     )
 
+    # Phase 7: partition overlapping LoL/Indem generics as supplemental when
+    # Active policy already covers those families; recompute risk/blocking.
+    from contract_facts.finding_authority import apply_authority_separation
+    authority = apply_authority_separation(
+        analysis["findings_dict"], policy_result.get("policy_decisions"),
+    )
+    analysis["findings_dict"] = authority["findings"]
+    if authority.get("risk_dashboard"):
+        analysis["risk_dashboard"] = authority["risk_dashboard"]
+    if authority.get("blocking_findings") is not None and policy_result.get("policy_decisions"):
+        # Only replace blocking when Active policy context exists; legacy/
+        # shadow modes keep the rule-engine blocking list.
+        analysis["blocking_findings"] = authority["blocking_findings"]
+
     contract = Contract(
         user_id=user.id,
         filename=filename,
@@ -1720,6 +1734,16 @@ async def batch_upload_submit(
         policy_result = policy_enforcement.apply_policies_for_review(
             db, playbook, text, analysis["findings_dict"],
         )
+
+        from contract_facts.finding_authority import apply_authority_separation
+        authority = apply_authority_separation(
+            analysis["findings_dict"], policy_result.get("policy_decisions"),
+        )
+        analysis["findings_dict"] = authority["findings"]
+        if authority.get("risk_dashboard"):
+            analysis["risk_dashboard"] = authority["risk_dashboard"]
+        if authority.get("blocking_findings") is not None and policy_result.get("policy_decisions"):
+            analysis["blocking_findings"] = authority["blocking_findings"]
 
         contract = Contract(
             user_id=user.id, filename=batch_filename, contract_text=text,

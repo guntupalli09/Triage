@@ -1,4 +1,4 @@
-# Canonical Contract Facts (Phases 1–4)
+# Canonical Contract Facts (Phases 1–7)
 
 Status: **Phase 1 schema package `contract_facts/` is implemented.
 Phase 2 wires Limitation of Liability extraction → canonical facts →
@@ -6,7 +6,10 @@ LoL v2. Phase 3 assembles the Indemnification clause family
 (directional obligations, shared procedure, contextual roles, §6.3
 cross-clause linkage separate from monetary). Phase 4 feeds structured
 `ContractDocumentFacts` into the Interaction Engine and implements the
-vendor-indemnity-inside-general-cap interaction.**
+vendor-indemnity-inside-general-cap interaction. Phase 5 migrates
+overlapping inspectors onto canonical facts and normalizes vocabulary at
+extraction. Phase 6 makes redlines/summaries consume resolved state.
+Phase 7 separates supplemental generics from Active-policy authority.**
 
 This document defines the authoritative **contract-side** representations
 that TriageCounsel will use after the post-E2E forensic audit. It is the
@@ -127,15 +130,16 @@ indemnification, and cross_clause under `schema_version = 1`.
 
 ---
 
-## 6. Explicit non-goals (Phase 1–4)
+## 6. Explicit non-goals (Phase 1–7)
 
-1. Do **not** migrate the 189 generic rules onto these types.
+1. Do **not** migrate the 189 generic rules onto these types wholesale.
 2. Do **not** delete legacy `CapValue` / `IndemnityObligation` dataclasses yet —
    dual-running continues; bridges map legacy → canonical.
 3. Do **not** convert fee-period months into money or `months/12` multipliers
    when symbolic comparison is possible.
-4. Phase 4 does **not** re-parse raw text inside interaction predicates —
+4. Phase 4–7 do **not** re-parse raw text inside interaction predicates —
    assembly happens upstream from outcome-carried extracts.
+5. Do **not** coerce `Presence.UNKNOWN` → ABSENT/False for false-safe confidence.
 
 ---
 
@@ -184,10 +188,40 @@ indemnification, and cross_clause under `schema_version = 1`.
    `document_facts` into `interaction_engine_core.evaluate`; cutover path
    unchanged except for outcome-carried extracts.
 
-### Remaining phases (reference only)
+## 7d. Phase 5 delivered (overlapping generic consumers)
+
+1. **`contract_facts/vocabulary.py`** — shared will/shall, either/each/both,
+   patent/copyright/trademark → IP forms used at extraction and inspectors.
+2. **Extraction normalization** — liability mutuality / cap / consequential
+   and indemnity IP / defense / procedure recognize modern SaaS drafting
+   once (not per-consumer regex drift).
+3. **Inspector adapters** — `analyze_liability_clause` /
+   `analyze_indemnification_clause` accept `document_facts` and overlay only
+   PRESENT/ABSENT canonical dimensions (UNKNOWN left untouched).
+
+## 7e. Phase 6 delivered (downstream consistency)
+
+1. **`render_redline`** — mutuality templates return `None` when
+   `party_direction.mutuality_status == "mutual"` or finding is supplemental.
+2. **Summaries** — `MonetaryTreatment.kind == "not_stated"` summarizes as
+   `"not stated"` (no more `Exposure: unspecified` for silent monetary).
+
+## 7f. Phase 7 delivered (authority separation)
+
+1. **`contract_facts/finding_authority.py`** — overlapping LoL/Indem generic
+   rule_ids become `supplemental_generic` when an Active policy decision
+   exists for that family; otherwise `standalone_generic`.
+2. **Risk / blocking / review counts** — supplemental findings excluded from
+   risk_dashboard recomputation, blocking lists after cutover, and
+   `review_workflow.compute_progress` totals. Document triage remains
+   policy/interaction-first via `document_aggregation`.
+3. **Active/Draft preserved** — only ACTIVE positions create authoritative
+   policy findings (`snapshot_active_positions`).
+
+### Remaining work (reference only)
 
 1. Populate commercial extractors into `ContractDocumentFacts`.
-2. Align inspectors / selective rules; migrate remaining generics deliberately.
+2. Broader selective rule migration beyond LoL/Indem overlap set.
 
 ---
 

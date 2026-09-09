@@ -357,13 +357,17 @@ _EXCLUSION_SIGNAL_RE = re.compile(
     re.I,
 )
 _CAP_TRIGGER_RE = re.compile(
-    r"shall not exceed|is capped at|shall be capped|limited to|shall not be liable for", re.I,
+    r"(?:shall|will) not exceed|is capped at|shall be capped|limited to|(?:shall|will) not be liable for",
+    re.I,
 )
 _AMBIGUITY_SIGNAL_RE = re.compile(
     r"notwithstanding|provided,?\s+however|except as otherwise (?:set forth|provided)|subject to the foregoing",
     re.I,
 )
-_MUTUAL_PHRASE_RE = re.compile(r"\beither party\b|\bboth parties\b|\bneither party\b", re.I)
+_MUTUAL_PHRASE_RE = re.compile(
+    r"\beither party\b|\beach party\b|\bboth parties\b|\bneither party\b|\bthe parties\b",
+    re.I,
+)
 _ROLE_POSITION_RE = re.compile(
     # No blanket re.I: [A-Z] must stay case-SENSITIVE, or Python's
     # IGNORECASE (which applies to character classes, not just literals)
@@ -383,11 +387,11 @@ _ROLE_POSITION_RE = re.compile(
 )
 _CONSEQUENTIAL_RE = re.compile(r"\b(consequential|indirect|special|incidental|punitive)\b[^.]{0,60}\bdamages\b", re.I)
 _EXCLUDE_PHRASE_RE = re.compile(
-    r"shall not be liable for"
-    r"|no party shall be liable"
-    r"|neither party shall be liable"
-    r"|in no event shall\s+(?:\w+\s+){0,3}be liable"
-    r"|(?:are|is|shall be) excluded"
+    r"(?:shall|will) not be liable for"
+    r"|no party (?:shall|will) be liable"
+    r"|neither party (?:shall|will) be liable"
+    r"|in no event (?:shall|will)\s+(?:\w+\s+){0,3}be liable"
+    r"|(?:are|is|shall be|will be) excluded"
     r"|excludes? (?:any|all)?\s*(?:consequential|indirect|special|incidental|punitive)",
     re.I,
 )
@@ -764,6 +768,11 @@ class Provision:
     # Step 4A.11 Phase 2 — whether this provision's own applicability is
     # conditioned (see policy_engine_core.ConditionEvidence).
     condition: Optional[ConditionEvidence] = None
+    # Phase 5: mutuality from the full provision window (not the truncated
+    # cap-component raw_excerpt). True=mutual, False=one-sided, None=unknown.
+    # UNKNOWN stays None — never coerced to False.
+    mutual_application: Optional[bool] = None
+    mutual_application_established: bool = False
 
     def provision_label(self) -> str:
         if self.section_label:
@@ -1638,6 +1647,15 @@ def _extract_provision(text: str, anchor_start: int, index: int) -> Provision:
             priority = {"CONFLICTING": 3, "ESTABLISHED": 2, "NOT_ESTABLISHED": 1, "UNCONDITIONAL": 0}
             condition = max((condition, conflict), key=lambda e: priority.get(e.status, 0))
 
+    # Phase 5: mutuality from the full window (either/each/both/neither party),
+    # not from the truncated fee-period component excerpt.
+    if len(party_positions) >= 2:
+        mutual_application, mutual_established = False, True
+    elif _MUTUAL_PHRASE_RE.search(window):
+        mutual_application, mutual_established = True, True
+    else:
+        mutual_application, mutual_established = None, False
+
     return Provision(
         index=index, section_label=section_label, is_amendment=is_amendment,
         start_index=start_index, end_index=end_index, raw_excerpt=raw_excerpt,
@@ -1645,6 +1663,8 @@ def _extract_provision(text: str, anchor_start: int, index: int) -> Provision:
         party_positions=party_positions, consequential_damages_excluded=consequential_excluded,
         consequential_damages_established=consequential_established, consequential_damages_carveouts=carveouts,
         cross_reference=cross_reference_info, condition=condition,
+        mutual_application=mutual_application,
+        mutual_application_established=mutual_established,
     )
 
 

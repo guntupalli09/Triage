@@ -54,13 +54,31 @@ from contract_facts.document_assembly import (
     assemble_document_facts,
     assemble_document_facts_from_legacy,
 )
+from contract_facts.finding_authority import (
+    AUTHORITY_AUTHORITATIVE,
+    AUTHORITY_STANDALONE,
+    AUTHORITY_SUPPLEMENTAL,
+    annotate_findings_authority,
+    apply_authority_separation,
+    actionable_findings,
+)
 from contract_facts.interaction_hydration import hydrate_decisions_from_document_facts
+from contract_facts.inspector_adapters import (
+    refine_indemnification_quality,
+    refine_liability_quality,
+)
 from contract_facts.liability_bridge import (
     canonical_liability_from_legacy,
     category_treatments_for_decision,
     contract_cap_from_canonical,
     legacy_cap_expression_to_policy,
     legacy_cap_value_to_operand,
+)
+from contract_facts.vocabulary import (
+    IP_INFRINGEMENT_RE,
+    MUTUAL_PARTY_PHRASE_RE,
+    excerpt_covers_ip_infringement,
+    excerpt_signals_mutual_party,
 )
 from contract_facts.presence import Presence, presence_from_optional_bool
 from contract_facts.procedure import DefenseControl, DefenseControlHolder, SharedProcedure
@@ -110,12 +128,24 @@ __all__ = [
     "assemble_document_facts",
     "assemble_document_facts_from_legacy",
     "assemble_indemnification_family",
+    "annotate_findings_authority",
+    "apply_authority_separation",
+    "actionable_findings",
     "canonical_indemnification_from_legacy",
     "canonical_liability_from_legacy",
     "category_treatments_for_decision",
     "contract_cap_from_canonical",
+    "excerpt_covers_ip_infringement",
+    "excerpt_signals_mutual_party",
     "hydrate_decisions_from_document_facts",
     "legacy_cap_expression_to_policy",
     "legacy_cap_value_to_operand",
+    "refine_indemnification_quality",
+    "refine_liability_quality",
     "simple_fee_period_cap",
+    "AUTHORITY_AUTHORITATIVE",
+    "AUTHORITY_STANDALONE",
+    "AUTHORITY_SUPPLEMENTAL",
+    "IP_INFRINGEMENT_RE",
+    "MUTUAL_PARTY_PHRASE_RE",
 ]
