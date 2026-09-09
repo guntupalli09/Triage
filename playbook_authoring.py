@@ -1784,13 +1784,21 @@ def summarize_position(position: PolicyPosition) -> List[str]:
     """The human-readable policy summary a lawyer approves — never a
     JSON/field-name dump. Used on both the Workbench clause card (a
     trimmed version) and the pre-approval review page (in full)."""
-    cfg = position.config_json or {}
-    statuses = _current_field_statuses(position)
-    lines = _SUMMARIZERS[position.clause_type](cfg, statuses)
-    if position.escalation_approval_authority:
-        lines.append(f"Escalation authority → {position.escalation_approval_authority}")
+    is_lol_v2 = (
+        position.clause_type == "limitation_of_liability"
+        and (getattr(position, "policy_schema_version", 1) or 1) == 2
+    )
+    if is_lol_v2:
+        import playbook_liability_v2_review as lv2_review
+        lines = lv2_review.v2_lol_review_summary(position)
     else:
-        lines.append("Escalation authority → Not set")
+        cfg = position.config_json or {}
+        statuses = _current_field_statuses(position)
+        lines = _SUMMARIZERS[position.clause_type](cfg, statuses)
+        if position.escalation_approval_authority:
+            lines.append(f"Escalation authority → {position.escalation_approval_authority}")
+        else:
+            lines.append("Escalation authority → Not set")
     lines.append(f"Fallback/redline language → {'Provided' if position.fallback_text else 'Not provided'}")
     return lines
 
