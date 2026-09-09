@@ -5,7 +5,7 @@
 
 {% macro tristate(name, value, status, label, help='') %}
 <div class="mb-4">
-    <p class="text-sm font-semibold text-[#0F172A] mb-1">{{ label }}</p>
+    <p class="text-sm font-semibold text-[#0F172A] mb-1">{{ label }}{% if name in activation_required_fields %}<span class="text-red-600" aria-hidden="true"> *</span>{% endif %}</p>
     {% if help %}<p class="text-xs text-gray-500 mb-2">{{ help }}</p>{% endif %}
     <div class="flex flex-wrap gap-x-5 gap-y-1">
         <label class="flex items-center gap-1.5 text-sm text-gray-700 cursor-pointer">

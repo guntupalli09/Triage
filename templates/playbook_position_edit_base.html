@@ -82,6 +82,10 @@
            instead of submitting a stale saved row — UX walkthrough P0-1. #}
         <input type="hidden" name="authoring_form" value="1">
 
+        {% if activation_required_fields %}
+        <p class="text-xs text-gray-500 mb-4"><span class="text-red-600">*</span> Required before this position can be approved or activated — choose <strong>Yes</strong> or <strong>No</strong> explicitly; leaving a question on "Not decided yet" is not enough.</p>
+        {% endif %}
+
         {% block clause_fields %}{% endblock %}
 
         <div class="pt-5 mt-2 border-t border-gray-100">

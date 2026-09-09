@@ -566,6 +566,26 @@ class TestCSRF:
 
 
 # ---------------------------------------------------------------------------
+# Required-field markers on edit forms
+# ---------------------------------------------------------------------------
+
+class TestActivationRequiredFieldMarkers:
+    def test_indemnification_edit_marks_activation_required_fields(self, client):
+        token = _register(client, "required-markers@example.com")
+        pb_id = _create_playbook(client, token)
+
+        r = client.get(f"/playbooks/{pb_id}/positions/indemnification/edit")
+        assert r.status_code == 200
+        html = r.text
+
+        assert "Required before this position can be approved or activated" in html
+        assert "Require prompt notice and cooperation first<span class=\"text-red-600\" aria-hidden=\"true\"> *</span>" in html
+        assert "Our indemnity only covers third-party claims<span class=\"text-red-600\" aria-hidden=\"true\"> *</span>" in html
+        # prohibit_* fields are optional at activation — no asterisk.
+        assert "Never accept uncapped indemnity<span class=\"text-red-600\" aria-hidden=\"true\"> *</span>" not in html
+
+
+# ---------------------------------------------------------------------------
 # Legacy path untouched
 # ---------------------------------------------------------------------------
 
