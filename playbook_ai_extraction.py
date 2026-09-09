@@ -539,10 +539,12 @@ _CLAUSE_SECTION_HEADER_RES: Dict[str, re.Pattern] = {
 }
 _ANY_NUMBERED_SECTION_HEADER_RE = re.compile(r"^\s*(\d+)\.\s+([^\n]+)", re.I | re.M)
 
-# Liability-cap fallback signatures that must never attach to non-LoL positions.
-_LIABILITY_FALLBACK_SIGNATURE_RE = re.compile(
-    r"\b(?:general\s+liability\s+cap|limitation\s+of\s+liability|liability\s+cap|"
-    r"\d+\s*months?\s+of\s+fees|annual\s+contract\s+value|\bACV\b|"
+# LoL semantic fallback cues — playbook-agnostic grammar, not Firm-A dollar/month
+# thresholds. Numeric durations and deal-size values may legitimately appear in
+# other clauses (e.g. indemnification exposure caps); only reject foreign-clause
+# subject matter such as general-cap / limitation-of-liability semantics.
+_LOL_SEMANTIC_FALLBACK_RE = re.compile(
+    r"\b(?:general\s+liability\s+cap|limitation\s+of\s+liability|(?:general\s+)?liability\s+cap|"
     r"exclusions?\s+from\s+the\s+general\s+cap|super[\s-]?cap|"
     r"consequential\s+(?:damages|loss)|indirect\s+(?:damages|loss))\b",
     re.I,
@@ -746,7 +748,7 @@ def _extract_fallback_snippet(combined: str, heading_match: re.Match) -> str:
 
 def _fallback_matches_clause(text: str, clause_type: str) -> bool:
     """Reject fallback snippets whose subject matter belongs to a different clause."""
-    if clause_type != "limitation_of_liability" and _LIABILITY_FALLBACK_SIGNATURE_RE.search(text):
+    if clause_type != "limitation_of_liability" and _LOL_SEMANTIC_FALLBACK_RE.search(text):
         return False
     if clause_type == "indemnification":
         if not _INDEMNIFICATION_FALLBACK_CUE_RE.search(text):

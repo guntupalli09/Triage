@@ -47,6 +47,36 @@ class TestClauseSpecificFallbackInference:
         assert evidence is not None
         assert "indemnif" in result.lower()
 
+    def test_indemnification_accepts_fallback_with_playbook_thresholds(self):
+        """Numeric thresholds are playbook values — valid inside indemnification."""
+        sections = [
+            "3. Indemnification\n"
+            "Preferred Position\n"
+            "Vendor shall indemnify Customer for third-party claims.\n"
+            "Acceptable Indemnification Fallback\n"
+            "Vendor shall indemnify, defend, and hold harmless Customer from third-party claims. "
+            "For agreements with annual contract value below $250,000, indemnification exposure "
+            "capped at 12 months of fees is acceptable without escalation.\n\n"
+            "4. Termination\n"
+            "Either party may terminate with 30 days notice.\n",
+        ]
+        result, evidence = pai._infer_fallback_text(sections, "indemnification")
+        assert result is not None
+        assert evidence is not None
+        assert "indemnif" in result.lower()
+        assert "$250,000" in result or "250,000" in result
+        assert "12 months" in result
+
+    def test_indemnification_rejects_lol_semantics_even_with_indemnity_heading(self):
+        """LoL subject matter must not attach even under an indemnification heading."""
+        sections = [
+            "3. Indemnification\n"
+            "Acceptable Indemnification Fallback\n"
+            "A general liability cap equal to 12 months of fees may be accepted without escalation "
+            "for agreements with annual contract value below $250,000.\n",
+        ]
+        assert pai._infer_fallback_text(sections, "indemnification") == (None, None)
+
     def test_liability_still_accepts_acceptable_fallback(self):
         sections = [
             "Limitation of Liability. Preferred cap is 1x fees.\n"

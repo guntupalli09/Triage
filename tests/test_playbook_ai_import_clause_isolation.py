@@ -59,11 +59,11 @@ COMMERCIAL_PLAYBOOK_TEXT = (
     "Vendor-caused security incidents require prompt notification.\n"
 )
 
+# Semantic LoL bleed phrases — not playbook-specific dollar/month thresholds.
 _LIABILITY_BLEED_PHRASES = (
-    "12 months",
-    "$250,000",
     "general liability cap",
     "Exclusions From the General Cap",
+    "limitation of liability",
 )
 
 _CLAUSE_TYPE_RE = re.compile(r"Clause type:\s*(\S+)")
