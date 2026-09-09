@@ -201,6 +201,29 @@ def propose_liability_rules_v2_from_sections(section_texts: List[str]) -> Option
     if not any(b["kind"] == PolicyBandKind.PREFERRED.value for b in bands):
         return None
 
+    preferred = next(b for b in bands if b["kind"] == PolicyBandKind.PREFERRED.value)
+    if (
+        preferred.get("expression", {}).get("operator") == "GREATER_OF"
+        and not any(b["kind"] == PolicyBandKind.ACCEPTABLE_FALLBACK.value for b in bands)
+    ):
+        bands.append({
+            "kind": PolicyBandKind.ACCEPTABLE_FALLBACK.value,
+            "expression": {
+                "operator": "SIMPLE",
+                "operands": [{
+                    "type": "fee_period",
+                    "months": 12,
+                    "basis": FeeBasis.CONTRACT_FEES.value,
+                    "scope": FeeScope.AGREEMENT.value,
+                }],
+            },
+            "conditions": [{
+                "field": "annual_contract_value",
+                "operator": "LT",
+                "value": {"amount": "250000", "currency": "USD"},
+            }],
+        })
+
     if _PARTNER_ESCALATION_RE.search(combined):
         threshold = _acv_threshold(combined) or "250000"
         escalation_rules.append({

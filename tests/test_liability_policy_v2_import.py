@@ -38,3 +38,16 @@ class TestV2ImportProposal:
 
     def test_returns_none_without_preferred_band(self):
         assert propose_liability_rules_v2_from_sections(["No liability guidance here."]) is None
+
+    def test_greater_of_without_explicit_fallback_adds_default_band(self):
+        sections = [
+            (
+                "Preferred Position: Vendor liability shall be limited to the greater of "
+                "fees paid or payable under the agreement during the 12 months preceding the event, or $1,000,000."
+            ),
+        ]
+        rules = propose_liability_rules_v2_from_sections(sections)
+        assert rules is not None
+        fallback = next(b for b in rules["bands"] if b["kind"] == "ACCEPTABLE_FALLBACK")
+        assert fallback["expression"]["operands"][0]["months"] == 12
+        assert fallback["conditions"][0]["value"]["amount"] == "250000"

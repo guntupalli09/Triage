@@ -103,7 +103,33 @@ class TestV2ViewModel:
             db.close()
 
 
+class TestV2FormParsing:
+    def test_fallback_disabled_when_checkbox_unchecked(self):
+        form = {
+            "v2_preferred_operator": "SIMPLE",
+            "v2_preferred_op1_type": "fee_period",
+            "v2_preferred_op1_months": "12",
+            "v2_preferred_op1_basis": "CONTRACT_FEES",
+            "v2_preferred_op1_scope": "AGREEMENT",
+            "v2_orientation": "buy_side",
+        }
+        rules = lv2.parse_v2_form(form)
+        kinds = {b["kind"] for b in rules["bands"]}
+        assert "PREFERRED" in kinds
+        assert "ACCEPTABLE_FALLBACK" not in kinds
+
+
 class TestV2WorkbenchHTTP:
+    def test_firm_a_editor_renders_both_preferred_components(self, client):
+        token, uid = _register(client)
+        pb_id = _playbook(uid, "Firm A UI")
+        _v2_position(pb_id, FIRM_A)
+        r = client.get(f"/playbooks/{pb_id}/positions/limitation_of_liability/edit")
+        assert r.status_code == 200
+        assert "Second component" in r.text
+        assert 'name="v2_preferred_op2_type"' in r.text
+        assert 'name="v2_preferred_op2_amount"' in r.text
+
     def test_v2_editor_loads_without_raw_json(self, client):
         token, uid = _register(client)
         pb_id = _playbook(uid, "Load Test")
