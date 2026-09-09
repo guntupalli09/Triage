@@ -27,6 +27,7 @@ class FakePolicy:
     escalation_approval_authority = "Legal Director"
     fallback_text = "Approved fallback indemnification language."
     required_protection_triggers_json = None
+    permitted_exposure_triggers_json = None
     prohibited_exposure_triggers_json = None
     require_exposure_third_party_only = False
     require_defense_control_for_exposure = False

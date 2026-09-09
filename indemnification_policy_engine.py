@@ -310,7 +310,15 @@ TRIGGER_LABELS: Dict[str, str] = {
 
 _TRIGGER_KEYWORD_RE = {
     "ip_infringement": re.compile(
-        r"\bintellectual property\b.{0,40}\binfringement\b|\bIP infringement\b|\binfringement of\b.{0,40}\bintellectual property\b",
+        r"\bintellectual property\b.{0,40}\binfringement\b"
+        r"|\bIP infringement\b"
+        r"|\binfringement of\b.{0,40}\bintellectual property\b"
+        # Patent/copyright/trademark enumeration (Northstar / controlled SaaS
+        # drafting) — same ip_infringement concept without the words
+        # "intellectual property" / "IP infringement".
+        r"|\binfringe(?:s|ment|ing)?\b.{0,80}\b(?:valid\s+)?(?:U\.?S\.?\s+)?"
+        r"(?:patent|copyright|trademark|trade\s*secret)s?\b"
+        r"|\b(?:patent|copyright|trademark|trade\s*secret)s?\b.{0,40}\binfringe",
         re.I,
     ),
     "data_breach": re.compile(r"\bdata breach(?:es)?\b|\bsecurity breach(?:es)?\b", re.I),
@@ -991,18 +999,18 @@ _EXCLUSION_SIGNAL_RE = re.compile(
 _CAP_TRIGGER_RE = re.compile(r"shall not exceed|is capped at|shall be capped|limited to", re.I)
 
 _DEFENSE_INDEMNIFYING_RE = re.compile(
-    r"indemnifying\s+part(?:y|ies)?\s+shall\s+(?:have\s+the\s+right\s+to\s+)?control(?:\s+the)?\s+(?:the\s+)?defense"
-    r"|shall\s+(?:have\s+the\s+right\s+to\s+)?(?:assume\s+and\s+)?control\s+(?:the\s+)?defense.{0,60}?at\s+its\s+(?:own\s+)?(?:sole\s+)?(?:cost|expense)",
+    r"indemnifying\s+part(?:y|ies)?\s+(?:shall|will)\s+(?:have\s+the\s+right\s+to\s+)?control(?:\s+the)?\s+(?:the\s+)?defense"
+    r"|(?:shall|will)\s+(?:have\s+the\s+right\s+to\s+)?(?:assume\s+and\s+)?control\s+(?:the\s+)?defense.{0,60}?at\s+its\s+(?:own\s+)?(?:sole\s+)?(?:cost|expense)",
     re.I,
 )
 _DEFENSE_INDEMNIFIED_RE = re.compile(
-    r"indemnified\s+part(?:y|ies)?\s+(?:may|shall\s+have\s+the\s+right\s+to)\s+control(?:\s+the)?\s+(?:the\s+)?defense"
-    r"|indemnified\s+part(?:y|ies)?\s+shall\s+control\s+its\s+own\s+defense",
+    r"indemnified\s+part(?:y|ies)?\s+(?:may|(?:shall|will)\s+have\s+the\s+right\s+to)\s+control(?:\s+the)?\s+(?:the\s+)?defense"
+    r"|indemnified\s+part(?:y|ies)?\s+(?:shall|will)\s+control\s+its\s+own\s+defense",
     re.I,
 )
 _DEFENSE_SHARED_RE = re.compile(r"jointly\s+control|participate\s+in\s+(?:the\s+)?defense\s+with", re.I)
 _NAMED_DEFENSE_CONTROL_RE = re.compile(
-    r"(?-i:(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r"))\s+(?i:shall\s+(?:have\s+the\s+right\s+to\s+)?control(?:ling)?|controlling|shall\s+assume\s+and\s+control)\s+(?:the\s+)?defense",
+    r"(?-i:(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r"))\s+(?i:(?:shall|will)\s+(?:have\s+the\s+right\s+to\s+)?control(?:ling)?|controlling|(?:shall|will)\s+assume\s+and\s+control)\s+(?:the\s+)?defense",
     re.I,
 )
 # Step 4A.10.6 — structural (verb-agnostic) recognition of a named
@@ -1064,7 +1072,10 @@ def _classify_self_response_control(window: str) -> Optional[str]:
     return None
 
 _NOTICE_RE = re.compile(r"prompt(?:ly)?\s+(?:written\s+)?notice|notify\s+.{0,20}\s+in\s+writing|written\s+notice\s+of\s+(?:any\s+)?claim", re.I)
-_COOPERATION_RE = re.compile(r"reasonable\s+cooperation|shall\s+cooperate|cooperate\s+(?:fully\s+)?with", re.I)
+_COOPERATION_RE = re.compile(
+    r"reasonable\s+cooperation|(?:shall|will)\s+cooperate|cooperate\s+(?:fully\s+)?with",
+    re.I,
+)
 
 _MONETARY_UNLIMITED_RE = re.compile(
     r"shall\s+not\s+be\s+(?:subject\s+to\s+)?(?:any\s+)?(?:cap|limit)(?:ation)?"
@@ -1140,6 +1151,45 @@ _MONETARY_OTHER_CLAUSE_DISQUALIFIER_RE = re.compile(
     r"(?:general\s+)?liability\s+cap|limitation\s+of\s+liability",
     re.I,
 )
+# Phase 3 — §6.3-style liability applicability is a cross-clause relationship,
+# not a monetary delegation of the indemnity obligation itself.
+_LIABILITY_APPLIES_TO_INDEMNIFICATION_RE = re.compile(
+    r"(?:the\s+)?limitations?\s+(?:of\s+liability\s+)?"
+    r"(?:(?:set\s+forth|stated|contained)\s+in\s+this\s+Section\s+[\d.]+\s+)?"
+    r"(?:shall\s+|will\s+)?apply\s+to\s+"
+    r"(?:(?:any\s+|all\s+)?claims?\s+(?:arising\s+(?:under|from|out\s+of)\s+|under\s+)?)?"
+    r"(?:Section\s+[\d.]+|indemnification\s+(?:obligations?|claims?|provisions?)|"
+    r"\([^)]*Indemnif[^)]*\))",
+    re.I,
+)
+# "subject to this Section 5" in procedure language scopes the procedure to
+# the indemnity family — it does not delegate the obligation's monetary cap.
+_SELF_SECTION_SCOPE_RE = re.compile(
+    r"subject\s+to\s+this\s+(?:Section|Article)\s+[\d.]+",
+    re.I,
+)
+_SUBSECTION_HEADING_RE = re.compile(
+    r"(?:^|\n)\s*(?:Section\s+)?(\d+(?:\.\d+)+)\b",
+    re.I,
+)
+
+
+def _subsection_body_start(text: str, heading_match: "re.Match[str]") -> int:
+    """Start of operative body after a numbered subsection heading.
+
+    Headings are often inline with the first sentence
+    ("5.3 Indemnification Procedure. The indemnifying party will...").
+    Consume a short Title-Case label and its trailing period, but do not
+    swallow the operative sentence.
+    """
+    after = text[heading_match.end():]
+    title = re.match(
+        r"\s*(?:[A-Z][\w'/-]*(?:\s+(?:of|and|the|for|to|under|in)\b)?(?:\s+[A-Z][\w'/-]*){0,6})?\.?",
+        after,
+    )
+    if title:
+        return heading_match.end() + title.end()
+    return heading_match.end()
 _MONETARY_DISQUALIFIER_PROXIMITY = 40
 _SECTION_REF_NEAR_RE = re.compile(r"Section\s+\d+(?:\.\d+)?", re.I)
 
@@ -1873,6 +1923,32 @@ class TriggerTreatment:
 
 
 @dataclass
+class SharedProcedureRecord:
+    """Legacy engine-side shared procedure (§5.3) attachable to multiple obligations."""
+
+    procedure_id: str
+    section_label: Optional[str]
+    parent_section: Optional[str]
+    defense_control: str
+    notice_required: Optional[bool]
+    cooperation_required: Optional[bool]
+    raw_excerpt: str
+    start_index: int
+    end_index: int
+
+
+@dataclass
+class LiabilityIndemnityLinkRecord:
+    """§6.3-style liability limitations apply to indemnification — not monetary."""
+
+    source_section_label: Optional[str]
+    target_section_label: Optional[str]
+    raw_excerpt: str
+    start_index: int
+    end_index: int
+
+
+@dataclass
 class IndemnityObligation:
     """One directional promise: indemnifying_role indemnifies indemnified_role."""
     indemnifying_role: str
@@ -1948,6 +2024,8 @@ class IndemnityObligation:
     # In every case this forces REQUIRES_REVIEW — the AI never
     # establishes, overrides, or silently confirms the obligation itself.
     ai_identified_unreconciled_context: Optional[str] = None
+    # Phase 3 — shared procedure (§5.3) referenced by id when attached.
+    procedure_id: Optional[str] = None
 
     def label(self) -> str:
         prefix = f"Section {self.section_label} — " if self.section_label else ""
@@ -1964,6 +2042,9 @@ class IndemnificationFacts:
     # clause_found) but audited directly in Step 4A.9.1's reports.
     absence_state: str = "CONFIRMED_ABSENT"
     semantic_discovery_error: Optional[str] = None
+    # Phase 3 — clause-family assembly outputs.
+    shared_procedures: List[SharedProcedureRecord] = field(default_factory=list)
+    liability_applies_links: List[LiabilityIndemnityLinkRecord] = field(default_factory=list)
 
 
 class IndemnificationPolicyRuleLike(Protocol):
@@ -2280,6 +2361,10 @@ def _classify_monetary(window: str, obligation_start: int, full_text: Optional[s
         )
 
     xref = _core_find_delegating_cross_reference(window)
+    if xref is not None and _xref_is_non_monetary_scope(window, xref):
+        # Procedure self-scope ("subject to this Section 5") or §6.3-style
+        # liability applicability — not a monetary cap delegation.
+        xref = None
     unlimited = _MONETARY_UNLIMITED_RE.search(window)
     mult = _MONETARY_MULTIPLIER_RE.search(window)
     mult_word = _MONETARY_MULTIPLIER_WORD_RE.search(window)
@@ -2316,28 +2401,41 @@ def _classify_monetary(window: str, obligation_start: int, full_text: Optional[s
         # it's a delegation to another clause, same as an explicit
         # cross-reference, and must not be silently treated as "not
         # addressed" (which downstream checks do not escalate on).
+        # Phase 3: when the only "delegation" signal is §6.3 applicability
+        # language (limitations apply to indemnification), that belongs on
+        # the cross-clause graph — not as monetary cross_reference.
         disq_label = mult_disq_label or fixed_disq_label
         if disq_label is not None:
+            if _LIABILITY_APPLIES_TO_INDEMNIFICATION_RE.search(window):
+                return MonetaryTreatment(kind="not_stated")
             return MonetaryTreatment(kind="cross_reference", cross_reference_label=disq_label, raw_excerpt="")
         return MonetaryTreatment(kind="not_stated")
     # Earliest mention in the obligation's own window governs — consistent
     # with "closest stated position wins" used throughout the LoL adapter.
     first = min(candidates, key=lambda m: m.start())
     if first is xref:
-        xref_label = f"{xref.group(1)} {xref.group(2)}"
-        # Step 4A.11 — attempt deterministic SOURCE->REFERENCE->TARGET->
-        # CONCEPT->VALUE resolution before falling back to the unresolved
-        # "cross_reference" kind. `full_text` is only provided by the
-        # top-level obligation-extraction call sites (which have the whole
-        # document available); the local-snippet callers used for symmetry
-        # comparison (_snapshot_indemnity_attribution) never pass it, so
-        # this is purely additive there — identical fallback behavior to
-        # before this step.
-        if full_text is not None:
-            status, resolved, _provenance = _resolve_cross_referenced_monetary(full_text, xref.group(1), xref.group(2))
-            if status == "ESTABLISHED" and resolved is not None:
-                return resolved
-        return MonetaryTreatment(kind="cross_reference", cross_reference_label=xref_label, raw_excerpt=_excerpt(window, xref.start(), xref.end()))
+        if _xref_is_non_monetary_scope(window, xref):
+            # Drop non-monetary scope/linkage; continue with any remaining
+            # monetary candidates in this window.
+            remaining = [c for c in (unlimited, mult, fixed, duration_fees) if c is not None]
+            if not remaining:
+                return MonetaryTreatment(kind="not_stated")
+            first = min(remaining, key=lambda m: m.start())
+        else:
+            xref_label = f"{xref.group(1)} {xref.group(2)}"
+            # Step 4A.11 — attempt deterministic SOURCE->REFERENCE->TARGET->
+            # CONCEPT->VALUE resolution before falling back to the unresolved
+            # "cross_reference" kind. `full_text` is only provided by the
+            # top-level obligation-extraction call sites (which have the whole
+            # document available); the local-snippet callers used for symmetry
+            # comparison (_snapshot_indemnity_attribution) never pass it, so
+            # this is purely additive there — identical fallback behavior to
+            # before this step.
+            if full_text is not None:
+                status, resolved, _provenance = _resolve_cross_referenced_monetary(full_text, xref.group(1), xref.group(2))
+                if status == "ESTABLISHED" and resolved is not None:
+                    return resolved
+            return MonetaryTreatment(kind="cross_reference", cross_reference_label=xref_label, raw_excerpt=_excerpt(window, xref.start(), xref.end()))
     # Step 4A.11 Phase 2 — the material VALUE's own local position is
     # checked for a condition, independent of the obligation's own trigger
     # sentence: a restated/later-in-window figure (e.g. a "Notwithstanding
@@ -2797,8 +2895,144 @@ def _detect_reciprocal_asymmetry(window: str) -> List[str]:
     return reasons
 
 
+def _parent_section_key(label: Optional[str]) -> Optional[str]:
+    """'5.1' / 'Section 5.3' → '5'; bare '5' → '5'."""
+    if not label:
+        return None
+    m = re.search(r"(\d+)", str(label))
+    return m.group(1) if m else None
+
+
+def _next_subsection_boundary(text: str, after: int) -> Optional[int]:
+    m = _SUBSECTION_HEADING_RE.search(text, after + 1)
+    return m.start() if m else None
+
+
 def _extract_obligation_window(text: str, start: int, end: int) -> str:
-    return text[start:min(len(text), start + _PROVISION_WINDOW_CHARS)]
+    """Attribute window for one directional obligation.
+
+    Phase 3: clip at the next numbered subsection so §5.1 triggers are not
+    contaminated by §5.2 language inside the old 2000-char bleed window.
+    Shared §5.3 procedure is discovered and attached separately.
+    """
+    hard_end = min(len(text), start + _PROVISION_WINDOW_CHARS)
+    nxt = _next_subsection_boundary(text, start)
+    if nxt is not None and start < nxt < hard_end:
+        return text[start:nxt]
+    return text[start:hard_end]
+
+
+def _xref_is_non_monetary_scope(window: str, xref: "re.Match[str]") -> bool:
+    """True when a CROSS_REFERENCE_RE hit is procedure/self-scope or §6.3 linkage."""
+    matched = xref.group(0)
+    if _SELF_SECTION_SCOPE_RE.search(matched):
+        return True
+    vicinity = window[max(0, xref.start() - 120):min(len(window), xref.end() + 100)]
+    if _LIABILITY_APPLIES_TO_INDEMNIFICATION_RE.search(vicinity):
+        return True
+    return False
+
+
+def _discover_shared_procedures(text: str) -> List[SharedProcedureRecord]:
+    """Find §5.3-style procedure subsections once for the whole document."""
+    procedures: List[SharedProcedureRecord] = []
+    for m in _SUBSECTION_HEADING_RE.finditer(text):
+        label = m.group(1)
+        body_start = _subsection_body_start(text, m)
+        # Heading line / title for procedure detection (not the body).
+        heading = text[m.start():body_start]
+        nxt = _next_subsection_boundary(text, m.start())
+        body_end = nxt if nxt is not None else min(len(text), body_start + 1500)
+        if body_end <= body_start:
+            continue
+        body = text[body_start:body_end]
+        is_proc_heading = bool(re.search(r"\bprocedure\b", heading, re.I))
+        has_indem_procedure_roles = bool(
+            re.search(r"indemnifying\s+part(?:y|ies)?", body, re.I)
+            and re.search(r"\bdefense\b", body, re.I)
+        )
+        if not (is_proc_heading or has_indem_procedure_roles):
+            continue
+        # Skip subsections that are themselves directional indemnity promises
+        # without procedure language (e.g. 5.1 / 5.2 obligation bodies).
+        if _OBLIGATION_RE.search(body) and not re.search(
+            r"control(?:s|ling)?\s+(?:the\s+)?defense", body, re.I,
+        ):
+            continue
+        defense = _classify_defense_control(body)
+        notice = True if _NOTICE_RE.search(body) else None
+        coop = True if _COOPERATION_RE.search(body) else None
+        if defense == "not_addressed" and notice is None and coop is None:
+            continue
+        procedures.append(
+            SharedProcedureRecord(
+                procedure_id=f"proc-{label}",
+                section_label=label,
+                parent_section=_parent_section_key(label),
+                defense_control=defense,
+                notice_required=notice,
+                cooperation_required=coop,
+                raw_excerpt=_excerpt(text, m.start(), min(body_end, m.start() + 300)),
+                start_index=m.start(),
+                end_index=body_end,
+            )
+        )
+    return procedures
+
+
+def _discover_liability_indemnity_links(text: str) -> List[LiabilityIndemnityLinkRecord]:
+    links: List[LiabilityIndemnityLinkRecord] = []
+    for m in _LIABILITY_APPLIES_TO_INDEMNIFICATION_RE.finditer(text):
+        # Prefer the Section referenced AFTER "apply to", not "this Section 6"
+        # in the liability clause's own self-reference.
+        apply_tail = m.group(0)
+        target = None
+        after_apply = re.search(
+            r"apply\s+to\s+(?:(?:any\s+|all\s+)?claims?\s+(?:arising\s+(?:under|from|out\s+of)\s+|under\s+)?)?"
+            r"Section\s+([\d.]+)",
+            apply_tail,
+            re.I,
+        )
+        if after_apply:
+            target = after_apply.group(1)
+        elif re.search(r"indemnification", apply_tail, re.I):
+            target = "indemnification"
+        source = _section_label_before(text, m.start())
+        links.append(
+            LiabilityIndemnityLinkRecord(
+                source_section_label=source,
+                target_section_label=target,
+                raw_excerpt=_excerpt(text, m.start(), m.end()),
+                start_index=m.start(),
+                end_index=m.end(),
+            )
+        )
+    return links
+
+
+def _attach_shared_procedures(
+    obligations: List[IndemnityObligation],
+    procedures: List[SharedProcedureRecord],
+) -> None:
+    """Attach family procedure to each directional obligation under the same parent."""
+    if not procedures or not obligations:
+        return
+    for proc in procedures:
+        parent = proc.parent_section
+        if not parent:
+            continue
+        for ob in obligations:
+            if _parent_section_key(ob.section_label) != parent:
+                continue
+            ob.procedure_id = proc.procedure_id
+            if ob.defense_control in ("not_addressed", "unresolved") and proc.defense_control not in (
+                "not_addressed", "unresolved",
+            ):
+                ob.defense_control = proc.defense_control
+            if ob.notice_required is None and proc.notice_required:
+                ob.notice_required = proc.notice_required
+            if ob.cooperation_required is None and proc.cooperation_required:
+                ob.cooperation_required = proc.cooperation_required
 
 
 def _verify_semantic_candidate(text: str, candidate) -> Tuple[str, Optional["IndemnityObligation"]]:
@@ -3299,8 +3533,18 @@ def extract_indemnification_facts(text: str) -> Optional[IndemnificationFacts]:
     for ob in obligations:
         _reconcile_obligation_with_contextual_analysis(text, ob)
 
+    shared_procedures = _discover_shared_procedures(text)
+    _attach_shared_procedures(obligations, shared_procedures)
+    liability_links = _discover_liability_indemnity_links(text)
+
     obligations.sort(key=lambda o: o.start_index)
-    return IndemnificationFacts(clause_found=True, obligations=obligations, absence_state="PRESENT_AND_VERIFIED")
+    return IndemnificationFacts(
+        clause_found=True,
+        obligations=obligations,
+        absence_state="PRESENT_AND_VERIFIED",
+        shared_procedures=shared_procedures,
+        liability_applies_links=liability_links,
+    )
 
 
 # ---------------------------------------------------------------------------
