@@ -1,12 +1,14 @@
-# Canonical Contract Facts (Phase 1)
+# Canonical Contract Facts (Phase 1 schema + Phase 2 liability wiring)
 
-Status: **Implemented as schema package `contract_facts/` — not yet wired
-into extractors, policy adapters, inspectors, or the 189 generic rules.**
+Status: **Phase 1 schema package `contract_facts/` is implemented.
+Phase 2 wires Limitation of Liability extraction → canonical facts →
+LoL v2 evaluation (fee-period first-class; truncated-excerpt bridge
+removed from the decision path; ACV provenance explicit).**
 
 This document defines the authoritative **contract-side** representations
 that TriageCounsel will use after the post-E2E forensic audit. It is the
 companion to `policy_grammar/` (policy-side) and deliberately does **not**
-migrate generic rules in Phase 1.
+migrate generic rules in Phase 1–2.
 
 ---
 
@@ -122,36 +124,52 @@ indemnification, and cross_clause under `schema_version = 1`.
 
 ---
 
-## 6. Explicit non-goals (Phase 1)
+## 6. Explicit non-goals (Phase 1–2)
 
 1. Do **not** migrate the 189 generic rules onto these types.
-2. Do **not** change `extract_liability_facts` / `extract_indemnification_facts`
-   in this phase (population is Phase 2+).
-3. Do **not** change Active policy evaluation outcomes yet.
-4. Do **not** delete legacy `CapValue` / `IndemnityObligation` dataclasses yet —
-   dual-running comes after adapters write the new types.
+2. Do **not** change indemnity extraction / evaluation in Phase 2 (liability only).
+3. Do **not** delete legacy `CapValue` / `IndemnityObligation` dataclasses yet —
+   dual-running continues; `contract_facts.liability_bridge` maps legacy → canonical.
+4. Do **not** convert fee-period months into money or `months/12` multipliers
+   when symbolic comparison is possible.
 
 ---
 
-## 7. Intended next phases (reference only)
+## 7. Phase 2 delivered (liability)
 
-1. **Populate** — liability/indemnity/commercial extractors emit
-   `contract_facts` (including fee-period caps from the full provision window).
-2. **Consume in Active adapters** — LoL v2 and indemnity evaluators read
-   `ContractDocumentFacts` instead of re-bridging truncated excerpts.
-3. **Consume in interactions** — cross-clause graph + category treatments
-   drive Liability×Indemnification without requiring both adapters to
-   already be non-`REQUIRES_REVIEW` for structural relationships.
-4. **Align inspectors / selective rules** — clause_quality and high-value
-   generic rules read shared facts; remaining rules stay independent until
-   migrated deliberately.
+1. **`CapValue.kind == "fee_period"`** — `_find_cap_values` recognizes duration
+   and trailing fee-period language in the full provision window; evidence
+   spans the component, not a heading truncate.
+2. **`contract_facts.liability_bridge`** — legacy `LiabilityFacts` →
+   `ContractLiabilityFacts` → LoL v2 `ContractCapFacts` without excerpt re-parse
+   when components are present.
+3. **ACV provenance** — `AcvSource` + `resolve_annual_contract_value`:
+   reviewer `deal_value` ≻ contract `annual_fees`; trailing-period fees never
+   become ACV.
+4. **LoL v2 consumer** — `policy_enforcement._evaluate_lol_v2_position` prefers
+   canonical caps and forwards category treatments from the bridge.
+
+### Remaining phases (reference only)
+
+1. Populate indemnity + commercial extractors into `ContractDocumentFacts`.
+2. Cross-clause graph drives Liability×Indemnification interactions.
+3. Align inspectors / selective rules; migrate remaining generics deliberately.
 
 ---
 
 ## 8. Golden example (schema-level)
 
-For the controlled SaaS test contract, Phase 2+ population should produce
+For the controlled SaaS test contract, Phase 2 liability population produces
 (conceptually):
+
+```text
+# ACV (EvaluationContext) — provenance explicit
+annual_contract_value         = $600,000  source=reviewer_deal_value | contract_annual_fees
+# Liability (ContractLiabilityFacts)
+liability.general_cap         = PRESENT FeeRelativeCap(months=6, PAID_OR_PAYABLE, AGREEMENT)
+```
+
+Full document golden (later phases):
 
 ```text
 commercial.annual_fees        = PRESENT $600,000 USD
