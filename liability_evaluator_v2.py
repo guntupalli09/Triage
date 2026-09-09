@@ -13,7 +13,7 @@ from policy_grammar.comparison import CompareResult, ComparisonOutcome, compare_
 from policy_grammar.conditions import evaluate_condition, evaluate_condition_group
 from policy_grammar.evaluation_context import EvaluationContext
 from policy_grammar.fee_relative import FeeBasis, FeeScope
-from policy_grammar.serialization import cap_expression_from_dict, cap_operand_from_dict
+from policy_grammar.serialization import cap_expression_from_dict
 
 _WORD_NUM = pec.WORD_NUMBERS
 _WORD_ALT = "|".join(sorted(_WORD_NUM.keys(), key=len, reverse=True))
@@ -98,51 +98,59 @@ class ContractCapFacts:
 
 
 def contract_cap_from_legacy(facts) -> Optional[ContractCapFacts]:
-    """Bridge from liability_policy_engine.LiabilityFacts when available."""
+    """Bridge from liability_policy_engine.LiabilityFacts via canonical facts.
+
+    Fee-period CapValues extracted in the full provision window map to
+    FeeRelativeCap symbolically. Truncated-excerpt re-parse is only a
+    last-resort fallback when components are empty (legacy path); new
+    extraction should never need it for fee-period language.
+    """
+    from contract_facts.liability_bridge import (
+        canonical_liability_from_legacy,
+        contract_cap_from_canonical,
+        legacy_cap_expression_to_policy,
+    )
+
     if facts is None or not getattr(facts, "clause_found", False):
         return None
+    canonical = canonical_liability_from_legacy(facts)
+    from_canonical = contract_cap_from_canonical(canonical)
+    if from_canonical is not None:
+        return from_canonical
+
     provision = getattr(facts, "controlling_provision", None)
     if provision is None:
         return None
     cap_expr = provision.general_cap_expression
     if cap_expr.structure == "unresolved":
         return None
-    operands = []
-    fee_months: Optional[float] = None
-    for comp in cap_expr.components:
-        if comp.kind == "unlimited":
-            operands.append({"type": "unlimited"})
-        elif comp.kind == "fee_multiplier":
-            operands.append({"type": "annual_fee_multiple", "multiple": comp.multiplier})
-        elif comp.kind == "fixed_amount":
-            operands.append({"type": "fixed_amount", "money": {"amount": str(comp.fixed_amount), "currency": "USD"}})
-    if not operands:
-        excerpt = (provision.raw_excerpt or cap_expr.raw_excerpt or "").strip()
-        if not excerpt:
-            return None
-        fee_cap = _fee_period_cap_from_text(excerpt)
-        if fee_cap is None:
-            return None
-        expr = CapExpression(operator=CapOperator.SIMPLE, operands=[fee_cap])
-        return ContractCapFacts(expression=expr, fee_period_months=fee_cap.months, is_unlimited=False)
-    if cap_expr.structure == "simple":
-        op = CapOperator.SIMPLE
-        ops = [cap_operand_from_dict(operands[0])]
-    elif cap_expr.structure in ("greater_of", "lesser_of"):
-        op = CapOperator.GREATER_OF if cap_expr.structure == "greater_of" else CapOperator.LESSER_OF
-        ops = [cap_operand_from_dict(o) for o in operands]
-    else:
-        op = CapOperator.SIMPLE
-        ops = [cap_operand_from_dict(operands[0])] if operands else []
-    expr = CapExpression(operator=op, operands=ops)
-    for comp in cap_expr.components:
-        if comp.kind == "fee_multiplier" and "12" in (comp.raw_excerpt or "").lower():
-            fee_months = 12.0
-    for op in ops:
-        if isinstance(op, FeeRelativeCap):
-            fee_months = op.months
-    unlimited = any(isinstance(o, UnlimitedCap) for o in ops)
-    return ContractCapFacts(expression=expr, fee_period_months=fee_months, is_unlimited=unlimited)
+
+    # Prefer structured components (including fee_period) over excerpt re-parse.
+    policy_expr = legacy_cap_expression_to_policy(cap_expr)
+    if policy_expr is not None:
+        fee_months = None
+        unlimited = False
+        for op in policy_expr.operands:
+            if isinstance(op, FeeRelativeCap):
+                fee_months = op.months
+            if isinstance(op, UnlimitedCap):
+                unlimited = True
+        return ContractCapFacts(
+            expression=policy_expr,
+            fee_period_months=fee_months,
+            is_unlimited=unlimited,
+        )
+
+    # Deprecated fallback: re-parse provision excerpt when no components
+    # were classified. Prefer fixing extraction over relying on this path.
+    excerpt = (provision.raw_excerpt or cap_expr.raw_excerpt or "").strip()
+    if not excerpt:
+        return None
+    fee_cap = _fee_period_cap_from_text(excerpt)
+    if fee_cap is None:
+        return None
+    expr = CapExpression(operator=CapOperator.SIMPLE, operands=[fee_cap])
+    return ContractCapFacts(expression=expr, fee_period_months=fee_cap.months, is_unlimited=False)
 
 
 def evaluate_liability_policy_v2(

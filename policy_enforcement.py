@@ -432,16 +432,31 @@ def _evaluate_lol_v2_position(
     context: Optional[Dict[str, Any]] = None,
 ) -> Any:
     """Evaluate an ACTIVE v2 LoL PolicyPosition deterministically."""
+    from contract_facts.liability_bridge import (
+        canonical_liability_from_legacy,
+        category_treatments_for_decision,
+        contract_cap_from_canonical,
+    )
     from liability_evaluator_v2 import contract_cap_from_legacy, evaluate_liability_policy_v2
     from liability_policy_v2 import liability_policy_v2_from_dict
     from policy_grammar.evaluation_context import evaluation_context_from_review_context
+    from policy_grammar.money import MoneyAmount
 
     label = pa.CLAUSE_TYPE_LABELS["limitation_of_liability"]
     source = f"{playbook.name} — {label} (policy position #{position.id}, v2)"
     rules = position.rules_v2_json or {}
     policy = liability_policy_v2_from_dict(rules)
     facts = liability_policy_engine.extract_liability_facts(contract_text)
-    eval_ctx = evaluation_context_from_review_context(context)
+    contract_annual_fees = None
+    if context and context.get("contract_annual_fees") is not None:
+        raw_fees = context["contract_annual_fees"]
+        if isinstance(raw_fees, MoneyAmount):
+            contract_annual_fees = raw_fees
+        elif isinstance(raw_fees, (int, float)) and not isinstance(raw_fees, bool):
+            contract_annual_fees = MoneyAmount.from_number(str(raw_fees))
+    eval_ctx = evaluation_context_from_review_context(
+        context, contract_annual_fees=contract_annual_fees,
+    )
 
     if facts is not None and not facts.provisions and facts.absence_state == "RECOGNITION_UNCERTAIN":
         return liability_policy_engine.PolicyDecision(
@@ -485,7 +500,12 @@ def _evaluate_lol_v2_position(
             source=source,
         )
 
-    contract_cap = contract_cap_from_legacy(facts)
+    canonical = canonical_liability_from_legacy(facts)
+    contract_cap = contract_cap_from_canonical(canonical) or contract_cap_from_legacy(facts)
+    category_treatments = category_treatments_for_decision(canonical)
+    if not category_treatments and facts.controlling_provision is not None:
+        category_treatments = liability_policy_engine._category_treatments_dict(facts.controlling_provision)
+
     if contract_cap is None:
         provision = facts.controlling_provision
         return liability_policy_engine.PolicyDecision(
@@ -496,7 +516,8 @@ def _evaluate_lol_v2_position(
             policy_limit_summary="v2 structured policy",
             required_action="Manual review required — contract cap structure is unresolved",
             explanation="The contract liability cap could not be mapped to a comparable v2 expression.",
-            negotiation_ladder=[], category_treatments=[], unresolved_facts=["cap expression unresolved"],
+            negotiation_ladder=[], category_treatments=category_treatments,
+            unresolved_facts=["cap expression unresolved"],
             start_index=provision.start_index if provision else None,
             end_index=provision.end_index if provision else None,
             source=source,
@@ -515,7 +536,7 @@ def _evaluate_lol_v2_position(
             required_action=decision.required_action,
             explanation=decision.explanation,
             negotiation_ladder=decision.negotiation_ladder,
-            category_treatments=decision.category_treatments,
+            category_treatments=category_treatments or decision.category_treatments,
             unresolved_facts=decision.unresolved_facts,
             start_index=provision.start_index,
             end_index=provision.end_index,

@@ -46,6 +46,13 @@ from contract_facts.liability import (
     MutualityStatus,
     simple_fee_period_cap,
 )
+from contract_facts.liability_bridge import (
+    canonical_liability_from_legacy,
+    category_treatments_for_decision,
+    contract_cap_from_canonical,
+    legacy_cap_expression_to_policy,
+    legacy_cap_value_to_operand,
+)
 from contract_facts.presence import Presence, presence_from_optional_bool
 from contract_facts.procedure import DefenseControl, DefenseControlHolder, SharedProcedure
 from contract_facts.roles import (
@@ -91,5 +98,10 @@ __all__ = [
     "TriggerTreatmentFact",
     "LiabilityProvisionFacts",
     "presence_from_optional_bool",
+    "canonical_liability_from_legacy",
+    "category_treatments_for_decision",
+    "contract_cap_from_canonical",
+    "legacy_cap_expression_to_policy",
+    "legacy_cap_value_to_operand",
     "simple_fee_period_cap",
 ]

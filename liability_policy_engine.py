@@ -267,6 +267,53 @@ def _classify_basis(basis_word: str) -> str:
     if _RECURRING_PAYMENT_BASIS_WORDS_RE.search(w):
         return BASIS_RECURRING_PAYMENT
     return BASIS_OTHER
+# Fee-period caps ("six (6) months of fees", "fees paid or payable ... twelve
+# months") are first-class CapValue.kind == "fee_period". They must be found
+# here — not recovered later by re-parsing a truncated provision excerpt —
+# so symbolic months survive into LoL v2 without converting to money.
+_FEE_PERIOD_WORD_ALT = "|".join(sorted(_WORD_NUMBERS.keys(), key=len, reverse=True))
+_FEE_PERIOD_DURATION_RE = re.compile(
+    rf"\b(\d+(?:\.\d+)?|{_FEE_PERIOD_WORD_ALT})\s*(?:\(\d+\))?\s*[-\s']*(years?|months?)'?\s*"
+    r"(?:of\s+)?(?:worth\s+of\s+)?fees?\b",
+    re.I,
+)
+_FEE_PERIOD_TRAILING_RE = re.compile(
+    rf"fees?\s+(?:paid(?:\s+or\s+payable)?|payable).{{0,120}}?"
+    rf"(\d+(?:\.\d+)?|{_FEE_PERIOD_WORD_ALT})\s*(?:\(\d+\))?\s*months?\b"
+    r"|"
+    rf"(?:twelve|12|\d+(?:\.\d+)?|{_FEE_PERIOD_WORD_ALT})\s*(?:\(\d+\))?\s*months?\s+"
+    rf"(?:preceding|prior|before|immediately\s+preceding).{{0,60}}?fees?",
+    re.I,
+)
+
+
+def _parse_fee_period_number_token(token: str) -> Optional[float]:
+    try:
+        return float(token)
+    except ValueError:
+        key = token.lower()
+        return float(_WORD_NUMBERS[key]) if key in _WORD_NUMBERS else None
+
+
+def _parse_fee_period_months_from_duration(match: re.Match) -> Optional[float]:
+    n = _parse_fee_period_number_token(match.group(1))
+    if n is None:
+        return None
+    unit = match.group(2).lower().rstrip("s")
+    return n * 12.0 if unit == "year" else float(n)
+
+
+def _parse_fee_period_months_from_trailing(match: re.Match) -> Optional[float]:
+    token = match.group(1) if match.lastindex else None
+    if token:
+        return _parse_fee_period_number_token(token)
+    # Second alternative may omit a capture; recover twelve/12 from the span.
+    span = match.group(0)
+    if re.search(r"\b(?:twelve|12)\b", span, re.I):
+        return 12.0
+    return None
+
+
 _FIXED_AMOUNT_RE = re.compile(
     r"(?:maximum(?:\s+aggregate)?\s+liability(?:\s+of\s+(?:either\s+party)?)?\s*(?:shall\s+not\s+exceed|shall\s+exceed|exceed|of|:)?"
     r"|liable\s+for\s+(?:an\s+amount\s+)?(?:in\s+excess\s+of|more\s+than)"
@@ -529,15 +576,19 @@ _CONFLICTING_DEFINED_TERM_RE = re.compile(
 
 @dataclass
 class CapValue:
-    kind: str  # "fee_multiplier" | "fixed_amount" | "unlimited"
+    kind: str  # "fee_multiplier" | "fixed_amount" | "unlimited" | "fee_period"
     # Typed cap basis — what the multiplier is OF. A multiplier is only
     # comparable to a policy threshold (defined as "Nx annual fees") when
     # basis == BASIS_FEES; any other basis is preserved verbatim but must
     # never be silently evaluated as if it were fee-based (see
     # evaluate_liability_policy's basis gate).
+    # For fee_period, basis is BASIS_FEES (the period is of fees); the
+    # finer FeeBasis / FeeScope enums are inferred at the v2 bridge from
+    # raw_excerpt so months stay symbolic rather than converting to money.
     basis: str = BASIS_UNRESOLVED
     multiplier: Optional[float] = None
     fixed_amount: Optional[float] = None
+    months: Optional[float] = None  # fee_period only — symbolic duration
     raw_excerpt: str = ""
     start_index: int = 0
     end_index: int = 0
@@ -545,6 +596,8 @@ class CapValue:
     def summary(self) -> str:
         if self.kind == "unlimited":
             return "Unlimited"
+        if self.kind == "fee_period":
+            return f"{self.months:g} months' fees"
         if self.kind == "fee_multiplier":
             if self.basis == BASIS_FEES:
                 return f"{self.multiplier:g}x annual fees"
@@ -559,6 +612,8 @@ class CapValue:
             return float("inf")
         if self.kind == "fee_multiplier":
             return self.multiplier
+        if self.kind == "fee_period":
+            return self.months
         return self.fixed_amount
 
 
@@ -620,8 +675,9 @@ class CapExpression:
                 return None, "lesser-of structure could not be reduced to one value"
             if len({c.kind for c in non_unlimited}) > 1:
                 return None, (
-                    f"cannot resolve a {self.structure.replace('_', ' ')} structure mixing a fee "
-                    f"multiplier and a fixed dollar amount without the actual annual fee value"
+                    f"cannot resolve a {self.structure.replace('_', ' ')} structure mixing "
+                    f"incomparable cap kinds ({', '.join(sorted({c.kind for c in non_unlimited}))}) "
+                    f"without additional deal context"
                 )
             reducer = max if self.structure == "greater_of" else min
             return reducer(self.components, key=lambda c: c.compare_key()), None
@@ -792,6 +848,22 @@ def _find_cap_values(window: str) -> List[CapValue]:
     for m in _FIXED_AMOUNT_RE.finditer(window):
         matches.append((m.start(), m.end(), CapValue(
             kind="fixed_amount", basis=BASIS_FIXED_AMOUNT, fixed_amount=float(m.group(1).replace(",", "")),
+            raw_excerpt=window[m.start():m.end()], start_index=m.start(), end_index=m.end(),
+        )))
+    for m in _FEE_PERIOD_DURATION_RE.finditer(window):
+        months = _parse_fee_period_months_from_duration(m)
+        if months is None:
+            continue
+        matches.append((m.start(), m.end(), CapValue(
+            kind="fee_period", basis=BASIS_FEES, months=months,
+            raw_excerpt=window[m.start():m.end()], start_index=m.start(), end_index=m.end(),
+        )))
+    for m in _FEE_PERIOD_TRAILING_RE.finditer(window):
+        months = _parse_fee_period_months_from_trailing(m)
+        if months is None:
+            continue
+        matches.append((m.start(), m.end(), CapValue(
+            kind="fee_period", basis=BASIS_FEES, months=months,
             raw_excerpt=window[m.start():m.end()], start_index=m.start(), end_index=m.end(),
         )))
 
@@ -1155,7 +1227,9 @@ def _classify_general_cap_expression(
     # rather than risk a false-safe on the existing corpus.
     has_unlimited = any(c.kind == "unlimited" for c in unclaimed)
     numeric = [c for c in unclaimed if c.kind != "unlimited"]
-    distinct_numeric_values = {(c.kind, c.basis, c.multiplier, c.fixed_amount) for c in numeric}
+    distinct_numeric_values = {
+        (c.kind, c.basis, c.multiplier, c.fixed_amount, c.months) for c in numeric
+    }
 
     if has_unlimited and numeric:
         return _unresolved(
@@ -1430,7 +1504,7 @@ def _resolve_cross_reference(
             f"that this value is actually the liability cap without attorney review"
         )
 
-    distinct_values = {(c.kind, c.basis, c.multiplier, c.fixed_amount) for _, c in resolved}
+    distinct_values = {(c.kind, c.basis, c.multiplier, c.fixed_amount, c.months) for _, c in resolved}
     if len(distinct_values) > 1:
         return None, (
             f"multiple mentions of \"{label}\" were found with different, liability-concept-anchored "
@@ -1922,7 +1996,7 @@ def _extract_liability_facts_inner(text: str) -> Optional[LiabilityFacts]:
         if cap is None:
             all_resolved = False
             break
-        effective_values.append((cap.kind, cap.multiplier, cap.fixed_amount))
+        effective_values.append((cap.kind, cap.multiplier, cap.fixed_amount, cap.months))
 
     if all_resolved and len(set(effective_values)) == 1:
         explanation = f"{len(provisions)} Limitation of Liability provisions found, all stating the same cap."
@@ -2161,6 +2235,16 @@ def evaluate_liability_policy(
         general_cap_reason = (
             f"cap is expressed as a multiplier of {basis_label}, not fees — policy thresholds are "
             f"defined as a multiplier of annual fees and this cannot be compared without additional information"
+        )
+        unresolved_facts.append(f"general liability cap ({general_cap_reason})")
+        general_cap = None
+    elif general_cap is not None and general_cap.kind == "fee_period":
+        # v1 thresholds are multipliers of annual fees. A symbolic fee-period
+        # cap (e.g. 6 months' fees) must not be silently converted to money
+        # or to months/12. Fail closed; LoL v2 compares fee periods symbolically.
+        general_cap_reason = (
+            "cap is expressed as a fee-period duration rather than a fees multiplier — "
+            "v1 thresholds cannot compare this symbolically; use a v2 LoL position"
         )
         unresolved_facts.append(f"general liability cap ({general_cap_reason})")
         general_cap = None
