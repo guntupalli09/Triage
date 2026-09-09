@@ -102,11 +102,37 @@ def _rule_shared_category_mismatch(decisions: Dict[str, PolicyDecision]) -> Opti
 
 
 # ---------------------------------------------------------------------------
-# Rule 3 — Indemnification exposure for a shared category rides inside
-# Liability's general cap (informational DEPENDENCY, not an incompatibility).
+# Rule 3 — Indemnification exposure rides inside Liability's general cap
+# (informational DEPENDENCY, not an incompatibility).
+#
+# Two independent signals (either is enough), after Phase 4 hydration:
+#   (a) Per shared category: LoL treats the cat as within_general_cap /
+#       not_addressed AND Indemnification covers it (launch-catalog join).
+#   (b) Family-level vendor indemnity inside the general cap: LoL category
+#       "indemnification" is within_general_cap / not_addressed, OR
+#       ContractDocumentFacts.cross_clause records
+#       LIABILITY_APPLIES_TO_INDEMNIFICATION (§6.3), AND Indemnification
+#       establishes any covered exposure. Explicit per-category uncapped /
+#       super_cap carve-outs are excluded from (b) so Rule 1 owns that conflict.
 # ---------------------------------------------------------------------------
 
-def _rule_indemnity_within_general_cap(decisions: Dict[str, PolicyDecision]) -> Optional[InteractionFinding]:
+def _family_indemnity_within_general_cap(
+    liability_ct: Dict[str, dict], document_facts,
+) -> bool:
+    lt = liability_ct.get("indemnification")
+    if lt and lt.get("treatment") in ("within_general_cap", "not_addressed"):
+        return True
+    if document_facts is None:
+        return False
+    from contract_facts.presence import Presence
+
+    link = document_facts.cross_clause.liability_applies_to_indemnification()
+    return link is not None and link.presence is Presence.PRESENT
+
+
+def _rule_indemnity_within_general_cap(
+    decisions: Dict[str, PolicyDecision], document_facts=None,
+) -> Optional[InteractionFinding]:
     liability_ct = _by_category(decisions["limitation_of_liability"])
     indemnification_ct = _by_category(decisions["indemnification"])
     matched = []
@@ -115,10 +141,35 @@ def _rule_indemnity_within_general_cap(decisions: Dict[str, PolicyDecision]) -> 
         it = indemnification_ct.get(cat)
         if lt and it and lt["treatment"] in ("within_general_cap", "not_addressed") and it["treatment"] == "covered":
             matched.append(cat)
+
+    family_within = _family_indemnity_within_general_cap(liability_ct, document_facts)
+    if family_within:
+        for cat in _SHARED_LIABILITY_INDEMNITY_CATEGORIES:
+            it = indemnification_ct.get(cat)
+            if not it or it.get("treatment") != "covered" or cat in matched:
+                continue
+            lt = liability_ct.get(cat)
+            if lt and lt.get("treatment") in ("uncapped", "super_cap"):
+                continue
+            matched.append(cat)
+        if not matched:
+            # Covered triggers outside the shared LoL/Indemnity vocabulary
+            # still count for a family-level §6.3 / indemnification-within-cap note.
+            # Skip categories Liability already carved out as uncapped/super_cap
+            # (Rules 1–2 own those conflicts).
+            for cat, it in indemnification_ct.items():
+                if it.get("treatment") != "covered":
+                    continue
+                lt = liability_ct.get(cat)
+                if lt and lt.get("treatment") in ("uncapped", "super_cap"):
+                    continue
+                matched.append(cat)
+
     if not matched:
         return None
     labels = ", ".join(c.replace("_", " ") for c in matched)
     category_word = "category" if len(matched) == 1 else "categories"
+    source = "family_within_general_cap" if family_within else "per_category"
     return InteractionFinding(
         state=ACCEPT_WITH_NOTE,
         explanation=(
@@ -126,7 +177,7 @@ def _rule_indemnity_within_general_cap(decisions: Dict[str, PolicyDecision]) -> 
             f"out of the general cap — indemnification exposure for {labels} rides inside the general liability cap."
         ),
         required_action="None — noted for the file: indemnification exposure for this category is bounded by the general liability cap.",
-        matched_facts={"categories": labels},
+        matched_facts={"categories": labels, "source": source},
     )
 
 

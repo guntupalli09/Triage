@@ -50,6 +50,11 @@ from contract_facts.liability import (
     MutualityStatus,
     simple_fee_period_cap,
 )
+from contract_facts.document_assembly import (
+    assemble_document_facts,
+    assemble_document_facts_from_legacy,
+)
+from contract_facts.interaction_hydration import hydrate_decisions_from_document_facts
 from contract_facts.liability_bridge import (
     canonical_liability_from_legacy,
     category_treatments_for_decision,
@@ -102,11 +107,14 @@ __all__ = [
     "TriggerTreatmentFact",
     "LiabilityProvisionFacts",
     "presence_from_optional_bool",
+    "assemble_document_facts",
+    "assemble_document_facts_from_legacy",
     "assemble_indemnification_family",
     "canonical_indemnification_from_legacy",
     "canonical_liability_from_legacy",
     "category_treatments_for_decision",
     "contract_cap_from_canonical",
+    "hydrate_decisions_from_document_facts",
     "legacy_cap_expression_to_policy",
     "legacy_cap_value_to_operand",
     "simple_fee_period_cap",

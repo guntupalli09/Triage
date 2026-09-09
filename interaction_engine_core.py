@@ -241,7 +241,29 @@ def _gate_participants(
     return safe, ()
 
 
-def evaluate(decisions: Dict[str, PolicyDecision], rules: List[InteractionRule]) -> List[InteractionDecision]:
+def _invoke_predicate(predicate, decisions: Dict[str, PolicyDecision], document_facts=None):
+    """Call a rule predicate with optional document_facts when it accepts them.
+
+    Launch-catalog rules remain `(decisions) -> Optional[Finding]`. Phase 4
+    rules may declare a second parameter for structured ContractDocumentFacts.
+    """
+    import inspect
+
+    try:
+        params = list(inspect.signature(predicate).parameters.values())
+    except (TypeError, ValueError):
+        return predicate(decisions)
+    if len(params) >= 2:
+        return predicate(decisions, document_facts)
+    return predicate(decisions)
+
+
+def evaluate(
+    decisions: Dict[str, PolicyDecision],
+    rules: List[InteractionRule],
+    *,
+    document_facts=None,
+) -> List[InteractionDecision]:
     """Pure function — no I/O, no randomness, no LLM. Evaluates every
     registered rule against `decisions` (the same Dict[clause_type,
     PolicyDecision] policy_enforcement.evaluate_active_policies already
@@ -249,7 +271,18 @@ def evaluate(decisions: Dict[str, PolicyDecision], rules: List[InteractionRule])
     in `rules`' given order (callers pass a fixed, deterministic list —
     see interaction_rules.LAUNCH_CATALOG) — always one entry per rule,
     never silently omitted, so NOT_TRIGGERED/INSUFFICIENT_FACTS outcomes
-    are as auditable as a firing CONFLICT/DEPENDENCY."""
+    are as auditable as a firing CONFLICT/DEPENDENCY.
+
+    Phase 4: optional `document_facts` (ContractDocumentFacts) hydrates
+    lossy/empty category_treatments before gating and is passed to
+    predicates that accept a second argument. Predicates still never
+    extract from raw contract text.
+    """
+    if document_facts is not None:
+        from contract_facts.interaction_hydration import hydrate_decisions_from_document_facts
+
+        hydrate_decisions_from_document_facts(decisions, document_facts)
+
     results: List[InteractionDecision] = []
     for rule in rules:
         safe_decisions, missing = _gate_participants(rule, decisions)
@@ -276,7 +309,7 @@ def evaluate(decisions: Dict[str, PolicyDecision], rules: List[InteractionRule])
             continue
 
         try:
-            finding = rule.predicate(safe_decisions)
+            finding = _invoke_predicate(rule.predicate, safe_decisions, document_facts)
         except Exception as exc:  # noqa: BLE001 — isolation boundary, see EVALUATION_ERROR docstring
             results.append(InteractionDecision(
                 interaction_id=rule.interaction_id, label=rule.label, kind=rule.kind,

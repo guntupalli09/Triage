@@ -142,6 +142,7 @@ class TestRule3IndemnityWithinGeneralCap:
         # ACCEPT_WITH_NOTE is never actionable -- must not surface as a
         # "needs attention" finding.
         assert r.state not in ixc.ACTIONABLE_STATES
+        assert r.matched_facts["source"] == "per_category"
 
     def test_not_addressed_also_counts_as_within_cap(self):
         decisions = {

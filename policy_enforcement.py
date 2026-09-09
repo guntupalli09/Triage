@@ -415,6 +415,10 @@ class ClauseEvaluationOutcome:
     decision: Optional[Any]  # PolicyDecision, or None on error
     revision_metadata: Dict[str, Any]
     error: Optional[str] = None
+    # Phase 4: adapter extract already computed for this clause — used by
+    # interaction_enforcement to assemble ContractDocumentFacts without a
+    # second raw-text pass.
+    legacy_facts: Optional[Any] = None
 
 
 def _is_lol_v2_position(position: PolicyPosition) -> bool:
@@ -430,6 +434,7 @@ def _evaluate_lol_v2_position(
     playbook: Playbook,
     *,
     context: Optional[Dict[str, Any]] = None,
+    facts: Optional[Any] = None,
 ) -> Any:
     """Evaluate an ACTIVE v2 LoL PolicyPosition deterministically."""
     from contract_facts.liability_bridge import (
@@ -446,7 +451,8 @@ def _evaluate_lol_v2_position(
     source = f"{playbook.name} — {label} (policy position #{position.id}, v2)"
     rules = position.rules_v2_json or {}
     policy = liability_policy_v2_from_dict(rules)
-    facts = liability_policy_engine.extract_liability_facts(contract_text)
+    if facts is None:
+        facts = liability_policy_engine.extract_liability_facts(contract_text)
     contract_annual_fees = None
     if context and context.get("contract_annual_fees") is not None:
         raw_fees = context["contract_annual_fees"]
@@ -584,20 +590,23 @@ def evaluate_active_policies(
             continue
         revision_metadata = _revision_metadata_for(position)
         try:
+            legacy_facts = None
             if _is_lol_v2_position(position):
+                legacy_facts = liability_policy_engine.extract_liability_facts(contract_text)
                 decision = _evaluate_lol_v2_position(
-                    position, contract_text, playbook, context=context,
+                    position, contract_text, playbook, context=context, facts=legacy_facts,
                 )
             else:
                 rule = pa.build_policy_rule_for_enforcement(position)
                 extract_fn, evaluate_fn = pa._ENGINE_FUNCS[clause_type]
-                facts = extract_fn(contract_text)
+                legacy_facts = extract_fn(contract_text)
                 label = pa.CLAUSE_TYPE_LABELS[clause_type]
                 decision = evaluate_fn(
-                    facts, rule, source=f"{playbook.name} — {label} (policy position #{position.id})",
+                    legacy_facts, rule, source=f"{playbook.name} — {label} (policy position #{position.id})",
                 )
             outcomes.append(ClauseEvaluationOutcome(
                 clause_type=clause_type, decision=decision, revision_metadata=revision_metadata,
+                legacy_facts=legacy_facts,
             ))
         except Exception as exc:  # noqa: BLE001 — isolation boundary, see docstring
             outcomes.append(ClauseEvaluationOutcome(
