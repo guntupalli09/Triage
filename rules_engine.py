@@ -624,7 +624,8 @@ BLOCKING_RULE_IDS = frozenset({
 
 _MUTUAL_RE = re.compile(
     r"\b(either\s+party|either\s+of\s+the\s+parties|both\s+parties|each\s+party|mutual(ly)?|"
-    r"reciprocal(ly)?|prevailing\s+party|non-?prevailing\s+party)\b",
+    r"reciprocal(ly)?|prevailing\s+party|non-?prevailing\s+party|"
+    r"either\s+\w+\s+or\s+\w+)\b",
     re.IGNORECASE,
 )
 _PROVIDER_ROLE_RE = re.compile(
@@ -877,54 +878,13 @@ def _extract_payment_terms(text: str) -> Dict[str, Optional[object]]:
     Agree's invoicing) can compare them against an actual invoice
     configuration, rather than only getting a "Net 30 mentioned" flag.
 
-    Best-effort / first-match extraction — deterministic regex, not NLU.
-    Any field that can't be confidently identified is None rather than guessed.
+    Single source: ContractCommercialFacts via commercial_extract — do not
+    maintain a parallel regex vocabulary here.
     """
-    due_days: Optional[int] = None
-    m = re.search(r"\bnet\s+(\d{1,3})\b", text, re.IGNORECASE)
-    if not m:
-        m = re.search(r"\bdue\s+(?:within|in)\s+(\d{1,3})\s+days?\b", text, re.IGNORECASE)
-    if m:
-        due_days = int(m.group(1))
+    from contract_facts.commercial_extract import extract_commercial_facts
 
-    currency: Optional[str] = _find_stated_currency_code(text)
-    if currency is None:
-        if re.search(r"€", text):
-            currency = "EUR"
-        elif re.search(r"£", text):
-            currency = "GBP"
-        elif re.search(r"\$\s?[\d,]", text):
-            currency = "USD"  # heuristic: bare "$" with no explicit code, assume USD
+    return extract_commercial_facts(text).legacy_payment_terms_dict()
 
-    billing_frequency: Optional[str] = None
-    for pattern, label in (
-        (r"\bmonthly\b", "monthly"),
-        (r"\bquarterly\b", "quarterly"),
-        (r"\bannual(?:ly)?\b|\byearly\b", "annually"),
-        (r"\bweekly\b", "weekly"),
-        (r"\bone[-\s]?time\b", "one_time"),
-        (r"\brecurring\b", "recurring"),
-    ):
-        if re.search(pattern, text, re.IGNORECASE):
-            billing_frequency = label
-            break
-
-    invoice_trigger: Optional[str] = None
-    m = re.search(
-        r"\binvoic\w*\b[^.]{0,60}\b(?:upon|following|after|within)\b[^.]{0,60}"
-        r"\b(activation|delivery|execution|go-live|commencement|acceptance)\b",
-        text,
-        re.IGNORECASE,
-    )
-    if m:
-        invoice_trigger = m.group(1).lower()
-
-    return {
-        "due_days": due_days,
-        "currency": currency,
-        "billing_frequency": billing_frequency,
-        "invoice_trigger": invoice_trigger,
-    }
 
 
 def _find_all(pattern: str, text: str) -> Iterable[re.Match]:
@@ -4896,7 +4856,14 @@ class RuleEngine:
         risk_dashboard = compute_risk_dashboard(suppressed_findings)
         structure_report = analyze_structure(text)
         arbitration_quality = analyze_arbitration_clause(text)
-        liability_quality = analyze_liability_clause(text)
+        # Single LoL extract → canonical facts → inspector (no parallel regex rediscovery).
+        try:
+            import liability_policy_engine as _lpe
+            from contract_facts.liability_bridge import canonical_liability_from_legacy
+            _canonical_lol = canonical_liability_from_legacy(_lpe.extract_liability_facts(text))
+            liability_quality = analyze_liability_clause(text, canonical_liability=_canonical_lol)
+        except Exception:  # noqa: BLE001 — inspector must not abort analyze()
+            liability_quality = analyze_liability_clause(text)
         confidentiality_quality = analyze_confidentiality_clause(text)
         indemnification_quality = analyze_indemnification_clause(text)
         termination_quality = analyze_termination_clause(text)

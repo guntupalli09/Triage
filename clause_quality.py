@@ -318,12 +318,20 @@ class LiabilityQualityReport:
         }
 
 
-def analyze_liability_clause(text: str) -> LiabilityQualityReport:
+def analyze_liability_clause(
+    text: str,
+    *,
+    canonical_liability=None,
+) -> LiabilityQualityReport:
     """Pure function: normalized contract text -> LiabilityQualityReport.
 
-    Callers should pass already-normalized text, same convention as
-    analyze_arbitration_clause / structure_checker.analyze_structure.
+    When `canonical_liability` (ContractLiabilityFacts) is provided, element
+    presence is derived from those established facts rather than independent
+    regex re-discovery — single-source-of-truth for the LoL family.
     """
+    if canonical_liability is not None:
+        return _analyze_liability_from_canonical(canonical_liability)
+
     if not _LIABILITY_TOPIC_RE.search(text):
         return LiabilityQualityReport(applicable=False, score=None, elements=[])
 
@@ -376,6 +384,78 @@ def analyze_liability_clause(text: str) -> LiabilityQualityReport:
 
     score = sum(e.weight for e in elements if e.present)
     return LiabilityQualityReport(applicable=True, score=score, elements=elements)
+
+
+def _analyze_liability_from_canonical(canonical) -> LiabilityQualityReport:
+    """Score LoL quality from ContractLiabilityFacts — no raw-text re-parse."""
+    from contract_facts.liability import MutualityStatus
+    from contract_facts.presence import Presence
+
+    if canonical is None or canonical.clause_presence is Presence.ABSENT:
+        return LiabilityQualityReport(applicable=False, score=None, elements=[])
+    if canonical.controlling is None:
+        return LiabilityQualityReport(applicable=False, score=None, elements=[])
+
+    controlling = canonical.controlling
+    cap_present = controlling.general_cap.is_known
+    mutual_present = (
+        controlling.mutuality.is_known
+        and controlling.mutuality.value is MutualityStatus.MUTUAL
+    )
+    consequential_present = (
+        controlling.consequential_damages_excluded.is_known
+        and controlling.consequential_damages_excluded.value is True
+    )
+    high_sev = any(
+        t.treatment.value in ("uncapped", "super_cap")
+        and t.category in ("ip_infringement", "confidentiality", "indemnification")
+        for t in controlling.category_treatments
+    )
+    fraud_exc = any(
+        t.treatment.value in ("uncapped", "super_cap")
+        and t.category in ("fraud", "willful_misconduct", "gross_negligence")
+        for t in controlling.category_treatments
+    )
+    no_negating = cap_present
+
+    specs = [
+        ("cap_present", "A liability cap is stated", cap_present,
+         "No liability cap was established in canonical facts.",
+         "A liability cap or ceiling is stated."),
+        ("mutual_application", "Cap applies mutually to both parties", mutual_present,
+         "Mutual application was not established in canonical facts.",
+         "The cap explicitly applies to both parties."),
+        ("consequential_damages_excluded", "Consequential/indirect damages excluded",
+         consequential_present,
+         "Consequential-damages exclusion was not established in canonical facts.",
+         "Consequential/indirect/special damages are excluded."),
+        ("high_severity_carveouts", "Carve-outs for IP/confidentiality/indemnification claims",
+         high_sev,
+         "No uncapped/super-cap carve-out for IP/confidentiality/indemnification in canonical facts.",
+         "The cap carves out IP, confidentiality, or indemnification claims."),
+        ("fraud_exception", "Fraud/willful misconduct exception", fraud_exc,
+         "No fraud/willful/gross-negligence carve-out in canonical facts.",
+         "Fraud or willful misconduct is excepted from the cap."),
+        ("no_cap_negating_language", "No language undermining the stated cap", no_negating,
+         "Cap presence not established — cannot affirm absence of negating language.",
+         "No language undermining the stated cap was found."),
+    ]
+    elements = [
+        ClauseElement(
+            key=key, label=label, present=present, weight=_LIABILITY_ELEMENT_WEIGHT[key],
+            detail=present_detail if present else absent_detail,
+        )
+        for key, label, present, absent_detail, present_detail in specs
+    ]
+    return LiabilityQualityReport(
+        applicable=True,
+        score=sum(e.weight for e in elements if e.present),
+        elements=elements,
+        methodology_note=(
+            "Scored from canonical ContractLiabilityFacts (shared LoL extract). "
+            "Categories inside the general cap (§6.3) are not treated as favorable carve-outs."
+        ),
+    )
 
 
 # ---------------------------------------------------------------------------

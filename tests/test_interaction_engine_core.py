@@ -126,6 +126,39 @@ class TestRule2SharedCategoryMismatch:
 
 
 # ---------------------------------------------------------------------------
+# Policy × contract: indemnity required outside general cap (actionable)
+# ---------------------------------------------------------------------------
+
+class TestPolicyIndemnityOutsideCapConflict:
+    def test_escalates_when_policy_requires_outside_and_contract_puts_inside(self):
+        decisions = {
+            "limitation_of_liability": mk_decision(
+                "limitation_of_liability",
+                "ESCALATE",
+                [ct("indemnification", "within_general_cap")],
+                interaction_facts={"policy_requires_outside_general_cap": ["indemnification"]},
+            ),
+            "indemnification": mk_decision("indemnification", "MUST_REDLINE", [ct("ip_infringement", "covered")]),
+        }
+        results = ixc.evaluate(decisions, ixr.LAUNCH_CATALOG)
+        r = next(d for d in results if d.interaction_id == "IX_POLICY_INDEMNITY_OUTSIDE_CAP_CONFLICT")
+        assert r.state == "ESCALATE"
+        assert r.kind == "CONFLICT"
+        assert r.state in ixc.ACTIONABLE_STATES
+
+    def test_does_not_fire_without_policy_outside_signal(self):
+        decisions = {
+            "limitation_of_liability": mk_decision(
+                "limitation_of_liability", "ACCEPT", [ct("indemnification", "within_general_cap")],
+            ),
+            "indemnification": mk_decision("indemnification", "ACCEPT", [ct("ip_infringement", "covered")]),
+        }
+        results = ixc.evaluate(decisions, ixr.LAUNCH_CATALOG)
+        r = next(d for d in results if d.interaction_id == "IX_POLICY_INDEMNITY_OUTSIDE_CAP_CONFLICT")
+        assert r.state == "NOT_TRIGGERED"
+
+
+# ---------------------------------------------------------------------------
 # Rule 3: indemnity rides inside general cap (DEPENDENCY, informational)
 # ---------------------------------------------------------------------------
 
@@ -368,9 +401,11 @@ class TestEngineMechanics:
                 predicate=lambda d: None,
             )
 
-    def test_launch_catalog_has_exactly_seven_rules_with_unique_ids(self):
-        assert len(ixr.LAUNCH_CATALOG) == 7
-        assert len(set(ixr.LAUNCH_CATALOG_IDS)) == 7
+    def test_launch_catalog_has_exactly_eight_rules_with_unique_ids(self):
+        # Seven launch rules + IX_POLICY_INDEMNITY_OUTSIDE_CAP_CONFLICT (P3).
+        assert len(ixr.LAUNCH_CATALOG) == 8
+        assert len(set(ixr.LAUNCH_CATALOG_IDS)) == 8
+        assert "IX_POLICY_INDEMNITY_OUTSIDE_CAP_CONFLICT" in ixr.LAUNCH_CATALOG_IDS
 
     def test_evidence_report_includes_every_participant_and_explanation(self):
         decisions = {

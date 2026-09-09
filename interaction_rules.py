@@ -102,6 +102,45 @@ def _rule_shared_category_mismatch(decisions: Dict[str, PolicyDecision]) -> Opti
 
 
 # ---------------------------------------------------------------------------
+# Rule 2b — Policy requires vendor indemnification OUTSIDE the general cap,
+# but the contract (e.g. §6.3) places indemnification within_general_cap.
+# Structural conflict; does not require monetary ACV resolution.
+# Consumes LoL interaction_facts.policy_requires_outside_general_cap (set from
+# policy carve_outs + established category_treatments — no raw-text re-parse).
+# ---------------------------------------------------------------------------
+
+def _rule_policy_indemnity_outside_cap_conflict(
+    decisions: Dict[str, PolicyDecision], document_facts=None,
+) -> Optional[InteractionFinding]:
+    lol = decisions["limitation_of_liability"]
+    required = list((lol.interaction_facts or {}).get("policy_requires_outside_general_cap") or [])
+    if "indemnification" not in required:
+        return None
+    liability_ct = _by_category(lol)
+    lt = liability_ct.get("indemnification")
+    family_within = _family_indemnity_within_general_cap(liability_ct, document_facts)
+    if not family_within and not (lt and lt.get("treatment") == "within_general_cap"):
+        return None
+    return InteractionFinding(
+        state=ESCALATE,
+        explanation=(
+            "Active Limitation of Liability policy requires vendor indemnification to sit "
+            "outside the ordinary general liability cap, but the contract places indemnification "
+            "obligations inside the general cap (e.g. applicability language such as §6.3). "
+            "These positions conflict and require supervising review."
+        ),
+        required_action=(
+            "Escalate — redline so vendor indemnification is carved out of the general "
+            "liability cap, or obtain Supervising Partner approval of the exception."
+        ),
+        matched_facts={
+            "policy_requires_outside": "indemnification",
+            "contract_treatment": (lt or {}).get("treatment") or "within_general_cap_via_cross_clause",
+        },
+    )
+
+
+# ---------------------------------------------------------------------------
 # Rule 3 — Indemnification exposure rides inside Liability's general cap
 # (informational DEPENDENCY, not an incompatibility).
 #
@@ -337,6 +376,13 @@ LAUNCH_CATALOG = [
         kind=CONFLICT, ceiling_state=ESCALATE,
         participating_clause_types=("limitation_of_liability", "indemnification"),
         predicate=_rule_shared_category_mismatch,
+    ),
+    InteractionRule(
+        interaction_id="IX_POLICY_INDEMNITY_OUTSIDE_CAP_CONFLICT",
+        label="Liability × Indemnification: policy requires indemnification outside general cap",
+        kind=CONFLICT, ceiling_state=ESCALATE,
+        participating_clause_types=("limitation_of_liability", "indemnification"),
+        predicate=_rule_policy_indemnity_outside_cap_conflict,
     ),
     InteractionRule(
         interaction_id="IX_INDEMNITY_WITHIN_GENERAL_CAP",

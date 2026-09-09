@@ -2690,6 +2690,19 @@ class PolicyDecision:
 # in particular that None is a distinct, meaningful value ("the contract
 # never addressed this") and must never be conflated with False.
 INTERACTION_FACT_REGISTRY: Dict[str, Dict[str, str]] = {
+    "limitation_of_liability": {
+        "policy_requires_outside_general_cap": (
+            "List[str] — category keys (e.g. 'indemnification', 'confidentiality') for which "
+            "the ACTIVE Liability policy requires OUTSIDE_GENERAL_CAP treatment, but the "
+            "contract's established category_treatments place the category within_general_cap "
+            "(e.g. §6.3 applicability). Used by Interaction Engine Rule "
+            "IX_POLICY_INDEMNITY_OUTSIDE_CAP_CONFLICT; never re-derived from raw text."
+        ),
+        "acv_source": (
+            "str — AcvSource value recording how EvaluationContext.annual_contract_value "
+            "was resolved (reviewer_deal_value | contract_annual_fees | unspecified)."
+        ),
+    },
     "payment_terms": {
         "disputed_amounts_withholdable": (
             "Optional[bool] — mirrors PaymentFacts.disputed_amounts_withholdable "
