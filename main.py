@@ -1980,6 +1980,8 @@ def _truncate_excerpt_for_display(excerpt: str, max_len: int = 300) -> str:
     truncates at the nearest whitespace boundary at or before max_len (so
     it never splits a word) and appends how many characters were omitted.
     """
+    if not excerpt:
+        return ""
     if len(excerpt) <= max_len:
         return excerpt
     cut = excerpt.rfind(" ", 0, max_len)
@@ -1999,7 +2001,7 @@ _PDF_CHAR_TRANSLATIONS = str.maketrans({
 })
 
 
-def _pdf_safe(text: str) -> str:
+def _pdf_safe(text) -> str:
     """
     Make text safe for the core Helvetica PDF font (latin-1 only), which
     raises FPDFUnicodeEncodingException (a 500) on rule titles/rationale/LLM
@@ -2007,6 +2009,10 @@ def _pdf_safe(text: str) -> str:
     punctuation is transliterated to a plain-ASCII equivalent so the report
     stays readable; anything else falls back to being dropped.
     """
+    if text is None:
+        return ""
+    if not isinstance(text, str):
+        text = str(text)
     translated = text.translate(_PDF_CHAR_TRANSLATIONS)
     return translated.encode("latin-1", "replace").decode("latin-1")
 
@@ -2023,7 +2029,7 @@ _CLAUSE_QUALITY_MODULE_LABELS = {
 
 def _pdf_section_heading(pdf: "FPDF", text: str) -> None:
     pdf.set_font("Helvetica", "B", 12)
-    pdf.cell(0, 8, text, new_x="LMARGIN", new_y="NEXT")
+    pdf.cell(0, 8, _pdf_safe(text), new_x="LMARGIN", new_y="NEXT")
     pdf.set_font("Helvetica", "", 10)
 
 
@@ -2042,7 +2048,7 @@ def _build_pdf_bytes(filename: str, overall_risk: str, rule_counts: dict, rule_e
     pdf.add_page()
 
     pdf.set_font("Helvetica", "B", 18)
-    pdf.cell(0, 12, "TriageCounsel — Contract Review Report", new_x="LMARGIN", new_y="NEXT")
+    pdf.cell(0, 12, _pdf_safe("TriageCounsel - Contract Review Report"), new_x="LMARGIN", new_y="NEXT")
     pdf.set_font("Helvetica", "", 10)
     pdf.cell(0, 6, f"File: {_pdf_safe(filename)}", new_x="LMARGIN", new_y="NEXT")
     pdf.cell(0, 6, f"Date: {datetime.utcnow().strftime('%B %d, %Y')}", new_x="LMARGIN", new_y="NEXT")
@@ -2130,9 +2136,9 @@ def _build_pdf_bytes(filename: str, overall_risk: str, rule_counts: dict, rule_e
 
     if all_issues:
         pdf.set_font("Helvetica", "B", 12)
-        pdf.cell(0, 8, "Findings", new_x="LMARGIN", new_y="NEXT")
+        pdf.cell(0, 8, _pdf_safe("Findings"), new_x="LMARGIN", new_y="NEXT")
         for i, issue in enumerate(all_issues, 1):
-            severity = issue.get("severity", "medium").upper()
+            severity = _pdf_safe((issue.get("severity") or "medium")).upper()
             title = _pdf_safe(issue.get("title", "Finding"))
             pdf.set_font("Helvetica", "B", 10)
             pdf.multi_cell(0, 6, f"{i}. [{severity}] {title}", new_x="LMARGIN", new_y="NEXT")
@@ -2150,10 +2156,10 @@ def _build_pdf_bytes(filename: str, overall_risk: str, rule_counts: dict, rule_e
             confidence_breakdown = issue.get("confidence_breakdown")
             if confidence_breakdown:
                 pdf.set_font("Helvetica", "B", 8)
-                pdf.cell(0, 5, f"   Confidence: {str(confidence_breakdown.get('confidence', '')).upper()}", new_x="LMARGIN", new_y="NEXT")
+                pdf.cell(0, 5, f"   Confidence: {_pdf_safe(confidence_breakdown.get('confidence', '')).upper()}", new_x="LMARGIN", new_y="NEXT")
                 if confidence_breakdown.get("reason"):
                     pdf.set_font("Helvetica", "", 8)
-                    pdf.multi_cell(0, 4, f"   {_pdf_safe(confidence_breakdown['reason'])}", new_x="LMARGIN", new_y="NEXT")
+                    pdf.multi_cell(0, 4, f"   {_pdf_safe(confidence_breakdown.get('reason'))}", new_x="LMARGIN", new_y="NEXT")
 
             redline = issue.get("redline")
             if redline:
@@ -2161,8 +2167,11 @@ def _build_pdf_bytes(filename: str, overall_risk: str, rule_counts: dict, rule_e
                 pdf.set_font("Helvetica", "B", 9)
                 pdf.multi_cell(
                     0, 5,
-                    f"   DETERMINISTIC REDLINE - {_pdf_safe(redline.get('issue', ''))} "
-                    f"({redline.get('negotiation_difficulty', '')} friction, {redline.get('confidence', '')} confidence)",
+                    _pdf_safe(
+                        f"   DETERMINISTIC REDLINE - {redline.get('issue', '')} "
+                        f"({redline.get('negotiation_difficulty', '')} friction, "
+                        f"{redline.get('confidence', '')} confidence)"
+                    ),
                     new_x="LMARGIN", new_y="NEXT",
                 )
                 redline_fields = [
@@ -2180,13 +2189,17 @@ def _build_pdf_bytes(filename: str, overall_risk: str, rule_counts: dict, rule_e
                     if not value:
                         continue
                     pdf.set_font("Helvetica", "B", 8)
-                    pdf.multi_cell(0, 4, f"   {field_label}:", new_x="LMARGIN", new_y="NEXT")
+                    pdf.multi_cell(0, 4, _pdf_safe(f"   {field_label}:"), new_x="LMARGIN", new_y="NEXT")
                     pdf.set_font("Helvetica", "", 8)
                     pdf.multi_cell(0, 4, f"   {_pdf_safe(value)}", new_x="LMARGIN", new_y="NEXT")
                 rules = redline.get("supporting_deterministic_rules") or []
                 if rules:
                     pdf.set_font("Helvetica", "I", 8)
-                    pdf.multi_cell(0, 4, f"   Supporting Deterministic Rule(s): {', '.join(rules)}", new_x="LMARGIN", new_y="NEXT")
+                    pdf.multi_cell(
+                        0, 4,
+                        _pdf_safe(f"   Supporting Deterministic Rule(s): {', '.join(str(r) for r in rules)}"),
+                        new_x="LMARGIN", new_y="NEXT",
+                    )
 
             pdf.set_font("Helvetica", "", 10)
             pdf.ln(2)
