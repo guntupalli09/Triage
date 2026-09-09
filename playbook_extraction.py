@@ -38,6 +38,7 @@ import ip_ownership_policy_engine as ipoe
 import liability_policy_engine as lpe
 import payment_terms_policy_engine as pte
 import playbook_authoring as pa
+import playbook_import_persistence as pip
 import sla_policy_engine as sle
 import termination_policy_engine as tpe
 import warranties_policy_engine as we
@@ -882,7 +883,7 @@ def _apply_proposal(
         existing.value_json = proposal.value if proposal.status == "ESTABLISHED" else None
         existing.source = proposal.source
         existing.status = proposal.status
-        existing.evidence_document_id = source_document.id
+        pip.assign_field_evidence(existing, source_document)
         existing.evidence_excerpt = proposal.evidence_excerpt
         existing.evidence_start_index = proposal.evidence_start_index
         existing.evidence_end_index = proposal.evidence_end_index
@@ -913,6 +914,7 @@ def import_source_document(
 
     Returns {clause_type: PolicyPosition} for every clause type touched.
     """
+    pip.ensure_source_document_persisted(db, source_document)
     results: Dict[str, PolicyPosition] = {}
     for clause_type in pa.CLAUSE_TYPES:
         extract_fn, _evaluate_fn = pa._ENGINE_FUNCS[clause_type]

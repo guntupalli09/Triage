@@ -49,6 +49,7 @@ import payment_terms_policy_engine
 import sla_policy_engine
 import termination_policy_engine
 import warranties_policy_engine
+import playbook_import_persistence as pip
 from models import (
     POLICY_POSITION_SEGMENT_FIELDS, Playbook, PolicyPosition, PolicyPositionApproval,
     PolicyPositionField, PolicyRule,
@@ -534,9 +535,16 @@ def validate_position_for_activation(position: PolicyPosition) -> None:
     ESTABLISHED; callers (the future activation route, main.py's eventual
     call site) should surface position.clause_type +
     error.missing_fields directly rather than a generic failure."""
-    required = ACTIVATION_REQUIRED_FIELDS.get(position.clause_type, [])
     statuses = _current_field_statuses(position)
-    missing = [name for name in required if statuses.get(name) != "ESTABLISHED"] if required else []
+    missing: List[str] = []
+
+    is_lol_v2 = (
+        position.clause_type == "limitation_of_liability"
+        and (getattr(position, "policy_schema_version", 1) or 1) == 2
+    )
+    if not is_lol_v2:
+        required = ACTIVATION_REQUIRED_FIELDS.get(position.clause_type, [])
+        missing = [name for name in required if statuses.get(name) != "ESTABLISHED"] if required else []
 
     extra_validator = _ADAPTER_ACTIVATION_VALIDATORS.get(position.clause_type)
     if extra_validator:
@@ -597,6 +605,37 @@ def _sla_activation_validator(position: PolicyPosition, statuses: Dict[str, str]
 
 
 _ADAPTER_ACTIVATION_VALIDATORS["sla"] = _sla_activation_validator
+
+
+def _lol_v2_activation_validator(position: PolicyPosition, statuses: Dict[str, str]) -> List[str]:
+    """v2 LoL positions validate rules_v2_json instead of v1 config_json fields."""
+    if (getattr(position, "policy_schema_version", 1) or 1) != 2:
+        return []
+    extra: List[str] = []
+    rules = position.rules_v2_json
+    if not rules:
+        extra.append("rules_v2_json is required for policy_schema_version=2")
+        return extra
+    try:
+        from liability_policy_v2 import liability_policy_v2_from_dict
+        from policy_grammar.bands import PolicyBandKind
+
+        policy = liability_policy_v2_from_dict(rules)
+        validation_errors = policy.validate()
+        if validation_errors:
+            extra.append(
+                "rules_v2_json failed validation: "
+                + "; ".join(f"{e.path}: {e.message}" for e in validation_errors)
+            )
+        has_preferred = any(b.kind == PolicyBandKind.PREFERRED for b in policy.bands)
+        if not has_preferred:
+            extra.append("rules_v2_json must include at least one PREFERRED band")
+    except Exception as exc:  # noqa: BLE001 — surface parse errors at activation
+        extra.append(f"rules_v2_json could not be parsed: {type(exc).__name__}")
+    return extra
+
+
+_ADAPTER_ACTIVATION_VALIDATORS["limitation_of_liability"] = _lol_v2_activation_validator
 
 
 class PolicyEnforcementGuardError(ValueError):
@@ -1049,13 +1088,15 @@ def get_or_build_editable_position(
         for old_field in current.fields:
             if old_field.superseded_by_field_id is not None:
                 continue
-            db.add(PolicyPositionField(
+            copied = PolicyPositionField(
                 policy_position_id=new_position.id, field_name=old_field.field_name,
                 value_json=old_field.value_json, source=old_field.source, status=old_field.status,
                 confirmed_by_user_id=old_field.confirmed_by_user_id, confirmed_at=old_field.confirmed_at,
-                evidence_document_id=old_field.evidence_document_id, evidence_excerpt=old_field.evidence_excerpt,
+                evidence_excerpt=old_field.evidence_excerpt,
                 evidence_start_index=old_field.evidence_start_index, evidence_end_index=old_field.evidence_end_index,
-            ))
+            )
+            pip.copy_field_evidence_from_revision(db, copied, old_field)
+            db.add(copied)
         db.flush()
 
     return new_position, True
@@ -1108,13 +1149,15 @@ def create_segment_position(
         for old_field in base.fields:
             if old_field.superseded_by_field_id is not None:
                 continue
-            db.add(PolicyPositionField(
+            copied = PolicyPositionField(
                 policy_position_id=new_position.id, field_name=old_field.field_name,
                 value_json=old_field.value_json, source=old_field.source, status=old_field.status,
                 confirmed_by_user_id=old_field.confirmed_by_user_id, confirmed_at=old_field.confirmed_at,
-                evidence_document_id=old_field.evidence_document_id, evidence_excerpt=old_field.evidence_excerpt,
+                evidence_excerpt=old_field.evidence_excerpt,
                 evidence_start_index=old_field.evidence_start_index, evidence_end_index=old_field.evidence_end_index,
-            ))
+            )
+            pip.copy_field_evidence_from_revision(db, copied, old_field)
+            db.add(copied)
         db.flush()
 
     return new_position
@@ -1744,13 +1787,21 @@ def summarize_position(position: PolicyPosition) -> List[str]:
     """The human-readable policy summary a lawyer approves — never a
     JSON/field-name dump. Used on both the Workbench clause card (a
     trimmed version) and the pre-approval review page (in full)."""
-    cfg = position.config_json or {}
-    statuses = _current_field_statuses(position)
-    lines = _SUMMARIZERS[position.clause_type](cfg, statuses)
-    if position.escalation_approval_authority:
-        lines.append(f"Escalation authority → {position.escalation_approval_authority}")
+    is_lol_v2 = (
+        position.clause_type == "limitation_of_liability"
+        and (getattr(position, "policy_schema_version", 1) or 1) == 2
+    )
+    if is_lol_v2:
+        import playbook_liability_v2_review as lv2_review
+        lines = lv2_review.v2_lol_review_summary(position)
     else:
-        lines.append("Escalation authority → Not set")
+        cfg = position.config_json or {}
+        statuses = _current_field_statuses(position)
+        lines = _SUMMARIZERS[position.clause_type](cfg, statuses)
+        if position.escalation_approval_authority:
+            lines.append(f"Escalation authority → {position.escalation_approval_authority}")
+        else:
+            lines.append("Escalation authority → Not set")
     lines.append(f"Fallback/redline language → {'Provided' if position.fallback_text else 'Not provided'}")
     return lines
 

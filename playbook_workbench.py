@@ -19,6 +19,7 @@ authorization on its own. Ownership is re-checked on every request.
 from __future__ import annotations
 
 import io
+import logging
 import os
 from datetime import datetime
 from typing import Any, Dict, List, Optional
@@ -26,43 +27,28 @@ from typing import Any, Dict, List, Optional
 from docx import Document
 from fastapi import APIRouter, Depends, File, Form, HTTPException, Query, Request, UploadFile
 from fastapi.responses import HTMLResponse, RedirectResponse
-from fastapi.templating import Jinja2Templates
 from PyPDF2 import PdfReader
 from sqlalchemy.orm import Session as DBSession
 
 import audit_log
-import google_oauth
-import legal_config
 import override_learning
-import plan_utils
 import playbook_ai_extraction as pai
 import playbook_authoring as pa
 import playbook_extraction as pex
+import playbook_liability_v2_authoring as lv2
 import policy_enforcement
 import upload_security
+from app_templates import templates
 from auth import get_current_user
-from csrf import csrf_protect, get_csrf_token
+from csrf import csrf_protect
 from database import get_db
 from models import Playbook, PlaybookSourceDocument, PolicyPosition, PolicyPositionApproval
 from rules_engine import RuleEngine
 
 _rule_engine = RuleEngine()
+logger = logging.getLogger(__name__)
 
 router = APIRouter()
-
-# A second Jinja2Templates instance pointed at the same directory as
-# main.py's — not shared module state, to avoid a circular import
-# (main.py imports this module; this module cannot import `templates`
-# back from main.py). Registers the same two globals main.py's instance
-# does, since templates/base_app.html depends on both.
-templates = Jinja2Templates(directory="templates")
-templates.env.globals["google_signin_enabled"] = google_oauth.is_configured()
-templates.env.globals["csrf_token"] = get_csrf_token
-templates.env.globals["legal"] = legal_config.legal_context
-templates.env.globals["show_upgrade_nudge"] = plan_utils.show_upgrade_nudge
-templates.env.globals["plan_display_name"] = plan_utils.plan_display_name
-templates.env.globals["is_unlimited_usage"] = plan_utils.is_unlimited_usage
-
 
 def _require_user(request: Request, db: DBSession):
     user = get_current_user(request, db)
@@ -111,6 +97,12 @@ def _field_evidence_summary(position: Optional[PolicyPosition]) -> Dict[str, Dic
     return out
 
 
+def _lol_template(clause_type: str, position: Optional[PolicyPosition]) -> str:
+    if clause_type == "limitation_of_liability" and lv2.is_lol_v2_position(position):
+        return "policy_position_fields/limitation_of_liability_v2.html"
+    return f"policy_position_fields/{clause_type}.html"
+
+
 def _base_context(request: Request, user, playbook: Playbook, clause_type: str, position: Optional[PolicyPosition]) -> dict:
     ctx = {
         "request": request, "user": user, "playbook": playbook,
@@ -124,13 +116,14 @@ def _base_context(request: Request, user, playbook: Playbook, clause_type: str, 
         "is_new_revision": False,
         "current_year": datetime.now().year,
         "error": None,
-        # Shared-field values the form should re-display. Normally the
-        # persisted position's; overridden with what was just submitted when
-        # a save/submit fails validation, so nothing typed is lost (P0-1).
         "form_contract_side": position.contract_side if position else "mutual",
         "form_escalation_approval_authority": (position.escalation_approval_authority if position else None) or "",
         "form_fallback_text": (position.fallback_text if position else None) or "",
+        "is_v2_policy": False,
     }
+    if lv2.is_lol_v2_position(position):
+        ctx["v2"] = lv2.v2_edit_view(position)
+        ctx["is_v2_policy"] = True
     if clause_type == "indemnification":
         import indemnification_policy_engine as ipe
         ctx["trigger_option_labels"] = ipe.TRIGGER_LABELS
@@ -348,7 +341,7 @@ async def position_edit_page(request: Request, playbook_id: int, clause_type: st
 
     ctx = _base_context(request, user, playbook, clause_type, position)
     ctx["is_new_revision"] = is_new_revision
-    return templates.TemplateResponse(f"policy_position_fields/{clause_type}.html", ctx)
+    return templates.TemplateResponse(_lol_template(clause_type, position), ctx)
 
 
 @router.post("/playbooks/{playbook_id}/positions/{clause_type}/save", response_class=HTMLResponse)
@@ -363,16 +356,28 @@ async def position_save(
 
     position, is_new_revision = pa.get_or_build_editable_position(db, playbook, clause_type)
 
+    shared_side = pa.parse_contract_side(form.get("contract_side"))
+    shared_esc = (form.get("escalation_approval_authority") or "").strip() or None
+    shared_fb = (form.get("fallback_text") or "").strip() or None
+
     try:
-        clause_updates = pa.parse_clause_form(clause_type, form)
-        pa.apply_position_update(
-            db, position, clause_field_updates=clause_updates,
-            contract_side=pa.parse_contract_side(form.get("contract_side")),
-            escalation_approval_authority=(form.get("escalation_approval_authority") or "").strip() or None,
-            fallback_text=(form.get("fallback_text") or "").strip() or None,
-            user=user,
-        )
-    except (pa.PositionFormError, pa.PolicyConfigValidationError) as exc:
+        if lv2.is_lol_v2_position(position) or form.get("v2_editor"):
+            lv2.apply_liability_v2_update(
+                db, position, form, user,
+                contract_side=shared_side,
+                escalation_approval_authority=shared_esc,
+                fallback_text=shared_fb,
+            )
+        else:
+            clause_updates = pa.parse_clause_form(clause_type, form)
+            pa.apply_position_update(
+                db, position, clause_field_updates=clause_updates,
+                contract_side=shared_side,
+                escalation_approval_authority=shared_esc,
+                fallback_text=shared_fb,
+                user=user,
+            )
+    except (pa.PositionFormError, pa.PolicyConfigValidationError, lv2.LiabilityV2FormError) as exc:
         db.rollback()
         # Preserve what was typed (P0-1) rather than re-rendering a blank
         # form — the values only exist in this request body.
@@ -380,7 +385,7 @@ async def position_save(
         _apply_submitted_values(ctx, clause_type, form)
         ctx["is_new_revision"] = is_new_revision
         ctx["error"] = str(exc)
-        return templates.TemplateResponse(f"policy_position_fields/{clause_type}.html", ctx, status_code=400)
+        return templates.TemplateResponse(_lol_template(clause_type, position), ctx, status_code=400)
 
     db.commit()
     audit_log.record_event(
@@ -440,17 +445,28 @@ async def position_submit_for_review(
 
     try:
         if carries_form_state:
-            pa.apply_position_update(
-                db, position,
-                clause_field_updates=pa.parse_clause_form(clause_type, form),
-                contract_side=pa.parse_contract_side(form.get("contract_side")),
-                escalation_approval_authority=(form.get("escalation_approval_authority") or "").strip() or None,
-                fallback_text=(form.get("fallback_text") or "").strip() or None,
-                user=user,
-            )
+            shared_side = pa.parse_contract_side(form.get("contract_side"))
+            shared_esc = (form.get("escalation_approval_authority") or "").strip() or None
+            shared_fb = (form.get("fallback_text") or "").strip() or None
+            if lv2.is_lol_v2_position(position) or form.get("v2_editor"):
+                lv2.apply_liability_v2_update(
+                    db, position, form, user,
+                    contract_side=shared_side,
+                    escalation_approval_authority=shared_esc,
+                    fallback_text=shared_fb,
+                )
+            else:
+                pa.apply_position_update(
+                    db, position,
+                    clause_field_updates=pa.parse_clause_form(clause_type, form),
+                    contract_side=shared_side,
+                    escalation_approval_authority=shared_esc,
+                    fallback_text=shared_fb,
+                    user=user,
+                )
             db.flush()
         pa.mark_ready_for_review(db, position, user)
-    except (pa.PositionFormError, pa.PositionLifecycleError, pa.PolicyConfigValidationError) as exc:
+    except (pa.PositionFormError, pa.PositionLifecycleError, pa.PolicyConfigValidationError, lv2.LiabilityV2FormError) as exc:
         db.rollback()
         # Re-render with what the lawyer actually typed, never a blank form
         # or a stale DB row — losing the input is the bug being fixed.
@@ -458,7 +474,7 @@ async def position_submit_for_review(
         if carries_form_state:
             _apply_submitted_values(ctx, clause_type, form)
         ctx["error"] = str(exc)
-        return templates.TemplateResponse(f"policy_position_fields/{clause_type}.html", ctx, status_code=400)
+        return templates.TemplateResponse(_lol_template(clause_type, position), ctx, status_code=400)
 
     db.commit()
     audit_log.record_event(
@@ -813,13 +829,19 @@ async def playbook_ai_import_submit(
         use_as_deviation_baseline=False, use_for_policy_extraction=True,
     )
     db.add(source_document)
-    db.flush()
 
     try:
         positions, cost_report = pai.import_ai_playbook(db, playbook, source_document, user, consent=True)
     except (pai.AIImportDisabledError, pai.AIImportConsentRequiredError) as exc:
         db.rollback()
         return _error(str(exc))
+    except Exception as exc:
+        db.rollback()
+        logger.exception("AI-assisted import failed for playbook_id=%s", playbook.id)
+        return _error(
+            "Import failed due to a server error. Your file was not processed — please try again, "
+            "or use deterministic template import instead."
+        )
 
     db.commit()
     # Cost/operational metadata only -- never raw playbook text (task item 13).

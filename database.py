@@ -344,6 +344,21 @@ def _run_migrations():
             if "segment_deal_value_max" not in policy_position_cols:
                 conn.execute(text("ALTER TABLE policy_positions ADD COLUMN segment_deal_value_max FLOAT"))
                 logger.info("Migration applied: policy_positions.segment_deal_value_max column")
+            if "rules_v2_json" not in policy_position_cols:
+                conn.execute(text(f"ALTER TABLE policy_positions ADD COLUMN rules_v2_json {encrypted_json_col_type}"))
+                logger.info("Migration applied: policy_positions.rules_v2_json column")
+            if "policy_schema_version" not in policy_position_cols:
+                conn.execute(text("ALTER TABLE policy_positions ADD COLUMN policy_schema_version INTEGER DEFAULT 1"))
+                logger.info("Migration applied: policy_positions.policy_schema_version column")
+            if not _is_sqlite:
+                policy_position_cols_info = {c["name"]: c for c in insp.get_columns("policy_positions")}
+                rv2_info = policy_position_cols_info.get("rules_v2_json")
+                if rv2_info is not None and "JSON" in str(rv2_info["type"]).upper():
+                    conn.execute(text(
+                        "ALTER TABLE policy_positions ALTER COLUMN rules_v2_json TYPE TEXT "
+                        "USING rules_v2_json::text"
+                    ))
+                    logger.info("Migration applied: policy_positions.rules_v2_json JSON/JSONB -> TEXT (for encryption)")
 
 
 def init_db():

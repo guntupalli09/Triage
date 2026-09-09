@@ -1,0 +1,227 @@
+{% extends "playbook_position_edit_base.html" %}
+{# Lawyer-facing v2 LoL editor — never exposes rules_v2_json #}
+
+{% macro operand_fields(prefix, op, fee_bases, fee_scopes) %}
+{% set op = op or {'type': 'fee_period', 'months': 12, 'basis': 'CONTRACT_FEES', 'scope': 'AGREEMENT'} %}
+<div class="operand-fields {% if op.type != 'fee_period' %}hidden{% endif %}" data-type="fee_period">
+    <div class="grid sm:grid-cols-3 gap-2">
+        <input type="number" step="0.5" name="{{ prefix }}_months" value="{{ op.months if op.type == 'fee_period' else 12 }}" placeholder="Months" class="px-3 py-2 border border-gray-200 rounded-lg text-sm">
+        <select name="{{ prefix }}_basis" class="px-3 py-2 border border-gray-200 rounded-lg text-sm">
+            {% for b in fee_bases %}
+            <option value="{{ b }}" {% if (op.type == 'fee_period' and op.basis == b) or (op.type != 'fee_period' and b == 'CONTRACT_FEES') %}selected{% endif %}>{{ b.replace('_', ' ') }}</option>
+            {% endfor %}
+        </select>
+        <select name="{{ prefix }}_scope" class="px-3 py-2 border border-gray-200 rounded-lg text-sm">
+            {% for s in fee_scopes %}
+            <option value="{{ s }}" {% if (op.type == 'fee_period' and op.scope == s) or (op.type != 'fee_period' and s == 'AGREEMENT') %}selected{% endif %}>{{ s.replace('_', ' ') }}</option>
+            {% endfor %}
+        </select>
+    </div>
+</div>
+<div class="operand-fields {% if op.type != 'annual_fee_multiple' %}hidden{% endif %}" data-type="annual_fee_multiple">
+    <input type="number" step="0.1" name="{{ prefix }}_multiple" value="{{ op.multiple if op.type == 'annual_fee_multiple' else 1 }}" class="w-32 px-3 py-2 border border-gray-200 rounded-lg text-sm" placeholder="× annual fees" {% if op.type != 'annual_fee_multiple' %}disabled{% endif %}>
+</div>
+<div class="operand-fields {% if op.type != 'fixed_amount' %}hidden{% endif %}" data-type="fixed_amount">
+    <div class="flex gap-2">
+        <input type="text" name="{{ prefix }}_amount" value="{{ op.amount if op.type == 'fixed_amount' else '' }}" class="w-40 px-3 py-2 border border-gray-200 rounded-lg text-sm" placeholder="Amount" {% if op.type != 'fixed_amount' %}disabled{% endif %}>
+        <input type="text" name="{{ prefix }}_currency" value="{{ op.currency if op.type == 'fixed_amount' else 'USD' }}" class="w-20 px-3 py-2 border border-gray-200 rounded-lg text-sm" placeholder="USD" {% if op.type != 'fixed_amount' %}disabled{% endif %}>
+    </div>
+</div>
+{% endmacro %}
+
+{% block clause_fields %}
+<input type="hidden" name="v2_editor" value="1">
+
+<div class="mb-6 p-4 bg-indigo-50 border border-indigo-100 rounded-xl">
+    <p class="text-sm text-indigo-900 font-medium">Structured liability policy (v2)</p>
+    <p class="text-xs text-indigo-700 mt-1">These controls map to the typed policy grammar. Imported values retain provenance below; edits require review and re-activation.</p>
+</div>
+
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">Party orientation</h3>
+<div class="mb-6">
+    <label class="block text-sm font-semibold text-[#0F172A] mb-1.5">Transaction orientation</label>
+    <select name="v2_orientation" class="w-full sm:w-96 px-3 py-2 border border-gray-200 rounded-lg text-sm bg-white">
+        {% for o in v2.orientations %}
+        <option value="{{ o }}" {% if v2.orientation == o %}selected{% endif %}>{{ o.replace('_', ' ')|title }}</option>
+        {% endfor %}
+    </select>
+</div>
+
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">General cap — preferred position</h3>
+<div class="mb-4 p-4 border border-gray-100 rounded-lg space-y-3 v2-cap-section">
+    <div>
+        <label class="block text-xs font-semibold text-gray-600 mb-1">Cap structure</label>
+        <select name="v2_preferred_operator" class="w-full sm:w-64 px-3 py-2 border border-gray-200 rounded-lg text-sm cap-operator-select">
+            {% for op in v2.cap_operators %}
+            <option value="{{ op }}" {% if v2.preferred.operator == op %}selected{% endif %}>{{ op.replace('_', ' ') }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    {% set p1 = v2.preferred.operand if v2.preferred.operator == 'SIMPLE' else v2.preferred.operand_a %}
+    {% set p2 = v2.preferred.operand_b if v2.preferred.operator != 'SIMPLE' else {'type': 'fixed_amount', 'amount': '1000000', 'currency': 'USD'} %}
+    {% set compound = v2.preferred.operator != 'SIMPLE' %}
+    {% for prefix, op, label, is_second in [
+        ('v2_preferred_op1', p1, 'First component', false),
+        ('v2_preferred_op2', p2, 'Second component', true),
+    ] %}
+    <div class="pl-3 border-l-2 border-gray-200 v2-component {% if is_second %}v2-compound-only{% if not compound %} hidden{% endif %}{% endif %}">
+        <p class="text-xs font-semibold text-gray-500 mb-2">{{ label }}</p>
+        <select name="{{ prefix }}_type" class="mb-2 w-full sm:w-64 px-3 py-2 border border-gray-200 rounded-lg text-sm operand-type-select">
+            {% for t in v2.operand_types %}
+            <option value="{{ t }}" {% if op and op.type == t %}selected{% endif %}>{{ t.replace('_', ' ') }}</option>
+            {% endfor %}
+        </select>
+        {{ operand_fields(prefix, op, v2.fee_bases, v2.fee_scopes) }}
+    </div>
+    {% endfor %}
+</div>
+
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">Acceptable fallback</h3>
+<div class="mb-4 p-4 border border-gray-100 rounded-lg space-y-3 v2-fallback-section">
+    <label class="flex items-center gap-2 text-sm"><input type="checkbox" name="v2_fallback_enabled" value="yes" {% if v2.fallback_enabled %}checked{% endif %}> Enable fallback band</label>
+    {% set fb = v2.fallback.operand %}
+    <select name="v2_fallback_operator" class="hidden"><option value="SIMPLE" selected>SIMPLE</option></select>
+    <div class="v2-component">
+        <select name="v2_fallback_op1_type" class="mb-2 w-full sm:w-64 px-3 py-2 border border-gray-200 rounded-lg text-sm operand-type-select">
+            {% for t in v2.operand_types %}
+            <option value="{{ t }}" {% if fb.type == t %}selected{% endif %}>{{ t.replace('_', ' ') }}</option>
+            {% endfor %}
+        </select>
+        {{ operand_fields('v2_fallback_op1', fb, v2.fee_bases, v2.fee_scopes) }}
+    </div>
+    <div>
+        <label class="block text-xs text-gray-600 mb-1">Condition: annual contract value less than</label>
+        <input type="text" name="v2_fallback_acv_lt" value="{{ v2.fallback_acv_lt }}" class="w-40 px-3 py-2 border border-gray-200 rounded-lg text-sm" placeholder="250000">
+        <span class="text-xs text-gray-400 ml-1">USD</span>
+    </div>
+</div>
+
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">Hard stop — minimum acceptable</h3>
+<div class="mb-4 p-4 border border-red-50 rounded-lg space-y-3">
+    <label class="flex items-center gap-2 text-sm"><input type="checkbox" name="v2_hard_stop_enabled" value="yes" {% if v2.hard_stop_enabled %}checked{% endif %}> Enable hard stop</label>
+    {% set hs = v2.hard_stop.operand if v2.hard_stop.get('operand') else {'type': 'fee_period', 'months': 6, 'basis': 'CONTRACT_FEES', 'scope': 'AGREEMENT'} %}
+    <input type="hidden" name="v2_hard_stop_operator" value="SIMPLE">
+    <div class="v2-component">
+        <select name="v2_hard_stop_op1_type" class="mb-2 w-full sm:w-64 px-3 py-2 border border-gray-200 rounded-lg text-sm operand-type-select">
+            {% for t in v2.operand_types %}
+            <option value="{{ t }}" {% if hs.type == t %}selected{% endif %}>{{ t.replace('_', ' ') }}</option>
+            {% endfor %}
+        </select>
+        {{ operand_fields('v2_hard_stop_op1', hs, v2.fee_bases, v2.fee_scopes) }}
+    </div>
+</div>
+
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">Carve-outs</h3>
+<div class="mb-4 p-4 border border-gray-100 rounded-lg">
+    <p class="text-xs text-gray-500 mb-2">Categories treated outside the general cap</p>
+    {% set selected_cats = v2.carve_outs|map(attribute='category')|list %}
+    <div class="grid sm:grid-cols-2 gap-2">
+        {% for cat in v2.carveout_categories %}
+        <label class="flex items-center gap-2 text-sm">
+            <input type="checkbox" name="v2_carveout_category" value="{{ cat }}" {% if cat in selected_cats %}checked{% endif %}>
+            {{ cat.replace('_', ' ') }}
+        </label>
+        {% endfor %}
+    </div>
+</div>
+
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">Super-cap</h3>
+<div class="mb-4 p-4 border border-gray-100 rounded-lg space-y-3">
+    <label class="flex items-center gap-2 text-sm"><input type="checkbox" name="v2_super_cap_enabled" value="yes" {% if v2.super_cap_enabled %}checked{% endif %}> Enable super-cap (reference to general cap)</label>
+    <div class="flex items-center gap-2">
+        <input type="number" step="0.1" name="v2_super_cap_multiplier" value="{{ v2.super_cap_multiplier }}" class="w-24 px-3 py-2 border border-gray-200 rounded-lg text-sm">
+        <span class="text-sm text-gray-600">× General Cap</span>
+    </div>
+    <div class="grid sm:grid-cols-2 gap-2">
+        {% for cat in ['confidentiality', 'data_security', 'privacy', 'data_protection'] %}
+        <label class="flex items-center gap-2 text-sm">
+            <input type="checkbox" name="v2_super_cap_category" value="{{ cat }}" {% if cat in v2.super_cap_categories %}checked{% endif %}>
+            {{ cat.replace('_', ' ') }}
+        </label>
+        {% endfor %}
+    </div>
+</div>
+
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">Escalation</h3>
+<div class="mb-4 p-4 border border-gray-100 rounded-lg space-y-3">
+    <label class="flex items-center gap-2 text-sm"><input type="checkbox" name="v2_escalation_enabled" value="yes" {% if v2.escalation_enabled %}checked{% endif %}> Enable escalation rule</label>
+    <div class="text-sm text-gray-700">When ACV ≥ <input type="text" name="v2_escalation_acv_gte" value="{{ v2.escalation_acv_gte }}" class="w-32 px-2 py-1 border border-gray-200 rounded inline"> USD
+    and liability cap &lt; <input type="number" name="v2_escalation_cap_lt_months" value="{{ v2.escalation_cap_lt_months }}" class="w-20 px-2 py-1 border border-gray-200 rounded inline"> months of fees</div>
+    <select name="v2_escalation_approver" class="w-full sm:w-64 px-3 py-2 border border-gray-200 rounded-lg text-sm">
+        <option value="supervising_partner" {% if v2.escalation_approver == 'supervising_partner' %}selected{% endif %}>Supervising Partner</option>
+        <option value="general_counsel" {% if v2.escalation_approver == 'general_counsel' %}selected{% endif %}>General Counsel</option>
+        <option value="legal_director" {% if v2.escalation_approver == 'legal_director' %}selected{% endif %}>Legal Director</option>
+    </select>
+</div>
+
+<div class="mb-4">
+    <label class="flex items-center gap-2 text-sm font-semibold text-[#0F172A]">
+        <input type="checkbox" name="v2_prohibit_unlimited" value="yes" {% if v2.prohibit_unlimited %}checked{% endif %}> Prohibit unlimited liability
+    </label>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function () {
+    function isCompound(operator) {
+        return operator === 'GREATER_OF' || operator === 'LESSER_OF';
+    }
+
+    function syncOperandFields(componentEl) {
+        if (!componentEl) return;
+        var typeSelect = componentEl.querySelector('.operand-type-select');
+        if (!typeSelect) return;
+        var selected = typeSelect.value;
+        componentEl.querySelectorAll('.operand-fields').forEach(function (panel) {
+            var match = panel.dataset.type === selected;
+            panel.classList.toggle('hidden', !match);
+            panel.querySelectorAll('input, select, textarea').forEach(function (inp) {
+                inp.disabled = !match;
+            });
+        });
+    }
+
+    function syncCompoundVisibility(section) {
+        var opSelect = section.querySelector('.cap-operator-select');
+        if (!opSelect) return;
+        var compound = isCompound(opSelect.value);
+        section.querySelectorAll('.v2-compound-only').forEach(function (el) {
+            el.classList.toggle('hidden', !compound);
+            if (!compound) {
+                el.querySelectorAll('input, select, textarea').forEach(function (inp) {
+                    inp.disabled = true;
+                });
+            } else {
+                syncOperandFields(el);
+            }
+        });
+    }
+
+    function initCapSection(section) {
+        syncCompoundVisibility(section);
+        section.querySelectorAll('.v2-component:not(.v2-compound-only)').forEach(syncOperandFields);
+        var opSelect = section.querySelector('.cap-operator-select');
+        if (opSelect) {
+            opSelect.addEventListener('change', function () { syncCompoundVisibility(section); });
+        }
+        section.querySelectorAll('.operand-type-select').forEach(function (sel) {
+            sel.addEventListener('change', function () {
+                syncOperandFields(sel.closest('.v2-component'));
+            });
+        });
+    }
+
+    document.querySelectorAll('.v2-cap-section').forEach(initCapSection);
+
+    document.querySelectorAll('.v2-fallback-section .v2-component, .v2-component').forEach(function (component) {
+        if (component.closest('.v2-cap-section')) return;
+        syncOperandFields(component);
+        var sel = component.querySelector('.operand-type-select');
+        if (sel) {
+            sel.addEventListener('change', function () { syncOperandFields(component); });
+        }
+    });
+})();
+</script>
+{% endblock %}
