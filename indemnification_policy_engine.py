@@ -288,8 +288,25 @@ RULE_ID = "POLICY_INDEMNIFICATION"
 
 TRIGGERS = [
     "ip_infringement", "data_breach", "confidentiality",
-    "negligence", "gross_negligence", "willful_misconduct",
+    "negligence", "gross_negligence", "willful_misconduct", "fraud",
+    "law_violations", "bodily_injury_property_damage", "vendor_security_incidents",
+    "customer_materials", "unlawful_use",
 ]
+
+TRIGGER_LABELS: Dict[str, str] = {
+    "ip_infringement": "IP infringement",
+    "data_breach": "Data breach",
+    "confidentiality": "Confidentiality breach",
+    "negligence": "Negligence",
+    "gross_negligence": "Gross negligence",
+    "willful_misconduct": "Willful misconduct",
+    "fraud": "Fraud",
+    "law_violations": "Law violations",
+    "bodily_injury_property_damage": "Bodily injury / property damage",
+    "vendor_security_incidents": "Vendor-caused security incidents",
+    "customer_materials": "Customer materials",
+    "unlawful_use": "Unlawful use",
+}
 
 _TRIGGER_KEYWORD_RE = {
     "ip_infringement": re.compile(
@@ -300,10 +317,32 @@ _TRIGGER_KEYWORD_RE = {
     "confidentiality": re.compile(r"\bconfidentiality\b|\bconfidential information\b", re.I),
     "gross_negligence": re.compile(r"\bgross negligence\b", re.I),
     "willful_misconduct": re.compile(r"\bwil[l]?ful misconduct\b", re.I),
-    # Step 4A.7.1 (A6-C-15): "fraud" was a missing trigger category —
-    # a standard indemnification carve-out/exclusion category alongside
-    # the six already tracked, not an open-ended addition.
     "fraud": re.compile(r"\bfraud(?:ulent)?\b", re.I),
+    "law_violations": re.compile(
+        r"\bviolation(?:s)?\s+of\s+(?:applicable\s+)?(?:law|laws|statute|statutes|regulation|regulations)\b|"
+        r"\bbreach(?:es)?\s+of\s+(?:applicable\s+)?(?:law|laws|statute|statutes|regulation|regulations)\b|"
+        r"\bunlawful\s+(?:act|acts|conduct|activity|activities)\b",
+        re.I,
+    ),
+    "bodily_injury_property_damage": re.compile(
+        r"\bbodily\s+injury\b|\bproperty\s+damage\b|\bpersonal\s+injury\b|\bdeath\b|\bphysical\s+injury\b",
+        re.I,
+    ),
+    "vendor_security_incidents": re.compile(
+        r"\b(?:vendor|provider|supplier|contractor)(?:'s)?\s+(?:caused\s+)?(?:security\s+)?(?:incident|breach|intrusion|compromise)\b|"
+        r"\bsecurity\s+incident(?:s)?\s+(?:caused|resulting)\s+(?:from|by)\s+(?:vendor|provider|supplier|contractor)\b|"
+        r"\b(?:caused|resulting)\s+by\s+(?:vendor|provider|supplier|contractor).{0,60}\b(?:security|breach|incident)\b",
+        re.I,
+    ),
+    "customer_materials": re.compile(
+        r"\bcustomer\s+(?:materials|content|data|information|property)\b|"
+        r"\bclient\s+(?:materials|content|data|information|property)\b",
+        re.I,
+    ),
+    "unlawful_use": re.compile(
+        r"\bunlawful\s+use\b|\billegal\s+use\b|\bunauthorized\s+use\b|\bmisuse\b",
+        re.I,
+    ),
     # Checked after gross_negligence so "gross negligence" doesn't also
     # register as a bare "negligence" match at a different span.
     "negligence": re.compile(r"\bnegligence\b(?!\s*(?:,|and|or)?\s*gross)", re.I),

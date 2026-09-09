@@ -1472,9 +1472,11 @@ def _fmt_bool(value: Optional[bool], yes: str, no: str) -> str:
     return yes if value else no
 
 
-def _fmt_list(values: Optional[List[str]], empty: str = "None specified") -> str:
+def _fmt_list(values: Optional[List[str]], empty: str = "None specified", *, labels: Optional[Dict[str, str]] = None) -> str:
     if not values:
         return empty
+    if labels:
+        return ", ".join(labels.get(v, v.replace("_", " ")) for v in values)
     return ", ".join(v.replace("_", " ") for v in values)
 
 
@@ -1509,9 +1511,10 @@ def _summarize_liability(cfg: Dict[str, Any]) -> List[str]:
 
 
 def _summarize_indemnification(cfg: Dict[str, Any]) -> List[str]:
+    trigger_labels = indemnification_policy_engine.TRIGGER_LABELS
     return [
-        f"They must indemnify us for → {_fmt_list(cfg.get('required_protection_triggers_json'))}",
-        f"We will never indemnify for → {_fmt_list(cfg.get('prohibited_exposure_triggers_json'))}",
+        f"They must indemnify us for → {_fmt_list(cfg.get('required_protection_triggers_json'), labels=trigger_labels)}",
+        f"We will never indemnify for → {_fmt_list(cfg.get('prohibited_exposure_triggers_json'), labels=trigger_labels)}",
         f"Our indemnity limited to third-party claims only → {_fmt_bool(cfg.get('require_exposure_third_party_only'), 'Required', 'Not required')}",
         f"We must control our own defense → {_fmt_bool(cfg.get('require_defense_control_for_exposure'), 'Required', 'Not required')}",
         f"Prompt notice and cooperation required first → {_fmt_bool(cfg.get('require_notice_and_cooperation_for_exposure'), 'Required', 'Not required')}",

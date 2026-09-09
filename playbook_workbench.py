@@ -124,6 +124,11 @@ def _base_context(request: Request, user, playbook: Playbook, clause_type: str, 
     if lv2.is_lol_v2_position(position):
         ctx["v2"] = lv2.v2_edit_view(position)
         ctx["is_v2_policy"] = True
+    if clause_type == "indemnification":
+        import indemnification_policy_engine as ipe
+        ctx["trigger_option_labels"] = ipe.TRIGGER_LABELS
+    else:
+        ctx["trigger_option_labels"] = {}
     return ctx
 
 
