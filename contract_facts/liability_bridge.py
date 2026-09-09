@@ -106,13 +106,22 @@ def _treatment_kind(raw: str) -> CategoryTreatmentKind:
 
 
 def _mutuality_from_provision(provision: Any) -> EstablishedFact[MutualityStatus]:
+    from contract_facts.vocabulary import excerpt_signals_mutual_party
+
+    # Prefer extractor-established mutuality from the full provision window
+    # (Phase 5) — raw_excerpt alone is often just the fee-period component.
+    if getattr(provision, "mutual_application_established", False):
+        if provision.mutual_application is True:
+            return EstablishedFact.present(MutualityStatus.MUTUAL)
+        if provision.mutual_application is False:
+            return EstablishedFact.present(MutualityStatus.ONE_SIDED)
+        return EstablishedFact.unknown("mutuality marked established but value missing")
+
     positions = getattr(provision, "party_positions", None) or {}
     if len(positions) >= 2:
         return EstablishedFact.present(MutualityStatus.ONE_SIDED)
-    # Heuristic: "either party" / mutual phrasing in excerpt → mutual when single pool
-    excerpt = (getattr(provision, "raw_excerpt", "") or "").lower()
-    window_hint = excerpt
-    if "either party" in window_hint or "each party" in window_hint:
+    excerpt = getattr(provision, "raw_excerpt", "") or ""
+    if excerpt_signals_mutual_party(excerpt):
         return EstablishedFact.present(MutualityStatus.MUTUAL)
     return EstablishedFact.unknown("mutuality not fully established from legacy extraction")
 

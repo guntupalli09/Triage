@@ -4895,10 +4895,18 @@ class RuleEngine:
         workflow = self._compute_workflow_decision(suppressed_findings)
         risk_dashboard = compute_risk_dashboard(suppressed_findings)
         structure_report = analyze_structure(text)
+        # Phase 5: assemble canonical facts once for inspectors (no second
+        # independent re-parse of the same LoL/Indemnity vocabulary).
+        document_facts = None
+        try:
+            from contract_facts.document_assembly import assemble_document_facts
+            document_facts = assemble_document_facts(text)
+        except Exception:  # noqa: BLE001 — inspectors must not fail closed to empty
+            document_facts = None
         arbitration_quality = analyze_arbitration_clause(text)
-        liability_quality = analyze_liability_clause(text)
+        liability_quality = analyze_liability_clause(text, document_facts=document_facts)
         confidentiality_quality = analyze_confidentiality_clause(text)
-        indemnification_quality = analyze_indemnification_clause(text)
+        indemnification_quality = analyze_indemnification_clause(text, document_facts=document_facts)
         termination_quality = analyze_termination_clause(text)
         ip_quality = analyze_ip_clause(text)
         metadata = extract_metadata(text)

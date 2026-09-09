@@ -378,6 +378,17 @@ def _substitute_variables(redline_text: str, metadata: Optional[Dict[str, Any]])
     return redline_text.replace("{party_a}", party_a).replace("{party_b}", party_b)
 
 
+# Mutuality-fix redlines — must not fire when the finding already
+# establishes mutual treatment (Phase 6: consume resolved state, not rule_id alone).
+_MUTUALITY_REDLINE_RULE_IDS = frozenset({
+    "H_ASYMMETRIC_LIABILITY_01",
+    "H_CONSEQUENTIAL_01",
+    "H_INDEM_ONEWAY_01",
+    "H_TERM_CONVENIENCE_01",
+    "H_ATTFEE_01",
+})
+
+
 def render_redline(finding: Any, metadata: Optional[Dict[str, Any]] = None) -> Optional[Dict[str, Any]]:
     """Combines a reviewed RedlineTemplate with an actual finding's
     dynamic data (severity, matched text, clause reference) into the full
@@ -388,6 +399,11 @@ def render_redline(finding: Any, metadata: Optional[Dict[str, Any]] = None) -> O
     `finding` is anything exposing rule_id, severity, exact_snippet (or
     matched_excerpt), clause_number — same attributes rules_engine.Finding
     already carries, or its dict serialization.
+
+    Phase 6: mutuality templates are suppressed when party_direction
+    already says mutual (or authority_layer marks the finding supplemental
+    after Active policy covered the same family) — never "make mutual"
+    against mutual=true.
     """
     def _get(key: str, default: Any = None) -> Any:
         if isinstance(finding, dict):
@@ -398,6 +414,13 @@ def render_redline(finding: Any, metadata: Optional[Dict[str, Any]] = None) -> O
     template = _TEMPLATES.get(rule_id)
     if template is None:
         return None
+
+    if rule_id in _MUTUALITY_REDLINE_RULE_IDS:
+        party_direction = _get("party_direction") or {}
+        if isinstance(party_direction, dict) and party_direction.get("mutuality_status") == "mutual":
+            return None
+        if _get("authority_layer") == "supplemental_generic":
+            return None
 
     severity = _get("severity")
     severity_value = severity.value if hasattr(severity, "value") else str(severity)

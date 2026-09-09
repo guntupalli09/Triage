@@ -1911,6 +1911,8 @@ class MonetaryTreatment:
             return "delegated to a document not included"
         if self.kind == "conditional_cap_escalation":
             return "conditionally escalates for a specific claim scenario"
+        if self.kind == "not_stated":
+            return "not stated"
         return "unspecified"
 
 
