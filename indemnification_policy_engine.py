@@ -313,6 +313,11 @@ _TRIGGER_KEYWORD_RE = {
         r"\bintellectual property\b.{0,40}\binfringement\b"
         r"|\bIP infringement\b"
         r"|\binfringement of\b.{0,40}\bintellectual property\b"
+        # "infringement or misappropriation of intellectual property [rights]"
+        # — same IP-protection concept; "or misappropriation" sits between
+        # infringement and the IP noun without changing the trigger category.
+        r"|\binfringement\b(?:\s+or\s+misappropriation)?\s+of\b.{0,40}\bintellectual\s+property\b"
+        r"|\bmisappropriation of\b.{0,40}\bintellectual\s+property\b"
         # Patent/copyright/trademark enumeration (Northstar / controlled SaaS
         # drafting) — same ip_infringement concept without the words
         # "intellectual property" / "IP infringement".
@@ -1155,7 +1160,8 @@ _MONETARY_OTHER_CLAUSE_DISQUALIFIER_RE = re.compile(
 # not a monetary delegation of the indemnity obligation itself.
 _LIABILITY_APPLIES_TO_INDEMNIFICATION_RE = re.compile(
     r"(?:the\s+)?limitations?\s+(?:of\s+liability\s+)?"
-    r"(?:(?:set\s+forth|stated|contained)\s+in\s+this\s+Section\s+[\d.]+\s+)?"
+    # "set forth/stated/contained in this Section 6" OR bare "in this Section 6"
+    r"(?:(?:(?:set\s+forth|stated|contained)\s+)?in\s+this\s+Section\s+[\d.]+\s+)?"
     r"(?:shall\s+|will\s+)?apply\s+to\s+"
     r"(?:(?:any\s+|all\s+)?claims?\s+(?:arising\s+(?:under|from|out\s+of)\s+|under\s+)?)?"
     r"(?:Section\s+[\d.]+|indemnification\s+(?:obligations?|claims?|provisions?)|"
@@ -2904,8 +2910,24 @@ def _parent_section_key(label: Optional[str]) -> Optional[str]:
 
 
 def _next_subsection_boundary(text: str, after: int) -> Optional[int]:
-    m = _SUBSECTION_HEADING_RE.search(text, after + 1)
-    return m.start() if m else None
+    """Start of the next numbered subsection whose digits begin after `after`.
+
+    `_SUBSECTION_HEADING_RE` may anchor on a blank-line newline before the
+    digits (`\\n\\n5.3` → match starts at the first `\\n`). Callers that pass
+    that match start must still skip the same label — so we key off the
+    captured number's start (`m.start(1)`), not the full-match start.
+    Prefer passing the current heading's `m.end()` / `m.start(1)` from
+    discovery loops.
+    """
+    pos = after + 1 if after >= 0 else 0
+    while pos <= len(text):
+        m = _SUBSECTION_HEADING_RE.search(text, pos)
+        if not m:
+            return None
+        if m.start(1) > after:
+            return m.start()
+        pos = m.end()
+    return None
 
 
 def _extract_obligation_window(text: str, start: int, end: int) -> str:
@@ -2941,7 +2963,8 @@ def _discover_shared_procedures(text: str) -> List[SharedProcedureRecord]:
         body_start = _subsection_body_start(text, m)
         # Heading line / title for procedure detection (not the body).
         heading = text[m.start():body_start]
-        nxt = _next_subsection_boundary(text, m.start())
+        # Pass number end so blank-line-prefixed matches cannot rematch self.
+        nxt = _next_subsection_boundary(text, m.end() - 1)
         body_end = nxt if nxt is not None else min(len(text), body_start + 1500)
         if body_end <= body_start:
             continue
@@ -4037,6 +4060,8 @@ def evaluate_indemnification_policy(
     else:
         if worst_state in (ESCALATE, PROHIBITED):
             required_action = f"Escalate to {policy.escalation_approval_authority or 'Legal Director'} — " + "; ".join(notes)
+        elif worst_state == MUST_REDLINE:
+            required_action = "Must redline — " + "; ".join(notes)
         elif worst_state == NEGOTIATE:
             required_action = "Negotiate — " + "; ".join(notes)
         else:
@@ -4058,7 +4083,9 @@ def evaluate_indemnification_policy(
         ],
         unresolved_facts=[], start_index=controlling.start_index, end_index=controlling.end_index,
         escalate_to=escalate_to_for_state(worst_state, policy.escalation_approval_authority),
-        fallback_text=fallback_text_for_state(worst_state, policy.fallback_text, (NEGOTIATE, ESCALATE, PROHIBITED)),
+        fallback_text=fallback_text_for_state(
+            worst_state, policy.fallback_text, (MUST_REDLINE, NEGOTIATE, ESCALATE, PROHIBITED),
+        ),
         source=source,
         controlling_provision={"label": controlling.label(), "excerpt": controlling.raw_excerpt,
                                 "start_index": controlling.start_index, "end_index": controlling.end_index},

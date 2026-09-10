@@ -109,10 +109,22 @@ def _mutuality_from_provision(provision: Any) -> EstablishedFact[MutualityStatus
     positions = getattr(provision, "party_positions", None) or {}
     if len(positions) >= 2:
         return EstablishedFact.present(MutualityStatus.ONE_SIDED)
-    # Heuristic: "either party" / mutual phrasing in excerpt → mutual when single pool
-    excerpt = (getattr(provision, "raw_excerpt", "") or "").lower()
-    window_hint = excerpt
-    if "either party" in window_hint or "each party" in window_hint:
+    # Mutual phrasing: "either party", "each party", or named-role symmetry
+    # ("either Provider or Customer") — same mutuality concept, one fact.
+    # Prefer operative_window_excerpt: raw_excerpt may be only the fee-period
+    # / cap-value token and omit the mutual opener in the surrounding sentence.
+    import re
+    excerpt = (
+        getattr(provision, "operative_window_excerpt", None)
+        or getattr(provision, "raw_excerpt", "")
+        or ""
+    ).lower()
+    if (
+        "either party" in excerpt
+        or "each party" in excerpt
+        or "both parties" in excerpt
+        or re.search(r"\beither\s+\w+\s+or\s+\w+\b", excerpt)
+    ):
         return EstablishedFact.present(MutualityStatus.MUTUAL)
     return EstablishedFact.unknown("mutuality not fully established from legacy extraction")
 

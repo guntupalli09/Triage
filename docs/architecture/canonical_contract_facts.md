@@ -1,4 +1,4 @@
-# Canonical Contract Facts (Phases 1–4)
+# Canonical Contract Facts (Phases 1–4 + golden SSOT)
 
 Status: **Phase 1 schema package `contract_facts/` is implemented.
 Phase 2 wires Limitation of Liability extraction → canonical facts →
@@ -6,7 +6,9 @@ LoL v2. Phase 3 assembles the Indemnification clause family
 (directional obligations, shared procedure, contextual roles, §6.3
 cross-clause linkage separate from monetary). Phase 4 feeds structured
 `ContractDocumentFacts` into the Interaction Engine and implements the
-vendor-indemnity-inside-general-cap interaction.**
+vendor-indemnity-inside-general-cap interaction. Commercial extract +
+ACV provenance + downstream consumer cutover + production-path golden
+E2E close the Liability + Indemnification single-source-of-truth path.**
 
 This document defines the authoritative **contract-side** representations
 that TriageCounsel will use after the post-E2E forensic audit. It is the
@@ -186,8 +188,21 @@ indemnification, and cross_clause under `schema_version = 1`.
 
 ### Remaining phases (reference only)
 
-1. Populate commercial extractors into `ContractDocumentFacts`.
-2. Align inspectors / selective rules; migrate remaining generics deliberately.
+Phases 1–4 delivered the Liability + Indemnification fact layer and
+interaction wiring. The golden E2E path now also:
+
+1. **Commercial SSOT** — `contract_facts/commercial_extract.py` establishes
+   `annual_fees` and `payment_due` with provenance; ACV is resolved only via
+   `resolve_annual_contract_value` (`reviewer_deal_value` ≻
+   `contract_annual_fees`), never by silently equating fees to ACV.
+2. **Downstream consumers** — payment UI, consequential redline suppression,
+   and the LoL inspector read canonical / commercial facts rather than
+   independently rediscovering them from raw text.
+3. **Production-path golden** — `tests/test_golden_mock_saas_e2e.py` asserts
+   the full oracle through `apply_policies_for_review` (cutover).
+
+Further work (outside this golden path): migrate remaining generic rules
+deliberately; extend commercial into payment-terms policy enforcement.
 
 ---
 

@@ -47,7 +47,11 @@ def decisions_from_outcomes(outcomes: List[ClauseEvaluationOutcome]) -> Dict[str
     return {o.clause_type: o.decision for o in outcomes if o.decision is not None}
 
 
-def document_facts_from_outcomes(outcomes: List[ClauseEvaluationOutcome]):
+def document_facts_from_outcomes(
+    outcomes: List[ClauseEvaluationOutcome],
+    *,
+    commercial_facts=None,
+):
     """Assemble ContractDocumentFacts from extracts already attached to outcomes.
 
     Returns None when neither liability nor indemnification extracts are
@@ -69,6 +73,7 @@ def document_facts_from_outcomes(outcomes: List[ClauseEvaluationOutcome]):
     return assemble_document_facts_from_legacy(
         liability_facts=liability_facts,
         indemnification_facts=indemnification_facts,
+        commercial_facts=commercial_facts,
     )
 
 
@@ -113,6 +118,7 @@ def apply_interaction_rules(
     findings_dict: List[Dict[str, Any]],
     *,
     document_facts=None,
+    commercial_facts=None,
 ) -> Dict[str, Any]:
     """Evaluates the full seven-rule launch catalog against this review's
     already-computed PolicyDecisions, appends a synthetic finding per
@@ -127,10 +133,13 @@ def apply_interaction_rules(
 
     Phase 4: `document_facts` (optional) are structured ContractDocumentFacts.
     When omitted, they are assembled from outcome.legacy_facts when present.
+    `commercial_facts` (optional) are merged into that assembly.
     """
     decisions = decisions_from_outcomes(outcomes)
     if document_facts is None:
-        document_facts = document_facts_from_outcomes(outcomes)
+        document_facts = document_facts_from_outcomes(
+            outcomes, commercial_facts=commercial_facts,
+        )
     interaction_decisions = ixc.evaluate(
         decisions, ixr.LAUNCH_CATALOG, document_facts=document_facts,
     )
