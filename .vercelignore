@@ -23,6 +23,8 @@ docs/
 IEEE paper/
 Submission/
 *.pdf
+!static/research/*.pdf
+!static/reports/*.pdf
 *.docx
 *.tex
 *.eps
