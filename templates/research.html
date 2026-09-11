@@ -2,12 +2,45 @@
 
 {% block title %}Research — TriageCounsel Connected Contract Review{% endblock %}
 
-{% block meta_description %}Peer-reviewed research behind TriageCounsel's deterministic legal reasoning engine. Published at ICCS 2026, Springer LNCS. 100% deterministic, reproducible, and auditable.{% endblock %}
+{% block meta_description %}Peer-reviewed research behind TriageCounsel: ICCS 2026 (Springer LNCS) and IEEE TPS 2026. Deterministic execution, trust-boundary architecture, threat modeling, and auditable AI for legal teams.{% endblock %}
 {% block canonical_url %}https://triagecounsel.com/research{% endblock %}
 {% block og_title %}Research — TriageCounsel{% endblock %}
-{% block og_description %}Peer-reviewed research behind TriageCounsel's deterministic legal reasoning engine. Published at ICCS 2026, Springer LNCS.{% endblock %}
+{% block og_description %}Two peer-reviewed papers. One architecture. TriageCounsel is backed by ICCS 2026 and IEEE TPS 2026 research on deterministic trust boundaries for LLM-assisted contract analysis.{% endblock %}
 {% block twitter_title %}Research — TriageCounsel{% endblock %}
-{% block twitter_description %}Peer-reviewed research behind TriageCounsel's deterministic legal reasoning engine. Published at ICCS 2026, Springer LNCS.{% endblock %}
+{% block twitter_description %}Two peer-reviewed papers. One architecture. TriageCounsel is backed by ICCS 2026 and IEEE TPS 2026 research on deterministic trust boundaries for LLM-assisted contract analysis.{% endblock %}
+
+{% block json_ld %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ScholarlyArticle",
+      "headline": "Deterministic Execution Frameworks for Hybrid Symbolic–Probabilistic Computational Pipelines",
+      "author": {"@type": "Person", "name": "Santhosh Guntupalli"},
+      "datePublished": "2026",
+      "isPartOf": {
+        "@type": "PublicationVolume",
+        "name": "International Conference on Computational Science (ICCS 2026)",
+        "publisher": {"@type": "Organization", "name": "Springer Lecture Notes in Computer Science"}
+      },
+      "url": "https://triagecounsel.com/static/research/Guntupalli_ICCS_2026.pdf"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "headline": "Trust-Boundary Architectures for Auditable LLM-Assisted Contract Risk Analysis: Threat Model, Enforcement, and Empirical Evaluation",
+      "author": {"@type": "Person", "name": "Santhosh Guntupalli"},
+      "datePublished": "2026",
+      "isPartOf": {
+        "@type": "PublicationVolume",
+        "name": "IEEE International Conference on Trust, Privacy and Security in Intelligent Systems and Applications (TPS 2026)"
+      },
+      "url": "https://triagecounsel.com/static/research/Guntupalli_IEEE_TPS_2026.pdf"
+    }
+  ]
+}
+</script>
+{% endblock %}
 
 {% block extra_head %}
 <style>
@@ -62,6 +95,58 @@
         background: var(--border);
         margin-left: 27px;
     }
+
+    .tp-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    @media (min-width: 768px) {
+        .tp-grid {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+
+    .tp-card {
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 20px;
+        background: #fff;
+    }
+
+    .tp-id {
+        font-family: 'SF Mono', 'Fira Code', monospace;
+        font-size: 0.6875rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        color: #64748B;
+        margin-bottom: 6px;
+    }
+
+    .arc-step {
+        position: relative;
+        padding-left: 28px;
+        padding-bottom: 28px;
+        border-left: 2px solid #E2E8F0;
+    }
+
+    .arc-step:last-child {
+        border-left-color: transparent;
+        padding-bottom: 0;
+    }
+
+    .arc-dot {
+        position: absolute;
+        left: -7px;
+        top: 4px;
+        width: 12px;
+        height: 12px;
+        border-radius: 9999px;
+        background: #0F172A;
+        border: 2px solid #fff;
+        box-shadow: 0 0 0 1px #0F172A;
+    }
 </style>
 {% endblock %}
 
@@ -73,40 +158,77 @@
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
                 Back to home
             </a>
-            <p class="section-label mb-3 mt-6">Research</p>
+            <p class="section-label mb-3 mt-6">Research Program</p>
             <h1 class="text-3xl sm:text-4xl font-extrabold text-[#0F172A] mb-4 tracking-tight leading-tight">
-                The Research Behind TriageCounsel
+                Not a prompt. An architecture with peer-reviewed trust properties.
             </h1>
-            <p class="text-lg text-gray-500 max-w-2xl leading-relaxed">
-                Every legal finding in TriageCounsel is backed by peer-reviewed deterministic methods.
-                Our architecture was accepted for presentation at the International Conference
-                on Computational Science (ICCS 2026) and published in Springer LNCS.
+            <p class="text-lg text-gray-500 max-w-3xl leading-relaxed">
+                TriageCounsel is the product instantiation of a published research program:
+                a deterministic execution boundary (ICCS 2026, Springer LNCS), extended into a formal
+                trust-boundary architecture with threat modeling, runtime enforcement, and empirical
+                evaluation (IEEE TPS 2026). The goal is not maximum chatbot fluency &mdash; it is
+                reproducibility, auditability, and defensibility under legal and security review.
             </p>
         </div>
 
         <!-- Credibility Badges -->
         <div class="flex flex-wrap gap-3 mb-16">
             <div class="badge">
-                <svg fill="currentColor" viewBox="0 0 20 20" class="w-3.5 h-3.5 text-[#0F172A]"><path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"/></svg>
-                Presented at ICCS 2026
+                <svg fill="currentColor" viewBox="0 0 20 20" class="w-3.5 h-3.5 text-[#0F172A]"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                Accepted at ICCS 2026
             </div>
             <div class="badge">
                 <svg fill="currentColor" viewBox="0 0 20 20" class="w-3.5 h-3.5 text-[#0F172A]"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"/></svg>
-                Published in Springer LNCS
+                Springer LNCS
             </div>
             <div class="badge">
                 <svg fill="currentColor" viewBox="0 0 20 20" class="w-3.5 h-3.5 text-[#0F172A]"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                Peer Reviewed
+                Accepted at IEEE TPS 2026
             </div>
             <div class="badge">
                 <svg fill="currentColor" viewBox="0 0 20 20" class="w-3.5 h-3.5 text-[#0F172A]"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                Independent Research
+                Two peer-reviewed venues
             </div>
         </div>
 
-        <!-- Paper Citation Card -->
-        <div class="card p-6 sm:p-8 mb-16">
-            <p class="section-label mb-4">ICCS 2026 Paper</p>
+        <!-- Research Arc -->
+        <div class="mb-16">
+            <p class="section-label mb-3">Research Arc</p>
+            <h2 class="text-2xl font-bold text-[#0F172A] mb-3">From execution invariance to a trust boundary</h2>
+            <p class="text-sm text-gray-500 max-w-2xl mb-8 leading-relaxed">
+                One continuous line of work. First prove that deterministic authority is possible in
+                hybrid pipelines. Then formalize the adversaries, trust properties, and runtime
+                enforcement that legal and security teams need to rely on.
+            </p>
+            <div class="card p-6 sm:p-8">
+                <div class="arc-step">
+                    <div class="arc-dot"></div>
+                    <p class="text-xs font-bold uppercase tracking-wide text-gray-400 mb-1">ICCS 2026 &middot; Springer LNCS</p>
+                    <h3 class="text-base font-bold text-[#0F172A] mb-1">Deterministic execution boundary</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">Introduced and evaluated the hybrid architecture: symbolic engine owns all state transitions; the LLM is a non-authoritative explainer. Measured execution invariance and traceability as first-class computational properties.</p>
+                </div>
+                <div class="arc-step">
+                    <div class="arc-dot"></div>
+                    <p class="text-xs font-bold uppercase tracking-wide text-gray-400 mb-1">IEEE TPS 2026 &middot; Accepted</p>
+                    <h3 class="text-base font-bold text-[#0F172A] mb-1">Trust-boundary architecture</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">Extended that boundary into four explicit trust properties (reproducibility, traceability, decision&ndash;explanation separation, injection containment), a threat model, runtime enforcement checks, prompt-injection experiments, immutable evidence binding, and quantified data-minimization controls.</p>
+                </div>
+                <div class="arc-step">
+                    <div class="arc-dot"></div>
+                    <p class="text-xs font-bold uppercase tracking-wide text-gray-400 mb-1">Product</p>
+                    <h3 class="text-base font-bold text-[#0F172A] mb-1">TriageCounsel in production</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">The same philosophy ships as connected contract review: approved positions govern outcomes, findings stay evidence-bound, and AI never becomes the decision-maker.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Paper 1: ICCS -->
+        <div class="card p-6 sm:p-8 mb-8" id="iccs">
+            <div class="flex flex-wrap items-center gap-2 mb-4">
+                <p class="section-label mb-0">Paper I</p>
+                <span class="badge">Accepted &middot; ICCS 2026</span>
+                <span class="badge">Springer LNCS</span>
+            </div>
             <h2 class="text-xl font-bold text-[#0F172A] mb-2 leading-snug">
                 Deterministic Execution Frameworks for Hybrid Symbolic&ndash;Probabilistic Computational Pipelines
             </h2>
@@ -122,210 +244,270 @@
                 pipelines that enforces execution invariance by isolating deterministic modules from stochastic components.
                 The architecture employs a deterministic symbolic engine for all state transitions and decision logic, while
                 LLM components operate only as non-authoritative, post-hoc explainers of pre-computed deterministic outputs.
-                We evaluate the framework on a corpus of 115 structured text documents, demonstrating 100% execution
-                determinism and 100% traceability across 300 repeated runs with zero output variance.
+                Evaluated on 115 structured text documents: 100% execution determinism and 100% traceability, with zero
+                output variance under stress testing &mdash; versus 0% determinism for a pure LLM baseline.
             </div>
-            <p class="text-xs text-gray-400">
-                DOI and Springer page will be available upon publication.
+            <div class="flex flex-wrap gap-3">
+                <a href="/static/research/Guntupalli_ICCS_2026.pdf" class="btn-secondary py-2.5 px-5 rounded-lg text-sm inline-flex items-center gap-2" target="_blank" rel="noopener">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                    Download PDF
+                </a>
+            </div>
+            <p class="text-xs text-gray-400 mt-4">
+                Springer DOI page will be linked here upon formal LNCS publication.
             </p>
         </div>
 
-        <!-- IEEE TPS Paper Citation Card -->
-        <div class="card p-6 sm:p-8 mb-16">
-            <p class="section-label mb-4">IEEE TPS 2026 Paper &middot; Submitted</p>
+        <!-- Paper 2: IEEE TPS -->
+        <div class="card p-6 sm:p-8 mb-16" id="ieee-tps">
+            <div class="flex flex-wrap items-center gap-2 mb-4">
+                <p class="section-label mb-0">Paper II</p>
+                <span class="badge">Accepted &middot; IEEE TPS 2026</span>
+                <span class="badge">Trust &middot; Privacy &middot; Security</span>
+            </div>
             <h2 class="text-xl font-bold text-[#0F172A] mb-2 leading-snug">
-                Cyber-Resilient Deterministic&ndash;LLM Hybrid Architectures for Auditable Contract Risk Analysis
+                Trust-Boundary Architectures for Auditable LLM-Assisted Contract Risk Analysis: Threat Model, Enforcement, and Empirical Evaluation
             </h2>
             <p class="text-sm text-gray-500 mb-1">Santhosh Guntupalli</p>
             <p class="text-sm text-gray-400 mb-6">
-                IEEE International Conference on Trust, Privacy and Security in Intelligent Systems and Applications (TPS 2026) &middot; submitted, decision pending
+                IEEE International Conference on Trust, Privacy and Security in Intelligent Systems and Applications (TPS 2026) &middot; accepted
             </p>
             <div class="rounded-lg bg-gray-50 border border-gray-200 p-4 text-sm text-gray-600 leading-relaxed mb-6">
                 <strong class="text-gray-700">Abstract.</strong>
-                Non-determinism and hallucinations in Large Language Models represent cyber-resilience failures in
-                compliance-critical systems, where reproducible risk detection and full auditability are mandatory.
-                This paper presents a resilience-oriented deterministic&ndash;LLM hybrid architecture for contract
-                risk analysis that enforces authoritative deterministic decision-making while retaining
-                explainability, evaluated on 115 documents (60 NDAs, 20 MSAs, 20 Employment Agreements, 15
-                Licensing Agreements) &mdash; 100% determinism and 100% traceability for the hybrid system, against
-                0% determinism and ungrounded findings for a pure LLM baseline.
+                Probabilistic LLMs are attractive for contract risk analysis but violate core trust requirements in regulated
+                settings: outputs vary across identical runs, findings lack stable policy identifiers, clause-embedded
+                instructions can influence downstream behavior, and full-document API calls expand confidentiality exposure.
+                This paper specifies four trust properties (reproducibility, traceability, decision&ndash;explanation separation,
+                and injection containment), maps them to adversaries and runtime enforcement, and evaluates a trust-boundary
+                architecture that confines authoritative decisions to a versioned deterministic rule engine while restricting
+                the LLM to non-authoritative explanation over structured findings only. On 200 agreements, the hybrid path
+                achieves 100% reproducibility and 100% rule-level traceability versus 0% reproducibility under the evaluated
+                pure-LLM baseline; instruction-class prompt-injection experiments preserve finding multisets in 16/16 cases;
+                data minimization is quantified at approximately 135&times; reduction in information-theoretic exposure on the
+                explanation path.
             </div>
-            <p class="text-xs text-gray-400">
-                This paper is under review and has not yet been accepted. Stated here as submitted, not published &mdash;
-                consistent with how this page presents the ICCS 2026 paper above.
+            <div class="flex flex-wrap gap-3">
+                <a href="/static/research/Guntupalli_IEEE_TPS_2026.pdf" class="btn-secondary py-2.5 px-5 rounded-lg text-sm inline-flex items-center gap-2" target="_blank" rel="noopener">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                    Download PDF
+                </a>
+            </div>
+            <p class="text-xs text-gray-400 mt-4">
+                IEEE proceedings DOI and camera-ready citation will be posted when published by the conference.
             </p>
         </div>
 
-        <!-- Key Metrics -->
+        <!-- Trust Properties -->
+        <div class="mb-16" id="trust-properties">
+            <p class="section-label mb-3">What Legal &amp; Security Teams Can Rely On</p>
+            <h2 class="text-2xl font-bold text-[#0F172A] mb-3">Four trust properties, enforced at the boundary</h2>
+            <p class="text-sm text-gray-500 max-w-2xl mb-8 leading-relaxed">
+                From the IEEE TPS 2026 paper. These are not marketing claims &mdash; they are falsifiable properties
+                with mapped threats, enforcement mechanisms, and experimental checks.
+            </p>
+            <div class="tp-grid">
+                <div class="tp-card">
+                    <div class="tp-id">TP1 &middot; REPRODUCIBILITY</div>
+                    <h3 class="text-sm font-bold text-[#0F172A] mb-2">Same contract. Same ruleset. Same findings.</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">Authoritative outputs are identical across repeated executions on the same state. Replay integrity for audits, regression diffs, and historical defensibility.</p>
+                </div>
+                <div class="tp-card">
+                    <div class="tp-id">TP2 &middot; TRACEABILITY</div>
+                    <h3 class="text-sm font-bold text-[#0F172A] mb-2">Every finding binds to rule, span, and version.</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">Immutable evidence binding: each finding cites a versioned rule ID, severity, and exact text span &mdash; so reviewers reconcile outputs with explicit logic, not model lore.</p>
+                </div>
+                <div class="tp-card">
+                    <div class="tp-id">TP3 &middot; DECISION–EXPLANATION SEPARATION</div>
+                    <h3 class="text-sm font-bold text-[#0F172A] mb-2">AI explains. It does not decide.</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">Findings are frozen before any LLM call. Schema validation and no write-back mean explanatory text cannot invent, alter, or delete authoritative risk.</p>
+                </div>
+                <div class="tp-card">
+                    <div class="tp-id">TP4 &middot; INJECTION CONTAINMENT</div>
+                    <h3 class="text-sm font-bold text-[#0F172A] mb-2">Hostile clause text stays data, not instructions.</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">Instruction-like language embedded in contracts cannot change the authoritative finding set at the pattern-matching layer. Evaluated under bounded prompt-injection and obfuscation suites.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Empirical Results -->
         <div class="mb-16">
-            <p class="section-label mb-3">Experimental Results</p>
-            <h2 class="text-2xl font-bold text-[#0F172A] mb-8">Published benchmarks from the ICCS 2026 paper</h2>
+            <p class="section-label mb-3">Empirical Evaluation</p>
+            <h2 class="text-2xl font-bold text-[#0F172A] mb-3">Results that survive scrutiny</h2>
+            <p class="text-sm text-gray-500 max-w-2xl mb-8 leading-relaxed">
+                Headline numbers from the IEEE TPS 2026 evaluation (200 agreements; NDA, MSA, employment, licensing),
+                building on the ICCS 2026 determinism study (115 documents).
+            </p>
 
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
                 <div class="card metric-card">
                     <div class="metric-value text-green-700">100%</div>
-                    <div class="metric-label">Deterministic Output</div>
+                    <div class="metric-label">Hybrid reproducibility</div>
                 </div>
                 <div class="card metric-card">
                     <div class="metric-value text-red-600">0%</div>
-                    <div class="metric-label">Pure LLM Determinism</div>
+                    <div class="metric-label">Pure-LLM reproducibility</div>
                 </div>
                 <div class="card metric-card">
-                    <div class="metric-value text-[#0F172A]">300</div>
-                    <div class="metric-label">Repeated Executions</div>
+                    <div class="metric-value text-[#0F172A]">200</div>
+                    <div class="metric-label">Agreements evaluated</div>
                 </div>
                 <div class="card metric-card">
-                    <div class="metric-value text-green-700">100%</div>
-                    <div class="metric-label">Traceability Rate</div>
+                    <div class="metric-value text-green-700">16/16</div>
+                    <div class="metric-label">Injection containment</div>
                 </div>
             </div>
 
-            <!-- Detailed Comparison Table -->
-            <div class="card overflow-hidden">
+            <div class="card overflow-hidden mb-8">
                 <div class="px-6 py-4 bg-gray-50 border-b border-gray-200">
-                    <h3 class="text-sm font-bold text-[#0F172A]">Hybrid System vs. Pure LLM Baseline</h3>
+                    <h3 class="text-sm font-bold text-[#0F172A]">Trust-property verification (IEEE TPS 2026)</h3>
                 </div>
                 <div class="divide-y divide-gray-100">
                     <div class="grid grid-cols-3 px-6 py-3 text-xs font-bold text-gray-400 uppercase tracking-wide">
                         <span>Metric</span>
-                        <span class="text-center">TriageCounsel (Hybrid)</span>
-                        <span class="text-center">Pure LLM</span>
+                        <span class="text-center">Trust-boundary hybrid</span>
+                        <span class="text-center">Pure LLM baseline</span>
                     </div>
                     <div class="grid grid-cols-3 px-6 py-3 text-sm">
-                        <span class="text-gray-600">Determinism Rate</span>
-                        <span class="text-center font-semibold text-green-700">100.0%</span>
-                        <span class="text-center font-semibold text-red-600">0.0%</span>
+                        <span class="text-gray-600">Reproducibility (200 docs)</span>
+                        <span class="text-center font-semibold text-green-700">100%</span>
+                        <span class="text-center font-semibold text-red-600">0%</span>
                     </div>
                     <div class="grid grid-cols-3 px-6 py-3 text-sm">
-                        <span class="text-gray-600">Traceability Rate</span>
-                        <span class="text-center font-semibold text-green-700">100.0%</span>
-                        <span class="text-center font-semibold text-red-600">0.0%</span>
+                        <span class="text-gray-600">Rule-level traceability</span>
+                        <span class="text-center font-semibold text-green-700">100%</span>
+                        <span class="text-center font-semibold text-red-600">0%</span>
                     </div>
                     <div class="grid grid-cols-3 px-6 py-3 text-sm">
-                        <span class="text-gray-600">Ungrounded Outputs / Doc</span>
+                        <span class="text-gray-600">Ungrounded findings / doc</span>
                         <span class="text-center font-semibold text-green-700">0.00</span>
-                        <span class="text-center font-semibold text-red-600">0.43</span>
+                        <span class="text-center font-semibold text-red-600">0.53</span>
                     </div>
                     <div class="grid grid-cols-3 px-6 py-3 text-sm">
-                        <span class="text-gray-600">Output Variance (300 runs)</span>
-                        <span class="text-center font-semibold text-green-700">Zero</span>
-                        <span class="text-center font-semibold text-red-600">18.3 distinct sets/doc</span>
+                        <span class="text-gray-600">Stress test (15&times;20 runs)</span>
+                        <span class="text-center font-semibold text-green-700">Zero variance</span>
+                        <span class="text-center font-semibold text-red-600">17.7 fingerprints / doc</span>
                     </div>
                     <div class="grid grid-cols-3 px-6 py-3 text-sm">
-                        <span class="text-gray-600">Avg. Execution Time / Doc</span>
-                        <span class="text-center font-semibold text-[#0F172A]">0.41s</span>
-                        <span class="text-center font-semibold text-gray-500">7.3s</span>
+                        <span class="text-gray-600">Schema / RAG baselines (TP1)</span>
+                        <span class="text-center font-semibold text-green-700">Pass</span>
+                        <span class="text-center font-semibold text-red-600">0% reproducible</span>
                     </div>
                     <div class="grid grid-cols-3 px-6 py-3 text-sm">
-                        <span class="text-gray-600">Documents Evaluated</span>
-                        <span class="text-center font-semibold text-[#0F172A]" colspan="2">115</span>
-                        <span class="text-center font-semibold text-[#0F172A]">115</span>
+                        <span class="text-gray-600">Explanation-path exposure</span>
+                        <span class="text-center font-semibold text-[#0F172A]">~135&times; reduced</span>
+                        <span class="text-center font-semibold text-gray-500">Full document to API</span>
                     </div>
                 </div>
             </div>
+
+            <p class="text-xs text-gray-400 leading-relaxed max-w-3xl">
+                The architecture prioritizes auditability over maximum recall. Reported detection F1 on labeled synthetics
+                is deliberately conservative (0.66 in IEEE TPS); errors are explicit, typed, and remediable by rule ID &mdash;
+                not hidden failures of a black-box model. Structured JSON and RAG baselines still failed reproducibility
+                on both OpenAI and Anthropic configurations tested.
+            </p>
         </div>
 
         <!-- Architecture -->
         <div class="mb-16" id="architecture">
             <p class="section-label mb-3">Architecture</p>
-            <h2 class="text-2xl font-bold text-[#0F172A] mb-3">How the deterministic framework works</h2>
-            <p class="text-sm text-gray-400 mb-8 max-w-2xl">
-                The system enforces a strict separation between deterministic risk detection and probabilistic
-                language generation. The LLM never determines legal risk &mdash; it only explains deterministic
-                findings in plain language.
+            <h2 class="text-2xl font-bold text-[#0F172A] mb-3">How the trust boundary works</h2>
+            <p class="text-sm text-gray-500 mb-8 max-w-2xl leading-relaxed">
+                Detection, severity, and suppression are deterministic. The LLM explains pre-computed findings only.
+                Probabilistic components cannot write back into authoritative state.
             </p>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div>
-                    <h3 class="text-sm font-bold text-[#0F172A] mb-4 uppercase tracking-wide">Execution Pipeline</h3>
-                    <div class="workflow-step"><div class="step-num">1</div>Document Ingestion &amp; Normalization</div>
+                    <h3 class="text-sm font-bold text-[#0F172A] mb-4 uppercase tracking-wide">Authoritative path</h3>
+                    <div class="workflow-step"><div class="step-num">1</div>Document ingestion &amp; normalization</div>
                     <div class="workflow-connector"></div>
-                    <div class="workflow-step"><div class="step-num">2</div>Deterministic Symbolic Engine</div>
+                    <div class="workflow-step"><div class="step-num">2</div>Versioned deterministic rule engine</div>
                     <div class="workflow-connector"></div>
-                    <div class="workflow-step"><div class="step-num">3</div>Context Logic &amp; Suppression</div>
+                    <div class="workflow-step"><div class="step-num">3</div>Context logic &amp; suppression (reason-coded)</div>
                     <div class="workflow-connector"></div>
-                    <div class="workflow-step"><div class="step-num">4</div>Deterministic Output (Structured State)</div>
+                    <div class="workflow-step"><div class="step-num">4</div>Immutable findings snapshot (F)</div>
                     <div class="workflow-connector"></div>
                     <div class="workflow-step" style="border-color: #94A3B8; border-style: dashed;">
                         <div class="step-num" style="background: #64748B;">5</div>
-                        LLM Explanation Layer (constrained, non-authoritative)
+                        LLM explanation over F only (non-authoritative)
                     </div>
                     <div class="workflow-connector"></div>
                     <div class="workflow-step" style="border-color: #0F172A; background: #F8FAFC;">
                         <div class="step-num" style="background: #16A34A;">&#10003;</div>
-                        Attorney Review
+                        Attorney review &amp; audit bundle
                     </div>
                 </div>
 
                 <div>
-                    <h3 class="text-sm font-bold text-[#0F172A] mb-4 uppercase tracking-wide">Key Design Principles</h3>
+                    <h3 class="text-sm font-bold text-[#0F172A] mb-4 uppercase tracking-wide">Design principles (IEEE TPS)</h3>
                     <div class="space-y-4">
                         <div class="card p-4">
-                            <h4 class="text-sm font-semibold text-[#0F172A] mb-1">Deterministic-First</h4>
-                            <p class="text-sm text-gray-500">All risk detection is performed by versioned, rule-based logic. No probabilistic inference, no statistical weighting, no machine-learned parameters.</p>
+                            <h4 class="text-sm font-semibold text-[#0F172A] mb-1">P1 &mdash; Authoritative determinism</h4>
+                            <p class="text-sm text-gray-500">Exactly one subsystem emits authoritative findings; no sampling on the decision path.</p>
                         </div>
                         <div class="card p-4">
-                            <h4 class="text-sm font-semibold text-[#0F172A] mb-1">Governed AI Boundary</h4>
-                            <p class="text-sm text-gray-500">Policy outcomes are decided outside the AI. OpenAI may receive contract content as required by enabled features (from excerpts to broader passages depending on configuration), but the AI cannot create authoritative policy decisions or change risk scores.</p>
+                            <h4 class="text-sm font-semibold text-[#0F172A] mb-1">P2 &mdash; Decision–explanation separation</h4>
+                            <p class="text-sm text-gray-500">Natural-language generation is downstream of frozen findings; explanation is derived, never constitutive.</p>
                         </div>
                         <div class="card p-4">
-                            <h4 class="text-sm font-semibold text-[#0F172A] mb-1">Clause Anchoring</h4>
-                            <p class="text-sm text-gray-500">Every finding is tied to exact character offsets and textual excerpts. Reviewers can independently verify each risk indicator.</p>
+                            <h4 class="text-sm font-semibold text-[#0F172A] mb-1">P3 &mdash; Immutable evidence binding</h4>
+                            <p class="text-sm text-gray-500">Every finding cites rule ID, severity, and exact span under a versioned ruleset &sigma;.</p>
                         </div>
                         <div class="card p-4">
-                            <h4 class="text-sm font-semibold text-[#0F172A] mb-1">Safe Degradation</h4>
-                            <p class="text-sm text-gray-500">If the LLM is unavailable or fails, all deterministic findings remain intact and actionable. The LLM is never a single point of failure.</p>
+                            <h4 class="text-sm font-semibold text-[#0F172A] mb-1">P4 &mdash; Minimal information exposure</h4>
+                            <p class="text-sm text-gray-500">External inference receives structured findings where the explanation path applies &mdash; not raw contract text as the default decision channel.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Why Deterministic > Probabilistic -->
+        <!-- Why this matters for counsel -->
         <div class="card p-6 sm:p-8 mb-16">
-            <p class="section-label mb-3">The Core Argument</p>
-            <h2 class="text-2xl font-bold text-[#0F172A] mb-6">Why deterministic execution matters for legal analysis</h2>
+            <p class="section-label mb-3">For Legal Teams</p>
+            <h2 class="text-2xl font-bold text-[#0F172A] mb-6">Why this is a philosophy you can defend</h2>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div>
-                    <h3 class="text-sm font-bold text-red-700 mb-3 uppercase tracking-wide">Pure LLM Systems</h3>
+                    <h3 class="text-sm font-bold text-red-700 mb-3 uppercase tracking-wide">Prompt-first AI review</h3>
                     <div class="space-y-3">
                         <div class="flex items-start gap-3">
                             <svg class="w-5 h-5 text-red-400 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/></svg>
-                            <span class="text-sm text-gray-600">Different results on every run for the same document</span>
+                            <span class="text-sm text-gray-600">Different findings on re-run of the same agreement</span>
                         </div>
                         <div class="flex items-start gap-3">
                             <svg class="w-5 h-5 text-red-400 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/></svg>
-                            <span class="text-sm text-gray-600">Can hallucinate clauses that don't exist in the contract</span>
+                            <span class="text-sm text-gray-600">No stable policy identifier for auditors or insurers</span>
                         </div>
                         <div class="flex items-start gap-3">
                             <svg class="w-5 h-5 text-red-400 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/></svg>
-                            <span class="text-sm text-gray-600">No verifiable reasoning path for auditors</span>
+                            <span class="text-sm text-gray-600">Clause text can hijack model behavior (prompt injection)</span>
                         </div>
                         <div class="flex items-start gap-3">
                             <svg class="w-5 h-5 text-red-400 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/></svg>
-                            <span class="text-sm text-gray-600">Cannot defend past outputs when challenged</span>
+                            <span class="text-sm text-gray-600">Full-document API exposure as the default path</span>
                         </div>
                     </div>
                 </div>
                 <div>
-                    <h3 class="text-sm font-bold text-green-700 mb-3 uppercase tracking-wide">TriageCounsel (Deterministic Hybrid)</h3>
+                    <h3 class="text-sm font-bold text-green-700 mb-3 uppercase tracking-wide">Trust-boundary architecture</h3>
                     <div class="space-y-3">
                         <div class="check-item">
                             <div class="check-icon"><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></div>
-                            <span class="text-sm text-gray-600">Identical outputs guaranteed for identical inputs</span>
+                            <span class="text-sm text-gray-600">SHA-256-identical fingerprints across repeated runs</span>
                         </div>
                         <div class="check-item">
                             <div class="check-icon"><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></div>
-                            <span class="text-sm text-gray-600">Zero hallucinated findings &mdash; every risk linked to source text</span>
+                            <span class="text-sm text-gray-600">Versioned rule IDs and spans on every finding</span>
                         </div>
                         <div class="check-item">
                             <div class="check-icon"><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></div>
-                            <span class="text-sm text-gray-600">Every decision traceable to a versioned rule ID</span>
+                            <span class="text-sm text-gray-600">Injection containment evaluated under explicit threat model</span>
                         </div>
                         <div class="check-item">
                             <div class="check-icon"><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></div>
-                            <span class="text-sm text-gray-600">Historical analyses remain auditable as rules evolve</span>
+                            <span class="text-sm text-gray-600">Peer-reviewed at ICCS and IEEE TPS &mdash; not a vendor whitepaper</span>
                         </div>
                     </div>
                 </div>
@@ -339,24 +521,24 @@
 
             <div class="space-y-4">
                 <div class="card p-6">
-                    <h3 class="text-sm font-bold text-[#0F172A] mb-2">What is ICCS?</h3>
-                    <p class="text-sm text-gray-500 leading-relaxed">The International Conference on Computational Science (ICCS) is one of the leading conferences in computational science, published through Springer's Lecture Notes in Computer Science (LNCS) series. ICCS 2026 covers advances in computational methods across scientific and engineering domains.</p>
+                    <h3 class="text-sm font-bold text-[#0F172A] mb-2">How do the two papers relate?</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">ICCS 2026 introduced and validated the deterministic execution boundary for hybrid symbolic&ndash;probabilistic pipelines. IEEE TPS 2026 is the direct continuation: it formalizes trust properties, adversaries, runtime enforcement, injection containment, evidence binding, and data-minimization controls around that same boundary.</p>
                 </div>
                 <div class="card p-6">
-                    <h3 class="text-sm font-bold text-[#0F172A] mb-2">What does "deterministic" mean in this context?</h3>
-                    <p class="text-sm text-gray-500 leading-relaxed">Deterministic means the same input always produces the same output. When you upload the same contract twice, TriageCounsel produces identical findings every time. Pure LLM systems cannot guarantee this &mdash; they produce different results on different runs, even with identical inputs.</p>
+                    <h3 class="text-sm font-bold text-[#0F172A] mb-2">What is ICCS? What is IEEE TPS?</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">ICCS (International Conference on Computational Science) publishes through Springer LNCS and focuses on rigorous computational methods. IEEE TPS (Trust, Privacy and Security in Intelligent Systems and Applications) is an IEEE venue focused on trustworthy AI, privacy, and security &mdash; the right home for the threat-model and enforcement contribution.</p>
+                </div>
+                <div class="card p-6">
+                    <h3 class="text-sm font-bold text-[#0F172A] mb-2">What does &ldquo;deterministic&rdquo; mean here?</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">Given the same document, ruleset, and version, authoritative findings do not change across runs. Pure LLM extractors in the papers&rsquo; baselines could not satisfy that property &mdash; including schema-constrained and retrieval-augmented setups.</p>
                 </div>
                 <div class="card p-6">
                     <h3 class="text-sm font-bold text-[#0F172A] mb-2">Does TriageCounsel use AI at all?</h3>
-                    <p class="text-sm text-gray-500 leading-relaxed">Yes. TriageCounsel uses AI (LLM) for evidence discovery and plain-language explanations. Policy outcomes are decided by deterministic policy engines with evidence-backed fact admission &mdash; the AI never makes authoritative policy decisions.</p>
+                    <p class="text-sm text-gray-500 leading-relaxed">Yes. AI assists with discovery and plain-language explanation. Authoritative policy and risk outcomes are produced by deterministic engines with evidence-backed fact admission. The IEEE TPS trust boundary keeps explanation non-authoritative on the evaluated decision path.</p>
                 </div>
                 <div class="card p-6">
-                    <h3 class="text-sm font-bold text-[#0F172A] mb-2">How were the 300 repeated runs conducted?</h3>
-                    <p class="text-sm text-gray-500 leading-relaxed">15 documents (8 public, 7 synthetic) were each analyzed 20 times across multiple random seeds and computational environments. The hybrid system produced zero output variances across all 300 runs. The pure LLM baseline showed output differences in 100% of cases, with an average of 18.3 distinct output sets per document.</p>
-                </div>
-                <div class="card p-6">
-                    <h3 class="text-sm font-bold text-[#0F172A] mb-2">Can I read the full paper?</h3>
-                    <p class="text-sm text-gray-500 leading-relaxed">The paper will be available through Springer LNCS upon publication. DOI and direct links will be posted here once available.</p>
+                    <h3 class="text-sm font-bold text-[#0F172A] mb-2">Can I read the full papers?</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">Yes. PDFs for both accepted papers are available above. Publisher DOIs will be added when Springer LNCS and IEEE proceedings pages go live.</p>
                 </div>
             </div>
         </div>
@@ -364,8 +546,8 @@
         <!-- CTA -->
         <div class="text-center mb-16">
             <div class="card p-8 sm:p-10">
-                <h2 class="text-xl font-bold text-[#0F172A] mb-3">See the research in action</h2>
-                <p class="text-sm text-gray-500 mb-6 max-w-md mx-auto">Upload a contract and see deterministic, evidence-backed findings &mdash; the same method validated in our ICCS 2026 paper.</p>
+                <h2 class="text-xl font-bold text-[#0F172A] mb-3">See the architecture in a live review</h2>
+                <p class="text-sm text-gray-500 mb-6 max-w-md mx-auto">Upload a contract and inspect evidence-backed findings produced under the same deterministic philosophy validated in ICCS 2026 and IEEE TPS 2026.</p>
                 {% if user %}
                 <a href="/dashboard" class="btn-primary py-3 px-8 rounded-lg text-sm inline-flex items-center justify-center">
                     Go to Dashboard
