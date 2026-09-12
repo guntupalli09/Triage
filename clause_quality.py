@@ -716,7 +716,9 @@ _INDEM_IP_RE = re.compile(
 )
 
 _INDEM_THIRD_PARTY_SCOPE_RE = re.compile(
-    r'\bthird[-\s]?part(?:y|ies)\s+claims?\b|\bclaims?\b.{0,40}?\b(?:brought|made|asserted)\s+by\s+a?\s*'
+    r'\bthird[-\s]?part(?:y|ies)\s+claims?\b|'
+    r'\bclaims?\s+by\s+(?:a\s+)?third[-\s]?part(?:y|ies)\b|'
+    r'\bclaims?\b.{0,40}?\b(?:brought|made|asserted)\s+by\s+a?\s*'
     r'third\s+part(?:y|ies)\b',
     re.IGNORECASE | re.DOTALL,
 )
@@ -778,11 +780,14 @@ class IndemnificationQualityReport:
 
 
 
+# Named-party reciprocal pairs: covers verb-order variants
+# ("shall indemnify, defend…", "shall defend and indemnify…",
+# "shall defend, indemnify and hold harmless…").
 _NAMED_INDEMNITOR_RE = re.compile(
     r"\b([A-Z][A-Za-z]{1,30})\s+shall\s+"
-    r"(?:defend,\s+)?(?:indemnify|indemnify,\s+defend,\s+and\s+hold\s+harmless|"
-    r"indemnif\w+(?:,\s+defend,\s+and\s+hold\s+harmless)?)\s+"
-    r"(?:the\s+)?([A-Z][A-Za-z]{1,30})\b",
+    r"(?:defend(?:\s*,\s*|\s+and\s+))?indemnif\w+"
+    r"(?:\s*,\s*defend)?(?:\s*,?\s*and\s+hold\s+harmless)?"
+    r"\s+(?:the\s+)?([A-Z][A-Za-z]{1,30})\b",
     re.IGNORECASE,
 )
 
@@ -800,7 +805,7 @@ def _has_split_reciprocal_indemnities(text: str) -> bool:
             continue
         if a in {"the", "this", "that", "each", "either", "both", "an", "a"}:
             continue
-        if b in {"defend", "indemnify", "hold", "harmless", "the", "any", "all"}:
+        if b in {"defend", "indemnify", "hold", "harmless", "the", "any", "all", "and"}:
             continue
         pairs.append((a, b))
     for a, b in pairs:
