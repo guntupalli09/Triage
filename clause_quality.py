@@ -119,6 +119,11 @@ class ClauseElement:
     # fabricated chain. as_dict() form (not the ReasoningChain dataclass
     # itself) so ClauseElement stays a plain, JSON-serializable record.
     reasoning_chain: Optional[Dict[str, Any]] = None
+    # UI tone independent of score credit: "pass" | "fail" | "info".
+    # "info" = not a drafting miss (e.g. category explicitly inside the
+    # general cap) — still present=False for score, but not painted as a
+    # false-negative failure.
+    display_tone: Optional[str] = None
 
 
 @dataclass(frozen=True)
@@ -143,7 +148,7 @@ class ArbitrationQualityReport:
             "elements": [
                 {
                     "key": e.key, "label": e.label, "present": e.present, "weight": e.weight,
-                    "detail": e.detail, "reasoning_chain": e.reasoning_chain,
+                    "detail": e.detail, "reasoning_chain": e.reasoning_chain, "display_tone": e.display_tone or ("pass" if e.present else "fail"),
                 }
                 for e in self.elements
             ],
@@ -243,8 +248,10 @@ _CAP_PRESENT_RE = re.compile(
 )
 
 _MUTUAL_APPLICATION_RE = re.compile(
-    r"\beither\s+party'?s?\s+(?:aggregate\s+)?liability\b|\bboth\s+parties'?\s+liability\b|"
-    r"\beach\s+party'?s\s+(?:aggregate\s+)?liability\b|\bneither\s+party\s+shall\s+be\s+liable\b",
+    r"\beither\s+party'?s?\s+(?:(?:total|aggregate|combined)\s+)*liability\b|"
+    r"\bboth\s+parties'?\s+(?:(?:total|aggregate|combined)\s+)*liability\b|"
+    r"\beach\s+party'?s\s+(?:(?:total|aggregate|combined)\s+)*liability\b|"
+    r"\bneither\s+party\s+shall\s+be\s+liable\b",
     re.IGNORECASE,
 )
 
@@ -310,7 +317,7 @@ class LiabilityQualityReport:
             "elements": [
                 {
                     "key": e.key, "label": e.label, "present": e.present, "weight": e.weight,
-                    "detail": e.detail, "reasoning_chain": e.reasoning_chain,
+                    "detail": e.detail, "reasoning_chain": e.reasoning_chain, "display_tone": e.display_tone or ("pass" if e.present else "fail"),
                 }
                 for e in self.elements
             ],
@@ -388,7 +395,7 @@ def analyze_liability_clause(
 
 def _analyze_liability_from_canonical(canonical) -> LiabilityQualityReport:
     """Score LoL quality from ContractLiabilityFacts — no raw-text re-parse."""
-    from contract_facts.liability import MutualityStatus
+    from contract_facts.liability import CategoryTreatmentKind, MutualityStatus
     from contract_facts.presence import Presence
 
     if canonical is None or canonical.clause_presence is Presence.ABSENT:
@@ -406,46 +413,109 @@ def _analyze_liability_from_canonical(canonical) -> LiabilityQualityReport:
         controlling.consequential_damages_excluded.is_known
         and controlling.consequential_damages_excluded.value is True
     )
-    high_sev = any(
-        t.treatment.value in ("uncapped", "super_cap")
-        and t.category in ("ip_infringement", "confidentiality", "indemnification")
-        for t in controlling.category_treatments
-    )
-    fraud_exc = any(
-        t.treatment.value in ("uncapped", "super_cap")
-        and t.category in ("fraud", "willful_misconduct", "gross_negligence")
-        for t in controlling.category_treatments
-    )
+
+    high_sev_cats = ("ip_infringement", "confidentiality", "indemnification")
+    fraud_cats = ("fraud", "willful_misconduct", "gross_negligence")
+
+    def _treatments(*cats):
+        return [t for t in controlling.category_treatments if t.category in cats]
+
+    def _any_uncapped_or_super(cats) -> bool:
+        return any(
+            t.treatment.value in ("uncapped", "super_cap")
+            for t in _treatments(*cats)
+        )
+
+    def _inside_general_cap_labels(cats) -> list:
+        labels = []
+        for t in _treatments(*cats):
+            if t.treatment is CategoryTreatmentKind.WITHIN_GENERAL_CAP or (
+                getattr(t.treatment, "value", None) == "within_general_cap"
+            ):
+                labels.append(t.category.replace("_", " "))
+        return labels
+
+    high_sev = _any_uncapped_or_super(high_sev_cats)
+    fraud_exc = _any_uncapped_or_super(fraud_cats)
+    high_sev_inside = _inside_general_cap_labels(high_sev_cats)
+    fraud_inside = _inside_general_cap_labels(fraud_cats)
     no_negating = cap_present
 
-    specs = [
-        ("cap_present", "A liability cap is stated", cap_present,
-         "No liability cap was established in canonical facts.",
-         "A liability cap or ceiling is stated."),
-        ("mutual_application", "Cap applies mutually to both parties", mutual_present,
-         "Mutual application was not established in canonical facts.",
-         "The cap explicitly applies to both parties."),
-        ("consequential_damages_excluded", "Consequential/indirect damages excluded",
-         consequential_present,
-         "Consequential-damages exclusion was not established in canonical facts.",
-         "Consequential/indirect/special damages are excluded."),
-        ("high_severity_carveouts", "Carve-outs for IP/confidentiality/indemnification claims",
-         high_sev,
-         "No uncapped/super-cap carve-out for IP/confidentiality/indemnification in canonical facts.",
-         "The cap carves out IP, confidentiality, or indemnification claims."),
-        ("fraud_exception", "Fraud/willful misconduct exception", fraud_exc,
-         "No fraud/willful/gross-negligence carve-out in canonical facts.",
-         "Fraud or willful misconduct is excepted from the cap."),
-        ("no_cap_negating_language", "No language undermining the stated cap", no_negating,
-         "Cap presence not established — cannot affirm absence of negating language.",
-         "No language undermining the stated cap was found."),
-    ]
+    if high_sev:
+        high_detail = "The cap carves out IP, confidentiality, or indemnification claims."
+        high_tone = "pass"
+    elif high_sev_inside:
+        high_detail = (
+            "Contract expressly places "
+            + ", ".join(high_sev_inside)
+            + " inside the general liability cap (not a silent omission of carve-outs)."
+        )
+        high_tone = "info"
+    else:
+        high_detail = (
+            "No uncapped/super-cap carve-out for IP/confidentiality/indemnification in canonical facts."
+        )
+        high_tone = "fail"
+
+    if fraud_exc:
+        fraud_detail = "Fraud or willful misconduct is excepted from the cap."
+        fraud_tone = "pass"
+    elif fraud_inside:
+        fraud_detail = (
+            "Contract expressly places "
+            + ", ".join(fraud_inside)
+            + " inside the general liability cap (not a missing fraud exception)."
+        )
+        fraud_tone = "info"
+    else:
+        fraud_detail = "No fraud/willful/gross-negligence carve-out in canonical facts."
+        fraud_tone = "fail"
+
     elements = [
         ClauseElement(
-            key=key, label=label, present=present, weight=_LIABILITY_ELEMENT_WEIGHT[key],
-            detail=present_detail if present else absent_detail,
-        )
-        for key, label, present, absent_detail, present_detail in specs
+            key="cap_present", label="A liability cap is stated", present=cap_present,
+            weight=_LIABILITY_ELEMENT_WEIGHT["cap_present"],
+            detail=("A liability cap or ceiling is stated." if cap_present
+                    else "No liability cap was established in canonical facts."),
+            display_tone="pass" if cap_present else "fail",
+        ),
+        ClauseElement(
+            key="mutual_application", label="Cap applies mutually to both parties",
+            present=mutual_present, weight=_LIABILITY_ELEMENT_WEIGHT["mutual_application"],
+            detail=("The cap explicitly applies to both parties." if mutual_present
+                    else "Mutual application was not established in canonical facts."),
+            display_tone="pass" if mutual_present else "fail",
+        ),
+        ClauseElement(
+            key="consequential_damages_excluded",
+            label="Consequential/indirect damages excluded",
+            present=consequential_present,
+            weight=_LIABILITY_ELEMENT_WEIGHT["consequential_damages_excluded"],
+            detail=("Consequential/indirect/special damages are excluded." if consequential_present
+                    else "Consequential-damages exclusion was not established in canonical facts."),
+            display_tone="pass" if consequential_present else "fail",
+        ),
+        ClauseElement(
+            key="high_severity_carveouts",
+            label="Carve-outs for IP/confidentiality/indemnification claims",
+            present=high_sev,
+            weight=_LIABILITY_ELEMENT_WEIGHT["high_severity_carveouts"],
+            detail=high_detail,
+            display_tone=high_tone,
+        ),
+        ClauseElement(
+            key="fraud_exception", label="Fraud/willful misconduct exception",
+            present=fraud_exc, weight=_LIABILITY_ELEMENT_WEIGHT["fraud_exception"],
+            detail=fraud_detail,
+            display_tone=fraud_tone,
+        ),
+        ClauseElement(
+            key="no_cap_negating_language", label="No language undermining the stated cap",
+            present=no_negating, weight=_LIABILITY_ELEMENT_WEIGHT["no_cap_negating_language"],
+            detail=("No language undermining the stated cap was found." if no_negating
+                    else "Cap presence not established — cannot affirm absence of negating language."),
+            display_tone="pass" if no_negating else "fail",
+        ),
     ]
     return LiabilityQualityReport(
         applicable=True,
@@ -453,9 +523,12 @@ def _analyze_liability_from_canonical(canonical) -> LiabilityQualityReport:
         elements=elements,
         methodology_note=(
             "Scored from canonical ContractLiabilityFacts (shared LoL extract). "
-            "Categories inside the general cap (§6.3) are not treated as favorable carve-outs."
+            "Favorable carve-outs require uncapped/super-cap treatment. Categories "
+            "expressly placed inside the general cap are labeled as such — they are "
+            "not silent omissions, and they do not earn carve-out credit."
         ),
     )
+
 
 
 # ---------------------------------------------------------------------------
@@ -562,7 +635,7 @@ class ConfidentialityQualityReport:
             "elements": [
                 {
                     "key": e.key, "label": e.label, "present": e.present, "weight": e.weight,
-                    "detail": e.detail, "reasoning_chain": e.reasoning_chain,
+                    "detail": e.detail, "reasoning_chain": e.reasoning_chain, "display_tone": e.display_tone or ("pass" if e.present else "fail"),
                 }
                 for e in self.elements
             ],
@@ -681,13 +754,12 @@ class IndemnificationQualityReport:
     score: Optional[int]
     elements: List[ClauseElement]
     methodology_note: str = (
-        "Only scored when an indemnification clause is present in this document. Each element is "
-        "detected via pattern matching for standard drafting language, not a legal-sufficiency "
-        "judgment; unconventional phrasing can be missed. \"mutual_or_reciprocal\" being absent does "
-        "not by itself mean the clause is defective — a one-way indemnity can be an intentional, "
-        "market-standard allocation depending on the parties' relative risk (e.g. a vendor "
-        "indemnifying a customer for IP infringement); it is a signal worth checking, not an "
-        "automatic defect. Treat a low score as a prompt to read the clause, not a certified defect."
+        "Drafting-completeness checklist for indemnification — not the playbook policy decision. "
+        "Each element is detected via pattern matching for standard drafting language; "
+        "unconventional phrasing can be missed. Split reciprocal indemnities count as mutual. "
+        "\"mutual_or_reciprocal\" being absent does not by itself mean the clause is defective — "
+        "a one-way indemnity can be intentional. Treat a low score as a prompt to read the clause; "
+        "playbook MUST_REDLINE / ACCEPT comes from the indemnification policy engine."
     )
 
     def as_dict(self) -> Dict[str, Any]:
@@ -697,7 +769,7 @@ class IndemnificationQualityReport:
             "elements": [
                 {
                     "key": e.key, "label": e.label, "present": e.present, "weight": e.weight,
-                    "detail": e.detail, "reasoning_chain": e.reasoning_chain,
+                    "detail": e.detail, "reasoning_chain": e.reasoning_chain, "display_tone": e.display_tone or ("pass" if e.present else "fail"),
                 }
                 for e in self.elements
             ],
@@ -705,34 +777,75 @@ class IndemnificationQualityReport:
         }
 
 
+
+_NAMED_INDEMNITOR_RE = re.compile(
+    r"\b([A-Z][A-Za-z]{1,30})\s+shall\s+"
+    r"(?:defend,\s+)?(?:indemnify|indemnify,\s+defend,\s+and\s+hold\s+harmless|"
+    r"indemnif\w+(?:,\s+defend,\s+and\s+hold\s+harmless)?)\s+"
+    r"(?:the\s+)?([A-Z][A-Za-z]{1,30})\b",
+    re.IGNORECASE,
+)
+
+
+def _has_split_reciprocal_indemnities(text: str) -> bool:
+    """True when two named parties each indemnify the other in separate sentences.
+
+    Covers reciprocal §5.1 / §5.2 drafting that never says "either party shall
+    indemnify" in a single mutual opener — still one mutuality fact.
+    """
+    pairs = []
+    for m in _NAMED_INDEMNITOR_RE.finditer(text):
+        a, b = m.group(1).lower(), m.group(2).lower()
+        if a == b:
+            continue
+        if a in {"the", "this", "that", "each", "either", "both", "an", "a"}:
+            continue
+        if b in {"defend", "indemnify", "hold", "harmless", "the", "any", "all"}:
+            continue
+        pairs.append((a, b))
+    for a, b in pairs:
+        if (b, a) in pairs:
+            return True
+    return False
+
+
 def analyze_indemnification_clause(text: str) -> IndemnificationQualityReport:
-    """Pure function: normalized contract text -> IndemnificationQualityReport."""
+    """Pure function: normalized contract text -> IndemnificationQualityReport.
+
+    Drafting-completeness checklist — not a playbook-policy oracle. Playbook
+    MUST_REDLINE / ACCEPT decisions come from indemnification_policy_engine.
+    """
     if not _INDEMNIFICATION_TOPIC_RE.search(text):
         return IndemnificationQualityReport(applicable=False, score=None, elements=[])
 
+    mutual_present = bool(_INDEM_MUTUAL_RE.search(text)) or _has_split_reciprocal_indemnities(text)
     checks = [
-        ("mutual_or_reciprocal", "Indemnification obligations are mutual", _INDEM_MUTUAL_RE,
-         "No mutual/reciprocal indemnification language (\"either party shall indemnify\") was found — "
-         "the obligation may run in only one direction.",
-         "Indemnification obligations are stated as mutual/reciprocal."),
-        ("ip_indemnity", "IP infringement indemnity addressed", _INDEM_IP_RE,
+        ("mutual_or_reciprocal", "Indemnification obligations are mutual", mutual_present,
+         "No mutual/reciprocal indemnification language (\"either party shall indemnify\") or "
+         "split reciprocal pair was found — the obligation may run in only one direction.",
+         "Indemnification obligations are stated as mutual/reciprocal "
+         "(single mutual opener or reciprocal named-party pair)."),
+        ("ip_indemnity", "IP infringement indemnity addressed", bool(_INDEM_IP_RE.search(text)),
          "No indemnification specifically for intellectual property infringement claims was found.",
          "Indemnification for IP infringement claims is addressed."),
-        ("third_party_claims_scope", "Scope explicitly covers third-party claims", _INDEM_THIRD_PARTY_SCOPE_RE,
+        ("third_party_claims_scope", "Scope explicitly covers third-party claims",
+         bool(_INDEM_THIRD_PARTY_SCOPE_RE.search(text)),
          "No explicit reference to third-party claims was found — indemnification clauses exist "
          "specifically to cover claims BY third parties, not disputes between the two contracting "
          "parties; unclear scope here is a real gap.",
          "The clause explicitly covers third-party claims."),
-        ("defense_obligation", "Obligation to defend (not just indemnify)", _INDEM_DEFENSE_OBLIGATION_RE,
+        ("defense_obligation", "Obligation to defend (not just indemnify)",
+         bool(_INDEM_DEFENSE_OBLIGATION_RE.search(text)),
          "No \"shall defend\" language was found — an indemnification obligation without a defense "
          "obligation may leave the indemnified party to fund its own defense while a claim is pending.",
          "An obligation to defend (not just indemnify) is stated."),
-        ("notification_requirement", "Prompt notice of claims required", _INDEM_NOTIFICATION_RE,
+        ("notification_requirement", "Prompt notice of claims required",
+         bool(_INDEM_NOTIFICATION_RE.search(text)),
          "No requirement that the indemnified party give prompt notice of a claim was found — absent "
          "this, disputes can arise over whether notice was timely.",
          "Prompt notice of claims is required."),
         ("limitations_or_procedure", "Defense/settlement control procedure specified",
-         _INDEM_LIMITATIONS_PROCEDURE_RE,
+         bool(_INDEM_LIMITATIONS_PROCEDURE_RE.search(text)),
          "No provision addresses who controls the defense or whether settlement requires consent — "
          "absent this, the indemnifying party could settle in a way that harms the indemnified party, "
          "or vice versa.",
@@ -740,15 +853,29 @@ def analyze_indemnification_clause(text: str) -> IndemnificationQualityReport:
     ]
 
     elements: List[ClauseElement] = []
-    for key, label, pattern, missing_detail, present_detail in checks:
-        present = bool(pattern.search(text))
+    for key, label, present, missing_detail, present_detail in checks:
         elements.append(ClauseElement(
-            key=key, label=label, present=present, weight=_INDEMNIFICATION_ELEMENT_WEIGHT[key],
+            key=key, label=label, present=present,
+            weight=_INDEMNIFICATION_ELEMENT_WEIGHT[key],
             detail=present_detail if present else missing_detail,
+            display_tone="pass" if present else "fail",
         ))
 
     score = sum(e.weight for e in elements if e.present)
-    return IndemnificationQualityReport(applicable=True, score=score, elements=elements)
+    return IndemnificationQualityReport(
+        applicable=True,
+        score=score,
+        elements=elements,
+        methodology_note=(
+            "Drafting-completeness checklist for indemnification — not the playbook policy "
+            "decision. Pattern matching detects standard drafting signals; unconventional "
+            "phrasing can be missed. Split reciprocal indemnities (Party A indemnifies B in "
+            "one subsection and B indemnifies A in another) count as mutual. A low score is a "
+            "prompt to read the clause; playbook MUST_REDLINE / ACCEPT comes from the "
+            "indemnification policy engine."
+        ),
+    )
+
 
 
 # ---------------------------------------------------------------------------
@@ -826,7 +953,7 @@ class TerminationQualityReport:
             "elements": [
                 {
                     "key": e.key, "label": e.label, "present": e.present, "weight": e.weight,
-                    "detail": e.detail, "reasoning_chain": e.reasoning_chain,
+                    "detail": e.detail, "reasoning_chain": e.reasoning_chain, "display_tone": e.display_tone or ("pass" if e.present else "fail"),
                 }
                 for e in self.elements
             ],
@@ -953,7 +1080,7 @@ class IPQualityReport:
             "elements": [
                 {
                     "key": e.key, "label": e.label, "present": e.present, "weight": e.weight,
-                    "detail": e.detail, "reasoning_chain": e.reasoning_chain,
+                    "detail": e.detail, "reasoning_chain": e.reasoning_chain, "display_tone": e.display_tone or ("pass" if e.present else "fail"),
                 }
                 for e in self.elements
             ],
