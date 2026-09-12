@@ -179,8 +179,8 @@
     <div class="report-card p-6 mb-6 fade-in {% if overall_risk == 'high' %}severity-high{% elif overall_risk == 'medium' %}severity-medium{% else %}severity-low{% endif %}" style="border-left-width: 4px;">
         <div class="flex items-start justify-between flex-wrap gap-4">
             <div>
-                <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-2">Overall Risk Assessment</div>
-                <div class="flex items-center gap-3 mb-4">
+                <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-2">Supplemental Pattern Risk</div>
+                <div class="flex items-center gap-3 mb-1">
                     <span class="text-2xl font-extrabold {% if overall_risk == 'high' %}text-red-700{% elif overall_risk == 'medium' %}text-amber-700{% else %}text-green-700{% endif %}">
                         {{ overall_risk|upper }} RISK
                     </span>
@@ -188,6 +188,7 @@
                     <span class="text-xs font-bold uppercase tracking-wide text-red-600" title="Deterministic policy/interaction review found a material issue not reflected in the risk level above">NEEDS ATTENTION</span>
                     {% endif %}
                 </div>
+                <p class="text-xs text-[#64748B] mb-4 max-w-xl">From the generic rule corpus (supplemental checks). Separate from Active playbook governance decisions for Limitation of Liability and Indemnification.</p>
             </div>
             <div class="grid grid-cols-2 gap-x-8 gap-y-2 text-sm">
                 <div class="text-[#475569]">Pipeline Run</div>
@@ -368,10 +369,12 @@
             <h2 class="text-lg font-bold text-[#0F172A]">Liability Clause Inspector</h2>
             <span class="text-2xl font-extrabold mono {% if liab.score >= 70 %}text-green-600{% elif liab.score >= 35 %}text-amber-600{% else %}text-red-600{% endif %}">{{ liab.score }}<span class="text-sm text-[#94A3B8]">/100</span></span>
         </div>
+        <p class="text-xs text-[#64748B] mb-3">Drafting checklist from shared LoL facts. Categories inside the general cap are labeled, not scored as favorable carve-outs.</p>
         <div class="space-y-2">
             {% for el in liab.elements %}
-            <div class="flex items-start gap-3 p-3 rounded-md {% if el.present %}bg-slate-50{% else %}bg-red-50{% endif %}">
-                <span class="text-sm font-bold mt-0.5 {% if el.present %}text-green-600{% else %}text-red-600{% endif %}">{% if el.present %}&#10003;{% else %}&#10007;{% endif %}</span>
+            {% set tone = el.display_tone if el.display_tone is defined and el.display_tone else ("pass" if el.present else "fail") %}
+            <div class="flex items-start gap-3 p-3 rounded-md {% if tone == 'pass' %}bg-slate-50{% elif tone == 'info' %}bg-amber-50{% else %}bg-red-50{% endif %}">
+                <span class="text-sm font-bold mt-0.5 {% if tone == 'pass' %}text-green-600{% elif tone == 'info' %}text-amber-600{% else %}text-red-600{% endif %}">{% if tone == 'pass' %}&#10003;{% elif tone == 'info' %}&#9432;{% else %}&#10007;{% endif %}</span>
                 <div>
                     <div class="text-sm font-semibold text-[#0F172A]">{{ el.label }}</div>
                     <div class="text-xs text-[#475569] mt-0.5">{{ el.detail }}</div>
@@ -420,10 +423,12 @@
             <h2 class="text-lg font-bold text-[#0F172A]">Indemnification Clause Inspector</h2>
             <span class="text-2xl font-extrabold mono {% if indem.score >= 70 %}text-green-600{% elif indem.score >= 35 %}text-amber-600{% else %}text-red-600{% endif %}">{{ indem.score }}<span class="text-sm text-[#94A3B8]">/100</span></span>
         </div>
+        <p class="text-xs text-[#64748B] mb-3">Drafting-completeness checklist — not the Active playbook policy decision.</p>
         <div class="space-y-2">
             {% for el in indem.elements %}
-            <div class="flex items-start gap-3 p-3 rounded-md {% if el.present %}bg-slate-50{% else %}bg-red-50{% endif %}">
-                <span class="text-sm font-bold mt-0.5 {% if el.present %}text-green-600{% else %}text-red-600{% endif %}">{% if el.present %}&#10003;{% else %}&#10007;{% endif %}</span>
+            {% set tone = el.display_tone if el.display_tone is defined and el.display_tone else ("pass" if el.present else "fail") %}
+            <div class="flex items-start gap-3 p-3 rounded-md {% if tone == 'pass' %}bg-slate-50{% elif tone == 'info' %}bg-amber-50{% else %}bg-red-50{% endif %}">
+                <span class="text-sm font-bold mt-0.5 {% if tone == 'pass' %}text-green-600{% elif tone == 'info' %}text-amber-600{% else %}text-red-600{% endif %}">{% if tone == 'pass' %}&#10003;{% elif tone == 'info' %}&#9432;{% else %}&#10007;{% endif %}</span>
                 <div>
                     <div class="text-sm font-semibold text-[#0F172A]">{{ el.label }}</div>
                     <div class="text-xs text-[#475569] mt-0.5">{{ el.detail }}</div>
@@ -525,7 +530,7 @@
             </div>
             <div class="text-center p-3 bg-slate-50 rounded-md">
                 <div class="text-2xl font-extrabold text-[#0F172A]">{{ total_rule_count|default(0) }}</div>
-                <div class="text-xs font-medium text-[#475569] mt-1">Rules Executed</div>
+                <div class="text-xs font-medium text-[#475569] mt-1">Supplemental Rules Run</div>
             </div>
             <div class="text-center p-3 bg-slate-50 rounded-md">
                 <div class="text-2xl font-extrabold text-[#0F172A]">{{ findings_count }}</div>
@@ -780,7 +785,7 @@
                 <div class="text-lg font-bold text-[#0F172A] mono">{{ total_rule_count|default(0) }}</div>
             </div>
             <div class="p-3 bg-slate-50 rounded-md">
-                <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Rules Executed</div>
+                <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Supplemental Rules Run</div>
                 <div class="text-lg font-bold text-[#0F172A] mono">{{ total_rule_count|default(0) }}</div>
             </div>
             <div class="p-3 bg-slate-50 rounded-md">

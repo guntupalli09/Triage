@@ -6,6 +6,7 @@ a component is established.
 """
 from __future__ import annotations
 
+import re
 from typing import Any, Dict, List, Optional
 
 from contract_facts.evidence import EvidenceSpan
@@ -129,6 +130,91 @@ def _mutuality_from_provision(provision: Any) -> EstablishedFact[MutualityStatus
     return EstablishedFact.unknown("mutuality not fully established from legacy extraction")
 
 
+_CONSEQUENTIAL_TOKEN_RE = re.compile(
+    r"\b(?:consequential|indirect|special|incidental|punitive)\s+damages?\b",
+    re.IGNORECASE,
+)
+_CONSEQUENTIAL_EXCLUSION_CUE_RE = re.compile(
+    r"\b(?:in\s+no\s+event|shall\s+not\s+be\s+liable|neither\s+party|"
+    r"not\s+be\s+liable|waive[sd]?|exclude[sd]?)\b",
+    re.IGNORECASE,
+)
+_SECTION_NUMBER_PERIOD_RE = re.compile(r"\d\.\d")
+
+
+def _sentence_start_before(window: str, index: int) -> int:
+    """Start of the local clause containing index, ignoring section-number dots."""
+    pos = index
+    while True:
+        dot = window.rfind(".", 0, pos)
+        nl = window.rfind("\n", 0, pos)
+        boundary = max(dot, nl)
+        if boundary < 0:
+            return 0
+        # Skip "6.2"-style numbering periods.
+        if dot >= 0 and boundary == dot:
+            around = window[max(0, dot - 2): dot + 3]
+            if _SECTION_NUMBER_PERIOD_RE.search(around):
+                pos = dot
+                continue
+        return boundary + 1
+
+
+def _consequential_evidence(provision: Any, fallback: EvidenceSpan) -> EvidenceSpan:
+    """Evidence for the consequential-damages fact must cite §6.2-style waiver
+    language, not the fee-period cap token that often becomes raw_excerpt."""
+    window = getattr(provision, "operative_window_excerpt", None) or ""
+    if not window:
+        return fallback
+    best = None
+    for m in _CONSEQUENTIAL_TOKEN_RE.finditer(window):
+        local = window[max(0, m.start() - 80): min(len(window), m.end() + 160)]
+        if _CONSEQUENTIAL_EXCLUSION_CUE_RE.search(local):
+            best = m
+            break
+        if best is None:
+            best = m
+    if best is None:
+        return fallback
+    m = best
+    # Prefer starting at the exclusion cue when present (skips bare headings).
+    cue = _CONSEQUENTIAL_EXCLUSION_CUE_RE.search(window[max(0, m.start() - 40): m.end() + 200])
+    if cue:
+        abs_cue = max(0, m.start() - 40) + cue.start()
+        sent_start = _sentence_start_before(window, abs_cue)
+        anchor = abs_cue
+    else:
+        sent_start = _sentence_start_before(window, m.start())
+        anchor = m.start()
+    sent_end = window.find(".", anchor)
+    # Advance past section-number periods.
+    while sent_end >= 0 and _SECTION_NUMBER_PERIOD_RE.search(window[max(0, sent_end - 2): sent_end + 3]):
+        sent_end = window.find(".", sent_end + 1)
+    if sent_end < 0:
+        sent_end = min(len(window), anchor + 220)
+    else:
+        sent_end += 1
+    # If we still only captured a heading, take the following sentence too.
+    chunk = window[sent_start:sent_end]
+    if not _CONSEQUENTIAL_EXCLUSION_CUE_RE.search(chunk):
+        more = window.find(".", sent_end)
+        while more >= 0 and _SECTION_NUMBER_PERIOD_RE.search(window[max(0, more - 2): more + 3]):
+            more = window.find(".", more + 1)
+        sent_end = len(window) if more < 0 else more + 1
+        chunk = window[sent_start:sent_end]
+    excerpt = " ".join(chunk.split())
+    base = getattr(provision, "start_index", None)
+    if base is None:
+        return EvidenceSpan(excerpt=excerpt, section_label=getattr(provision, "section_label", None))
+    return EvidenceSpan(
+        excerpt=excerpt,
+        start_index=base + sent_start,
+        end_index=base + sent_end,
+        section_label=getattr(provision, "section_label", None),
+    )
+
+
+
 def canonical_liability_from_legacy(facts: Any) -> ContractLiabilityFacts:
     """Build ContractLiabilityFacts from liability_policy_engine.LiabilityFacts."""
     if facts is None or not getattr(facts, "clause_found", False):
@@ -185,15 +271,18 @@ def canonical_liability_from_legacy(facts: Any) -> ContractLiabilityFacts:
                 )
             )
 
+        cons_evidence = _consequential_evidence(prov, evidence)
         consequential: EstablishedFact[bool]
         if not prov.consequential_damages_established:
-            consequential = EstablishedFact.unknown("consequential damages language ambiguous", evidence)
+            consequential = EstablishedFact.unknown(
+                "consequential damages language ambiguous", cons_evidence,
+            )
         elif prov.consequential_damages_excluded is True:
-            consequential = EstablishedFact.present(True, evidence)
+            consequential = EstablishedFact.present(True, cons_evidence)
         elif prov.consequential_damages_excluded is False:
-            consequential = EstablishedFact.present(False, evidence)
+            consequential = EstablishedFact.present(False, cons_evidence)
         else:
-            consequential = EstablishedFact.absent(evidence)
+            consequential = EstablishedFact.absent(cons_evidence)
 
         provisions.append(
             LiabilityProvisionFacts(
