@@ -136,7 +136,8 @@ _CONSEQUENTIAL_TOKEN_RE = re.compile(
 )
 _CONSEQUENTIAL_EXCLUSION_CUE_RE = re.compile(
     r"\b(?:in\s+no\s+event|shall\s+not\s+be\s+liable|neither\s+party|"
-    r"not\s+be\s+liable|waive[sd]?|exclude[sd]?)\b",
+    r"not\s+be\s+liable|will\s+have\s+(?:any\s+)?(?:no\s+)?liability|"
+    r"no\s+liability|waive[sd]?|exclude[sd]?)\b",
     re.IGNORECASE,
 )
 _SECTION_NUMBER_PERIOD_RE = re.compile(r"\d\.\d")
@@ -158,6 +159,21 @@ def _sentence_start_before(window: str, index: int) -> int:
                 pos = dot
                 continue
         return boundary + 1
+
+
+def _admit_consequential_exclusion(window: str) -> bool:
+    """True when operative text clearly excludes consequential-type damages.
+
+    Fact-admission only: used when legacy extraction left the flag
+    unestablished. Does not invent True from cap / §6.3 language alone.
+    """
+    if not window:
+        return False
+    for m in _CONSEQUENTIAL_TOKEN_RE.finditer(window):
+        local = window[max(0, m.start() - 100): min(len(window), m.end() + 160)]
+        if _CONSEQUENTIAL_EXCLUSION_CUE_RE.search(local):
+            return True
+    return False
 
 
 def _consequential_evidence(provision: Any, fallback: EvidenceSpan) -> EvidenceSpan:
@@ -274,9 +290,17 @@ def canonical_liability_from_legacy(facts: Any) -> ContractLiabilityFacts:
         cons_evidence = _consequential_evidence(prov, evidence)
         consequential: EstablishedFact[bool]
         if not prov.consequential_damages_established:
-            consequential = EstablishedFact.unknown(
-                "consequential damages language ambiguous", cons_evidence,
-            )
+            # Legacy extract sometimes fails soft exclusion phrasing
+            # ("neither party will have any liability for consequential…")
+            # while leaving a clear §6.2-style window. Admit exclusion here
+            # only when cue + damages tokens co-occur — never from cap alone.
+            window = getattr(prov, "operative_window_excerpt", None) or ""
+            if _admit_consequential_exclusion(window):
+                consequential = EstablishedFact.present(True, cons_evidence)
+            else:
+                consequential = EstablishedFact.unknown(
+                    "consequential damages language ambiguous", cons_evidence,
+                )
         elif prov.consequential_damages_excluded is True:
             consequential = EstablishedFact.present(True, cons_evidence)
         elif prov.consequential_damages_excluded is False:
