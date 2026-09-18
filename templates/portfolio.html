@@ -1,0 +1,183 @@
+{% extends "base_app.html" %}
+{% block title %}Portfolio{% endblock %}
+{% block breadcrumbs %}
+<a href="/dashboard" class="hover:text-gray-900 transition-colors">Dashboard</a>
+<span class="mx-1">/</span>
+<span>Portfolio</span>
+{% endblock %}
+{% block content %}
+<div class="mb-8">
+    <h1 class="text-3xl font-extrabold text-[#0F172A]">Portfolio intelligence</h1>
+    <p class="text-sm text-gray-500 mt-2">Structured filters run over persisted canonical facts. The model never answers the question itself.</p>
+</div>
+
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+    <div class="premium-card p-5"><div class="text-2xl font-extrabold">{{ report.total_contracts }}</div><div class="text-xs text-gray-500 mt-1">Contracts</div></div>
+    <div class="premium-card p-5"><div class="text-2xl font-extrabold text-red-600">{{ report.high_severity_contracts }}</div><div class="text-xs text-gray-500 mt-1">High severity</div></div>
+    <div class="premium-card p-5"><div class="text-2xl font-extrabold text-amber-600">{{ report.unresolved_legal_review_items }}</div><div class="text-xs text-gray-500 mt-1">Unresolved</div></div>
+    <div class="premium-card p-5"><div class="text-2xl font-extrabold">{{ report.cross_policy_interaction_contracts }}</div><div class="text-xs text-gray-500 mt-1">With interactions</div></div>
+</div>
+
+<div class="premium-card p-6 mb-8">
+    <h2 class="font-bold text-[#0F172A] mb-3">Ask in plain English</h2>
+    <p class="text-xs text-gray-500 mb-3">Example: “Show me MSAs where our liability exceeds $1M”. Translation is validated against the allowed filter schema; results come from the database.</p>
+    <form id="nl-form" class="flex gap-3">
+        <input id="nl-question" class="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm" placeholder="Show me MSAs with unlimited liability">
+        <button class="btn-primary px-4 py-2 rounded-lg text-sm" type="submit">Search</button>
+    </form>
+    <pre id="nl-interpreted" class="text-xs bg-gray-50 mt-3 p-3 rounded hidden"></pre>
+</div>
+
+<div class="premium-card p-6 mb-8">
+    <h2 class="font-bold text-[#0F172A] mb-3">Structured filters</h2>
+    <div class="grid sm:grid-cols-3 gap-3 mb-3">
+        <select id="f-type" class="border border-gray-200 rounded-lg px-3 py-2 text-sm">
+            <option value="">Any contract type</option>
+            <option value="MSA">MSA</option>
+            <option value="NDA">NDA</option>
+            <option value="SaaS">SaaS</option>
+        </select>
+        <select id="f-law" class="border border-gray-200 rounded-lg px-3 py-2 text-sm">
+            <option value="">Any governing law</option>
+            <option value="Texas">Texas</option>
+            <option value="New York">New York</option>
+            <option value="Delaware">Delaware</option>
+        </select>
+        <select id="f-cap" class="border border-gray-200 rounded-lg px-3 py-2 text-sm">
+            <option value="">Any liability cap</option>
+            <option value="over1m">Cap &gt; $1,000,000</option>
+            <option value="unlimited">Unlimited</option>
+        </select>
+    </div>
+    <div class="flex flex-wrap gap-3 mb-3 text-sm">
+        <label class="inline-flex items-center gap-2"><input type="checkbox" id="f-tfc"> Termination for convenience</label>
+        <label class="inline-flex items-center gap-2"><input type="checkbox" id="f-assign"> Assignment requires consent</label>
+        <label class="inline-flex items-center gap-2"><input type="checkbox" id="f-high"> HIGH severity</label>
+        <label class="inline-flex items-center gap-2"><input type="checkbox" id="f-unresolved"> Unresolved items</label>
+        <label class="inline-flex items-center gap-2"><input type="checkbox" id="f-ix"> Cross-policy interactions</label>
+        <label class="inline-flex items-center gap-2"><input type="checkbox" id="f-indem"> Mutual indemnification</label>
+        <label class="inline-flex items-center gap-2">Payment terms &gt; <input type="number" id="f-pay" class="w-16 border rounded px-2 py-1" placeholder="30"> days</label>
+    </div>
+    <button id="structured-btn" class="btn-secondary px-4 py-2 rounded-lg text-sm">Apply filters</button>
+</div>
+
+<div class="premium-card p-6 mb-8 overflow-x-auto">
+    <h2 class="font-bold text-[#0F172A] mb-3">Results <span id="result-count" class="text-gray-400 font-medium"></span></h2>
+    <table class="w-full text-sm">
+        <thead><tr class="text-left text-gray-500 border-b">
+            <th class="py-2">Contract</th><th>Type</th><th>Counterparty</th><th>Cap</th><th>Law</th><th>Status</th>
+        </tr></thead>
+        <tbody id="results-body"></tbody>
+    </table>
+    <p id="empty-results" class="text-sm text-gray-500 py-6">Run a search to list matching contracts from the canonical fact index.</p>
+</div>
+
+<div class="grid sm:grid-cols-2 gap-4">
+    <div class="premium-card p-6">
+        <h3 class="font-bold mb-3">By contract type</h3>
+        {% for b in report.by_type %}
+        <div class="flex justify-between text-sm py-1 border-b border-gray-50"><span>{{ b.label }}</span><a class="text-indigo-600" href="#" onclick="drill({{ b.contract_ids }});return false;">{{ b.count }}</a></div>
+        {% else %}
+        <p class="text-sm text-gray-400">No indexed contracts yet.</p>
+        {% endfor %}
+    </div>
+    <div class="premium-card p-6">
+        <h3 class="font-bold mb-3">Liability cap distribution</h3>
+        {% for b in report.liability_cap_distribution %}
+        <div class="flex justify-between text-sm py-1 border-b border-gray-50"><span>{{ b.label }}</span><span>{{ b.count }}</span></div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+const CSRF = document.querySelector('meta[name="csrf-token"]').content;
+async function api(path, body) {
+    const r = await fetch(path, {
+        method: 'POST',
+        headers: {'Content-Type':'application/json','Authorization': window._tcToken || ''},
+        body: JSON.stringify(body)
+    });
+    const data = await r.json();
+    if (!r.ok) throw new Error(data.detail || JSON.stringify(data));
+    return data;
+}
+function renderResults(data) {
+    const tbody = document.getElementById('results-body');
+    tbody.innerHTML = '';
+    document.getElementById('result-count').textContent = data.total + ' contracts';
+    document.getElementById('empty-results').classList.toggle('hidden', data.results.length > 0);
+    (data.results || []).forEach(row => {
+        const tr = document.createElement('tr');
+        const cap = row.liability_unlimited ? 'Unlimited' : (row.liability_cap_amount != null ? '$' + Number(row.liability_cap_amount).toLocaleString() : '—');
+        tr.innerHTML = `<td class="py-2"><a class="font-medium" href="/contract/${row.contract_id}/review">${row.display_name || row.original_filename}</a></td>
+            <td>${row.contract_type || '—'}</td><td>${row.counterparty || '—'}</td><td>${cap}</td>
+            <td>${row.governing_law || '—'}</td><td>${row.review_status || '—'}</td>`;
+        tbody.appendChild(tr);
+    });
+}
+function collectFilters() {
+    const filters = [];
+    const type = document.getElementById('f-type').value;
+    if (type) filters.push({field:'contract_type', op:'eq', value:type});
+    const law = document.getElementById('f-law').value;
+    if (law) filters.push({field:'governing_law', op:'contains', value:law});
+    const cap = document.getElementById('f-cap').value;
+    if (cap === 'over1m') filters.push({field:'liability_cap', op:'gt', value:1000000});
+    if (cap === 'unlimited') filters.push({field:'liability_unlimited', op:'eq', value:true});
+    if (document.getElementById('f-tfc').checked) filters.push({field:'termination_for_convenience', op:'eq', value:true});
+    if (document.getElementById('f-assign').checked) filters.push({field:'assignment_requires_consent', op:'eq', value:true});
+    if (document.getElementById('f-high').checked) filters.push({field:'highest_severity', op:'eq', value:'high'});
+    if (document.getElementById('f-unresolved').checked) filters.push({field:'has_unresolved', op:'eq', value:true});
+    if (document.getElementById('f-ix').checked) filters.push({field:'has_interactions', op:'eq', value:true});
+    if (document.getElementById('f-indem').checked) filters.push({field:'indemnification', op:'eq', value:'mutual'});
+    const pay = document.getElementById('f-pay').value;
+    if (pay) filters.push({field:'payment_terms_days', op:'gt', value: Number(pay)});
+    return filters;
+}
+async function ensureToken() {
+    if (window._tcToken) return window._tcToken;
+    // Browser session is cookie-auth; mint a short-lived token via a same-origin helper is not available.
+    // Portfolio UI uses cookie session through a same-origin fetch to /api/v1 which requires bearer.
+    // Fall back: post filters through a web-session compatible path is not implemented; ask user to use API token.
+    // Instead we call search using fetch without bearer and show a clear error.
+    return null;
+}
+document.getElementById('structured-btn').addEventListener('click', async () => {
+    try {
+        await searchStructured(collectFilters());
+    } catch (e) { alert(e.message); }
+});
+document.getElementById('nl-form').addEventListener('submit', async (ev) => {
+    ev.preventDefault();
+    try {
+        const q = document.getElementById('nl-question').value;
+        const data = await sessionSearchNl(q);
+        document.getElementById('nl-interpreted').classList.remove('hidden');
+        document.getElementById('nl-interpreted').textContent = JSON.stringify(data.interpreted_query, null, 2);
+        renderResults(data);
+    } catch (e) { alert(e.message); }
+});
+async function sessionSearch(body) {
+    body.csrf_token = CSRF;
+    const r = await fetch('/portfolio/query', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify(body)
+    });
+    const data = await r.json();
+    if (!r.ok) throw new Error(typeof data.detail === 'string' ? data.detail : JSON.stringify(data.detail));
+    return data;
+}
+async function searchStructured(filters) {
+    const data = await sessionSearch({mode:'structured', filters, combinator:'and'});
+    renderResults(data);
+}
+async function sessionSearchNl(question) {
+    return sessionSearch({mode:'nl', question});
+}
+function drill(ids) {
+    sessionSearch({mode:'drilldown', ids}).then(renderResults).catch(e => alert(e.message));
+}
+</script>
+{% endblock %}

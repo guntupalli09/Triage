@@ -47,7 +47,7 @@ def _register(client, email) -> str:
     token = r.cookies.get("csrf_token")
     client.post("/register", data={
         "email": email, "password": "Str0ngP@ssw0rd!", "confirm_password": "Str0ngP@ssw0rd!",
-        "name": "Firm", "company": "", "csrf_token": token,
+        "name": "Firm", "company": "", "csrf_token": token, "accept_terms": "on",
     })
     # Fresh registrations default to a plan with playbooks_max == 0; bump
     # this test user to a plan that can create playbooks.

@@ -29,6 +29,11 @@ class User(Base):
     company = Column(String(255), nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
 
+    # Tenant / workspace membership. Nullable for pre-tenancy rows; tenancy.ensure_user_tenant()
+    # lazily provisions a personal tenant + default workspace so existing accounts keep working.
+    tenant_id = Column(Integer, ForeignKey("tenants.id"), nullable=True, index=True)
+    workspace_id = Column(Integer, ForeignKey("workspaces.id"), nullable=True, index=True)
+
     # Subscription
     plan = Column(String(50), default="none")  # none, trial, starter, professional
     stripe_customer_id = Column(String(255), nullable=True)
@@ -237,9 +242,24 @@ class Contract(Base):
     review_customer_type = Column(String(100), nullable=True)
     review_deal_value = Column(Float, nullable=True)
 
+    # Repository / integration metadata. Additive — existing reviews remain valid
+    # without these fields; listing/search fill them from metadata_json on index.
+    tenant_id = Column(Integer, ForeignKey("tenants.id"), nullable=True, index=True)
+    workspace_id = Column(Integer, ForeignKey("workspaces.id"), nullable=True, index=True)
+    display_name = Column(String(255), nullable=True)
+    contract_type = Column(String(100), nullable=True, index=True)
+    counterparty = Column(String(255), nullable=True, index=True)
+    source = Column(String(40), nullable=True, default="web", index=True)  # web | word | google_docs | intake | revision_import
+    review_status = Column(String(40), nullable=True, default="in_review", index=True)
+    parent_contract_id = Column(Integer, ForeignKey("contracts.id"), nullable=True, index=True)
+    revision_number = Column(Integer, nullable=False, default=1)
+    document_facts_json = Column(EncryptedJSON, nullable=True)
+    intake_request_id = Column(Integer, nullable=True, index=True)
+
     user = relationship("User", back_populates="contracts")
     playbook = relationship("Playbook")
     events = relationship("ContractEvent", back_populates="contract", cascade="all, delete-orphan")
+    parent_contract = relationship("Contract", remote_side="Contract.id", foreign_keys=[parent_contract_id])
 
     def generate_share_token(self):
         self.share_token = secrets.token_urlsafe(32)
@@ -264,6 +284,9 @@ class Playbook(Base):
     # excerpts of the template text (see encryption.EncryptedJSON).
     template_findings_json = Column(EncryptedJSON, nullable=True)
     template_risk = Column(String(20), nullable=True)
+
+    tenant_id = Column(Integer, ForeignKey("tenants.id"), nullable=True, index=True)
+    workspace_id = Column(Integer, ForeignKey("workspaces.id"), nullable=True, index=True)
 
     user = relationship("User", back_populates="playbooks")
     policy_rules = relationship("PolicyRule", back_populates="playbook", cascade="all, delete-orphan")
@@ -639,3 +662,202 @@ class UserRole(Base):
 
     user = relationship("User", foreign_keys=[user_id])
     role = relationship("Role")
+
+
+# --- Tenancy, repository, integration, portfolio (workflow layer) ----------
+#
+# These tables sit *under* the deterministic policy engine. They do not
+# replace Contract.findings_json / policy_decisions_json / document facts;
+# they index and expose them to Word/Google/web clients under tenant scope.
+# See tenancy.py, canonical_index.py, integration_api.py.
+
+CONTRACT_SOURCES = ("web", "word", "google_docs", "intake", "revision_import")
+CONTRACT_REVIEW_STATUSES = (
+    "intake_submitted", "in_review", "awaiting_legal", "finalized", "imported_revision",
+)
+INTAKE_STATUSES = ("submitted", "in_review", "needs_info", "completed", "cancelled")
+API_TOKEN_SCOPES = (
+    "integration", "contracts.read", "contracts.write", "playbooks.read",
+    "portfolio.search", "portfolio.report", "intake.submit",
+)
+
+
+class Tenant(Base):
+    """An isolation boundary. Every contract, playbook, fact-index row, and
+    API token is scoped to one tenant. A user from Tenant A must never read
+    Tenant B's metadata, facts, search results, reports, or documents."""
+    __tablename__ = "tenants"
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String(255), nullable=False)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    created_by_user_id = Column(
+        Integer,
+        ForeignKey("users.id", use_alter=True, name="fk_tenants_created_by_user_id"),
+        nullable=True,
+    )
+
+    workspaces = relationship("Workspace", back_populates="tenant", cascade="all, delete-orphan")
+
+
+class Workspace(Base):
+    """A named working context inside a tenant. MVP: one default workspace
+    per tenant. Kept as a real table so Word/Google clients can select a
+    workspace without a later schema break."""
+    __tablename__ = "workspaces"
+
+    id = Column(Integer, primary_key=True)
+    tenant_id = Column(Integer, ForeignKey("tenants.id"), nullable=False, index=True)
+    name = Column(String(255), nullable=False, default="Default")
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    tenant = relationship("Tenant", back_populates="workspaces")
+
+
+class ApiToken(Base):
+    """Hashed bearer token for Word / Google Docs / other thin clients.
+    The plaintext token is shown once at issuance and never stored.
+    """
+    __tablename__ = "api_tokens"
+
+    id = Column(Integer, primary_key=True)
+    tenant_id = Column(Integer, ForeignKey("tenants.id"), nullable=False, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False, index=True)
+    name = Column(String(255), nullable=False, default="Integration token")
+    token_prefix = Column(String(16), nullable=False, index=True)
+    token_hash = Column(String(64), nullable=False, unique=True, index=True)
+    scopes_json = Column(JSON, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    last_used_at = Column(DateTime, nullable=True)
+    expires_at = Column(DateTime, nullable=True)
+    revoked_at = Column(DateTime, nullable=True)
+    client_kind = Column(String(40), nullable=True)  # word | google_docs | api
+
+    user = relationship("User", foreign_keys=[user_id])
+
+
+class ContractFactIndex(Base):
+    """Denormalized, queryable projection of established canonical facts.
+
+    Authoritative evidence and full fact objects remain on Contract
+    (encrypted). This table exists so portfolio search/reporting can filter
+    without sending every contract to an LLM and without decrypting blobs
+    for every query. Values are only written from persisted analysis —
+    never guessed.
+    """
+    __tablename__ = "contract_fact_index"
+    __table_args__ = (UniqueConstraint("contract_id", name="uq_contract_fact_index_contract"),)
+
+    id = Column(Integer, primary_key=True)
+    tenant_id = Column(Integer, ForeignKey("tenants.id"), nullable=False, index=True)
+    workspace_id = Column(Integer, ForeignKey("workspaces.id"), nullable=True, index=True)
+    contract_id = Column(Integer, ForeignKey("contracts.id", ondelete="CASCADE"), nullable=False, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False, index=True)
+
+    display_name = Column(String(255), nullable=True)
+    original_filename = Column(String(255), nullable=True)
+    contract_type = Column(String(100), nullable=True, index=True)
+    counterparty = Column(String(255), nullable=True, index=True)
+    source = Column(String(40), nullable=True, index=True)
+    review_status = Column(String(40), nullable=True, index=True)
+    uploaded_at = Column(DateTime, nullable=True, index=True)
+    reviewed_at = Column(DateTime, nullable=True)
+
+    playbook_id = Column(Integer, ForeignKey("playbooks.id"), nullable=True, index=True)
+    playbook_name = Column(String(255), nullable=True)
+    playbook_revision = Column(String(64), nullable=True)
+
+    governing_law = Column(String(100), nullable=True, index=True)
+    liability_cap_amount = Column(Float, nullable=True, index=True)
+    liability_cap_currency = Column(String(8), nullable=True)
+    liability_unlimited = Column(Boolean, nullable=True, index=True)
+    liability_cap_kind = Column(String(40), nullable=True)  # fixed | unlimited | fee_multiple | fee_period | complex | unknown
+    payment_terms_days = Column(Integer, nullable=True, index=True)
+    termination_for_convenience = Column(Boolean, nullable=True, index=True)
+    assignment_requires_consent = Column(Boolean, nullable=True, index=True)
+    indemnification = Column(String(40), nullable=True, index=True)  # mutual | one_sided | unknown
+
+    highest_severity = Column(String(20), nullable=True, index=True)
+    has_unresolved = Column(Boolean, nullable=False, default=False, index=True)
+    has_interactions = Column(Boolean, nullable=False, default=False, index=True)
+    overall_risk = Column(String(20), nullable=True, index=True)
+    exception_count = Column(Integer, nullable=True)
+    high_finding_count = Column(Integer, nullable=True)
+    medium_finding_count = Column(Integer, nullable=True)
+    low_finding_count = Column(Integer, nullable=True)
+
+    fact_schema_version = Column(Integer, nullable=False, default=1)
+    indexed_at = Column(DateTime, default=datetime.utcnow)
+
+    contract = relationship("Contract", foreign_keys=[contract_id])
+
+
+class ContractRevision(Base):
+    """Append-only document revision log. The original Contract row is
+    never overwritten; a counterparty import creates a new Contract linked
+    via parent_contract_id, and this table records the association plus
+    change-aware invalidation summary.
+    """
+    __tablename__ = "contract_revisions"
+
+    id = Column(Integer, primary_key=True)
+    tenant_id = Column(Integer, ForeignKey("tenants.id"), nullable=False, index=True)
+    original_contract_id = Column(Integer, ForeignKey("contracts.id", ondelete="CASCADE"), nullable=False, index=True)
+    revision_contract_id = Column(Integer, ForeignKey("contracts.id", ondelete="CASCADE"), nullable=False, index=True)
+    revision_number = Column(Integer, nullable=False)
+    source = Column(String(40), nullable=True)
+    imported_by_user_id = Column(Integer, ForeignKey("users.id"), nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    change_summary_json = Column(JSON, nullable=True)
+    invalidated_clause_types_json = Column(JSON, nullable=True)
+
+    original_contract = relationship("Contract", foreign_keys=[original_contract_id])
+    revision_contract = relationship("Contract", foreign_keys=[revision_contract_id])
+
+
+class IntakeRequest(Base):
+    """Smallest coherent business-user intake. A requester uploads a
+    document and metadata; legal picks it up from the queue. Requesters
+    cannot modify playbooks or finalize policy.
+    """
+    __tablename__ = "intake_requests"
+
+    id = Column(Integer, primary_key=True)
+    tenant_id = Column(Integer, ForeignKey("tenants.id"), nullable=False, index=True)
+    workspace_id = Column(Integer, ForeignKey("workspaces.id"), nullable=True, index=True)
+    requester_user_id = Column(Integer, ForeignKey("users.id"), nullable=False, index=True)
+    assigned_reviewer_user_id = Column(Integer, ForeignKey("users.id"), nullable=True, index=True)
+    contract_id = Column(Integer, ForeignKey("contracts.id", ondelete="SET NULL"), nullable=True, index=True)
+
+    filename = Column(String(255), nullable=False)
+    contract_text = Column(EncryptedText, nullable=False)
+    display_name = Column(String(255), nullable=True)
+    requested_contract_type = Column(String(100), nullable=True)
+    counterparty = Column(String(255), nullable=True)
+    notes = Column(Text, nullable=True)
+    status = Column(String(40), nullable=False, default="submitted", index=True)
+    playbook_id = Column(Integer, ForeignKey("playbooks.id"), nullable=True)
+
+    created_at = Column(DateTime, default=datetime.utcnow, index=True)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    completed_at = Column(DateTime, nullable=True)
+
+    requester = relationship("User", foreign_keys=[requester_user_id])
+
+
+class IntegrationAction(Base):
+    """Audit of Word / Google Docs client actions (comment inserted,
+    redline applied, review triggered). Complements AuditLog with
+    structured fields the integration clients need to replay.
+    """
+    __tablename__ = "integration_actions"
+
+    id = Column(Integer, primary_key=True)
+    tenant_id = Column(Integer, ForeignKey("tenants.id"), nullable=False, index=True)
+    contract_id = Column(Integer, ForeignKey("contracts.id", ondelete="SET NULL"), nullable=True, index=True)
+    actor_user_id = Column(Integer, ForeignKey("users.id"), nullable=True, index=True)
+    client_kind = Column(String(40), nullable=False)  # word | google_docs | web | api
+    action = Column(String(64), nullable=False, index=True)
+    finding_key = Column(String(128), nullable=True)
+    payload_json = Column(JSON, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow, index=True)

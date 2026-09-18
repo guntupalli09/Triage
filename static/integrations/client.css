@@ -1,0 +1,16 @@
+:root { font-family: Inter, Segoe UI, sans-serif; color: #0F172A; }
+body { margin: 0; background: #F8FAFC; }
+#app { padding: 16px; }
+h1 { font-size: 16px; margin: 0 0 12px; }
+label { display: block; font-size: 12px; font-weight: 600; margin: 8px 0 4px; }
+input, select, textarea { width: 100%; box-sizing: border-box; padding: 8px; border: 1px solid #E5E7EB; border-radius: 8px; font-size: 13px; }
+button { border: 0; border-radius: 8px; padding: 8px 12px; font-weight: 600; cursor: pointer; }
+.primary { background: #0F172A; color: #fff; }
+.secondary { background: #fff; border: 1px solid #E5E7EB; }
+.finding { background: #fff; border: 1px solid #E5E7EB; border-radius: 10px; padding: 10px; margin: 8px 0; }
+.sev-high { border-left: 4px solid #991B1B; }
+.sev-medium { border-left: 4px solid #92400E; }
+.sev-low { border-left: 4px solid #065F46; }
+.muted { color: #6B7280; font-size: 12px; }
+.err { color: #991B1B; font-size: 12px; margin: 8px 0; }
+.row { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }

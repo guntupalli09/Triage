@@ -13,7 +13,7 @@ os.environ.setdefault("DEV_MODE", "true")
 import main
 import rate_limit
 from database import SessionLocal, engine as app_engine
-from models import AuditLog, Contract
+from models import AuditLog, Contract, ContractFactIndex
 from analytics_models import ContractEvent
 
 NDA_BYTES = b"Confidentiality agreement between Acme Corp and Beta LLC with arbitration and termination clauses."
@@ -37,7 +37,7 @@ def _register(client, email):
     token = r.cookies.get("csrf_token")
     client.post("/register", data={
         "email": email, "password": "Str0ngP@ssw0rd!", "confirm_password": "Str0ngP@ssw0rd!",
-        "name": "Firm", "company": "", "csrf_token": token,
+        "name": "Firm", "company": "", "csrf_token": token, "accept_terms": "on",
     })
     return token
 
@@ -60,6 +60,7 @@ def test_owner_can_delete_their_own_contract(client):
     db = SessionLocal()
     try:
         assert db.query(Contract).filter(Contract.id == contract_id).first() is None
+        assert db.query(ContractFactIndex).filter(ContractFactIndex.contract_id == contract_id).first() is None
     finally:
         db.close()
 

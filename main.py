@@ -71,7 +71,7 @@ from auth import (
     create_mfa_pending, get_mfa_pending_user_id, clear_mfa_pending,
 )
 import mfa
-from models import User, Contract, Playbook, PolicyRule
+from models import User, Contract, Playbook, PolicyRule, IntakeRequest
 from encryption import validate_startup as validate_encryption_startup, EncryptionConfigError
 from analytics_models import UserAcquisition, UserSession, UserEvent, ContractEvent
 from playbook_engine import PlaybookEngine
@@ -91,6 +91,14 @@ import playbook_authoring as pa
 import policy_enforcement
 import review_queue
 import document_aggregation
+import tenancy
+import canonical_index
+import integration_api
+import portfolio_nl
+import portfolio_query
+import portfolio_reporting
+import review_pipeline
+import change_aware
 from analytics_middleware import AnalyticsMiddleware
 from channel_classifier import CHANNELS as ACQUISITION_CHANNELS
 
@@ -200,13 +208,20 @@ PLAN_LIMITS = {
 # --- App setup ---
 app = FastAPI(title="TriageCounsel", version="2.0.0")
 app.mount("/static", StaticFiles(directory="static"), name="static")
-CORS_ORIGINS = os.getenv("CORS_ORIGINS", BASE_URL).split(",")
+CORS_ORIGINS = [o.strip() for o in os.getenv("CORS_ORIGINS", BASE_URL).split(",") if o.strip()]
+INTEGRATION_CORS = [
+    o.strip() for o in os.getenv(
+        "INTEGRATION_CORS_ORIGINS",
+        "https://n-officeapps.live.com,https://word-edit.officeapps.live.com,https://docs.google.com,https://script.google.com",
+    ).split(",")
+    if o.strip()
+]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=CORS_ORIGINS,
+    allow_origins=list(dict.fromkeys(CORS_ORIGINS + INTEGRATION_CORS)),
     allow_credentials=True,
-    allow_methods=["GET", "POST"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allow_headers=["Authorization", "Content-Type", "X-TriageCounsel-Client", "X-CSRF-Token"],
 )
 
 from starlette.middleware.base import BaseHTTPMiddleware
@@ -225,6 +240,7 @@ app.add_middleware(SecurityHeadersMiddleware)
 app.add_middleware(CSRFCookieMiddleware)
 
 app.include_router(playbook_workbench.router)
+app.include_router(integration_api.router)
 
 rule_engine = RuleEngine()
 llm_evaluator = LLMEvaluator()
@@ -279,7 +295,25 @@ def require_user(request: Request, db: DBSession) -> User:
     user = get_current_user(request, db)
     if not user:
         raise HTTPException(status_code=302, headers={"Location": "/login"})
+    tenancy.ensure_user_tenant(db, user)
     return user
+
+
+def _finalize_persisted_contract(db: DBSession, user: User, contract: Contract, *, source: str = "web") -> None:
+    """Stamp tenant/workspace and refresh the canonical fact index after a
+    Contract row is flushed. Does not commit."""
+    tenancy.ensure_user_tenant(db, user)
+    if not contract.tenant_id:
+        contract.tenant_id = user.tenant_id
+    if not contract.workspace_id:
+        contract.workspace_id = user.workspace_id
+    if not contract.source:
+        contract.source = source
+    if not contract.review_status:
+        contract.review_status = "finalized" if contract.review_finalized_at else "in_review"
+    if not contract.revision_number:
+        contract.revision_number = 1
+    canonical_index.upsert_fact_index(db, contract)
 
 
 def extract_text_from_file(file_bytes: bytes, filename: str) -> str:
@@ -746,6 +780,8 @@ async def register_submit(
     db.add(user)
     db.commit()
     db.refresh(user)
+    tenancy.ensure_user_tenant(db, user)
+    db.commit()
     rbac.grant_role(db, user, "user")
 
     analytics.persist_user_acquisition(db, user, request)
@@ -1353,22 +1389,17 @@ def _needs_attention(contract: "Contract") -> bool:
 async def dashboard(request: Request, db: DBSession = Depends(get_db)):
     user = require_user(request, db)
     analytics.record_event(request, "dashboard_view", user=user)
-    contracts = db.query(Contract).filter(
-        Contract.user_id == user.id, Contract.analysis_completed == True
-    ).order_by(Contract.created_at.desc()).limit(20).all()
+    scoped = tenancy.scoped_contracts(db, user).filter(Contract.analysis_completed == True)
+    contracts = scoped.order_by(Contract.created_at.desc()).limit(20).all()
 
-    total = db.query(Contract).filter(Contract.user_id == user.id, Contract.analysis_completed == True).count()
-    high_count = db.query(Contract).filter(
-        Contract.user_id == user.id, Contract.overall_risk == "high", Contract.analysis_completed == True
-    ).count()
+    total = scoped.count()
+    high_count = scoped.filter(Contract.overall_risk == "high").count()
     # Attention count -- must include contracts a bare overall_risk=="high"
     # filter would miss (see _document_state_for_contract above). Computed
     # in Python (EncryptedJSON columns cannot be filtered in SQL), scoped
     # to this user only, same bound the pre-existing total/high_count
     # queries already use.
-    all_user_contracts = db.query(Contract).filter(
-        Contract.user_id == user.id, Contract.analysis_completed == True
-    ).all()
+    all_user_contracts = scoped.all()
     attention_count = sum(1 for c in all_user_contracts if _needs_attention(c))
 
     stats = {
@@ -1394,9 +1425,15 @@ async def history(request: Request, q: str = "", risk: str = "", page: int = 1, 
     user = require_user(request, db)
     per_page = 25
 
-    query = db.query(Contract).filter(Contract.user_id == user.id, Contract.analysis_completed == True)
+    query = tenancy.scoped_contracts(db, user).filter(Contract.analysis_completed == True)
     if q:
-        query = query.filter(Contract.filename.ilike(f"%{q}%"))
+        from sqlalchemy import or_
+        query = query.filter(or_(
+            Contract.filename.ilike(f"%{q}%"),
+            Contract.display_name.ilike(f"%{q}%"),
+            Contract.counterparty.ilike(f"%{q}%"),
+            Contract.contract_type.ilike(f"%{q}%"),
+        ))
     if risk in ("high", "medium", "low"):
         query = query.filter(Contract.overall_risk == risk)
 
@@ -1449,6 +1486,8 @@ def _create_guest_user(db: DBSession, request: Request, name: str = "Guest") -> 
     db.add(user)
     db.commit()
     db.refresh(user)
+    tenancy.ensure_user_tenant(db, user)
+    db.commit()
     rbac.grant_role(db, user, "user")
     analytics.record_event(request, "guest_account_created", user=user)
     return user
@@ -1457,7 +1496,7 @@ def _create_guest_user(db: DBSession, request: Request, name: str = "Guest") -> 
 @app.get("/upload-page", response_class=HTMLResponse)
 async def upload_page(request: Request, db: DBSession = Depends(get_db)):
     user = get_current_user(request, db)
-    playbooks = db.query(Playbook).filter(Playbook.user_id == user.id).all() if user else []
+    playbooks = tenancy.scoped_playbooks(db, user).all() if user else []
     return templates.TemplateResponse("upload.html", {
         "request": request, "current_year": datetime.now().year,
         "dev_mode": DEV_MODE, "user": user, "playbooks": playbooks,
@@ -1484,7 +1523,7 @@ async def upload_contract(
         accepts_html = "text/html" in (request.headers.get("accept") or "")
         if not accepts_html:
             raise HTTPException(status_code=status_code, detail=message)
-        playbooks = db.query(Playbook).filter(Playbook.user_id == user.id).all() if user else []
+        playbooks = tenancy.scoped_playbooks(db, user).all() if user else []
         return templates.TemplateResponse("upload.html", {
             "request": request, "error": message, "user": user,
             "playbooks": playbooks, "current_year": datetime.now().year,
@@ -1531,7 +1570,7 @@ async def upload_contract(
             "error": "You’ve used all of this month’s reviews on your current plan.",
             "error_upgrade": True,
             "user": user,
-            "playbooks": db.query(Playbook).filter(Playbook.user_id == user.id).all() if user else [],
+            "playbooks": tenancy.scoped_playbooks(db, user).all() if user else [],
             "current_year": datetime.now().year,
             "dev_mode": DEV_MODE,
         })
@@ -1550,7 +1589,7 @@ async def upload_contract(
     deviations = None
     playbook = None
     if playbook_id:
-        playbook = db.query(Playbook).filter(Playbook.id == playbook_id, Playbook.user_id == user.id).first()
+        playbook = tenancy.scoped_playbooks(db, user).filter(Playbook.id == playbook_id).first()
         if playbook and playbook.template_findings_json:
             comparison = playbook_engine.compare(analysis["findings_dict"], playbook.template_findings_json)
             deviations = comparison
@@ -1611,6 +1650,10 @@ async def upload_contract(
     )
     db.add(contract)
     db.flush()  # assigns contract.id without ending the transaction
+    _finalize_persisted_contract(db, user, contract, source="web")
+    if policy_result.get("document_facts") is not None:
+        contract.document_facts_json = policy_result["document_facts"]
+        canonical_index.upsert_fact_index(db, contract)
 
     contract_event = analytics.build_contract_event(
         request, contract_id=contract.id, user_id=user.id,
@@ -1645,7 +1688,7 @@ async def upload_contract(
 @app.get("/batch-upload", response_class=HTMLResponse)
 async def batch_upload_page(request: Request, db: DBSession = Depends(get_db)):
     user = require_user(request, db)
-    playbooks = db.query(Playbook).filter(Playbook.user_id == user.id).all()
+    playbooks = tenancy.scoped_playbooks(db, user).all()
     return templates.TemplateResponse("batch_upload.html", {
         "request": request, "user": user, "playbooks": playbooks,
         "current_year": datetime.now().year,
@@ -1667,7 +1710,7 @@ async def batch_upload_submit(
         """Inline error on the batch page instead of a raw JSON dead end."""
         if "text/html" not in (request.headers.get("accept") or ""):
             raise HTTPException(status_code=status_code, detail=message)
-        playbooks = db.query(Playbook).filter(Playbook.user_id == user.id).all()
+        playbooks = tenancy.scoped_playbooks(db, user).all()
         return templates.TemplateResponse("batch_upload.html", {
             "request": request, "user": user, "playbooks": playbooks,
             "error": message, "current_year": datetime.now().year,
@@ -1684,7 +1727,7 @@ async def batch_upload_submit(
     playbook = None
     template_findings = None
     if playbook_id:
-        playbook = db.query(Playbook).filter(Playbook.id == playbook_id, Playbook.user_id == user.id).first()
+        playbook = tenancy.scoped_playbooks(db, user).filter(Playbook.id == playbook_id).first()
         if playbook:
             template_findings = playbook.template_findings_json
 
@@ -1745,6 +1788,10 @@ async def batch_upload_submit(
             risk_balance_json=analysis.get("risk_balance"),
         )
         db.add(contract)
+        _finalize_persisted_contract(db, user, contract, source="web")
+        if policy_result.get("document_facts") is not None:
+            contract.document_facts_json = policy_result["document_facts"]
+            canonical_index.upsert_fact_index(db, contract)
         contracts.append(contract)
 
     user.contracts_this_month += len(contracts)
@@ -1758,17 +1805,13 @@ async def batch_upload_submit(
 @app.get("/batch/{batch_id}", response_class=HTMLResponse)
 async def batch_results_page(request: Request, batch_id: str, db: DBSession = Depends(get_db)):
     user = require_user(request, db)
-    contracts = db.query(Contract).filter(
-        Contract.batch_id == batch_id, Contract.user_id == user.id
-    ).all()
+    contracts = tenancy.scoped_contracts(db, user).filter(Contract.batch_id == batch_id).all()
     if not contracts:
         raise HTTPException(status_code=404, detail="Batch not found")
 
     playbook = None
     if contracts[0].playbook_id:
-        playbook = db.query(Playbook).filter(
-            Playbook.id == contracts[0].playbook_id, Playbook.user_id == user.id
-        ).first()
+        playbook = tenancy.scoped_playbooks(db, user).filter(Playbook.id == contracts[0].playbook_id).first()
 
     batch_stats = {"total": len(contracts), "high": 0, "medium": 0, "low": 0}
     for c in contracts:
@@ -1789,7 +1832,7 @@ async def batch_results_page(request: Request, batch_id: str, db: DBSession = De
 @app.get("/batch/{batch_id}/download-all")
 async def download_batch_pdfs(request: Request, batch_id: str, db: DBSession = Depends(get_db)):
     user = require_user(request, db)
-    contracts = db.query(Contract).filter(Contract.batch_id == batch_id, Contract.user_id == user.id).all()
+    contracts = tenancy.scoped_contracts(db, user).filter(Contract.batch_id == batch_id).all()
     if not contracts:
         raise HTTPException(status_code=404, detail="Batch not found")
 
@@ -1885,9 +1928,7 @@ def _build_rule_categories(findings_dict, engine):
 @app.get("/contract/{contract_id}", response_class=HTMLResponse)
 async def view_contract(request: Request, contract_id: int, db: DBSession = Depends(get_db)):
     user = require_user(request, db)
-    contract = db.query(Contract).filter(Contract.id == contract_id, Contract.user_id == user.id).first()
-    if not contract:
-        raise HTTPException(status_code=404, detail="Contract not found")
+    contract = _get_owned_contract(db, user, contract_id)
 
     findings_dict = contract.findings_json or []
     llm_result = contract.llm_result_json or {}
@@ -2214,7 +2255,7 @@ def _build_pdf_bytes(filename: str, overall_risk: str, rule_counts: dict, rule_e
 @app.get("/contract/{contract_id}/pdf")
 async def download_contract_pdf(request: Request, contract_id: int, db: DBSession = Depends(get_db)):
     user = require_user(request, db)
-    contract = db.query(Contract).filter(Contract.id == contract_id, Contract.user_id == user.id).first()
+    contract = tenancy.scoped_contracts(db, user).filter(Contract.id == contract_id).first()
     if not contract:
         raise HTTPException(status_code=404, detail="Contract not found")
 
@@ -2331,7 +2372,7 @@ async def create_share_link(
     _csrf: None = Depends(csrf_protect),
 ):
     user = require_user(request, db)
-    contract = db.query(Contract).filter(Contract.id == contract_id, Contract.user_id == user.id).first()
+    contract = tenancy.scoped_contracts(db, user).filter(Contract.id == contract_id).first()
     if not contract:
         raise HTTPException(status_code=404, detail="Contract not found")
 
@@ -2379,7 +2420,7 @@ async def revoke_share_link(
     _csrf: None = Depends(csrf_protect),
 ):
     user = require_user(request, db)
-    contract = db.query(Contract).filter(Contract.id == contract_id, Contract.user_id == user.id).first()
+    contract = tenancy.scoped_contracts(db, user).filter(Contract.id == contract_id).first()
     if not contract:
         raise HTTPException(status_code=404, detail="Contract not found")
 
@@ -2399,7 +2440,7 @@ async def revoke_share_link(
 @app.get("/contract/{contract_id}/share/status")
 async def share_link_status(request: Request, contract_id: int, db: DBSession = Depends(get_db)):
     user = require_user(request, db)
-    contract = db.query(Contract).filter(Contract.id == contract_id, Contract.user_id == user.id).first()
+    contract = tenancy.scoped_contracts(db, user).filter(Contract.id == contract_id).first()
     if not contract:
         raise HTTPException(status_code=404, detail="Contract not found")
 
@@ -2426,10 +2467,7 @@ async def share_link_status(request: Request, contract_id: int, db: DBSession = 
 # ============================================================
 
 def _get_owned_contract(db: DBSession, user, contract_id: int) -> Contract:
-    contract = db.query(Contract).filter(Contract.id == contract_id, Contract.user_id == user.id).first()
-    if not contract:
-        raise HTTPException(status_code=404, detail="Contract not found")
-    return contract
+    return tenancy.get_accessible_contract(db, user, contract_id)
 
 
 @app.post("/contract/{contract_id}/delete")
@@ -2451,6 +2489,15 @@ async def delete_contract(
     contract = _get_owned_contract(db, user, contract_id)
 
     filename = contract.filename
+    from models import ContractFactIndex, ContractRevision, IntegrationAction, IntakeRequest
+    db.query(ContractFactIndex).filter(ContractFactIndex.contract_id == contract.id).delete(synchronize_session=False)
+    db.query(IntegrationAction).filter(IntegrationAction.contract_id == contract.id).delete(synchronize_session=False)
+    db.query(ContractRevision).filter(
+        (ContractRevision.original_contract_id == contract.id) | (ContractRevision.revision_contract_id == contract.id)
+    ).delete(synchronize_session=False)
+    db.query(IntakeRequest).filter(IntakeRequest.contract_id == contract.id).update(
+        {IntakeRequest.contract_id: None}, synchronize_session=False,
+    )
     db.delete(contract)
     db.commit()
 
@@ -2715,9 +2762,78 @@ async def finalize_review(
         raise HTTPException(status_code=400, detail=f"{progress.total - progress.resolved} finding(s) still need a decision")
 
     contract.review_finalized_at = datetime.utcnow()
+    contract.review_status = "finalized"
+    canonical_index.upsert_fact_index(db, contract)
     db.commit()
     analytics.record_event(request, "review_finalized", user=user, metadata={"contract_id": contract.id})
     return {"progress": progress.as_dict(), "finalized_at": contract.review_finalized_at.isoformat()}
+
+
+@app.post("/contract/{contract_id}/revisions")
+async def import_contract_revision(
+    request: Request, contract_id: int, file: UploadFile = File(...),
+    db: DBSession = Depends(get_db), _csrf: None = Depends(csrf_protect),
+):
+    """Counterparty / Word-roundtrip revision import. The original review
+    row is preserved. Affected policy decisions on the original are marked
+    stale; the new text is reviewed as a child contract."""
+    user = require_user(request, db)
+    original = _get_owned_contract(db, user, contract_id)
+    if tenancy.is_requester_only(db, user):
+        raise HTTPException(status_code=403, detail="Business users cannot import counterparty revisions.")
+    if not file.filename:
+        raise HTTPException(status_code=400, detail="Choose a file.")
+    filename = upload_security.sanitize_filename(file.filename)
+    file_bytes = await file.read()
+    if not file_bytes or len(file_bytes) > MAX_UPLOAD_BYTES:
+        raise HTTPException(status_code=400, detail="File is empty or too large.")
+    try:
+        text = extract_text_from_file(file_bytes, filename)
+    except upload_security.UploadRejected as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    playbook = None
+    if original.playbook_id:
+        playbook = tenancy.scoped_playbooks(db, user).filter(Playbook.id == original.playbook_id).first()
+    analysis = run_analysis(text)
+    policy_result = policy_enforcement.apply_policies_for_review(
+        db, playbook, text, analysis["findings_dict"],
+        context={
+            "business_unit": original.review_business_unit,
+            "customer_type": original.review_customer_type,
+            "deal_value": original.review_deal_value,
+        },
+    )
+    new_contract = review_pipeline.persist_reviewed_contract(
+        db, user, contract_text=text, filename=filename, analysis=analysis,
+        policy_result=policy_result, playbook=playbook, source="revision_import",
+        display_name=original.display_name, contract_type=original.contract_type,
+        counterparty=original.counterparty, workspace_id=original.workspace_id,
+        parent_contract_id=original.id, revision_number=(original.revision_number or 1) + 1,
+        review_status="imported_revision",
+        review_context={
+            "business_unit": original.review_business_unit,
+            "customer_type": original.review_customer_type,
+            "deal_value": original.review_deal_value,
+        },
+    )
+    change_result = change_aware.reconfirm_against_text(db, original, text, reevaluate_affected=False)
+    from models import ContractRevision
+    db.add(ContractRevision(
+        tenant_id=user.tenant_id,
+        original_contract_id=original.id,
+        revision_contract_id=new_contract.id,
+        revision_number=new_contract.revision_number,
+        source="revision_import",
+        imported_by_user_id=user.id,
+        change_summary_json={
+            "affected_clause_types": change_result.get("affected_clause_types"),
+            "preserved_clause_types": change_result.get("preserved_clause_types"),
+        },
+        invalidated_clause_types_json=change_result.get("affected_clause_types"),
+    ))
+    canonical_index.upsert_fact_index(db, original)
+    db.commit()
+    return RedirectResponse(url=f"/contract/{new_contract.id}/review", status_code=303)
 
 
 @app.get("/contract/{contract_id}/review/package")
@@ -2885,7 +3001,7 @@ def _render_shared_report(request: Request, contract: Contract, db: DBSession) -
 @app.get("/playbooks", response_class=HTMLResponse)
 async def playbooks_list(request: Request, db: DBSession = Depends(get_db)):
     user = require_user(request, db)
-    playbooks = db.query(Playbook).filter(Playbook.user_id == user.id).order_by(Playbook.created_at.desc()).all()
+    playbooks = tenancy.scoped_playbooks(db, user).order_by(Playbook.created_at.desc()).all()
     plan = PLAN_LIMITS.get(user.plan, {"monthly_limit": 0, "batch_max": 1, "playbooks_max": 0})
     return templates.TemplateResponse("playbooks.html", {
         "request": request, "user": user, "playbooks": playbooks,
@@ -2899,7 +3015,7 @@ async def playbooks_list(request: Request, db: DBSession = Depends(get_db)):
 async def playbook_new_page(request: Request, db: DBSession = Depends(get_db)):
     user = require_user(request, db)
     plan = PLAN_LIMITS.get(user.plan, {"monthly_limit": 0, "batch_max": 1, "playbooks_max": 0})
-    existing = db.query(Playbook).filter(Playbook.user_id == user.id).count()
+    existing = tenancy.scoped_playbooks(db, user).count()
     if existing >= plan["playbooks_max"]:
         return RedirectResponse(url="/playbooks", status_code=302)
     return templates.TemplateResponse("playbook_form.html", {
@@ -2982,6 +3098,8 @@ async def playbook_new_submit(
     _csrf: None = Depends(csrf_protect),
 ):
     user = require_user(request, db)
+    if not tenancy.can_modify_playbooks(db, user):
+        raise HTTPException(status_code=403, detail="Business users cannot modify legal playbooks.")
 
     template_text = ""
     template_findings = None
@@ -3024,6 +3142,7 @@ async def playbook_new_submit(
         description=description.strip() or None, template_text=template_text,
         template_findings_json=template_findings, template_risk=template_risk,
     )
+    tenancy.stamp_new_playbook(db, user, playbook)
     db.add(playbook)
     db.flush()  # assigns playbook.id without ending the transaction
     _upsert_liability_policy_rule(
@@ -3062,7 +3181,7 @@ async def playbook_setup_choice(request: Request, playbook_id: int, db: DBSessio
     removed — see docs/architecture/phase4_cutover.md's rollback
     requirements) as a way to "finish setting up" a playbook."""
     user = require_user(request, db)
-    playbook = db.query(Playbook).filter(Playbook.id == playbook_id, Playbook.user_id == user.id).first()
+    playbook = tenancy.scoped_playbooks(db, user).filter(Playbook.id == playbook_id).first()
     if not playbook:
         raise HTTPException(status_code=404, detail="Playbook not found")
     return templates.TemplateResponse("playbook_setup_choice.html", {
@@ -3073,7 +3192,7 @@ async def playbook_setup_choice(request: Request, playbook_id: int, db: DBSessio
 @app.get("/playbooks/{playbook_id}/edit", response_class=HTMLResponse)
 async def playbook_edit_page(request: Request, playbook_id: int, db: DBSession = Depends(get_db)):
     user = require_user(request, db)
-    playbook = db.query(Playbook).filter(Playbook.id == playbook_id, Playbook.user_id == user.id).first()
+    playbook = tenancy.scoped_playbooks(db, user).filter(Playbook.id == playbook_id).first()
     if not playbook:
         raise HTTPException(status_code=404, detail="Playbook not found")
     policy_rule = db.query(PolicyRule).filter(
@@ -3106,7 +3225,7 @@ async def playbook_edit_submit(
     _csrf: None = Depends(csrf_protect),
 ):
     user = require_user(request, db)
-    playbook = db.query(Playbook).filter(Playbook.id == playbook_id, Playbook.user_id == user.id).first()
+    playbook = tenancy.scoped_playbooks(db, user).filter(Playbook.id == playbook_id).first()
     if not playbook:
         raise HTTPException(status_code=404, detail="Playbook not found")
 
@@ -3153,7 +3272,7 @@ async def playbook_delete(
     _csrf: None = Depends(csrf_protect),
 ):
     user = require_user(request, db)
-    playbook = db.query(Playbook).filter(Playbook.id == playbook_id, Playbook.user_id == user.id).first()
+    playbook = tenancy.scoped_playbooks(db, user).filter(Playbook.id == playbook_id).first()
     if not playbook:
         raise HTTPException(status_code=404, detail="Playbook not found")
     # Step 4B Phase F: a playbook delete cascades to its PolicyPosition
@@ -3555,6 +3674,7 @@ async def demo_start(
         metadata_json=analysis.get("metadata"),
     )
     db.add(contract)
+    _finalize_persisted_contract(db, user, contract, source="web")
     db.commit()
     db.refresh(contract)
 
@@ -3644,6 +3764,218 @@ async def terms_page(request: Request, db: DBSession = Depends(get_db)):
     user = get_current_user(request, db)
     return templates.TemplateResponse("terms.html", {
         "request": request, "user": user, "current_year": datetime.now().year,
+    })
+
+
+# ============================================================
+# REPOSITORY / PORTFOLIO / INTAKE / INTEGRATIONS
+# ============================================================
+
+@app.get("/portfolio", response_class=HTMLResponse)
+async def portfolio_page(request: Request, db: DBSession = Depends(get_db)):
+    user = require_user(request, db)
+    if not tenancy.can_search_portfolio(db, user):
+        raise HTTPException(status_code=403, detail="You do not have permission to view portfolio search.")
+    requester_id = user.id if tenancy.is_requester_only(db, user) else None
+    report = portfolio_reporting.build_portfolio_report(
+        db, tenant_id=user.tenant_id, requester_user_id=requester_id,
+    )
+    schema = portfolio_query.query_schema()
+    return templates.TemplateResponse("portfolio.html", {
+        "request": request, "user": user, "report": report, "schema": schema,
+        "current_year": datetime.now().year,
+        "requester_only": tenancy.is_requester_only(db, user),
+    })
+
+
+@app.post("/portfolio/query")
+async def portfolio_query_web(request: Request, db: DBSession = Depends(get_db)):
+    """Cookie-session wrapper around the same structured search the API uses.
+    Never executes model-generated SQL."""
+    user = require_user(request, db)
+    if not tenancy.can_search_portfolio(db, user):
+        raise HTTPException(status_code=403, detail="You do not have permission to search the contract portfolio.")
+    body = await request.json()
+    cookie = request.cookies.get("csrf_token", "")
+    submitted = str(body.get("csrf_token") or "")
+    if not cookie or not submitted or not hmac.compare_digest(cookie, submitted):
+        raise HTTPException(status_code=403, detail="Your session security token is missing or expired.")
+    if "sql" in body or "raw_sql" in body or "query_sql" in body:
+        raise HTTPException(status_code=400, detail="Raw SQL is not permitted.")
+    requester_id = user.id if tenancy.is_requester_only(db, user) else None
+    mode = body.get("mode") or "structured"
+    if mode == "drilldown":
+        ids = body.get("ids") or []
+        rows = portfolio_reporting.drilldown_contracts(db, user.tenant_id, ids, requester_user_id=requester_id)
+        return {"total": len(rows), "results": rows, "authoritative": True, "source": "canonical_fact_index"}
+    if mode == "nl":
+        try:
+            parsed, raw = portfolio_nl.interpret_portfolio_question(body.get("question") or "")
+        except portfolio_nl.UnsupportedPortfolioQuery as exc:
+            raise HTTPException(status_code=422, detail=str(exc)) from exc
+        except portfolio_query.PortfolioQueryError as exc:
+            raise HTTPException(status_code=400, detail=str(exc)) from exc
+        rows, total = portfolio_query.apply_structured_query(
+            db, tenant_id=user.tenant_id, query=parsed, requester_user_id=requester_id,
+        )
+        return {
+            "total": total,
+            "interpreted_query": {
+                "filters": [{"field": f.field, "op": f.op, "value": f.value} for f in parsed.filters],
+                "combinator": parsed.combinator,
+            },
+            "results": [portfolio_query.serialize_index_row(r) for r in rows],
+            "authoritative": True,
+            "source": "canonical_fact_index",
+        }
+    try:
+        parsed = portfolio_query.parse_structured_query({
+            "filters": body.get("filters") or [],
+            "combinator": body.get("combinator") or "and",
+        })
+    except portfolio_query.PortfolioQueryError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    rows, total = portfolio_query.apply_structured_query(
+        db, tenant_id=user.tenant_id, query=parsed, requester_user_id=requester_id,
+    )
+    return {
+        "total": total,
+        "results": [portfolio_query.serialize_index_row(r) for r in rows],
+        "authoritative": True,
+        "source": "canonical_fact_index",
+    }
+
+
+@app.get("/intake", response_class=HTMLResponse)
+async def intake_page(request: Request, db: DBSession = Depends(get_db)):
+    user = require_user(request, db)
+    rows = tenancy.scoped_intake(db, user).order_by(IntakeRequest.created_at.desc()).limit(100).all()
+    playbooks = tenancy.scoped_playbooks(db, user).all() if tenancy.can_modify_playbooks(db, user) or tenancy.can_review_contracts(db, user) else []
+    return templates.TemplateResponse("intake.html", {
+        "request": request, "user": user, "requests": rows, "playbooks": playbooks,
+        "can_review": tenancy.can_review_contracts(db, user),
+        "can_select_playbook": tenancy.can_modify_playbooks(db, user) or tenancy.can_review_contracts(db, user),
+        "requester_only": tenancy.is_requester_only(db, user),
+        "current_year": datetime.now().year,
+    })
+
+
+@app.post("/intake")
+async def intake_submit(
+    request: Request,
+    file: UploadFile = File(...),
+    display_name: str = Form(""),
+    requested_contract_type: str = Form(""),
+    counterparty: str = Form(""),
+    notes: str = Form(""),
+    db: DBSession = Depends(get_db),
+    _csrf: None = Depends(csrf_protect),
+    _rl: None = Depends(rate_limit("intake", limit=20, window_seconds=3600)),
+):
+    user = require_user(request, db)
+    if not file.filename:
+        raise HTTPException(status_code=400, detail="Choose a file to submit.")
+    filename = upload_security.sanitize_filename(file.filename)
+    ext = os.path.splitext(filename.lower())[1]
+    if ext not in ALLOWED_EXTENSIONS:
+        raise HTTPException(status_code=400, detail="Upload a PDF, DOCX, or TXT file.")
+    file_bytes = await file.read()
+    if not file_bytes or len(file_bytes) > MAX_UPLOAD_BYTES:
+        raise HTTPException(status_code=400, detail="That file is empty or larger than 10MB.")
+    try:
+        text = extract_text_from_file(file_bytes, filename)
+    except upload_security.UploadRejected as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    tenancy.ensure_user_tenant(db, user)
+    row = IntakeRequest(
+        tenant_id=user.tenant_id,
+        workspace_id=user.workspace_id,
+        requester_user_id=user.id,
+        filename=filename,
+        contract_text=text,
+        display_name=(display_name or filename)[:255],
+        requested_contract_type=requested_contract_type.strip() or None,
+        counterparty=counterparty.strip() or None,
+        notes=notes.strip() or None,
+        status="submitted",
+    )
+    db.add(row)
+    db.commit()
+    audit_log.record_event(
+        db, "intake_submitted", request=request, actor_user_id=user.id,
+        target_type="intake_request", target_id=row.id, success=True,
+    )
+    return RedirectResponse(url="/intake", status_code=303)
+
+
+@app.post("/intake/{intake_id}/promote")
+async def intake_promote(
+    request: Request, intake_id: int, playbook_id: Optional[int] = Form(None),
+    db: DBSession = Depends(get_db), _csrf: None = Depends(csrf_protect),
+):
+    user = require_user(request, db)
+    if not tenancy.can_review_contracts(db, user):
+        raise HTTPException(status_code=403, detail="Only legal reviewers can start review from intake.")
+    row = tenancy.scoped_intake(db, user).filter(IntakeRequest.id == intake_id).first()
+    if row is None:
+        raise HTTPException(status_code=404, detail="Intake request not found.")
+    playbook = None
+    if playbook_id:
+        playbook = tenancy.get_accessible_playbook(db, user, playbook_id)
+    analysis = run_analysis(row.contract_text)
+    policy_result = policy_enforcement.apply_policies_for_review(
+        db, playbook, row.contract_text, analysis["findings_dict"],
+    )
+    contract = review_pipeline.persist_reviewed_contract(
+        db, user,
+        contract_text=row.contract_text,
+        filename=row.filename,
+        analysis=analysis,
+        policy_result=policy_result,
+        playbook=playbook,
+        source="intake",
+        display_name=row.display_name,
+        contract_type=row.requested_contract_type,
+        counterparty=row.counterparty,
+        review_status="awaiting_legal",
+        intake_request_id=row.id,
+    )
+    row.contract_id = contract.id
+    row.status = "in_review"
+    row.assigned_reviewer_user_id = user.id
+    user.contracts_this_month = (user.contracts_this_month or 0) + 1
+    db.commit()
+    return RedirectResponse(url=f"/contract/{contract.id}/review", status_code=303)
+
+
+@app.get("/integrations", response_class=HTMLResponse)
+async def integrations_page(request: Request, db: DBSession = Depends(get_db)):
+    user = require_user(request, db)
+    return templates.TemplateResponse("integrations.html", {
+        "request": request, "user": user, "current_year": datetime.now().year,
+        "base_url": str(request.base_url).rstrip("/"),
+    })
+
+
+@app.get("/integrations/word/manifest.xml")
+async def word_manifest(request: Request):
+    base = str(request.base_url).rstrip("/")
+    xml_path = Path(__file__).parent / "static" / "integrations" / "word" / "manifest.xml"
+    text = xml_path.read_text(encoding="utf-8").replace("{{BASE_URL}}", base)
+    return Response(content=text, media_type="application/xml")
+
+
+@app.get("/integrations/word/taskpane", response_class=HTMLResponse)
+async def word_taskpane(request: Request):
+    return templates.TemplateResponse("integrations/word_taskpane.html", {
+        "request": request, "base_url": str(request.base_url).rstrip("/"),
+    })
+
+
+@app.get("/integrations/google/sidebar", response_class=HTMLResponse)
+async def google_sidebar(request: Request):
+    return templates.TemplateResponse("integrations/google_sidebar.html", {
+        "request": request, "base_url": str(request.base_url).rstrip("/"),
     })
 
 

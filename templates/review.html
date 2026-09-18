@@ -361,6 +361,14 @@
         <button class="btn-secondary py-2.5 px-4 rounded-lg text-sm" id="replay-btn">&#8635; Run it again &mdash; verify determinism</button>
         <a class="btn-new-review" id="package-link" href="/contract/{{ contract_id }}/review/package">Generate Negotiation Package &rarr;</a>
     </div>
+    <form action="/contract/{{ contract_id }}/revisions" method="post" enctype="multipart/form-data" class="mt-6 text-left max-w-lg mx-auto">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
+        <p class="text-xs font-semibold text-gray-600 mb-2">Import a counterparty revision</p>
+        <p class="text-xs text-gray-500 mb-3">Uploads a new document version, preserves this review as history, and reconfirms only decisions whose evidence changed.</p>
+        <input type="file" name="file" accept=".pdf,.docx,.txt" class="block w-full text-sm mb-3" required>
+        <button type="submit" class="btn-secondary py-2 px-4 rounded-lg text-sm">Import revision</button>
+    </form>
+    </div>
     <div class="replay-result" id="replay-result"></div>
 </div>
 {% endblock %}

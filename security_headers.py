@@ -26,12 +26,25 @@ from starlette.middleware.base import BaseHTTPMiddleware
 _FONT_CSS_SRC = "https://fonts.googleapis.com"
 _FONT_SRC = "https://fonts.gstatic.com"
 _CHARTJS_SRC = "https://cdn.jsdelivr.net"
+_OFFICE_JS_SRC = "https://appsforoffice.microsoft.com"
+
+# Hosts that load the Word / Google Docs thin clients in an iframe.
+# Applied only on /integrations/* so the rest of the app stays unframeable.
+_INTEGRATION_FRAME_ANCESTORS = (
+    "https://*.office.com https://*.officeapps.live.com https://*.microsoft.com "
+    "https://*.sharepoint.com https://docs.google.com https://script.google.com "
+    "https://*.googleusercontent.com"
+)
 
 
-def _build_csp() -> str:
+def _build_csp(*, integration: bool = False) -> str:
+    frame_ancestors = _INTEGRATION_FRAME_ANCESTORS if integration else "'none'"
+    script_src = f"script-src 'self' 'unsafe-inline' {_CHARTJS_SRC}"
+    if integration:
+        script_src += f" {_OFFICE_JS_SRC}"
     directives = [
         "default-src 'self'",
-        f"script-src 'self' 'unsafe-inline' {_CHARTJS_SRC}",
+        script_src,
         f"style-src 'self' 'unsafe-inline' {_FONT_CSS_SRC}",
         f"font-src 'self' data: {_FONT_SRC}",
         "img-src 'self' data: https:",
@@ -39,13 +52,18 @@ def _build_csp() -> str:
         "object-src 'none'",
         "base-uri 'self'",
         "form-action 'self'",
-        "frame-ancestors 'none'",
+        f"frame-ancestors {frame_ancestors}",
         "upgrade-insecure-requests",
     ]
     return "; ".join(directives)
 
 
-_CSP_VALUE = _build_csp()
+_CSP_VALUE = _build_csp(integration=False)
+_CSP_INTEGRATION_VALUE = _build_csp(integration=True)
+
+
+def _is_integration_path(path: str) -> bool:
+    return path.startswith("/integrations/")
 
 
 def _secure_deployment() -> bool:
@@ -66,14 +84,24 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request, call_next):
         response = await call_next(request)
 
+        integration = _is_integration_path(request.url.path)
         response.headers["X-Content-Type-Options"] = "nosniff"
-        response.headers["X-Frame-Options"] = "DENY"
+        if integration:
+            # X-Frame-Options DENY would block the Office/Google hosts that
+            # must iframe the thin client. CSP frame-ancestors is the
+            # allowlist for those paths; everywhere else stays DENY.
+            if "x-frame-options" in response.headers:
+                del response.headers["x-frame-options"]
+        else:
+            response.headers["X-Frame-Options"] = "DENY"
         response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
         response.headers["Permissions-Policy"] = (
             "camera=(), microphone=(), geolocation=(), payment=(self), "
             "usb=(), interest-cohort=()"
         )
-        response.headers["Content-Security-Policy"] = _CSP_VALUE
+        response.headers["Content-Security-Policy"] = (
+            _CSP_INTEGRATION_VALUE if integration else _CSP_VALUE
+        )
         # Legacy header for older browsers that don't understand CSP framing;
         # X-Frame-Options above already covers modern ones.
         response.headers.setdefault("X-XSS-Protection", "0")

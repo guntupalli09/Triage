@@ -1,0 +1,85 @@
+{% extends "base_app.html" %}
+{% block title %}Intake{% endblock %}
+{% block breadcrumbs %}
+<a href="/dashboard" class="hover:text-gray-900 transition-colors">Dashboard</a>
+<span class="mx-1">/</span>
+<span>Intake</span>
+{% endblock %}
+{% block content %}
+<div class="mb-8">
+    <h1 class="text-3xl font-extrabold text-[#0F172A]">Contract intake</h1>
+    <p class="text-sm text-gray-500 mt-2">Business users submit a contract. Legal reviews exceptions against the active playbook. Playbooks cannot be edited from this queue.</p>
+</div>
+
+<div class="premium-card p-6 mb-8">
+    <h2 class="font-bold mb-4">New contract request</h2>
+    <form action="/intake" method="post" enctype="multipart/form-data" class="space-y-4">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
+        <div>
+            <label class="text-sm font-medium">Document</label>
+            <input type="file" name="file" accept=".pdf,.docx,.txt" required class="block mt-1 text-sm">
+        </div>
+        <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+                <label class="text-sm font-medium">Name</label>
+                <input name="display_name" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm" placeholder="Acme MSA">
+            </div>
+            <div>
+                <label class="text-sm font-medium">Requested contract type</label>
+                <input name="requested_contract_type" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm" placeholder="MSA">
+            </div>
+            <div>
+                <label class="text-sm font-medium">Counterparty</label>
+                <input name="counterparty" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm">
+            </div>
+            <div>
+                <label class="text-sm font-medium">Notes for legal</label>
+                <input name="notes" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm">
+            </div>
+        </div>
+        <button class="btn-primary px-5 py-2 rounded-lg text-sm" type="submit">Submit for legal review</button>
+    </form>
+</div>
+
+<div class="premium-card overflow-hidden">
+    <table class="w-full text-sm">
+        <thead>
+            <tr class="border-b bg-gray-50 text-left text-gray-600">
+                <th class="py-3 px-4">Request</th>
+                <th>Type</th>
+                <th>Counterparty</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in requests %}
+            <tr class="border-b border-gray-50">
+                <td class="py-3 px-4 font-medium">{{ r.display_name or r.filename }}</td>
+                <td>{{ r.requested_contract_type or '—' }}</td>
+                <td>{{ r.counterparty or '—' }}</td>
+                <td>{{ r.status }}</td>
+                <td class="text-right px-4">
+                    {% if r.contract_id %}
+                    <a class="text-indigo-600 font-medium" href="/contract/{{ r.contract_id }}/review">Open review</a>
+                    {% elif can_review %}
+                    <form action="/intake/{{ r.id }}/promote" method="post" class="inline">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
+                        {% if playbooks %}
+                        <select name="playbook_id" class="border rounded text-xs mr-2">
+                            <option value="">No playbook</option>
+                            {% for p in playbooks %}<option value="{{ p.id }}">{{ p.name }}</option>{% endfor %}
+                        </select>
+                        {% endif %}
+                        <button class="text-sm font-semibold text-[#0F172A]" type="submit">Start legal review</button>
+                    </form>
+                    {% endif %}
+                </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="5" class="py-10 text-center text-gray-400">No intake requests yet.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

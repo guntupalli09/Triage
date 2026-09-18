@@ -997,10 +997,14 @@ def apply_policies_for_review(
         # the outcomes this same apply_active_policies() call already
         # computed — no second evaluation pass, no raw-text access.
         import interaction_enforcement
+        document_facts = interaction_enforcement.document_facts_from_outcomes(
+            outcomes, commercial_facts=enriched_context.get("_commercial_facts"),
+        )
         result["interaction_decisions"] = interaction_enforcement.apply_interaction_rules(
             outcomes, findings_dict,
             commercial_facts=enriched_context.get("_commercial_facts"),
         )
+        result["document_facts"] = document_facts.as_dict() if document_facts is not None else None
         # Surface commercial due_days for consumers that still read payment_terms_json
         # via analysis — policy path does not overwrite analysis payment terms here.
         result["commercial_facts"] = (

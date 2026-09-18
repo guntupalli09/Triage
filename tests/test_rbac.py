@@ -59,10 +59,13 @@ def test_admin_role_has_dashboard_permission_after_seeding(db_session):
     assert "admin.dashboard.view" in {p.name for p in admin_role.permissions}
 
 
-def test_user_role_has_no_permissions_by_default(db_session):
+def test_user_role_has_workflow_permissions_but_not_admin_dashboard(db_session):
     rbac.ensure_seed_roles_and_permissions(db_session)
     user_role = db_session.query(Role).filter(Role.name == "user").first()
-    assert user_role.permissions == []
+    names = {p.name for p in user_role.permissions}
+    assert "playbook.modify" in names
+    assert "contract.review" in names
+    assert "admin.dashboard.view" not in names
 
 
 # --- Permission checks ---
