@@ -1421,11 +1421,34 @@ async def dashboard(request: Request, db: DBSession = Depends(get_db)):
 # ============================================================
 
 @app.get("/history", response_class=HTMLResponse)
-async def history(request: Request, q: str = "", risk: str = "", page: int = 1, db: DBSession = Depends(get_db)):
+async def history(
+    request: Request,
+    q: str = "",
+    risk: str = "",
+    contract_type: str = "",
+    source: str = "",
+    review_status: str = "",
+    page: int = 1,
+    db: DBSession = Depends(get_db),
+):
     user = require_user(request, db)
     per_page = 25
 
-    query = tenancy.scoped_contracts(db, user).filter(Contract.analysis_completed == True)
+    scoped = tenancy.scoped_contracts(db, user).filter(Contract.analysis_completed == True)
+    type_values = sorted({
+        row[0] for row in scoped.with_entities(Contract.contract_type).distinct().all()
+        if row[0]
+    })
+    source_values = sorted({
+        row[0] for row in scoped.with_entities(Contract.source).distinct().all()
+        if row[0]
+    })
+    status_values = sorted({
+        row[0] for row in scoped.with_entities(Contract.review_status).distinct().all()
+        if row[0]
+    })
+
+    query = scoped
     if q:
         from sqlalchemy import or_
         query = query.filter(or_(
@@ -1436,6 +1459,27 @@ async def history(request: Request, q: str = "", risk: str = "", page: int = 1, 
         ))
     if risk in ("high", "medium", "low"):
         query = query.filter(Contract.overall_risk == risk)
+    if contract_type:
+        query = query.filter(Contract.contract_type == contract_type)
+    if source:
+        query = query.filter(Contract.source == source)
+    if review_status:
+        query = query.filter(Contract.review_status == review_status)
+
+    from urllib.parse import urlencode
+    filter_params = {}
+    if q:
+        filter_params["q"] = q
+    if risk:
+        filter_params["risk"] = risk
+    if contract_type:
+        filter_params["contract_type"] = contract_type
+    if source:
+        filter_params["source"] = source
+    if review_status:
+        filter_params["review_status"] = review_status
+    filter_query = urlencode(filter_params)
+    pill_query = urlencode({k: v for k, v in filter_params.items() if k != "risk"})
 
     if risk == "attention":
         # Cannot be expressed as a SQL WHERE (EncryptedJSON content is not
@@ -1461,6 +1505,9 @@ async def history(request: Request, q: str = "", risk: str = "", page: int = 1, 
         "request": request, "user": user, "contracts": contracts,
         "q": q, "active_filter": risk or "all", "page": page, "total_pages": total_pages,
         "document_states": document_states, "current_year": datetime.now().year,
+        "contract_type": contract_type, "source": source, "review_status": review_status,
+        "type_values": type_values, "source_values": source_values, "status_values": status_values,
+        "filter_query": filter_query, "pill_query": pill_query,
     })
 
 

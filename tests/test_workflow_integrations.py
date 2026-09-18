@@ -539,12 +539,145 @@ class TestIntakeAndAudit:
         assert any("integration" in e or "intake" in e or "token" in e for e in events) or r.json()["integration_actions"]
 
 
+class TestLiabilityCapFromPolicySummary:
+    def test_engine_fixed_amount_summary_is_indexed(self):
+        amount, currency, unlimited, kind = canonical_index.parse_liability_cap_from_text("$2,000,000.00 fixed")
+        assert amount == 2000000.0
+        assert currency == "USD"
+        assert unlimited is False
+        assert kind == "fixed"
+
+    def test_million_shorthand_and_unlimited_and_fee_multiple(self):
+        amount, _, unlimited, kind = canonical_index.parse_liability_cap_from_text("Liability shall not exceed $1.5M")
+        assert amount == 1500000.0
+        assert unlimited is False
+        amount, _, unlimited, kind = canonical_index.parse_liability_cap_from_text("Unlimited liability")
+        assert amount is None
+        assert unlimited is True
+        assert kind == "unlimited"
+        amount, _, unlimited, kind = canonical_index.parse_liability_cap_from_text("1x annual fees")
+        assert amount is None
+        assert unlimited is False
+        assert kind == "fee_multiple"
+        amount, _, unlimited, kind = canonical_index.parse_liability_cap_from_text(
+            "Limitation-of-liability clause present but no numeric general cap stated"
+        )
+        assert amount is None
+        assert unlimited is None
+
+    def test_search_uses_summary_when_document_facts_absent(self, client):
+        email, pw = _register(client)
+        token = _login_api(client, email, pw)
+        db = SessionLocal()
+        user = db.query(User).filter(User.email == email).first()
+        contract = _seed_indexed_contract(
+            db, user, filename="summary-cap.txt", contract_type="MSA",
+            document_facts_json=None,
+            cap_summary="$2,000,000.00 fixed",
+            contract_language="Vendor's aggregate liability shall not exceed $2,000,000.",
+        )
+        cid = contract.id
+        row = db.query(ContractFactIndex).filter(ContractFactIndex.contract_id == cid).first()
+        assert row.liability_cap_amount == 2000000.0
+        assert row.liability_unlimited is False
+        db.close()
+        r = client.post("/api/v1/portfolio/search", headers=_auth(token), json={
+            "filters": [
+                {"field": "contract_type", "op": "eq", "value": "MSA"},
+                {"field": "liability_cap", "op": "gt", "value": 1000000},
+            ],
+        })
+        assert r.status_code == 200, r.text
+        assert any(row["contract_id"] == cid for row in r.json()["results"])
+
+
+class TestExportAndRepositoryFilters:
+    def test_export_docx_is_tenant_scoped(self, client):
+        email_a, pw_a = _register(client, email=f"ax-{uuid.uuid4().hex[:8]}@ex.com")
+        token_a = _login_api(client, email_a, pw_a)
+        db = SessionLocal()
+        user_a = db.query(User).filter(User.email == email_a).first()
+        contract = _seed_indexed_contract(db, user_a, filename="export-me.txt")
+        cid = contract.id
+        db.close()
+
+        r = client.get(f"/api/v1/reviews/{cid}/export?format=docx", headers=_auth(token_a))
+        assert r.status_code == 200, r.text
+        assert r.content[:2] == b"PK"
+        assert "officedocument.wordprocessingml.document" in r.headers.get("content-type", "")
+
+        r = client.get(f"/api/v1/reviews/{cid}/export?format=package", headers=_auth(token_a))
+        assert r.status_code == 400
+
+        db = SessionLocal()
+        contract = db.query(Contract).filter(Contract.id == cid).first()
+        import review_workflow
+        decisions = {}
+        for i, f in enumerate(contract.findings_json or []):
+            decisions[review_workflow.finding_key(i, f.get("rule_id") or str(i))] = {"action": "accepted"}
+        contract.review_decisions_json = decisions
+        db.commit()
+        db.close()
+        r = client.get(f"/api/v1/reviews/{cid}/export?format=package", headers=_auth(token_a))
+        assert r.status_code == 200, r.text
+        assert r.content[:2] == b"PK"
+        assert "zip" in r.headers.get("content-type", "")
+
+        r = client.get(f"/api/v1/reviews/{cid}/export?format=pdf", headers=_auth(token_a))
+        assert r.status_code == 400
+
+        client.cookies.clear()
+        email_b, pw_b = _register(client, email=f"bx-{uuid.uuid4().hex[:8]}@ex.com")
+        token_b = _login_api(client, email_b, pw_b)
+        r = client.get(f"/api/v1/reviews/{cid}/export?format=docx", headers=_auth(token_b))
+        assert r.status_code == 404
+
+        r = client.get(f"/api/v1/reviews/{cid}/export?format=docx")
+        assert r.status_code == 401
+
+        r = client.get(f"/api/v1/reviews/{cid}/audit", headers=_auth(token_a))
+        assert r.status_code == 200
+        actions = [a["action"] for a in r.json()["integration_actions"]]
+        assert "export_docx" in actions
+
+    def test_history_filters_type_source_status(self, client):
+        email, pw = _register(client)
+        db = SessionLocal()
+        user = db.query(User).filter(User.email == email).first()
+        _seed_indexed_contract(
+            db, user, filename="word-msa.txt", display_name="Word MSA",
+            contract_type="MSA", source="word", review_status="in_review",
+        )
+        _seed_indexed_contract(
+            db, user, filename="web-nda.txt", display_name="Web NDA",
+            contract_type="NDA", source="web", review_status="finalized",
+        )
+        db.close()
+        r = client.get("/history?contract_type=MSA&source=word&review_status=in_review")
+        assert r.status_code == 200
+        assert "Word MSA" in r.text
+        assert "Web NDA" not in r.text
+        assert "Any type" in r.text
+        r = client.get("/history?contract_type=NDA&source=web")
+        assert "Web NDA" in r.text
+        assert "Word MSA" not in r.text
+        r = client.get("/integrations")
+        assert "/api/v1/reviews/{id}/export" in r.text
+        r = client.get("/integrations/word/taskpane")
+        assert r.status_code == 200
+        r = client.get("/static/integrations/client.js")
+        assert r.status_code == 200
+        assert "workspace" in r.text
+        assert "/export?format=" in r.text
+
+
 class TestRepositoryWeb:
     def test_history_and_portfolio_pages(self, client):
         _register(client)
         r = client.get("/history")
         assert r.status_code == 200
         assert "counterparty" in r.text.lower()
+        assert "any type" in r.text.lower()
         r = client.get("/portfolio")
         assert r.status_code == 200
         assert "canonical facts" in r.text.lower() or "Portfolio" in r.text

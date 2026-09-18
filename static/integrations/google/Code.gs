@@ -42,14 +42,27 @@ function highlightText(excerpt) {
 function insertComment(excerpt, comment) {
   var doc = DocumentApp.getActiveDocument();
   var found = doc.getBody().findText((excerpt || "").substring(0, 250));
-  if (!found) {
-    doc.addNamedRange("tc-comment", doc.newPosition(doc.getBody(), 0).insertText(""));
-    return false;
-  }
-  // Docs comments require Drive comments API; the sidebar records the
-  // comment in TriageCounsel either way. Insert a visible suggestion note.
-  found.getElement().asText().appendText(" [TriageCounsel: " + comment.substring(0, 180) + "]");
-  return true;
+  if (!found) return false;
+  var range = doc.newRange()
+    .addElement(found.getElement(), found.getStartOffset(), found.getElement(), found.getEndOffsetInclusive())
+    .build();
+  doc.addNamedRange("tc-" + new Date().getTime(), range);
+  // Native Docs comments require the Drive Comments advanced service.
+  // Never append text into the contract body — that would mutate the deal.
+  try {
+    var payload = { content: String(comment || "").substring(0, 4096) };
+    if (typeof Drive !== "undefined" && Drive.Comments) {
+      if (Drive.Comments.create) {
+        Drive.Comments.create(payload, doc.getId());
+        return true;
+      }
+      if (Drive.Comments.insert) {
+        Drive.Comments.insert(payload, doc.getId());
+        return true;
+      }
+    }
+  } catch (e) {}
+  return false;
 }
 
 function suggestReplacement(excerpt, replacement) {

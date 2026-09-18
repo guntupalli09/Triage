@@ -9,19 +9,23 @@ tokens (api_tokens.py); every query is tenant-scoped (tenancy.py).
 """
 from __future__ import annotations
 
+import io
+import zipfile
 from typing import Any, Dict, Optional
 
-from fastapi import APIRouter, Depends, HTTPException, Request
+from fastapi import APIRouter, Depends, HTTPException, Request, Response
 from pydantic import BaseModel, ConfigDict, Field
 from sqlalchemy.orm import Session
 
 from database import get_db
 from models import Contract, ContractRevision, IntakeRequest, Playbook, User
+from docx_export import build_redlined_docx
 import api_tokens
 import audit_log
 import auth
 import canonical_index
 import change_aware
+import document_aggregation
 import policy_enforcement
 import portfolio_nl
 import portfolio_query
@@ -404,6 +408,84 @@ def api_reconfirm(
     )
     db.commit()
     return {"ok": True, "change_aware": result, "review": review_pipeline.serialize_review(contract)}
+
+
+def _document_state(contract: Contract) -> Optional[str]:
+    effective_mode = "cutover" if contract.interaction_decisions_json is not None else "shadow"
+    result = document_aggregation.aggregate_document_state(
+        contract.overall_risk, contract.policy_decisions_json,
+        contract.interaction_decisions_json, effective_mode,
+    )
+    return result.get("document_state")
+
+
+def _export_filename(contract: Contract) -> str:
+    import main as app_main
+    return app_main.sanitize_filename(contract.filename or "contract")
+
+
+@router.get("/reviews/{contract_id}/export")
+def api_export_review(
+    contract_id: int,
+    request: Request,
+    format: str = "docx",
+    db: Session = Depends(get_db),
+    user: User = Depends(_current_api_user),
+):
+    """Export the persisted review as a redlined DOCX or a negotiation zip.
+
+    Word/Google/web clients download this instead of copying redlines by
+    hand. The bytes are produced from stored findings + lawyer decisions;
+    the policy engine is not re-run.
+    """
+    api_tokens.require_scope(request, "contracts.read")
+    contract = tenancy.get_accessible_contract(db, user, contract_id)
+    kind = (format or "docx").lower().strip()
+    if kind not in ("docx", "package"):
+        raise HTTPException(status_code=400, detail="format must be 'docx' or 'package'.")
+    findings = contract.findings_json or []
+    decisions = contract.review_decisions_json or {}
+    if kind == "package":
+        progress = review_workflow.compute_progress(findings, decisions)
+        if not progress.is_complete:
+            raise HTTPException(
+                status_code=400,
+                detail="Finish reviewing every finding before generating the negotiation package.",
+            )
+    author = user.name or user.email
+    docx_bytes, skipped = build_redlined_docx(
+        contract.filename, contract.contract_text or "", findings, decisions, author=author,
+    )
+    safe_name = _export_filename(contract)
+    review_pipeline.record_integration_action(
+        db, user, client_kind=_client_kind(request),
+        action="export_package" if kind == "package" else "export_docx",
+        contract_id=contract.id, request=request,
+        payload={"format": kind, "skipped_redlines": skipped},
+    )
+    db.commit()
+    if kind == "docx":
+        return Response(
+            content=docx_bytes,
+            media_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            headers={"Content-Disposition": f'attachment; filename="Redlined_{safe_name}.docx"'},
+        )
+    memo_text = review_workflow.build_cover_memo_text(
+        contract.filename, findings, decisions, document_state=_document_state(contract),
+    )
+    audit_text = review_workflow.build_audit_trail_text(
+        contract.filename, contract.rule_engine_version or "2.0.0", findings, decisions,
+    )
+    zip_buffer = io.BytesIO()
+    with zipfile.ZipFile(zip_buffer, "w", zipfile.ZIP_DEFLATED) as zf:
+        zf.writestr(f"Redlined_{safe_name}.docx", docx_bytes)
+        zf.writestr("Cover_Memo.txt", memo_text)
+        zf.writestr("Audit_Trail.txt", audit_text)
+    return Response(
+        content=zip_buffer.getvalue(),
+        media_type="application/zip",
+        headers={"Content-Disposition": f'attachment; filename="NegotiationPackage_{safe_name}.zip"'},
+    )
 
 
 @router.get("/contracts")

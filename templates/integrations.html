@@ -43,6 +43,8 @@
         <li><code>POST /api/v1/reviews/{id}/actions</code> — accept / edit / reject</li>
         <li><code>POST /api/v1/reviews/{id}/comments</code> — record a comment (and whether it was inserted in the host)</li>
         <li><code>POST /api/v1/reviews/{id}/reconfirm</code> — invalidate stale decisions when the document changed</li>
+        <li><code>GET /api/v1/reviews/{id}/export</code> — download the persisted redlined DOCX (<code>?format=docx</code>) or negotiation package (<code>?format=package</code>)</li>
+        <li><code>POST /api/v1/reviews/{id}/revisions</code> — import a counterparty revision and reconfirm affected findings</li>
     </ul>
 </div>
 {% endblock %}

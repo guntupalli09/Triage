@@ -8,13 +8,17 @@
   function token() { return localStorage.getItem(tokenKey) || ""; }
   function setToken(t) { localStorage.setItem(tokenKey, t); }
 
+  function authHeaders(extra) {
+    const headers = Object.assign({
+      "X-TriageCounsel-Client": client,
+    }, extra || {});
+    if (token()) headers.Authorization = "Bearer " + token();
+    return headers;
+  }
+
   async function api(path, opts) {
     opts = opts || {};
-    const headers = Object.assign({
-      "Content-Type": "application/json",
-      "X-TriageCounsel-Client": client,
-    }, opts.headers || {});
-    if (token()) headers.Authorization = "Bearer " + token();
+    const headers = authHeaders(Object.assign({ "Content-Type": "application/json" }, opts.headers || {}));
     const res = await fetch(base + path, Object.assign({}, opts, { headers }));
     const data = await res.json().catch(function () { return {}; });
     if (!res.ok) {
@@ -22,6 +26,29 @@
       throw new Error(typeof detail === "string" ? detail : JSON.stringify(detail));
     }
     return data;
+  }
+
+  async function downloadExport(reviewId, format) {
+    const res = await fetch(base + "/api/v1/reviews/" + reviewId + "/export?format=" + encodeURIComponent(format || "docx"), {
+      headers: authHeaders(),
+    });
+    if (!res.ok) {
+      const data = await res.json().catch(function () { return {}; });
+      const detail = data.detail || res.statusText;
+      throw new Error(typeof detail === "string" ? detail : JSON.stringify(detail));
+    }
+    const blob = await res.blob();
+    const disp = res.headers.get("Content-Disposition") || "";
+    const match = /filename="?([^"]+)"?/.exec(disp);
+    const name = match ? match[1] : (format === "package" ? "NegotiationPackage.zip" : "Redlined.docx");
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = name;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
   }
 
   function h(html) { root.innerHTML = html; }
@@ -139,31 +166,51 @@
     catch (e) { renderLogin(e.message); return; }
     let playbooks = { playbooks: [] };
     try { playbooks = await api("/api/v1/playbooks"); } catch (e) { /* requester */ }
+    const workspaces = me.workspaces || [];
+    const workspaceOptions = workspaces.map(function (w) {
+      const selected = w.id === me.workspace_id ? " selected" : "";
+      return `<option value="${w.id}"${selected}>${w.name}</option>`;
+    }).join("");
     h(`<h1>TriageCounsel</h1>
       <p class="muted">${me.email} · tenant ${me.tenant_id} · ${client.replace("_", " ")}</p>
+      <label>Workspace</label>
+      <select id="workspace">${workspaceOptions}</select>
       <label>Playbook</label>
       <select id="playbook">${(playbooks.playbooks || []).map(p => `<option value="${p.id}">${p.name}</option>`).join("")}</select>
       ${(!window.Word && !(window.google && google.script)) ? `<label>Document text (host not detected)</label><textarea id="manual-text" rows="8" placeholder="Paste the contract if the host add-in is not loaded."></textarea>` : ""}
       <div class="row">
         <button class="primary" id="run">Review current document</button>
         <button class="secondary" id="reconfirm">Reconfirm after edits</button>
+        <button class="secondary" id="export">Export redlined DOCX</button>
         <button class="secondary" id="logout">Sign out</button>
       </div>
       <div id="status" class="muted"></div>
       <div id="findings"></div>`);
     document.getElementById("logout").onclick = function () { localStorage.removeItem(tokenKey); renderLogin(); };
+    document.getElementById("export").onclick = async function () {
+      const id = localStorage.getItem("tc_review_id");
+      const status = document.getElementById("status");
+      if (!id) { status.textContent = "Run a review first."; return; }
+      status.textContent = "Building redlined document from persisted findings…";
+      try {
+        await downloadExport(id, "docx");
+        status.textContent = "Downloaded redlined DOCX from TriageCounsel. Prior review state is unchanged.";
+      } catch (e) { status.textContent = e.message; }
+    };
     document.getElementById("run").onclick = async function () {
       const status = document.getElementById("status");
       status.textContent = "Extracting and reviewing…";
       try {
         const text = await getDocumentText();
         if (!text || !text.trim()) throw new Error("No document text found.");
+        const workspaceEl = document.getElementById("workspace");
         const review = await api("/api/v1/reviews", {
           method: "POST",
           body: JSON.stringify({
             document_text: text,
             filename: client === "word" ? "word-document.docx" : "google-doc.gdoc",
             playbook_id: document.getElementById("playbook").value ? Number(document.getElementById("playbook").value) : null,
+            workspace_id: workspaceEl && workspaceEl.value ? Number(workspaceEl.value) : null,
             source: client,
           }),
         });

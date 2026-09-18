@@ -12,6 +12,7 @@ Authority rules:
 """
 from __future__ import annotations
 
+import re
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -136,13 +137,88 @@ def _cap_from_document_facts(document_facts: Dict[str, Any]) -> Tuple[Optional[f
     return None, None, False, "complex"
 
 
-def _cap_from_policy_decisions(policy_decisions: Dict[str, Any]) -> Tuple[Optional[float], Optional[str], Optional[bool], Optional[str]]:
-    lol = policy_decisions.get("limitation_of_liability") or {}
-    summary = (lol.get("extracted_summary") or "") + " " + (lol.get("contract_language") or "")
-    text = summary.lower()
-    if "unlimited" in text or "uncapped" in text:
+_MONEY_SCALE = {
+    "k": 1_000.0,
+    "thousand": 1_000.0,
+    "m": 1_000_000.0,
+    "mm": 1_000_000.0,
+    "million": 1_000_000.0,
+    "b": 1_000_000_000.0,
+    "bn": 1_000_000_000.0,
+    "billion": 1_000_000_000.0,
+}
+
+# Engine summaries look like "$2,000,000.00 fixed". Contract language often
+# says "shall not exceed $1,000,000" or "$1M". Fee multiples ("1x annual fees")
+# are not dollar caps and must not be indexed as $1.
+_DOLLAR_PREFIX_RE = re.compile(
+    r"(?:usd|us\$|\$)\s*([0-9][\d,]*(?:\.\d+)?)\s*(million|billion|thousand|mm|bn|[kmb])?\b",
+    re.IGNORECASE,
+)
+_DOLLAR_WORDS_RE = re.compile(
+    r"\b([0-9][\d,]*(?:\.\d+)?)\s*(million|billion|thousand)\s*(?:usd|dollars|us\$)?\b",
+    re.IGNORECASE,
+)
+_DOLLAR_SUFFIX_RE = re.compile(
+    r"\b([0-9][\d,]*(?:\.\d+)?)\s*(?:usd|dollars)\b",
+    re.IGNORECASE,
+)
+_FEE_MULTIPLE_RE = re.compile(r"\d+(?:\.\d+)?\s*x\b|\b(?:annual|monthly)\s+fees?\b", re.IGNORECASE)
+_UNLIMITED_RE = re.compile(r"\bunlimited\b|\buncapped\b|\bno\s+(?:stated\s+)?cap\b", re.IGNORECASE)
+
+
+def _scale_amount(raw: str, unit: Optional[str]) -> Optional[float]:
+    try:
+        amount = float(raw.replace(",", ""))
+    except (TypeError, ValueError):
+        return None
+    if unit:
+        scale = _MONEY_SCALE.get(unit.lower())
+        if scale is None:
+            return None
+        amount *= scale
+    if amount < 0:
+        return None
+    return amount
+
+
+def parse_liability_cap_from_text(text: str) -> Tuple[Optional[float], Optional[str], Optional[bool], Optional[str]]:
+    """Deterministic parse of a persisted policy summary / excerpt.
+
+    Returns (amount, currency, unlimited, kind). Does not invent a cap when
+    the text only describes a fees multiplier or says the cap was unknown.
+    """
+    if not text or not str(text).strip():
+        return None, None, None, None
+    blob = str(text)
+    lowered = blob.lower()
+    if "could not" in lowered or "no numeric general cap" in lowered or "no limitation-of-liability" in lowered:
+        if _UNLIMITED_RE.search(blob) and "$" not in blob and "usd" not in lowered:
+            return None, None, True, "unlimited"
+        return None, None, None, None
+
+    match = _DOLLAR_PREFIX_RE.search(blob) or _DOLLAR_WORDS_RE.search(blob) or _DOLLAR_SUFFIX_RE.search(blob)
+    if match:
+        amount = _scale_amount(match.group(1), match.group(2) if match.lastindex and match.lastindex >= 2 else None)
+        if amount is not None:
+            return amount, "USD", False, "fixed"
+
+    if _FEE_MULTIPLE_RE.search(blob) and "$" not in blob and "usd" not in lowered:
+        return None, None, False, "fee_multiple"
+
+    if _UNLIMITED_RE.search(blob):
         return None, None, True, "unlimited"
     return None, None, None, None
+
+
+def _cap_from_policy_decisions(policy_decisions: Dict[str, Any]) -> Tuple[Optional[float], Optional[str], Optional[bool], Optional[str]]:
+    lol = policy_decisions.get("limitation_of_liability") or {}
+    blob = " ".join([
+        str(lol.get("extracted_summary") or ""),
+        str(lol.get("contract_language") or ""),
+        str(lol.get("explanation") or ""),
+    ])
+    return parse_liability_cap_from_text(blob)
 
 
 def _payment_days(document_facts: Dict[str, Any], payment_terms: Any) -> Optional[int]:
