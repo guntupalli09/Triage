@@ -360,6 +360,59 @@ def _run_migrations():
                     ))
                     logger.info("Migration applied: policy_positions.rules_v2_json JSON/JSONB -> TEXT (for encryption)")
 
+        # Workflow layer: tenancy / repository / integration columns.
+        if "users" in insp.get_table_names():
+            user_cols_now = {c["name"] for c in insp.get_columns("users")}
+            if "tenant_id" not in user_cols_now:
+                conn.execute(text("ALTER TABLE users ADD COLUMN tenant_id INTEGER"))
+                conn.execute(text("CREATE INDEX IF NOT EXISTS ix_users_tenant_id ON users (tenant_id)"))
+                logger.info("Migration applied: users.tenant_id")
+            if "workspace_id" not in user_cols_now:
+                conn.execute(text("ALTER TABLE users ADD COLUMN workspace_id INTEGER"))
+                conn.execute(text("CREATE INDEX IF NOT EXISTS ix_users_workspace_id ON users (workspace_id)"))
+                logger.info("Migration applied: users.workspace_id")
+
+        if "contracts" in insp.get_table_names():
+            ccols = {c["name"] for c in insp.get_columns("contracts")}
+            contract_adds = [
+                ("tenant_id", "INTEGER"),
+                ("workspace_id", "INTEGER"),
+                ("display_name", "VARCHAR(255)"),
+                ("contract_type", "VARCHAR(100)"),
+                ("counterparty", "VARCHAR(255)"),
+                ("source", "VARCHAR(40)"),
+                ("review_status", "VARCHAR(40)"),
+                ("parent_contract_id", "INTEGER"),
+                ("revision_number", "INTEGER DEFAULT 1"),
+                ("document_facts_json", encrypted_json_col_type),
+                ("intake_request_id", "INTEGER"),
+            ]
+            for col_name, col_type in contract_adds:
+                if col_name not in ccols:
+                    conn.execute(text(f"ALTER TABLE contracts ADD COLUMN {col_name} {col_type}"))
+                    logger.info(f"Migration applied: contracts.{col_name}")
+            if "tenant_id" not in ccols:
+                conn.execute(text("CREATE INDEX IF NOT EXISTS ix_contracts_tenant_id ON contracts (tenant_id)"))
+            if "contract_type" not in ccols:
+                conn.execute(text("CREATE INDEX IF NOT EXISTS ix_contracts_contract_type ON contracts (contract_type)"))
+            if "source" not in ccols:
+                conn.execute(text("CREATE INDEX IF NOT EXISTS ix_contracts_source ON contracts (source)"))
+            if "review_status" not in ccols:
+                conn.execute(text("CREATE INDEX IF NOT EXISTS ix_contracts_review_status ON contracts (review_status)"))
+            if "parent_contract_id" not in ccols:
+                conn.execute(text("CREATE INDEX IF NOT EXISTS ix_contracts_parent_contract_id ON contracts (parent_contract_id)"))
+
+        if "playbooks" in insp.get_table_names():
+            pcols = {c["name"] for c in insp.get_columns("playbooks")}
+            if "tenant_id" not in pcols:
+                conn.execute(text("ALTER TABLE playbooks ADD COLUMN tenant_id INTEGER"))
+                conn.execute(text("CREATE INDEX IF NOT EXISTS ix_playbooks_tenant_id ON playbooks (tenant_id)"))
+                logger.info("Migration applied: playbooks.tenant_id")
+            if "workspace_id" not in pcols:
+                conn.execute(text("ALTER TABLE playbooks ADD COLUMN workspace_id INTEGER"))
+                conn.execute(text("CREATE INDEX IF NOT EXISTS ix_playbooks_workspace_id ON playbooks (workspace_id)"))
+                logger.info("Migration applied: playbooks.workspace_id")
+
 
 def init_db():
     import models  # noqa: F401 — registers all models
@@ -369,6 +422,43 @@ def init_db():
         _run_migrations()
     except Exception:
         logger.exception("Schema migration failed — Google sign-in may not work until resolved")
+    try:
+        from tenancy import ensure_user_tenant
+        from models import User, Contract
+        from canonical_index import upsert_fact_index
+        session = SessionLocal()
+        try:
+            for user in session.query(User).filter(User.tenant_id.is_(None)).all():
+                ensure_user_tenant(session, user)
+            session.flush()
+            for contract in session.query(Contract).filter(Contract.tenant_id.is_(None)).all():
+                owner = session.query(User).filter(User.id == contract.user_id).first()
+                if owner is None:
+                    continue
+                ensure_user_tenant(session, owner)
+                contract.tenant_id = owner.tenant_id
+                contract.workspace_id = contract.workspace_id or owner.workspace_id
+                if not contract.source:
+                    contract.source = "web"
+                if not contract.review_status:
+                    contract.review_status = "finalized" if contract.review_finalized_at else "in_review"
+                upsert_fact_index(session, contract)
+            from models import Playbook
+            for playbook in session.query(Playbook).filter(Playbook.tenant_id.is_(None)).all():
+                owner = session.query(User).filter(User.id == playbook.user_id).first()
+                if owner is None:
+                    continue
+                ensure_user_tenant(session, owner)
+                playbook.tenant_id = owner.tenant_id
+                playbook.workspace_id = playbook.workspace_id or owner.workspace_id
+            session.commit()
+        except Exception:
+            session.rollback()
+            logger.exception("Tenant backfill failed")
+        finally:
+            session.close()
+    except Exception:
+        logger.exception("Tenant backfill setup failed")
     logger.info(f"Database initialized: {'PostgreSQL' if not _is_sqlite else 'SQLite'}")
 
 

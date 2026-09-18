@@ -48,21 +48,46 @@
 
         <!-- Search & Filters -->
         <div class="premium-card p-5 mb-6 fade-in" style="transform: none;">
-            <form action="/history" method="get" class="flex flex-col sm:flex-row gap-4">
-                <div class="flex-1 relative">
-                    <svg class="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                    </svg>
-                    <input type="text" name="q" value="{{ q or '' }}" placeholder="Search by filename..." class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#0F172A] focus:border-transparent">
+            <form action="/history" method="get" class="flex flex-col gap-4">
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <div class="flex-1 relative">
+                        <svg class="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                        <input type="text" name="q" value="{{ q or '' }}" placeholder="Search by filename, counterparty, or contract type..." class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#0F172A] focus:border-transparent">
+                    </div>
+                    <button type="submit" class="btn-primary px-6 py-2.5 rounded-lg text-sm">Search</button>
                 </div>
-                <button type="submit" class="btn-primary px-6 py-2.5 rounded-lg text-sm">Search</button>
+                <div class="grid sm:grid-cols-3 gap-3">
+                    <select name="contract_type" class="border border-gray-200 rounded-lg px-3 py-2 text-sm">
+                        <option value="">Any type</option>
+                        {% for t in type_values %}
+                        <option value="{{ t }}" {% if contract_type == t %}selected{% endif %}>{{ t }}</option>
+                        {% endfor %}
+                    </select>
+                    <select name="source" class="border border-gray-200 rounded-lg px-3 py-2 text-sm">
+                        <option value="">Any source</option>
+                        {% for s in source_values %}
+                        <option value="{{ s }}" {% if source == s %}selected{% endif %}>{{ s }}</option>
+                        {% endfor %}
+                    </select>
+                    <select name="review_status" class="border border-gray-200 rounded-lg px-3 py-2 text-sm">
+                        <option value="">Any status</option>
+                        {% for st in status_values %}
+                        <option value="{{ st }}" {% if review_status == st %}selected{% endif %}>{{ st }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                {% if active_filter and active_filter != 'all' %}
+                <input type="hidden" name="risk" value="{{ active_filter }}">
+                {% endif %}
             </form>
             <div class="flex flex-wrap gap-2 mt-4">
-                <a href="/history" class="filter-pill {{ 'active' if not active_filter or active_filter == 'all' else '' }}">All</a>
-                <a href="/history?risk=attention" class="filter-pill {{ 'active' if active_filter == 'attention' else '' }}">Needs Attention</a>
-                <a href="/history?risk=high" class="filter-pill {{ 'active' if active_filter == 'high' else '' }}">High Risk</a>
-                <a href="/history?risk=medium" class="filter-pill {{ 'active' if active_filter == 'medium' else '' }}">Medium Risk</a>
-                <a href="/history?risk=low" class="filter-pill {{ 'active' if active_filter == 'low' else '' }}">Low Risk</a>
+                <a href="/history{% if pill_query %}?{{ pill_query }}{% endif %}" class="filter-pill {{ 'active' if not active_filter or active_filter == 'all' else '' }}">All</a>
+                <a href="/history?risk=attention{% if pill_query %}&{{ pill_query }}{% endif %}" class="filter-pill {{ 'active' if active_filter == 'attention' else '' }}">Needs Attention</a>
+                <a href="/history?risk=high{% if pill_query %}&{{ pill_query }}{% endif %}" class="filter-pill {{ 'active' if active_filter == 'high' else '' }}">High Risk</a>
+                <a href="/history?risk=medium{% if pill_query %}&{{ pill_query }}{% endif %}" class="filter-pill {{ 'active' if active_filter == 'medium' else '' }}">Medium Risk</a>
+                <a href="/history?risk=low{% if pill_query %}&{{ pill_query }}{% endif %}" class="filter-pill {{ 'active' if active_filter == 'low' else '' }}">Low Risk</a>
             </div>
         </div>
 
@@ -74,6 +99,10 @@
                     <thead>
                         <tr class="border-b border-gray-100 bg-gray-50/50">
                             <th class="text-left py-3 px-5 font-semibold text-gray-600">Filename</th>
+                            <th class="text-left py-3 px-5 font-semibold text-gray-600">Type</th>
+                            <th class="text-left py-3 px-5 font-semibold text-gray-600">Counterparty</th>
+                            <th class="text-left py-3 px-5 font-semibold text-gray-600">Source</th>
+                            <th class="text-left py-3 px-5 font-semibold text-gray-600">Status</th>
                             <th class="text-left py-3 px-5 font-semibold text-gray-600">Date</th>
                             <th class="text-left py-3 px-5 font-semibold text-gray-600">Risk Level</th>
                             <th class="text-right py-3 px-5 font-semibold text-gray-600">Actions</th>
@@ -83,7 +112,11 @@
                         {% for contract in contracts %}
                         {% set doc_state = document_states.get(contract.id, '') %}
                         <tr class="border-b border-gray-50 hover:bg-gray-50/50 transition-colors" data-contract-id="{{ contract.id }}" data-document-state="{{ doc_state }}">
-                            <td class="py-3.5 px-5 font-medium text-[#0F172A]">{{ contract.filename }}</td>
+                            <td class="py-3.5 px-5 font-medium text-[#0F172A]">{{ contract.display_name or contract.filename }}</td>
+                            <td class="py-3.5 px-5 text-gray-500">{{ contract.contract_type or '—' }}</td>
+                            <td class="py-3.5 px-5 text-gray-500">{{ contract.counterparty or '—' }}</td>
+                            <td class="py-3.5 px-5 text-gray-500">{{ contract.source or 'web' }}</td>
+                            <td class="py-3.5 px-5 text-gray-500">{{ contract.review_status or 'in_review' }}</td>
                             <td class="py-3.5 px-5 text-gray-500">{{ contract.created_at.strftime('%b %d, %Y at %I:%M %p') }}</td>
                             <td class="py-3.5 px-5">
                                 {% if contract.overall_risk == 'high' %}
@@ -117,10 +150,10 @@
                 <div class="text-sm text-gray-500">Page {{ page }} of {{ total_pages }}</div>
                 <div class="flex items-center gap-2">
                     {% if page > 1 %}
-                    <a href="/history?page={{ page - 1 }}{% if q %}&q={{ q }}{% endif %}{% if active_filter and active_filter != 'all' %}&risk={{ active_filter }}{% endif %}" class="px-3 py-1.5 text-sm font-medium text-gray-600 border border-gray-200 rounded-lg hover:border-[#0F172A] hover:text-gray-900 transition-colors">Prev</a>
+                    <a href="/history?page={{ page - 1 }}{% if filter_query %}&{{ filter_query }}{% endif %}" class="px-3 py-1.5 text-sm font-medium text-gray-600 border border-gray-200 rounded-lg hover:border-[#0F172A] hover:text-gray-900 transition-colors">Prev</a>
                     {% endif %}
                     {% if page < total_pages %}
-                    <a href="/history?page={{ page + 1 }}{% if q %}&q={{ q }}{% endif %}{% if active_filter and active_filter != 'all' %}&risk={{ active_filter }}{% endif %}" class="px-3 py-1.5 text-sm font-medium text-gray-600 border border-gray-200 rounded-lg hover:border-[#0F172A] hover:text-gray-900 transition-colors">Next</a>
+                    <a href="/history?page={{ page + 1 }}{% if filter_query %}&{{ filter_query }}{% endif %}" class="px-3 py-1.5 text-sm font-medium text-gray-600 border border-gray-200 rounded-lg hover:border-[#0F172A] hover:text-gray-900 transition-colors">Next</a>
                     {% endif %}
                 </div>
             </div>
@@ -131,7 +164,7 @@
                 <svg class="mx-auto h-12 w-12 text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                 </svg>
-                {% if q or (active_filter and active_filter != 'all') %}
+                {% if q or (active_filter and active_filter != 'all') or contract_type or source or review_status %}
                 <p class="text-gray-500 font-medium">No reviews match your search.</p>
                 <a href="/history" class="inline-block mt-4 text-sm font-semibold text-[#0F172A] hover:underline">Clear search and filters</a>
                 {% else %}

@@ -28,12 +28,55 @@ logger = logging.getLogger(__name__)
 
 # role name -> set of permission names granted to it.
 DEFAULT_ROLES = {
-    "admin": {"admin.dashboard.view"},
-    "user": set(),
+    "admin": {
+        "admin.dashboard.view",
+        "playbook.modify",
+        "contract.review",
+        "contract.intake",
+        "portfolio.search",
+        "portfolio.report",
+        "tenant.manage",
+        "integration.use",
+    },
+    # Historical account-owner role — keeps full access to the user's tenant.
+    "user": {
+        "playbook.modify",
+        "contract.review",
+        "contract.intake",
+        "portfolio.search",
+        "portfolio.report",
+        "integration.use",
+    },
+    "legal_admin": {
+        "playbook.modify",
+        "contract.review",
+        "contract.intake",
+        "portfolio.search",
+        "portfolio.report",
+        "tenant.manage",
+        "integration.use",
+    },
+    "legal_reviewer": {
+        "contract.review",
+        "contract.intake",
+        "portfolio.search",
+        "portfolio.report",
+        "integration.use",
+    },
+    "requester": {
+        "contract.intake",
+    },
 }
 
 PERMISSION_DESCRIPTIONS = {
     "admin.dashboard.view": "View the admin analytics dashboard",
+    "playbook.modify": "Create, edit, approve, and activate legal playbooks",
+    "contract.review": "Review contracts, record legal decisions, and finalize reviews",
+    "contract.intake": "Submit a contract for legal review",
+    "portfolio.search": "Run structured and natural-language portfolio search",
+    "portfolio.report": "View tenant-scoped portfolio reports",
+    "tenant.manage": "Manage tenant members and roles",
+    "integration.use": "Use Word / Google Docs integration APIs",
 }
 
 

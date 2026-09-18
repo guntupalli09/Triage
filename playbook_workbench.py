@@ -58,14 +58,12 @@ def _require_user(request: Request, db: DBSession):
 
 
 def _get_owned_playbook(db: DBSession, user, playbook_id: int) -> Playbook:
-    """The single ownership check every route in this module goes
-    through — filtered by both id AND user_id in one query, so a
-    nonexistent playbook and someone else's playbook are indistinguishable
-    (both 404, never a 403 that would confirm the id exists)."""
-    playbook = db.query(Playbook).filter(Playbook.id == playbook_id, Playbook.user_id == user.id).first()
-    if not playbook:
-        raise HTTPException(status_code=404, detail="Playbook not found")
-    return playbook
+    """Tenant-scoped playbook lookup. Business users cannot open the
+    authoring workbench — playbook modification is a legal-admin action."""
+    import tenancy
+    if not tenancy.can_modify_playbooks(db, user):
+        raise HTTPException(status_code=403, detail="Business users cannot modify legal playbooks.")
+    return tenancy.get_accessible_playbook(db, user, playbook_id)
 
 
 def _require_clause_type(clause_type: str) -> str:

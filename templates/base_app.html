@@ -251,6 +251,14 @@
                     <svg class="w-4 h-4 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                     Reviews
                 </a>
+                <a href="/portfolio" class="{% if request.path.startswith('/portfolio') %}active{% endif %}" onclick="closeMobileDrawer()">
+                    <svg class="w-4 h-4 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+                    Portfolio
+                </a>
+                <a href="/intake" class="{% if request.path.startswith('/intake') %}active{% endif %}" onclick="closeMobileDrawer()">
+                    <svg class="w-4 h-4 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+                    Intake
+                </a>
                 <a href="/playbooks" class="{% if request.path.startswith('/playbooks') %}active{% endif %}" onclick="closeMobileDrawer()">
                     <svg class="w-4 h-4 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
                     Playbooks
@@ -322,6 +330,7 @@
                     <a href="/" class="nav-link {% if request.path == '/' %}active{% endif %}">Home</a>
                     <a href="/dashboard" class="nav-link {% if request.path == '/dashboard' %}active{% endif %}">Dashboard</a>
                     <a href="/history" class="nav-link {% if request.path == '/history' or request.path.startswith('/contract/') %}active{% endif %}">Reviews</a>
+                    <a href="/portfolio" class="nav-link {% if request.path.startswith('/portfolio') %}active{% endif %}">Portfolio</a>
                     <a href="/playbooks" class="nav-link {% if request.path.startswith('/playbooks') %}active{% endif %}">Playbooks</a>
                 </nav>
 
@@ -356,6 +365,14 @@
                                 <div class="text-xs text-gray-400 mt-0.5">{{ plan_display_name(user.plan) }} plan</div>
                             </div>
                             <div class="py-1">
+                                <a href="/integrations">
+                                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"/></svg>
+                                    Word &amp; Google Docs
+                                </a>
+                                <a href="/intake">
+                                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+                                    Intake queue
+                                </a>
                                 <a href="/account">
                                     <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
                                     Account

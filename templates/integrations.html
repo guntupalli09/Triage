@@ -1,0 +1,50 @@
+{% extends "base_app.html" %}
+{% block title %}Word & Google Docs{% endblock %}
+{% block breadcrumbs %}
+<a href="/dashboard" class="hover:text-gray-900 transition-colors">Dashboard</a>
+<span class="mx-1">/</span>
+<span>Integrations</span>
+{% endblock %}
+{% block content %}
+<div class="mb-8">
+    <h1 class="text-3xl font-extrabold text-[#0F172A]">Work where counsel already works</h1>
+    <p class="text-sm text-gray-500 mt-2">Word and Google Docs are thin clients over TriageCounsel APIs. Policy decisions still come from the deterministic engine — never from the add-in.</p>
+</div>
+
+<div class="grid sm:grid-cols-2 gap-6 mb-8">
+    <div class="premium-card p-6">
+        <h2 class="font-bold text-lg mb-2">Microsoft Word</h2>
+        <p class="text-sm text-gray-600 mb-4">Sideload the Office Add-in manifest. The task pane extracts the open document, runs the selected playbook, shows findings, and can insert comments or apply a redline when the evidence excerpt is unique.</p>
+        <ol class="text-sm text-gray-600 list-decimal ml-5 space-y-1 mb-4">
+            <li>Download the manifest</li>
+            <li>In Word: Insert → Add-ins → Upload My Add-in</li>
+            <li>Sign in from the task pane</li>
+            <li>Choose a playbook and run review</li>
+        </ol>
+        <a class="btn-primary inline-block px-4 py-2 rounded-lg text-sm" href="/integrations/word/manifest.xml">Download Word manifest</a>
+        <a class="btn-secondary inline-block px-4 py-2 rounded-lg text-sm ml-2" href="/integrations/word/taskpane">Open task pane (preview)</a>
+        <p class="text-xs text-gray-400 mt-3">Host validation inside desktop Word is not claimed from this environment. The APIs the add-in calls are production-tested.</p>
+    </div>
+    <div class="premium-card p-6">
+        <h2 class="font-bold text-lg mb-2">Google Docs</h2>
+        <p class="text-sm text-gray-600 mb-4">Same API as Word. Open the sidebar client, sign in, review the current document, inspect evidence, and insert comments. Suggested text is copied as a Docs suggestion when the Apps Script host supports it.</p>
+        <a class="btn-primary inline-block px-4 py-2 rounded-lg text-sm" href="/integrations/google/sidebar">Open Google Docs sidebar client</a>
+        <a class="btn-secondary inline-block px-4 py-2 rounded-lg text-sm ml-2" href="/static/integrations/google/Code.gs">Apps Script source</a>
+    </div>
+</div>
+
+<div class="premium-card p-6">
+    <h2 class="font-bold mb-2">Shared API</h2>
+    <p class="text-sm text-gray-600 mb-3">Both clients use bearer tokens against <code>/api/v1</code>. They do not embed the policy engine.</p>
+    <ul class="text-sm text-gray-600 list-disc ml-5 space-y-1">
+        <li><code>POST /api/v1/auth/login</code> — issue a hashed token</li>
+        <li><code>GET /api/v1/playbooks</code> — tenant playbooks</li>
+        <li><code>POST /api/v1/reviews</code> — extract text, run the governed review</li>
+        <li><code>POST /api/v1/reviews/{id}/actions</code> — accept / edit / reject</li>
+        <li><code>POST /api/v1/reviews/{id}/comments</code> — record a comment (and whether it was inserted in the host)</li>
+        <li><code>POST /api/v1/reviews/{id}/reconfirm</code> — invalidate stale decisions when the document changed</li>
+        <li><code>GET /api/v1/reviews/{id}/export</code> — download the persisted redlined DOCX (<code>?format=docx</code>) or negotiation package (<code>?format=package</code>)</li>
+        <li><code>POST /api/v1/reviews/{id}/revisions</code> — import a counterparty revision and reconfirm affected findings</li>
+    </ul>
+</div>
+{% endblock %}
